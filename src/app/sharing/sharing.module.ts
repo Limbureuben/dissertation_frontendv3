@@ -16,6 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { OnlineComponent } from './online/online.component';
+import { AdminHeaderComponent } from './admin-header/admin-header.component';
+import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 
 
 
@@ -26,7 +28,9 @@ import { OnlineComponent } from './online/online.component';
     LoginComponent,
     HomepageComponent,
     RegisterComponent,
-    OnlineComponent
+    OnlineComponent,
+    AdminHeaderComponent,
+    AdminSidebarComponent
   ],
   imports: [
     CommonModule,
