@@ -131,3 +131,20 @@ app-footer {
   z-index: 999;
   box-shadow: none; /* Remove any border */
 }
+
+/* Green border and background when input is valid */
+.mat-form-field.custom-input input.ng-touched.ng-valid {
+  border-color: green;
+  background-color: #e0f7e0; /* Light green background for user input */
+}
+
+/* Optional: Green color for text when typing */
+.mat-form-field.custom-input input.ng-touched.ng-valid::placeholder {
+  color: green;
+}
+
+/* For invalid inputs (red border) */
+.mat-form-field.custom-input input.ng-touched.ng-invalid {
+  border-color: red;
+  background-color: #f8d7da; /* Light red background for invalid input */
+}
