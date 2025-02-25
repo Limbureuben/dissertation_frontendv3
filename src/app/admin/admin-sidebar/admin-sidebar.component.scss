@@ -1,33 +1,49 @@
-
-.sidenav-container {
-  height: 100vh; /* Set the container height to 100% of the viewport height */
-}
-
+/* Sidebar */
 .sidenav {
-  width: 250px;
-  height: 100%; /* Ensure the sidebar takes the full height of the container */
-  background-color: #3f51b5; /* Example background color */
-  color: white; /* Example text color */
-}
-
-.mat-toolbar {
-  background: #3f51b5;
+  width: 60px; /* Adjust the width here for a smaller sidebar */
+  height: 100%;
+  background-color: #3f51b5;
   color: white;
-}
-
-.mat-nav-list {
   padding-top: 20px;
 }
 
-.mat-nav-list a {
-  color: white; /* Ensures the text color in the links is white */
-  text-decoration: none;
+/* Sidebar Links */
+.mat-nav-list {
+  width: 100%;
 }
 
+/* Adjust link padding to make it look consistent */
+.mat-nav-list a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px; /* Reduce padding for smaller sidebar */
+  display: flex;
+  padding-right: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
 .mat-nav-list a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Icon Styling */
+.mat-list-item .mat-icon {
+  font-size: 18px; /* Smaller icons for narrow sidebar */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+/* Adjust list item padding */
 .mat-list-item {
-  padding: 15px;
+  padding: 10px 0; /* Adjust padding for tighter layout */
+}
+
+
+@media (max-width: 768px) {
+  /* Hide text on smaller screens */
+  .mat-nav-list a span {
+    display: none;
+  }
+
 }

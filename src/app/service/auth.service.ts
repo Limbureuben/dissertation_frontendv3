@@ -11,6 +11,11 @@ export interface RegisterData {
   username: string,
 }
 
+export interface LoginData {
+  username:string,
+  password: string
+}
+
 export const REGISTER_USER = gql`
   mutation RegisterUser($email: String!, $password: String!, $passwordConfirm: String!, $username: String!) {
     registerUser(input: { email: $email, password: $password, passwordConfirm: $passwordConfirm, username: $username }) {
@@ -22,6 +27,24 @@ export const REGISTER_USER = gql`
           email
           username
         }
+      }
+    }
+  }
+`;
+
+export const LOGIN_USER = gql`
+  mutation LoginUser($input: UserLoginInputObject!) {
+    loginUser(input: $input) {
+      success
+      message
+      user {
+        id
+        username
+        email
+        emailVerified
+        accessToken
+        refreshToken
+        isSuperuser
       }
     }
   }
@@ -47,5 +70,17 @@ export class AuthService {
         username: userData.username
       }
     });
+  }
+
+  signinUser(username: string, password: string): Observable<any> {
+    return this.apollo.mutate({
+      mutation: LOGIN_USER,
+      variables: {
+        input: {
+          username,
+          password
+        }
+      }
+    })
   }
 }
