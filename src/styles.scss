@@ -23,3 +23,14 @@ mat-form-field {
 .mat-form-field-label {
   color: lightseagreen !important;
 }
+
+/* Global Styles to target mat-form-field input in all components */
+/* Global styles for all mat-form-field inputs */
+.mat-form-field.custom-input input.ng-touched.ng-valid {
+  color: green !important;
+}
+
+.mat-form-field.custom-input input.ng-touched.ng-invalid {
+  color: red !important;
+}
+
