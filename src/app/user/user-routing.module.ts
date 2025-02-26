@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { MapDisplayComponent } from './map-display/map-display.component';
 
 const routes: Routes = [
-  { path: 'user-dashboard', component: UserDashboardComponent}
+  { path: 'user-dashboard', component: UserDashboardComponent},
+  { path: 'map-display', component: MapDisplayComponent }
 ];
 
 @NgModule({
