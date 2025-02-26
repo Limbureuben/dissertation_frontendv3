@@ -35,7 +35,8 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-
+    MatInputModule,
+    MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     ToastrModule.forRoot()
