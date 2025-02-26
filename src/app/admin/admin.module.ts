@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MapComponent } from './map/map.component';
 
 
 
@@ -18,7 +19,8 @@ import { MatListModule } from '@angular/material/list';
   declarations: [
     AdminDashboardComponent,
     AdminHeaderComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,
