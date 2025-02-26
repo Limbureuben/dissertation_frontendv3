@@ -6,6 +6,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { UserHeaderComponent } from './user-header/user-header.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { MapDisplayComponent } from './map-display/map-display.component';
+import { MapComponent } from './map/map.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MapDisplayComponent } from './map-display/map-display.component';
     UserDashboardComponent,
     UserHeaderComponent,
     UserFooterComponent,
-    MapDisplayComponent
+    MapDisplayComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,
