@@ -3,11 +3,7 @@ import {
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   isDataSource
-} from "./chunk-QPCO6AAF.js";
-import {
-  BidiModule,
-  Directionality
-} from "./chunk-EYUCREM7.js";
+} from "./chunk-PHNACYOJ.js";
 import {
   Platform,
   RtlScrollAxisType,
@@ -15,10 +11,14 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-QH6YREZB.js";
+} from "./chunk-IOUGJIEO.js";
+import {
+  BidiModule,
+  Directionality
+} from "./chunk-QHZOYIBV.js";
 import {
   DOCUMENT
-} from "./chunk-D36MQA7S.js";
+} from "./chunk-TEEGSTMK.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -80,7 +80,7 @@ import {
   ɵɵqueryRefresh,
   ɵɵstyleProp,
   ɵɵviewQuery
-} from "./chunk-AXXREGEQ.js";
+} from "./chunk-XN7UEGBS.js";
 
 // node_modules/@angular/cdk/fesm2022/scrolling.mjs
 var _c0 = ["contentWrapper"];
@@ -1559,4 +1559,4 @@ export {
   CdkScrollableModule,
   ScrollingModule
 };
-//# sourceMappingURL=chunk-YA7VRTD2.js.map
+//# sourceMappingURL=chunk-LHU3EANB.js.map

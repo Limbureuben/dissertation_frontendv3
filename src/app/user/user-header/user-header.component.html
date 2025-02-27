@@ -1,4 +1,4 @@
-<mat-toolbar class="heading" color="primary">
+<mat-toolbar class="heading">
   <!-- Profile Icon (Left) with Dropdown Menu -->
   <mat-menu #profileMenu="matMenu">
     <button mat-menu-item (click)="onProfile()">
@@ -16,12 +16,12 @@
   </mat-menu>
 
   <button mat-icon-button [matMenuTriggerFor]="profileMenu">
-    <mat-icon>account_circle</mat-icon>
+    <mat-icon class="profile-icon">account_circle</mat-icon>
   </button>
 
   <!-- Title in Center -->
   <span class="title">Kinondoni</span>
 
   <!-- Emblem Icon on the Right -->
-  <mat-icon>verified</mat-icon>
+  <mat-icon class="profile-icon">verified</mat-icon>
 </mat-toolbar>

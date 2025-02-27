@@ -1,6 +1,7 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   isPlatformBrowser
-} from "./chunk-D36MQA7S.js";
+} from "./chunk-BGILPUG2.js";
 import {
   ElementRef,
   Injectable,
@@ -11,27 +12,7 @@ import {
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-AXXREGEQ.js";
-
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
+} from "./chunk-CH64OKJE.js";
 
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
@@ -255,12 +236,43 @@ function _getFocusedElementPierceShadowDom() {
 function _getEventTarget(event) {
   return event.composedPath ? event.composedPath()[0] : event.target;
 }
+function _isTestEnvironment() {
+  return (
+    // @ts-ignore
+    typeof __karma__ !== "undefined" && !!__karma__ || // @ts-ignore
+    typeof jasmine !== "undefined" && !!jasmine || // @ts-ignore
+    typeof jest !== "undefined" && !!jest || // @ts-ignore
+    typeof Mocha !== "undefined" && !!Mocha
+  );
+}
+
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
+}
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
 
 export {
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  coerceArray,
-  coerceElement,
   Platform,
   getSupportedInputTypes,
   normalizePassiveListenerOptions,
@@ -269,6 +281,12 @@ export {
   getRtlScrollAxisType,
   _getShadowRoot,
   _getFocusedElementPierceShadowDom,
-  _getEventTarget
+  _getEventTarget,
+  _isTestEnvironment,
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement
 };
-//# sourceMappingURL=chunk-QH6YREZB.js.map
+//# sourceMappingURL=chunk-VE725NWU.js.map

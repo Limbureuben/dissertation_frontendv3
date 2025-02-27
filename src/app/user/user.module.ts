@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { MatCardModule } from '@angular/material/card';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ]
 })
 export class UserModule { }
