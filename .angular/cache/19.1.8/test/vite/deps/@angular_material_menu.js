@@ -3,15 +3,8 @@ import {
   ScrollDispatcher,
   ScrollingModule,
   ViewportRuler
-} from "./chunk-LHU3EANB.js";
-import "./chunk-PHNACYOJ.js";
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-UQAUOQSA.js";
+} from "./chunk-WFOS4Q2Y.js";
+import "./chunk-CAVH5VUG.js";
 import {
   DOWN_ARROW,
   ENTER,
@@ -30,23 +23,23 @@ import {
   hasModifierKey,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-OR2OWWJM.js";
+} from "./chunk-5W2LPK2V.js";
+import {
+  BidiModule,
+  Directionality
+} from "./chunk-QHZOYIBV.js";
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-TOZYD7N4.js";
 import {
   Platform,
+  _bindEventWithOptions,
   _getEventTarget,
   _isTestEnvironment,
   coerceArray,
   coerceCssPixelValue,
-  normalizePassiveListenerOptions,
   supportsScrollBehavior
-} from "./chunk-IOUGJIEO.js";
-import {
-  BidiModule,
-  Directionality
-} from "./chunk-QHZOYIBV.js";
+} from "./chunk-4GTOJL3Q.js";
 import {
   DOCUMENT,
   Location
@@ -72,6 +65,7 @@ import {
   NgZone,
   Output,
   QueryList,
+  Renderer2,
   RendererFactory2,
   Subject,
   Subscription,
@@ -1107,22 +1101,21 @@ var OverlayKeyboardDispatcher = class _OverlayKeyboardDispatcher extends BaseOve
 })();
 var OverlayOutsideClickDispatcher = class _OverlayOutsideClickDispatcher extends BaseOverlayDispatcher {
   _platform = inject(Platform);
-  _ngZone = inject(NgZone, {
-    optional: true
-  });
+  _ngZone = inject(NgZone);
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
   _cursorOriginalValue;
   _cursorStyleIsSet = false;
   _pointerDownEventTarget;
+  _cleanups;
   /** Add a new overlay to the list of attached overlay refs. */
   add(overlayRef) {
     super.add(overlayRef);
     if (!this._isAttached) {
       const body = this._document.body;
-      if (this._ngZone) {
-        this._ngZone.runOutsideAngular(() => this._addEventListeners(body));
-      } else {
-        this._addEventListeners(body);
-      }
+      const eventOptions = {
+        capture: true
+      };
+      this._cleanups = this._ngZone.runOutsideAngular(() => [_bindEventWithOptions(this._renderer, body, "pointerdown", this._pointerDownListener, eventOptions), _bindEventWithOptions(this._renderer, body, "click", this._clickListener, eventOptions), _bindEventWithOptions(this._renderer, body, "auxclick", this._clickListener, eventOptions), _bindEventWithOptions(this._renderer, body, "contextmenu", this._clickListener, eventOptions)]);
       if (this._platform.IOS && !this._cursorStyleIsSet) {
         this._cursorOriginalValue = body.style.cursor;
         body.style.cursor = "pointer";
@@ -1134,23 +1127,14 @@ var OverlayOutsideClickDispatcher = class _OverlayOutsideClickDispatcher extends
   /** Detaches the global keyboard event listener. */
   detach() {
     if (this._isAttached) {
-      const body = this._document.body;
-      body.removeEventListener("pointerdown", this._pointerDownListener, true);
-      body.removeEventListener("click", this._clickListener, true);
-      body.removeEventListener("auxclick", this._clickListener, true);
-      body.removeEventListener("contextmenu", this._clickListener, true);
+      this._cleanups?.forEach((cleanup) => cleanup());
+      this._cleanups = void 0;
       if (this._platform.IOS && this._cursorStyleIsSet) {
-        body.style.cursor = this._cursorOriginalValue;
+        this._document.body.style.cursor = this._cursorOriginalValue;
         this._cursorStyleIsSet = false;
       }
       this._isAttached = false;
     }
-  }
-  _addEventListeners(body) {
-    body.addEventListener("pointerdown", this._pointerDownListener, true);
-    body.addEventListener("click", this._clickListener, true);
-    body.addEventListener("auxclick", this._clickListener, true);
-    body.addEventListener("contextmenu", this._clickListener, true);
   }
   /** Store pointerdown event target to track origin of click. */
   _pointerDownListener = (event) => {
@@ -1616,13 +1600,13 @@ var OverlayRef = class {
     if (!this._pane) {
       return;
     }
-    const style2 = this._pane.style;
-    style2.width = coerceCssPixelValue(this._config.width);
-    style2.height = coerceCssPixelValue(this._config.height);
-    style2.minWidth = coerceCssPixelValue(this._config.minWidth);
-    style2.minHeight = coerceCssPixelValue(this._config.minHeight);
-    style2.maxWidth = coerceCssPixelValue(this._config.maxWidth);
-    style2.maxHeight = coerceCssPixelValue(this._config.maxHeight);
+    const style = this._pane.style;
+    style.width = coerceCssPixelValue(this._config.width);
+    style.height = coerceCssPixelValue(this._config.height);
+    style.minWidth = coerceCssPixelValue(this._config.minWidth);
+    style.minHeight = coerceCssPixelValue(this._config.minHeight);
+    style.maxWidth = coerceCssPixelValue(this._config.maxWidth);
+    style.maxHeight = coerceCssPixelValue(this._config.maxHeight);
   }
   /** Toggles the pointer events for the overlay pane element. */
   _togglePointerEvents(enablePointer) {
@@ -3074,14 +3058,12 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
     this._detachSubscription.unsubscribe();
     this._backdropSubscription.unsubscribe();
     this._positionSubscription.unsubscribe();
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
-    }
+    this._overlayRef?.dispose();
   }
   ngOnChanges(changes) {
     if (this._position) {
       this._updatePositionStrategy(this._position);
-      this._overlayRef.updateSize({
+      this._overlayRef?.updateSize({
         width: this.width,
         minWidth: this.minWidth,
         height: this.height,
@@ -3092,7 +3074,7 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
       }
     }
     if (changes["open"]) {
-      this.open ? this._attachOverlay() : this._detachOverlay();
+      this.open ? this.attachOverlay() : this.detachOverlay();
     }
   }
   /** Creates an overlay */
@@ -3107,7 +3089,7 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
       this.overlayKeydown.next(event);
       if (event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event)) {
         event.preventDefault();
-        this._detachOverlay();
+        this.detachOverlay();
       }
     });
     this._overlayRef.outsidePointerEvents().subscribe((event) => {
@@ -3186,8 +3168,8 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
     }
     return null;
   }
-  /** Attaches the overlay and subscribes to backdrop clicks if backdrop exists */
-  _attachOverlay() {
+  /** Attaches the overlay. */
+  attachOverlay() {
     if (!this._overlayRef) {
       this._createOverlay();
     } else {
@@ -3212,14 +3194,14 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
         }
       });
     }
+    this.open = true;
   }
-  /** Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists */
-  _detachOverlay() {
-    if (this._overlayRef) {
-      this._overlayRef.detach();
-    }
+  /** Detaches the overlay. */
+  detachOverlay() {
+    this._overlayRef?.detach();
     this._backdropSubscription.unsubscribe();
     this._positionSubscription.unsubscribe();
+    this.open = false;
   }
   static ɵfac = function CdkConnectedOverlay_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _CdkConnectedOverlay)();
@@ -4084,9 +4066,9 @@ var MatMenu = class _MatMenu {
     this._changeDetectorRef.markForCheck();
   }
   /** Callback that is invoked when the panel animation completes. */
-  _onAnimationDone(state2) {
-    const isExit = state2 === EXIT_ANIMATION;
-    if (isExit || state2 === ENTER_ANIMATION) {
+  _onAnimationDone(state) {
+    const isExit = state === EXIT_ANIMATION;
+    if (isExit || state === ENTER_ANIMATION) {
       if (isExit) {
         clearTimeout(this._exitFallbackTimeout);
         this._exitFallbackTimeout = void 0;
@@ -4095,8 +4077,8 @@ var MatMenu = class _MatMenu {
       this._isAnimating = false;
     }
   }
-  _onAnimationStart(state2) {
-    if (state2 === ENTER_ANIMATION || state2 === EXIT_ANIMATION) {
+  _onAnimationStart(state) {
+    if (state === ENTER_ANIMATION || state === EXIT_ANIMATION) {
       this._isAnimating = true;
     }
   }
@@ -4335,9 +4317,9 @@ var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   deps: [Overlay],
   useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY
 };
-var passiveEventListenerOptions = normalizePassiveListenerOptions({
+var passiveEventListenerOptions = {
   passive: true
-});
+};
 var MENU_PANEL_TOP_PADDING = 8;
 var PANELS_TO_TRIGGERS = /* @__PURE__ */ new WeakMap();
 var MatMenuTrigger = class _MatMenuTrigger {
@@ -4355,6 +4337,7 @@ var MatMenuTrigger = class _MatMenuTrigger {
   _ngZone = inject(NgZone);
   _scrollStrategy = inject(MAT_MENU_SCROLL_STRATEGY);
   _changeDetectorRef = inject(ChangeDetectorRef);
+  _cleanupTouchstart;
   _portal;
   _overlayRef = null;
   _menuOpen = false;
@@ -4372,15 +4355,6 @@ var MatMenuTrigger = class _MatMenuTrigger {
    * Used to offset sub-menus to compensate for the padding.
    */
   _parentInnerPadding;
-  /**
-   * Handles touch start events on the trigger.
-   * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
-   */
-  _handleTouchStart = (event) => {
-    if (!isFakeTouchstartFromScreenReader(event)) {
-      this._openedBy = "touch";
-    }
-  };
   // Tracking input type is necessary so it's possible to only auto-focus
   // the first item of the list when the menu is opened via the keyboard
   _openedBy = void 0;
@@ -4448,8 +4422,13 @@ var MatMenuTrigger = class _MatMenuTrigger {
     const parentMenu = inject(MAT_MENU_PANEL, {
       optional: true
     });
+    const renderer = inject(Renderer2);
     this._parentMaterialMenu = parentMenu instanceof MatMenu ? parentMenu : void 0;
-    this._element.nativeElement.addEventListener("touchstart", this._handleTouchStart, passiveEventListenerOptions);
+    this._cleanupTouchstart = _bindEventWithOptions(renderer, this._element.nativeElement, "touchstart", (event) => {
+      if (!isFakeTouchstartFromScreenReader(event)) {
+        this._openedBy = "touch";
+      }
+    }, passiveEventListenerOptions);
   }
   ngAfterContentInit() {
     this._handleHover();
@@ -4458,7 +4437,7 @@ var MatMenuTrigger = class _MatMenuTrigger {
     if (this.menu && this._ownsMenu(this.menu)) {
       PANELS_TO_TRIGGERS.delete(this.menu);
     }
-    this._element.nativeElement.removeEventListener("touchstart", this._handleTouchStart, passiveEventListenerOptions);
+    this._cleanupTouchstart();
     this._pendingRemoval?.unsubscribe();
     this._menuCloseSubscription.unsubscribe();
     this._closingActionsSubscription.unsubscribe();
@@ -4847,6 +4826,27 @@ var MatMenuModule = class _MatMenuModule {
   }], null, null);
 })();
 var matMenuAnimations = {
+  // Represents:
+  // trigger('transformMenu', [
+  //   state(
+  //     'void',
+  //     style({
+  //       opacity: 0,
+  //       transform: 'scale(0.8)',
+  //     }),
+  //   ),
+  //   transition(
+  //     'void => enter',
+  //     animate(
+  //       '120ms cubic-bezier(0, 0, 0.2, 1)',
+  //       style({
+  //         opacity: 1,
+  //         transform: 'scale(1)',
+  //       }),
+  //     ),
+  //   ),
+  //   transition('* => void', animate('100ms 25ms linear', style({opacity: 0}))),
+  // ])
   /**
    * This animation controls the menu panel's entry and exit from the page.
    *
@@ -4855,29 +4855,99 @@ var matMenuAnimations = {
    * When the menu panel is removed from the DOM, it simply fades out after a brief
    * delay to display the ripple.
    */
-  transformMenu: trigger("transformMenu", [state("void", style({
-    opacity: 0,
-    transform: "scale(0.8)"
-  })), transition("void => enter", animate("120ms cubic-bezier(0, 0, 0.2, 1)", style({
-    opacity: 1,
-    transform: "scale(1)"
-  }))), transition("* => void", animate("100ms 25ms linear", style({
-    opacity: 0
-  })))]),
+  transformMenu: {
+    type: 7,
+    name: "transformMenu",
+    definitions: [{
+      type: 0,
+      name: "void",
+      styles: {
+        type: 6,
+        styles: {
+          opacity: 0,
+          transform: "scale(0.8)"
+        },
+        offset: null
+      }
+    }, {
+      type: 1,
+      expr: "void => enter",
+      animation: {
+        type: 4,
+        styles: {
+          type: 6,
+          styles: {
+            opacity: 1,
+            transform: "scale(1)"
+          },
+          offset: null
+        },
+        timings: "120ms cubic-bezier(0, 0, 0.2, 1)"
+      },
+      options: null
+    }, {
+      type: 1,
+      expr: "* => void",
+      animation: {
+        type: 4,
+        styles: {
+          type: 6,
+          styles: {
+            opacity: 0
+          },
+          offset: null
+        },
+        timings: "100ms 25ms linear"
+      },
+      options: null
+    }],
+    options: {}
+  },
+  // Represents:
+  // trigger('fadeInItems', [
+  //   // TODO(crisbeto): this is inside the `transformMenu`
+  //   // now. Remove next time we do breaking changes.
+  //   state('showing', style({opacity: 1})),
+  //   transition('void => *', [
+  //     style({opacity: 0}),
+  //     animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+  //   ]),
+  // ])
   /**
    * This animation fades in the background color and content of the menu panel
    * after its containing element is scaled in.
    */
-  fadeInItems: trigger("fadeInItems", [
-    // TODO(crisbeto): this is inside the `transformMenu`
-    // now. Remove next time we do breaking changes.
-    state("showing", style({
-      opacity: 1
-    })),
-    transition("void => *", [style({
-      opacity: 0
-    }), animate("400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)")])
-  ])
+  fadeInItems: {
+    type: 7,
+    name: "fadeInItems",
+    definitions: [{
+      type: 0,
+      name: "showing",
+      styles: {
+        type: 6,
+        styles: {
+          opacity: 1
+        },
+        offset: null
+      }
+    }, {
+      type: 1,
+      expr: "void => *",
+      animation: [{
+        type: 6,
+        styles: {
+          opacity: 0
+        },
+        offset: null
+      }, {
+        type: 4,
+        styles: null,
+        timings: "400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)"
+      }],
+      options: null
+    }],
+    options: {}
+  }
 };
 var fadeInItems = matMenuAnimations.fadeInItems;
 var transformMenu = matMenuAnimations.transformMenu;

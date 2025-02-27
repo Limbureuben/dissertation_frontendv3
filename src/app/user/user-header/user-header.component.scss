@@ -11,7 +11,8 @@
 // }
 
 mat-toolbar {
-  background-color: #3f51b5 !important;
+  // background-color: #3f51b5 !important;
+  background-color: white;
   color: white;
   display: flex;
   align-items: center;
@@ -28,6 +29,6 @@ mat-toolbar {
 
 .profile-icon {
   color: white !important; /* Ensures the icon remains white */
-  
+
 }
 

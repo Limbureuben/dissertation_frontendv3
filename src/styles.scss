@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use 'theme/custom-theme' as *;
 
 body {
   font-family: 'Poppins', sans-serif;

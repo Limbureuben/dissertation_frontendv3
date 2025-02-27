@@ -1,19 +1,21 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  ConnectableObservable,
   Injectable,
   InjectionToken,
-  Subject,
-  isObservable,
-  of,
+  require_cjs,
   setClassMetadata,
   ɵɵdefineInjectable
-} from "./chunk-XN7UEGBS.js";
+} from "./chunk-CH64OKJE.js";
+import {
+  __toESM
+} from "./chunk-YHCV7DAQ.js";
 
 // node_modules/@angular/cdk/fesm2022/collections.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
 var DataSource = class {
 };
 function isDataSource(value) {
-  return value && typeof value.connect === "function" && !(value instanceof ConnectableObservable);
+  return value && typeof value.connect === "function" && !(value instanceof import_rxjs.ConnectableObservable);
 }
 var ArrayDataSource = class extends DataSource {
   _data;
@@ -22,7 +24,7 @@ var ArrayDataSource = class extends DataSource {
     this._data = _data;
   }
   connect() {
-    return isObservable(this._data) ? this._data : of(this._data);
+    return (0, import_rxjs.isObservable)(this._data) ? this._data : (0, import_rxjs.of)(this._data);
   }
   disconnect() {
   }
@@ -150,7 +152,7 @@ var SelectionModel = class {
     return this._selected;
   }
   /** Event emitted when the value has changed. */
-  changed = new Subject();
+  changed = new import_rxjs.Subject();
   constructor(_multiple = false, initiallySelectedValues, _emitChanges = true, compareWith) {
     this._multiple = _multiple;
     this._emitChanges = _emitChanges;
@@ -199,7 +201,7 @@ var SelectionModel = class {
   setSelection(...values) {
     this._verifyValueAssignment(values);
     const oldValues = this.selected;
-    const newSelectedSet = new Set(values);
+    const newSelectedSet = new Set(values.map((value) => this._getConcreteValue(value)));
     values.forEach((value) => this._markSelected(value));
     oldValues.filter((value) => !newSelectedSet.has(this._getConcreteValue(value, newSelectedSet))).forEach((value) => this._unmarkSelected(value));
     const changed = this._hasQueuedChanges();
@@ -389,4 +391,4 @@ export {
   _RecycleViewRepeaterStrategy,
   SelectionModel
 };
-//# sourceMappingURL=chunk-PHNACYOJ.js.map
+//# sourceMappingURL=chunk-PLE6YQEC.js.map

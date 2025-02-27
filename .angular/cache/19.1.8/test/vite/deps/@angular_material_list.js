@@ -1,9 +1,9 @@
 import {
   MatDividerModule
-} from "./chunk-TSHYTYIM.js";
+} from "./chunk-VRQVEUFQ.js";
 import {
   SelectionModel
-} from "./chunk-PHNACYOJ.js";
+} from "./chunk-CAVH5VUG.js";
 import {
   NG_VALUE_ACCESSOR
 } from "./chunk-7K77S3U6.js";
@@ -21,7 +21,8 @@ import {
   SPACE,
   _StructuralStylesLoader,
   hasModifierKey
-} from "./chunk-OR2OWWJM.js";
+} from "./chunk-5W2LPK2V.js";
+import "./chunk-QHZOYIBV.js";
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-TOZYD7N4.js";
@@ -30,8 +31,7 @@ import {
   _getFocusedElementPierceShadowDom,
   coerceBooleanProperty,
   coerceNumberProperty
-} from "./chunk-IOUGJIEO.js";
-import "./chunk-QHZOYIBV.js";
+} from "./chunk-4GTOJL3Q.js";
 import {
   NgTemplateOutlet
 } from "./chunk-TEEGSTMK.js";
@@ -1626,6 +1626,7 @@ var MatSelectionList = class _MatSelectionList extends MatListBase {
   setDisabledState(isDisabled) {
     this.disabled = isDisabled;
     this._changeDetectorRef.markForCheck();
+    this._markOptionsForCheck();
   }
   /**
    * Whether the *entire* selection list is disabled. When true, each list item is also disabled

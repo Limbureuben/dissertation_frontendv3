@@ -1,4 +1,8 @@
 <mat-toolbar class="heading">
+  <button mat-icon-button (click)="toggleTheme()">
+    <mat-icon>brightness_6</mat-icon> <!-- A sun or moon icon can be used for dark/light theme toggle -->
+  </button>
+
   <!-- Profile Icon (Left) with Dropdown Menu -->
   <mat-menu #profileMenu="matMenu">
     <button mat-menu-item (click)="onProfile()">

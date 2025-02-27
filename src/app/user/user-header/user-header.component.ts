@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from '../../../theme/theme.service';
 
 @Component({
   selector: 'app-user-header',
@@ -7,6 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './user-header.component.scss'
 })
 export class UserHeaderComponent {
+  isDarkTheme = false;
+
+  constructor(private themeService: ThemeService) {}
+
+  toggleTheme(): void {
+    this.isDarkTheme = !this.isDarkTheme;
+    this.themeService.enableDarkTheme(this.isDarkTheme);
+  }
 
   onProfile() {
     console.log('Profile clicked');
@@ -27,5 +36,5 @@ export class UserHeaderComponent {
     console.log('Logout clicked');
     // Implement logout logic
   }
-  
+
 }

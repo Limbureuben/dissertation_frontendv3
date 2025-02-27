@@ -4,10 +4,10 @@ import {
 } from "./chunk-LQDIXU4Y.js";
 import {
   Platform,
+  _bindEventWithOptions,
   coerceElement,
-  coerceNumberProperty,
-  normalizePassiveListenerOptions
-} from "./chunk-VE725NWU.js";
+  coerceNumberProperty
+} from "./chunk-IRCK7KKT.js";
 import {
   DOCUMENT
 } from "./chunk-BGILPUG2.js";
@@ -23,6 +23,7 @@ import {
   NgZone,
   Output,
   Renderer2,
+  RendererFactory2,
   ViewEncapsulation,
   booleanAttribute,
   inject,
@@ -74,12 +75,13 @@ var _CdkTextFieldStyleLoader = class __CdkTextFieldStyleLoader {
     }]
   }], null, null);
 })();
-var listenerOptions = normalizePassiveListenerOptions({
+var listenerOptions = {
   passive: true
-});
+};
 var AutofillMonitor = class _AutofillMonitor {
   _platform = inject(Platform);
   _ngZone = inject(NgZone);
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
   _styleLoader = inject(_CdkPrivateStyleLoader);
   _monitoredElements = /* @__PURE__ */ new Map();
   constructor() {
@@ -94,34 +96,32 @@ var AutofillMonitor = class _AutofillMonitor {
     if (info) {
       return info.subject;
     }
-    const result = new import_rxjs.Subject();
+    const subject = new import_rxjs.Subject();
     const cssClass = "cdk-text-field-autofilled";
     const listener = (event) => {
       if (event.animationName === "cdk-text-field-autofill-start" && !element.classList.contains(cssClass)) {
         element.classList.add(cssClass);
-        this._ngZone.run(() => result.next({
+        this._ngZone.run(() => subject.next({
           target: event.target,
           isAutofilled: true
         }));
       } else if (event.animationName === "cdk-text-field-autofill-end" && element.classList.contains(cssClass)) {
         element.classList.remove(cssClass);
-        this._ngZone.run(() => result.next({
+        this._ngZone.run(() => subject.next({
           target: event.target,
           isAutofilled: false
         }));
       }
     };
-    this._ngZone.runOutsideAngular(() => {
-      element.addEventListener("animationstart", listener, listenerOptions);
+    const unlisten = this._ngZone.runOutsideAngular(() => {
       element.classList.add("cdk-text-field-autofill-monitored");
+      return _bindEventWithOptions(this._renderer, element, "animationstart", listener, listenerOptions);
     });
     this._monitoredElements.set(element, {
-      subject: result,
-      unlisten: () => {
-        element.removeEventListener("animationstart", listener, listenerOptions);
-      }
+      subject,
+      unlisten
     });
-    return result;
+    return subject;
   }
   stopMonitoring(elementOrRef) {
     const element = coerceElement(elementOrRef);
@@ -507,4 +507,4 @@ export {
   CdkTextareaAutosize,
   TextFieldModule
 };
-//# sourceMappingURL=chunk-FUBGXMPC.js.map
+//# sourceMappingURL=chunk-G5H7OUY2.js.map
