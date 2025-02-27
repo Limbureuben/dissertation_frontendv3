@@ -1,3 +1,27 @@
 <mat-toolbar class="heading" color="primary">
-  <span>User Dashboard</span>
+  <!-- Profile Icon (Left) with Dropdown Menu -->
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item (click)="onProfile()">
+      <mat-icon>person</mat-icon> Profile
+    </button>
+    <button mat-menu-item (click)="onYourReport()">
+      <mat-icon>assignment</mat-icon> Your Report
+    </button>
+    <button mat-menu-item (click)="onReport()">
+      <mat-icon>report</mat-icon> Report
+    </button>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>logout</mat-icon> Logout
+    </button>
+  </mat-menu>
+
+  <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <!-- Title in Center -->
+  <span class="title">Kinondoni</span>
+
+  <!-- Emblem Icon on the Right -->
+  <mat-icon>verified</mat-icon>
 </mat-toolbar>
