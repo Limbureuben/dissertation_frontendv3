@@ -1,18 +1,19 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MatCommonModule,
   ObserversModule,
   _IdGenerator
-} from "./chunk-5W2LPK2V.js";
+} from "./chunk-P6NSAMKW.js";
 import {
   Directionality
-} from "./chunk-QHZOYIBV.js";
+} from "./chunk-WRFF4IR7.js";
 import {
   Platform,
   coerceBooleanProperty
-} from "./chunk-4GTOJL3Q.js";
+} from "./chunk-Z5VNBO2X.js";
 import {
   NgTemplateOutlet
-} from "./chunk-TEEGSTMK.js";
+} from "./chunk-BGILPUG2.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -29,25 +30,17 @@ import {
   Input,
   NgModule,
   NgZone,
-  Observable,
   Renderer2,
   RendererFactory2,
-  Subject,
-  Subscription,
   ViewChild,
   ViewEncapsulation,
   afterRender,
   computed,
   contentChild,
-  filter,
   inject,
-  map,
-  merge,
-  pairwise,
+  require_cjs,
+  require_operators,
   setClassMetadata,
-  shareReplay,
-  startWith,
-  takeUntil,
   ɵɵProvidersFeature,
   ɵɵadvance,
   ɵɵattribute,
@@ -81,9 +74,18 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-XN7UEGBS.js";
+} from "./chunk-CH64OKJE.js";
+import {
+  __toESM
+} from "./chunk-YHCV7DAQ.js";
+
+// node_modules/@angular/material/fesm2022/form-field.mjs
+var import_rxjs2 = __toESM(require_cjs(), 1);
+var import_operators2 = __toESM(require_operators(), 1);
 
 // node_modules/@angular/cdk/fesm2022/observers/private.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
+var import_operators = __toESM(require_operators(), 1);
 var loopLimitExceededErrorHandler = (e) => {
   if (e instanceof ErrorEvent && e.message === "ResizeObserver loop limit exceeded") {
     console.error(`${e.message}. This could indicate a performance issue with your app. See https://github.com/WICG/resize-observer/blob/master/explainer.md#error-handling`);
@@ -92,9 +94,9 @@ var loopLimitExceededErrorHandler = (e) => {
 var SingleBoxSharedResizeObserver = class {
   _box;
   /** Stream that emits when the shared observer is destroyed. */
-  _destroyed = new Subject();
+  _destroyed = new import_rxjs.Subject();
   /** Stream of all events from the ResizeObserver. */
-  _resizeSubject = new Subject();
+  _resizeSubject = new import_rxjs.Subject();
   /** ResizeObserver used to observe element resize events. */
   _resizeObserver;
   /** A map of elements to streams of their resize events. */
@@ -112,7 +114,7 @@ var SingleBoxSharedResizeObserver = class {
    */
   observe(target) {
     if (!this._elementObservables.has(target)) {
-      this._elementObservables.set(target, new Observable((observer) => {
+      this._elementObservables.set(target, new import_rxjs.Observable((observer) => {
         const subscription = this._resizeSubject.subscribe(observer);
         this._resizeObserver?.observe(target, {
           box: this._box
@@ -123,15 +125,15 @@ var SingleBoxSharedResizeObserver = class {
           this._elementObservables.delete(target);
         };
       }).pipe(
-        filter((entries) => entries.some((entry) => entry.target === target)),
+        (0, import_operators.filter)((entries) => entries.some((entry) => entry.target === target)),
         // Share a replay of the last event so that subsequent calls to observe the same element
         // receive initial sizing info like the first one. Also enable ref counting so the
         // element will be automatically unobserved when there are no more subscriptions.
-        shareReplay({
+        (0, import_operators.shareReplay)({
           bufferSize: 1,
           refCount: true
         }),
-        takeUntil(this._destroyed)
+        (0, import_operators.takeUntil)(this._destroyed)
       ));
     }
     return this._elementObservables.get(target);
@@ -576,7 +578,7 @@ var MatFormFieldFloatingLabel = class _MatFormFieldFloatingLabel {
   /** The parent form-field. */
   _parent = inject(FLOATING_LABEL_PARENT);
   /** The current resize event subscription. */
-  _resizeSubscription = new Subscription();
+  _resizeSubscription = new import_rxjs2.Subscription();
   constructor() {
   }
   ngOnDestroy() {
@@ -986,7 +988,7 @@ var MatFormField = class _MatFormField {
   set _control(value) {
     this._explicitFormFieldControl = value;
   }
-  _destroyed = new Subject();
+  _destroyed = new import_rxjs2.Subject();
   _isFocused = null;
   _explicitFormFieldControl;
   _needsOutlineLabelOffsetUpdate = false;
@@ -1084,12 +1086,12 @@ var MatFormField = class _MatFormField {
       this._changeDetectorRef.markForCheck();
     });
     this._describedByChanges?.unsubscribe();
-    this._describedByChanges = control.stateChanges.pipe(startWith([void 0, void 0]), map(() => [control.errorState, control.userAriaDescribedBy]), pairwise(), filter(([[prevErrorState, prevDescribedBy], [currentErrorState, currentDescribedBy]]) => {
+    this._describedByChanges = control.stateChanges.pipe((0, import_operators2.startWith)([void 0, void 0]), (0, import_operators2.map)(() => [control.errorState, control.userAriaDescribedBy]), (0, import_operators2.pairwise)(), (0, import_operators2.filter)(([[prevErrorState, prevDescribedBy], [currentErrorState, currentDescribedBy]]) => {
       return prevErrorState !== currentErrorState || prevDescribedBy !== currentDescribedBy;
     })).subscribe(() => this._syncDescribedByIds());
     this._valueChanges?.unsubscribe();
     if (control.ngControl && control.ngControl.valueChanges) {
-      this._valueChanges = control.ngControl.valueChanges.pipe(takeUntil(this._destroyed)).subscribe(() => this._changeDetectorRef.markForCheck());
+      this._valueChanges = control.ngControl.valueChanges.pipe((0, import_operators2.takeUntil)(this._destroyed)).subscribe(() => this._changeDetectorRef.markForCheck());
     }
   }
   _checkPrefixAndSuffixTypes() {
@@ -1101,7 +1103,7 @@ var MatFormField = class _MatFormField {
   /** Initializes the prefix and suffix containers. */
   _initializePrefixAndSuffix() {
     this._checkPrefixAndSuffixTypes();
-    merge(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(() => {
+    (0, import_rxjs2.merge)(this._prefixChildren.changes, this._suffixChildren.changes).subscribe(() => {
       this._checkPrefixAndSuffixTypes();
       this._changeDetectorRef.markForCheck();
     });
@@ -1155,7 +1157,7 @@ var MatFormField = class _MatFormField {
     }, {
       injector: this._injector
     });
-    this._dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => this._needsOutlineLabelOffsetUpdate = true);
+    this._dir.change.pipe((0, import_operators2.takeUntil)(this._destroyed)).subscribe(() => this._needsOutlineLabelOffsetUpdate = true);
   }
   /** Whether the floating label should always float or not. */
   _shouldAlwaysFloat() {
@@ -1658,4 +1660,4 @@ export {
   MatFormFieldModule,
   matFormFieldAnimations
 };
-//# sourceMappingURL=chunk-EI43P7PW.js.map
+//# sourceMappingURL=chunk-KPD7WXPL.js.map

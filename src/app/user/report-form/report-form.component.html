@@ -1,0 +1,45 @@
+<div class="report-background">
+  <div class="report-overlay" (click)="close()">
+    <div class="report-container" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="close()">×</button>
+      <img src="assets/images/emblem.png" alt="Logo" class="report-logo">
+      <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+        <!-- Issue Description -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Issue Description</mat-label>
+          <textarea matInput formControlName="description" placeholder="Describe the issue here" required></textarea>
+        </mat-form-field>
+
+        <!-- Contact Email -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Contact Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter your email" type="email" required />
+        </mat-form-field>
+
+        <!-- District Dropdown -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Select District</mat-label>
+          <mat-select formControlName="district" required>
+            <mat-option value="makongo">Makongo</mat-option>
+            <mat-option value="mwenge">Mwenge</mat-option>
+            <mat-option value="goba">Goba</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Date Picker -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Date of the Issue</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" type="date" required />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">Submit Report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -15,6 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
 import { MatMenuModule } from '@angular/material/menu';
+import { ReportFormComponent } from './report-form/report-form.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,9 +32,12 @@ import { MatMenuModule } from '@angular/material/menu';
     UserFooterComponent,
     MapDisplayComponent,
     MapComponent,
+    ReportFormComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    MatSelectModule,
     UserRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -35,7 +45,14 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatListModule,
+    ReactiveFormsModule,
+
   ]
 })
 export class UserModule { }

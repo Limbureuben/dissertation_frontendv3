@@ -39,7 +39,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    
   ],
   providers: [
     provideClientHydration(withEventReplay()),
