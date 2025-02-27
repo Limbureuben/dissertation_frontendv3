@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
-import { ReportService } from '../../service/services/report.service';
 
 @Component({
   selector: 'app-user-header',
@@ -13,8 +12,7 @@ export class UserHeaderComponent {
   isDarkTheme = false;
 
   constructor(
-    private themeService: ThemeService,
-    private reportService: ReportService
+    private themeService: ThemeService
   ) {}
 
   toggleTheme(): void {
@@ -33,7 +31,7 @@ export class UserHeaderComponent {
   }
 
   showReportForm(): void {
-    this.reportService.showReportForm();
+    this.showReportForm();
   }
 
 
@@ -43,7 +41,7 @@ export class UserHeaderComponent {
   }
 
   closeReportForm() {
-    
+
   }
 
 }
