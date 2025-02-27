@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -17,5 +17,17 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  @ViewChild('chatbotContainer') chatbotContainer!: ElementRef;
+
+  openChat() {
+    if (this.chatbotContainer) {
+      this.chatbotContainer.nativeElement.style.display = 'block';
+
+      // Ensure Elfsight script reloads if needed
+      if ((window as any).eapps) {
+        (window as any).eapps.init();
+      }
+    }
+  }
 
 }

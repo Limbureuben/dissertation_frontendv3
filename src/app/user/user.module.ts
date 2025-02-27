@@ -7,6 +7,13 @@ import { UserHeaderComponent } from './user-header/user-header.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
 import { MapDisplayComponent } from './map-display/map-display.component';
 import { MapComponent } from './map/map.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
 
 
 @NgModule({
@@ -15,11 +22,17 @@ import { MapComponent } from './map/map.component';
     UserHeaderComponent,
     UserFooterComponent,
     MapDisplayComponent,
-    MapComponent
+    MapComponent,
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class UserModule { }
