@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit{
             return;
           }
           if(user.emailVerified) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/map-display']);
           } else {
             this.toastr.warning('Please verify your email first.');
           }
