@@ -8,7 +8,7 @@
     <button mat-menu-item (click)="onProfile()">
       <mat-icon>person</mat-icon> Profile
     </button>
-    <button mat-menu-item (click)="onReport()">
+    <button mat-menu-item (click)="showReportForm()">
       <mat-icon>report</mat-icon> Report
     </button>
     <button mat-menu-item (click)="onYourReport()">
@@ -30,3 +30,5 @@
   <!-- Emblem Icon on the Right -->
   <mat-icon class="profile-icon">verified</mat-icon>
 </mat-toolbar>
+
+<app-report-form *ngIf="isReportFormVisible" (close)="closeReportForm()"></app-report-form>

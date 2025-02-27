@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
+import { ReportService } from '../../service/services/report.service';
 
 @Component({
   selector: 'app-user-header',
@@ -10,7 +11,10 @@ import { ThemeService } from '../../../theme/theme.service';
 export class UserHeaderComponent {
   isDarkTheme = false;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(
+    private themeService: ThemeService,
+    private reportService: ReportService
+  ) {}
 
   toggleTheme(): void {
     this.isDarkTheme = !this.isDarkTheme;
@@ -27,14 +31,14 @@ export class UserHeaderComponent {
     // Navigate to "Your Report" page
   }
 
-  onReport() {
-    console.log('Report clicked');
-    // Navigate to "Report" page
+  showReportForm(): void {
+    this.reportService.showReportForm();
   }
+
 
   onLogout() {
     console.log('Logout clicked');
-    // Implement logout logic
+
   }
 
 }

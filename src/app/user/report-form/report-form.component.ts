@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReportService } from '../../service/services/report.service';
 
 @Component({
   selector: 'app-report-form',
@@ -11,7 +12,7 @@ export class ReportFormComponent {
 
   reportForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private reportService: ReportService) {}
 
   ngOnInit() {
     this.reportForm = this.fb.group({
@@ -28,8 +29,9 @@ export class ReportFormComponent {
     }
   }
 
-  close() {
-    // Close the
-}
+  closeForm(): void {
+    this.reportService.closeReportForm();
+  }
+
 
 }

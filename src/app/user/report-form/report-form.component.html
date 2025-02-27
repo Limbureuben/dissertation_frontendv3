@@ -1,7 +1,7 @@
 <div class="report-background">
-  <div class="report-overlay" (click)="close()">
+  <div class="report-overlay" (click)="closeForm()">
     <div class="report-container" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="close()">×</button>
+      <button class="close-btn" (click)="closeForm()">×</button>
       <img src="assets/images/emblem.png" alt="Logo" class="report-logo">
       <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
         <!-- Issue Description -->

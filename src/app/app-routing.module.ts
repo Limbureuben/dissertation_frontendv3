@@ -7,6 +7,7 @@ import { AdminHeaderComponent } from './admin/admin-header/admin-header.componen
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { UserHeaderComponent } from './user/user-header/user-header.component';
 import { MapComponent } from './user/map/map.component';
+import { ReportFormComponent } from './user/report-form/report-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full'},
@@ -55,6 +56,12 @@ const routes: Routes = [
   {
     path: 'app',
     component: MapComponent,
+    loadChildren: () =>
+      import('./user/user.module').then((m) =>m.UserModule)
+  },
+  {
+    path: 'app',
+    component: ReportFormComponent,
     loadChildren: () =>
       import('./user/user.module').then((m) =>m.UserModule)
   }
