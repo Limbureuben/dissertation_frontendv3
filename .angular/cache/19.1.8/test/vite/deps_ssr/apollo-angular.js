@@ -10,12 +10,14 @@ import {
   InjectionToken,
   NgZone,
   Optional,
-  require_cjs,
   require_operators,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-CH64OKJE.js";
+} from "./chunk-MRS2SRR7.js";
+import {
+  require_cjs
+} from "./chunk-T4XHMJL2.js";
 import {
   __spreadProps,
   __spreadValues,

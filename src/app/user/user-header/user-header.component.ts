@@ -9,6 +9,7 @@ import { ReportService } from '../../service/services/report.service';
   styleUrl: './user-header.component.scss'
 })
 export class UserHeaderComponent {
+  isReportFormVisible = false;
   isDarkTheme = false;
 
   constructor(
@@ -39,6 +40,10 @@ export class UserHeaderComponent {
   onLogout() {
     console.log('Logout clicked');
 
+  }
+
+  closeReportForm() {
+    
   }
 
 }
