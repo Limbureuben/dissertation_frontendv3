@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report-form',
@@ -11,7 +12,11 @@ export class ReportFormComponent {
 
   reportForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<ReportFormComponent>
+
+  ) {}
 
   ngOnInit() {
     this.reportForm = this.fb.group({
@@ -29,7 +34,7 @@ export class ReportFormComponent {
   }
 
   closeForm(): void {
-    this.closeForm()
+    this.dialogRef.close();
   }
 
 

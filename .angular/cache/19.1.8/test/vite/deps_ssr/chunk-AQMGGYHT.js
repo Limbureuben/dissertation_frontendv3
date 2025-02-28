@@ -36611,8 +36611,8 @@ if (typeof ngDevMode !== "undefined" && ngDevMode) {
 }
 
 export {
-  SIGNAL,
   require_cjs,
+  SIGNAL,
   require_operators,
   XSS_SECURITY_URL,
   RuntimeError,
@@ -37184,4 +37184,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-CH64OKJE.js.map
+//# sourceMappingURL=chunk-AQMGGYHT.js.map
