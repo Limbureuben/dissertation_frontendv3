@@ -1,18 +1,12 @@
 <mat-toolbar>
   <span class="logo">Kinondoni</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/homepage">{{ 'HOME' | translate }}</button>
-  <button mat-button>{{ 'ABOUT' | translate }}</button>
+  <button mat-button routerLink="/homepage">Home</button>
+  <button mat-button>About</button>
   <button mat-icon-button aria-label="Example icon button with a heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
   <button mat-raised-button [ngStyle]="{'background-color': '#ff4081', 'color': 'white'}" class="login-button">
-    {{ 'REGISTER' | translate }}
+    Register
   </button>
-
-  <!-- Language Selector -->
-  <mat-select (selectionChange)="onLanguageChange($event)" class="language-selector">
-    <mat-option value="en">English</mat-option>
-    <mat-option value="sw">Swahili</mat-option>
-  </mat-select>
 </mat-toolbar>

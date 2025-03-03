@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule, provideZoneChangeDetection } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharingRoutingModule } from './sharing-routing.module';
@@ -16,8 +16,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { OnlineComponent } from './online/online.component';
-
-
+import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
+import { MatOptionModule } from '@angular/material/core';
+import { TranslateModule, TranslateLoader, TranslateModuleConfig } from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient, provideHttpClient} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,10 @@ import { OnlineComponent } from './online/online.component';
     ToastrModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
+    MatOptionModule,
+    TranslateModule
   ]
 })
-export class SharingModule { }
+export class SharingModule { 
+}
