@@ -1,11 +1,17 @@
 <mat-toolbar>
-  <span class="logo">Kinondoni</span>
+  <span class="logo">
+    <img src="/assets/images/logo.png" alt="Logo" />
+  </span>
+  <span class="title">Kinondoni Municipal Council Openspace Management System</span> <!-- Add text here -->
   <span class="spacer"></span>
-  <button mat-button routerLink="/homepage">Home</button>
-  <button mat-button>About</button>
-  <button mat-icon-button aria-label="Example icon button with a heart icon">
-    <mat-icon>favorite</mat-icon>
+  <button mat-icon-button aria-label="Change language">
+    <mat-icon>language</mat-icon> <!-- This is a language change icon -->
   </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="selectLanguage('en')">English</button>
+    <button mat-menu-item (click)="selectLanguage('sw')">Swahili</button>
+  </mat-menu>
   <button mat-raised-button [ngStyle]="{'background-color': '#ff4081', 'color': 'white'}" class="login-button">
     Register
   </button>

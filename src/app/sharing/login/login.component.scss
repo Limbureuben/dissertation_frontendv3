@@ -5,13 +5,12 @@
   align-items: center;
   // background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
   background-image: url('https://www.mof.go.tz/site/images/emblem.png');
-  background-size: 39%;
+  background-size: 40%;
   background-position: center;
   height: calc(100vh - 105px); /* Adjust based on header & footer height */
   background-position: center top;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   height: calc(100vh - 105px);
-  background-position: 0 0, 90% 90%;
 }
 
 /* Overlay */
