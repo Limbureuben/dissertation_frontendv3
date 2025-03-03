@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AdminModule } from './admin/admin.module';
 import { SharingModule } from './sharing/sharing.module';
 import { UserModule } from './user/user.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { GraphQLModule } from './graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
@@ -45,7 +45,8 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
-    provideAnimations()
+    provideAnimations(),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })
