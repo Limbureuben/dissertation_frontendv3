@@ -21,6 +21,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { TranslateModule, TranslateLoader, TranslateModuleConfig } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -45,8 +46,9 @@ import {HttpClient, provideHttpClient} from '@angular/common/http';
     MatCardModule,
     MatSelectModule,
     MatOptionModule,
-    TranslateModule
+    TranslateModule,
+    MatMenuModule
   ]
 })
-export class SharingModule { 
+export class SharingModule {
 }
