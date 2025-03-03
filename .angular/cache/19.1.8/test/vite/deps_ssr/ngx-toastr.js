@@ -2,7 +2,6 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   DomSanitizer
 } from "./chunk-3TI32C3L.js";
-import "./chunk-TQLFOCE7.js";
 import {
   animate,
   state,
@@ -10,6 +9,7 @@ import {
   transition,
   trigger
 } from "./chunk-ZAQR7P3Z.js";
+import "./chunk-TQLFOCE7.js";
 import {
   DOCUMENT,
   NgIf
