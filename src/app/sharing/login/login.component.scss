@@ -51,12 +51,24 @@
   color: #000;
 }
 
+
 /* Logo */
 .login-logo {
-  width: 80px;
+  width: 70px;
   margin: 0 auto 1rem; /* Center the logo and add bottom margin */
   display: block;
 }
+
+/* Add styles for the country name text */
+.country-name {
+  font-size: 18px; /* Set appropriate font size */
+  font-weight: bold;
+  color: #333; /* Set text color */
+  margin-top: 10px;
+  margin-bottom: 20px; /* Adds some space below the text */
+  text-align: center; /* Center the text below the logo */
+}
+
 
 /* Input fields */
 .full-width mat-form-field {

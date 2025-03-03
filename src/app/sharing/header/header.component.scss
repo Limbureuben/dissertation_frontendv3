@@ -1,3 +1,47 @@
+// mat-toolbar {
+//   background-color: #3f51b5; /* Custom color */
+//   color: white;
+//   display: flex;
+//   align-items: center;
+//   padding: 0 20px;
+// }
+
+// .logo {
+//   font-size: 1.5em;
+//   font-weight: bold;
+// }
+
+// .spacer {
+//   flex: 1 1 auto;
+// }
+
+// button {
+//   margin: 0 10px;
+//   color: aqua;
+// }
+
+// .custom-login-button {
+//   background-color: #ff5733; /* Replace with your desired color */
+//   color: white; /* Adjust text color if needed */
+// }
+
+// @media (max-width: 768px) {
+//   mat-toolbar {
+//     flex-direction: column;
+//     padding: 10px;
+//   }
+
+//   .logo {
+//     font-size: 1.2em;
+//     margin-bottom: 10px;
+//   }
+
+//   button {
+//     margin: 5px 0;
+//   }
+// }
+
+
 mat-toolbar {
   background-color: #3f51b5; /* Custom color */
   color: white;
@@ -22,7 +66,12 @@ button {
 
 .custom-login-button {
   background-color: #ff5733; /* Replace with your desired color */
-  color: white; /* Adjust text color if needed */
+  color: white;
+  /* Adjust text color if needed */
+}
+
+.language-selector {
+  margin-left: 20px;
 }
 
 @media (max-width: 768px) {
