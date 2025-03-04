@@ -7,6 +7,7 @@ mat-toolbar {
   background-color: transparent; /* Set background color to transparent for background image to show */
   position: relative; /* To ensure the image is layered properly */
   justify-content: space-between; /* Ensures logo and buttons are positioned properly */
+  flex-wrap: wrap; /* Allow wrapping for small screens */
 }
 
 mat-toolbar::before {
@@ -18,9 +19,8 @@ mat-toolbar::before {
   bottom: 0;
   background-image: url('/assets/images/flag.jpg'); /* Replace with your image URL */
   background-size: cover;
-  background-position: top left;
-  background-repeat: no-repeat;
   background-position: center; /* Adjust image positioning */
+  background-repeat: no-repeat;
   opacity: 0.3; /* Set the opacity level */
   z-index: -1; /* Ensures the image is in the background */
   image-rendering: pixelated;
@@ -35,7 +35,11 @@ mat-toolbar::before {
   font-size: 1.5rem; /* Default font size */
   font-weight: bold;
   text-align: center;
-  margin-left: 360px; /* Increase this value to adjust the title position */
+  margin-left: 20px; /* Adjust this value as needed */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Ensure text overflow is handled */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  flex-grow: 1; /* Allow title to grow */
 }
 
 .spacer {
@@ -95,6 +99,11 @@ button {
 }
 
 @media (max-width: 480px) {
+  mat-toolbar {
+    height: 60px; /* Further reduce height for very small screens */
+    padding: 5px;
+  }
+
   .title {
     font-size: 0.9rem; /* Further reduce title font size for very small screens */
   }
@@ -102,9 +111,11 @@ button {
   .logo img {
     height: 35px; /* Resize logo for very small screens */
   }
+
+  button {
+    font-size: 0.8rem; /* Further reduce font size for buttons */
+  }
 }
-
-
 
 .language-dropdown {
   position: absolute;
