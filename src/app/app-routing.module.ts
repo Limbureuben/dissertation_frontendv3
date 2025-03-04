@@ -8,6 +8,8 @@ import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.compo
 import { UserHeaderComponent } from './user/user-header/user-header.component';
 import { MapComponent } from './user/map/map.component';
 import { ReportFormComponent } from './user/report-form/report-form.component';
+import { CardComponent } from './admin/card/card.component';
+import { GanttChartComponent } from './admin/gantt-chart/gantt-chart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full'},
@@ -64,6 +66,18 @@ const routes: Routes = [
     component: ReportFormComponent,
     loadChildren: () =>
       import('./user/user.module').then((m) =>m.UserModule)
+  },
+  {
+    path: 'app',
+    component: CardComponent,
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) =>m.AdminModule)
+  },
+  {
+    path: 'app',
+    component: GanttChartComponent,
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) =>m.AdminModule)
   }
 ];
 

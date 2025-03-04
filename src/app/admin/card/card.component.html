@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Card Title</mat-card-title>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>View</button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    Card Content
+  </mat-card-content>
+</mat-card>

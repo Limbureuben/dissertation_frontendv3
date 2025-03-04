@@ -1,5 +1,18 @@
-
-  <app-admin-header></app-admin-header>
-
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
     <app-admin-sidebar></app-admin-sidebar>
-
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content">
+      <app-admin-header></app-admin-header>
+      <div class="dashboard-content">
+        <div class="cards">
+          <app-card></app-card>
+          <app-card></app-card>
+          <app-card></app-card>
+        </div>
+        <app-gantt-chart></app-gantt-chart>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

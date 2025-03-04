@@ -1,71 +1,40 @@
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding: 16px;
-}
-
-.card {
-  height: 200px;
+:host {
   display: flex;
   flex-direction: column;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.card-options {
-  margin-left: auto;
-}
-
-.card-content-placeholder {
-  background-color: #f0f0f0;
-  flex-grow: 1;
-}
-
-.report-card {
-  background-color: red;
-}
-
-.solved-card {
-  background-color: darkblue;
-  color: white;
-}
-
-.not-solved-card {
-  background-color: blue;
-  color: white;
-}
-
-.trends-card {
-  grid-column: 1 / -1;
-  height: 300px;
-  background-color: lightgreen;
-}
-
-.dashboard-container {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
 
-.content-container {
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  z-index: 1000;
+}
+
+.content {
   display: flex;
-  flex-grow: 1;
+  flex-direction: column;
+  margin-top: 64px; /* Height of the toolbar */
 }
 
 .dashboard-content {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 16px;
+  padding: 20px;
+  margin-left: 250px; /* Width of the sidebar */
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.cards {
+  display: flex;
+  justify-content: space-around;
 }
 
-/* ... rest of the card styles remain the same */
+.cards app-card {
+  flex: 1;
+  margin: 10px;
+}
+
+app-gantt-chart {
+  width: 100%;
+  margin-top: 20px;
+}

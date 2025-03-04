@@ -11,6 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { CardComponent } from './card/card.component';
+import { GanttChartComponent } from './gantt-chart/gantt-chart.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -18,7 +21,9 @@ import { MatListModule } from '@angular/material/list';
   declarations: [
     AdminDashboardComponent,
     AdminHeaderComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    CardComponent,
+    GanttChartComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
+    MatMenuModule,
   ]
 })
 export class AdminModule { }
