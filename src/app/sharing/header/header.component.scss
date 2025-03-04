@@ -103,3 +103,32 @@ button {
     height: 35px; /* Resize logo for very small screens */
   }
 }
+
+
+
+.language-dropdown {
+  position: absolute;
+  right: 130px; /* Position on the right side */
+  top: 10px;   /* Adjust vertical position if needed */
+  width: auto; /* Ensure width is set to auto */
+}
+
+/* Override the default width of mat-select */
+.language-dropdown .mat-select {
+  font-size: 12px; /* Smaller text size */
+  height: 10px; /* Reduce height of the select box */
+  padding: 0 8px; /* Reduce padding */
+  min-width: 0; /* Remove the default min-width */
+  width: 50px; /* Set the desired width */
+}
+
+/* Adjust height of each dropdown option */
+.language-dropdown .mat-option {
+  font-size: 12px; /* Smaller text for the options */
+  height: 30px; /* Set height of each dropdown option */
+}
+
+/* Adjust padding inside the mat-select trigger */
+.language-dropdown .mat-select-trigger {
+  padding: 0; /* Remove extra padding to reduce height */
+}

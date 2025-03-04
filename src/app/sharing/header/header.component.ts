@@ -8,11 +8,13 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  constructor() {}
 
-  selectLanguage(language: string) {
-    console.log('Selected language:', language);
+  ChangeLang(lang: any) {
+    const selectedLanguage = lang.target.value;
+
+    localStorage.setItem('lang', selectedLanguage);
   }
+
 
   }
 
