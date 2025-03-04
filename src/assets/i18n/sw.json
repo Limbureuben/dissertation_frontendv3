@@ -8,11 +8,18 @@
   "signin_button": "Ingia",
   "learn_more_button": "Jifunze Zaidi",
   "country_name": "Jamhuri ya Muungano wa Tanzania",
-  "username": "Jina la mtumiaji",
-  "username_placeholder": "Ingiza jina lako la mtumiaji",
-  "password": "Neno la siri",
-  "password_placeholder": "Ingiza neno lako la siri",
   "login_button": "Ingia",
   "no_account": "Huna akaunti?",
-  "register": "Jisajili"
+  "register": "Jisajili",
+  "registration_heading": "JISAJILI",
+  "username": "Jina la mtumiaji",
+  "username_placeholder": "Ingiza jina lako la mtumiaji",
+  "email": "Barua pepe",
+  "email_placeholder": "Ingiza barua pepe yako",
+  "password": "Neno la siri",
+  "password_placeholder": "Ingiza neno lako la siri",
+  "password_confirm": "Thibitisha Neno la Siri",
+  "password_confirm_placeholder": "Thibitisha neno lako la siri",
+  "already_have_account": "Una akaunti tayari?",
+  "login": "Ingia"
 }

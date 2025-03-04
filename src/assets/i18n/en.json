@@ -9,10 +9,18 @@
   "learn_more_button": "Learn More",
   "country_name": "The United Republic of Tanzania",
   "username": "Username",
-  "username_placeholder": "Enter your username",
   "password": "Password",
-  "password_placeholder": "Enter your password",
   "login_button": "Login",
   "no_account": "Do not have an account?",
-  "register": "Register"
+  "register": "Register",
+  "registration_heading": "REGISTRATION",
+  "username_placeholder": "Enter your username",
+  "email": "Email",
+  "email_placeholder": "Enter your email",
+  "password_placeholder": "Enter your password",
+  "password_confirm": "Confirm Password",
+  "password_confirm_placeholder": "Confirm your password",
+  "already_have_account": "Already have an account?",
+  "login": "Login"
+
 }
