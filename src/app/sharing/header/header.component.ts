@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from '../../service/language.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -11,13 +12,18 @@ export class HeaderComponent {
 
   lang: string = 'en';
 
-  constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang(this.lang);
+  constructor(
+    private translate: TranslateService,
+    private languageService: LanguageService,
+
+  ) {
+    this.languageService.initializeLanguage();
+    this.lang = this.languageService.getCurrentLanguage();
   }
 
   ChangeLang(event: any): void {
     const selectedLang = event.value;
-    this.translate.use(selectedLang);
+    this.languageService.changeLanguage(selectedLang);
     this.lang = selectedLang;
   }
 }
