@@ -2,19 +2,21 @@
   <span class="logo">
     <img src="/assets/images/logo.png" alt="Logo" />
   </span>
-  <span class="title">Kinondoni Municipal Council Openspace Management System</span>
+  <span class="title">{{ 'title' | translate }}</span> <!-- This will change dynamically -->
+
   <span class="spacer"></span>
 
-  <!-- Language selection dropdown with custom styles -->
+  <!-- Language selection dropdown -->
   <mat-form-field appearance="fill" class="language-dropdown">
-    <mat-select (Change)="ChangeLang($event)" name="" id="">
-      <mat-option [selected]="lang==='en'" value="en">English</mat-option>
-      <mat-option [selected]="lang==='sw'" value="sw">Swahili</mat-option>
+    <mat-label>{{ 'language_label' | translate }}</mat-label>
+    <mat-select [(ngModel)]="lang" (selectionChange)="ChangeLang($event)">
+      <mat-option value="en">English</mat-option>
+      <mat-option value="sw">Swahili</mat-option>
     </mat-select>
   </mat-form-field>
 
   <!-- Register button -->
   <button mat-raised-button [ngStyle]="{'background-color': '#ff4081', 'color': 'white'}" class="login-button">
-    Register
+    {{ 'register_button' | translate }}
   </button>
 </mat-toolbar>

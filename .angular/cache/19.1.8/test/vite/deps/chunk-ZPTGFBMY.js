@@ -1,30 +1,29 @@
-import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MAT_FORM_FIELD,
   MatFormFieldControl,
   MatFormFieldModule
-} from "./chunk-KPD7WXPL.js";
-import {
-  AutofillMonitor,
-  TextFieldModule
-} from "./chunk-NTOZ6SI2.js";
-import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  Validators
-} from "./chunk-24YI4ZYB.js";
+} from "./chunk-RG7LAGX7.js";
 import {
   ErrorStateMatcher,
   MatCommonModule,
   _ErrorStateTracker,
   _IdGenerator
-} from "./chunk-P6NSAMKW.js";
+} from "./chunk-4XHBD7QK.js";
+import {
+  AutofillMonitor,
+  TextFieldModule
+} from "./chunk-I6SUKPUZ.js";
 import {
   Platform,
   coerceBooleanProperty,
   getSupportedInputTypes
-} from "./chunk-Z5VNBO2X.js";
+} from "./chunk-225F2K7T.js";
+import {
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+  Validators
+} from "./chunk-7K77S3U6.js";
 import {
   Directive,
   ElementRef,
@@ -33,11 +32,11 @@ import {
   NgModule,
   NgZone,
   Renderer2,
+  Subject,
   booleanAttribute,
   effect,
   inject,
   isSignal,
-  require_cjs,
   setClassMetadata,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
@@ -48,13 +47,9 @@ import {
   ɵɵdefineNgModule,
   ɵɵhostProperty,
   ɵɵlistener
-} from "./chunk-CH64OKJE.js";
-import {
-  __toESM
-} from "./chunk-YHCV7DAQ.js";
+} from "./chunk-XN7UEGBS.js";
 
 // node_modules/@angular/material/fesm2022/input.mjs
-var import_rxjs = __toESM(require_cjs(), 1);
 function getMatInputUnsupportedTypeError(type) {
   return Error(`Input type "${type}" isn't supported by matInput.`);
 }
@@ -104,7 +99,7 @@ var MatInput = class _MatInput {
    * Implemented as part of MatFormFieldControl.
    * @docs-private
    */
-  stateChanges = new import_rxjs.Subject();
+  stateChanges = new Subject();
   /**
    * Implemented as part of MatFormFieldControl.
    * @docs-private
@@ -610,4 +605,4 @@ export {
   MatInput,
   MatInputModule
 };
-//# sourceMappingURL=chunk-3UQOQKBV.js.map
+//# sourceMappingURL=chunk-ZPTGFBMY.js.map

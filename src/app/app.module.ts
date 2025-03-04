@@ -19,10 +19,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
-import { MatOptionModule } from '@angular/material/core'; 
+import { MatOptionModule } from '@angular/material/core';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+
+}
 
 
 @NgModule({
@@ -47,7 +52,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     provideClientHydration(withEventReplay()),
