@@ -1,3 +1,12 @@
+/* Sidebar Container */
+.sidebar-container {
+  width: 140px; /* Set the width of the sidebar */
+  height: 100%;
+  background-color: #3f51b5;
+  color: white;
+  padding-top: 20px;
+}
+
 /* Sidebar */
 .sidenav {
   width: 60px; /* Adjust the width here for a smaller sidebar */
@@ -39,11 +48,9 @@
   padding: 10px 0; /* Adjust padding for tighter layout */
 }
 
-
 @media (max-width: 768px) {
   /* Hide text on smaller screens */
   .mat-nav-list a span {
     display: none;
   }
-
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Map, MapStyle, config } from '@maptiler/sdk';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
@@ -10,28 +11,31 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
-map: Map | undefined;
+  map: Map | undefined;
 
-@ViewChild('map')
-private mapContainer!: ElementRef<HTMLElement>;
+  @ViewChild('map')
+  private mapContainer!: ElementRef<HTMLElement>;
 
-ngOnInit(): void {
-  config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
-}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-ngAfterViewInit() {
-  const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
+  ngOnInit(): void {
+    config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+  }
 
-  this.map = new Map({
-    container: this.mapContainer.nativeElement,
-    style: MapStyle.STREETS,
-    center: [initialState.lng, initialState.lat],
-    zoom: initialState.zoom
-  });
-}
+  ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
 
-ngOnDestroy() {
-  this.map?.remove();
-}
+      this.map = new Map({
+        container: this.mapContainer.nativeElement,
+        style: MapStyle.STREETS,
+        center: [initialState.lng, initialState.lat],
+        zoom: initialState.zoom
+      });
+    }
+  }
 
+  ngOnDestroy() {
+    this.map?.remove();
+  }
 }
