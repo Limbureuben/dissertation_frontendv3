@@ -5,16 +5,17 @@
   background-size: 150px;
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling */
-  background-attachment: fixed; /* Keeps the image fixed while scrolling */
 }
 
 mat-sidenav-content {
-  display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding:  20px;
   background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
   margin-top: -20px;
+
 }
+
+
 
 /* Dashboard Header */
 h1 {
@@ -63,3 +64,5 @@ h1 {
   height: 300px;
   margin: auto;
 }
+
+
