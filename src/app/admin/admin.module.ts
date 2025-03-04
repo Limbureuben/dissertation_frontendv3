@@ -11,10 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { CardComponent } from './card/card.component';
 import { GanttChartComponent } from './gantt-chart/gantt-chart.component';
 import { MatMenuModule } from '@angular/material/menu';
-
 
 
 @NgModule({
@@ -22,7 +20,6 @@ import { MatMenuModule } from '@angular/material/menu';
     AdminDashboardComponent,
     AdminHeaderComponent,
     AdminSidebarComponent,
-    CardComponent,
     GanttChartComponent
   ],
   imports: [

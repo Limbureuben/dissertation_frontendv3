@@ -1,40 +1,69 @@
-:host {
+/* General Layout */
+.sidenav-container {
+  height: 90vh;
+}
+
+mat-sidenav-content {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-}
-
-mat-sidenav-container {
-  height: 100%;
-}
-
-mat-sidenav {
-  z-index: 1000;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  margin-top: 64px; /* Height of the toolbar */
-}
-
-.dashboard-content {
   padding: 20px;
-  margin-left: 250px; /* Width of the sidebar */
+  background-color: #f4f6f9;
+  margin-top: -20px;
 }
 
-.cards {
+/* Dashboard Header */
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #4a5568;
+  margin-bottom: 20px;
+}
+
+/* Statistics Section */
+.stats-container {
   display: flex;
-  justify-content: space-around;
+  gap: 15px;
 }
 
-.cards app-card {
+.stat-card {
   flex: 1;
-  margin: 10px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-app-gantt-chart {
-  width: 100%;
-  margin-top: 20px;
+.stat-card h3 {
+  font-size: 24px;
+  color: #1e293b;
 }
+
+/* Chart Section */
+.chart-section {
+  margin: 30px 0;
+  text-align: center;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+  }
+}
+
+
+.chart-container {
+  width: 300px;  /* Adjust width */
+  height: 300px; /* Adjust height */
+  margin: auto;
+}
+
+
