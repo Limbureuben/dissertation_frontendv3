@@ -1,5 +1,10 @@
 {
   "title": "Kinondoni Municipal Council Openspace Management System",
   "language_label": "Language",
-  "register_button": "Register"
+  "register_button": "Register",
+  "welcome_title": "Welcome to the Management Plans and Web-GIS Conservation System",
+  "welcome_text": "This system is designed to help manage and conserve open spaces using web-based GIS technologies.",
+  "explore_text": "Please use the navigation menu to explore different features of the system.",
+  "signin_button": "Sign In",
+  "learn_more_button": "Learn More"
 }

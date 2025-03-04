@@ -1,5 +1,10 @@
 {
   "title": "Mfumo wa Usimamizi wa Eneo la Manispaa ya Kinondoni",
   "language_label": "Lugha",
-  "register_button": "Jisajili"
+  "register_button": "Jisajili",
+  "welcome_title": "Karibu kwenye Mfumo wa Usimamizi na Hifadhi ya Usimamizi wa Nchi wazi na Web-GIS",
+  "welcome_text": "Mfumo huu umeundwa kusaidia kusimamia na kuhifadhi maeneo wazi kwa kutumia teknolojia za GIS zinazotumika kwenye mtandao.",
+  "explore_text": "Tafadhali tumia menyu ya urambazaji kugundua vipengele mbalimbali vya mfumo.",
+  "signin_button": "Ingia",
+  "learn_more_button": "Jifunze Zaidi"
 }
