@@ -3,25 +3,23 @@
   <div class="login-overlay" (click)="close()">
     <div class="login-container" (click)="$event.stopPropagation()">
       <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
-      <!-- Add the text below the logo -->
-      <p class="country-name">The United Republic of Tanzania
-      </p>
+      <p class="country-name">{{ 'country_name' | translate }}</p> <!-- This will change dynamically -->
 
       <form [formGroup]="LoginForm" (ngSubmit)="OnSubmit()">
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" placeholder="Enter your username" type="text" required>
+          <mat-label>{{ 'username' | translate }}</mat-label>
+          <input matInput formControlName="username" placeholder="{{ 'username_placeholder' | translate }}" type="text" required>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
+          <mat-label>{{ 'password' | translate }}</mat-label>
+          <input matInput formControlName="password" placeholder="{{ 'password_placeholder' | translate }}" type="password" required>
         </mat-form-field>
         <div class="actions">
-          <button mat-raised-button color="primary" class="login-btn">Login</button>
+          <button mat-raised-button color="primary" class="login-btn">{{ 'login_button' | translate }}</button>
         </div>
       </form>
       <div class="register-link">
-        <p>Do not have an account? <a href="/register">Register</a></p>
+        <p>{{ 'no_account' | translate }} <a href="/register">{{ 'register' | translate }}</a></p>
       </div>
     </div>
   </div>

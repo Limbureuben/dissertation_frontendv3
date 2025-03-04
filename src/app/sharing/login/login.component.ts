@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, LoginData } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { LanguageService } from '../../service/language.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit{
     private fb: FormBuilder,
     private router: Router,
     private authservice: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +29,11 @@ export class LoginComponent implements OnInit{
         username: ['', Validators.required],
         password: ['', Validators.required]
       })
+  }
+
+  // Method to handle language change
+  changeLanguage(language: string) {
+    this.languageService.changeLanguage(language);  // Use the LanguageService to change the language
   }
 
 

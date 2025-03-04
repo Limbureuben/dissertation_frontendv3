@@ -6,5 +6,13 @@
   "welcome_text": "This system is designed to help manage and conserve open spaces using web-based GIS technologies.",
   "explore_text": "Please use the navigation menu to explore different features of the system.",
   "signin_button": "Sign In",
-  "learn_more_button": "Learn More"
+  "learn_more_button": "Learn More",
+  "country_name": "The United Republic of Tanzania",
+  "username": "Username",
+  "username_placeholder": "Enter your username",
+  "password": "Password",
+  "password_placeholder": "Enter your password",
+  "login_button": "Login",
+  "no_account": "Do not have an account?",
+  "register": "Register"
 }

@@ -6,5 +6,13 @@
   "welcome_text": "Mfumo huu umeundwa kusaidia kusimamia na kuhifadhi maeneo wazi kwa kutumia teknolojia za GIS zinazotumika kwenye mtandao.",
   "explore_text": "Tafadhali tumia menyu ya urambazaji kugundua vipengele mbalimbali vya mfumo.",
   "signin_button": "Ingia",
-  "learn_more_button": "Jifunze Zaidi"
+  "learn_more_button": "Jifunze Zaidi",
+  "country_name": "Jamhuri ya Muungano wa Tanzania",
+  "username": "Jina la mtumiaji",
+  "username_placeholder": "Ingiza jina lako la mtumiaji",
+  "password": "Neno la siri",
+  "password_placeholder": "Ingiza neno lako la siri",
+  "login_button": "Ingia",
+  "no_account": "Huna akaunti?",
+  "register": "Jisajili"
 }
