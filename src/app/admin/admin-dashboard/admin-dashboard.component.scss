@@ -1,13 +1,18 @@
 /* General Layout */
 .sidenav-container {
   height: 90vh;
+  background-image: url('https://www.mof.go.tz/site/images/emblem.png');
+  background-size: 150px;
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  background-attachment: fixed; /* Keeps the image fixed while scrolling */
 }
 
 mat-sidenav-content {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #f4f6f9;
+  background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
   margin-top: -20px;
 }
 
@@ -17,12 +22,6 @@ h1 {
   font-weight: bold;
   color: #1e293b;
   margin-bottom: 10px;
-}
-
-p {
-  font-size: 16px;
-  color: #4a5568;
-  margin-bottom: 20px;
 }
 
 /* Statistics Section */
@@ -51,7 +50,6 @@ p {
   text-align: center;
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
   .stats-container {
@@ -59,11 +57,9 @@ p {
   }
 }
 
-
+/* Chart Container */
 .chart-container {
-  width: 300px;  /* Adjust width */
-  height: 300px; /* Adjust height */
+  width: 300px;
+  height: 300px;
   margin: auto;
 }
-
-
