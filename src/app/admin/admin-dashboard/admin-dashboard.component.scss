@@ -19,8 +19,9 @@ mat-sidenav-content {
 /* Header Bar */
 .header-bar {
   width: 96.5%;
-  padding: 30px;
-  background-color: #ab0d76;
+  padding: 25px;
+  background: linear-gradient(to right, #ab0d76, #e955b8);
+  // background-color: #ab0d76;
   color: white;
   text-align: center;
   margin-bottom: 20px;
