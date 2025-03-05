@@ -3,7 +3,7 @@
   <mat-sidenav mode="side" opened class="sidenav">
     <app-admin-sidebar></app-admin-sidebar>
   </mat-sidenav>
-  
+
   <!-- Main Content -->
   <mat-sidenav-content>
     <app-admin-header></app-admin-header>
@@ -22,9 +22,7 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu1="matMenu">
-              <button mat-menu-item >
-                 View Details
-              </button>
+              <button mat-menu-item>View Details</button>
             </mat-menu>
           </mat-card-header>
           <mat-card-content>
@@ -40,8 +38,8 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu2="matMenu">
-              <button mat-menu-item >
-                <mat-icon>visibility</mat-icon> View Details
+              <button mat-menu-item>
+                 View
               </button>
             </mat-menu>
           </mat-card-header>
@@ -58,7 +56,7 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu3="matMenu">
-              <button mat-menu-item >
+              <button mat-menu-item>
                 <mat-icon>visibility</mat-icon> View Details
               </button>
             </mat-menu>
@@ -76,7 +74,7 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu4="matMenu">
-              <button mat-menu-item >
+              <button mat-menu-item>
                 <mat-icon>visibility</mat-icon> View Details
               </button>
             </mat-menu>
@@ -88,14 +86,12 @@
         </mat-card>
       </div>
 
-
       <!-- Charts & Map Section -->
       <div class="chart-map-section">
         <!-- Statistical Data Card (Pie Chart) -->
         <mat-card class="chart-card">
           <mat-card-content>
             <app-doughnut-chart></app-doughnut-chart>
-
           </mat-card-content>
         </mat-card>
 

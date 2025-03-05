@@ -1,10 +1,10 @@
 <mat-toolbar>
-  <span>&copy; 2025 Kinondoni Municipal</span>
+  <span>{{ 'COPYRIGHT' | translate }}</span>
   <app-online></app-online>
   <span class="spacer"></span>
 
-  <button mat-button (click)="openChat()">Chat with Us</button>
-  <button mat-button>Terms of Service</button>
+  <button mat-button (click)="openChat()">{{ 'CHAT_WITH_US' | translate }}</button>
+  <button mat-button>{{ 'TERMS' | translate }}</button>
   <mat-icon>email</mat-icon>
 </mat-toolbar>
 
