@@ -8,19 +8,32 @@
 }
 
 mat-sidenav-content {
+  display: flex;
   flex-direction: column;
-  padding:  20px;
-  background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
+  padding: 20px;
   margin-top: -20px;
+  margin-left: 30px;
+  background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
+}
+
+/* Header Bar */
+.header-bar {
+  width: 96.5%;
+  padding: 30px;
+  background-color: #ab0d76;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
 }
 
 /* Dashboard Header */
 h1 {
   font-size: 24px;
   font-weight: bold;
-  color: #1e293b;
-  margin-bottom: 10px;
-
+  color: white;
+  margin: 0;
 }
 
 /* Statistics Section */
@@ -62,5 +75,3 @@ h1 {
   height: 300px;
   margin: auto;
 }
-
-
