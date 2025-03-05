@@ -106,6 +106,27 @@ mat-progress-bar {
   background: rgba(72, 208, 14, 0.2);
 }
 
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+mat-card-title {
+  flex-grow: 1;
+}
+
+button[mat-icon-button] {
+  position: absolute;
+  right: 10px; /* Moves it to the right corner */
+  top: 10px;   /* Positions it at the top */
+  z-index: 10; /* Ensures it stays above other elements */
+}
+
+mat-icon-button {
+  color: #1e293b; /* Ensures the icon is visible */
+}
 
 
 
