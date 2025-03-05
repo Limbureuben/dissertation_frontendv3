@@ -5,25 +5,25 @@ import {
   __assign,
   __extends,
   print
-} from "./chunk-JQN5MLH4.js";
+} from "./chunk-UZUASQTV.js";
 import {
   HttpClient,
   HttpHeaders
-} from "./chunk-TQLFOCE7.js";
-import "./chunk-BGILPUG2.js";
+} from "./chunk-CEHYQJKK.js";
+import "./chunk-MDWTUIM2.js";
 import {
   Injectable,
   require_cjs,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-CH64OKJE.js";
+} from "./chunk-TFCAZFE4.js";
 import {
   __spreadValues,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// node_modules/@apollo/client/link/batch/batching.js
+// ../../../node_modules/@apollo/client/link/batch/batching.js
 var OperationBatcher = (
   /** @class */
   function() {
@@ -162,7 +162,7 @@ var OperationBatcher = (
   }()
 );
 
-// node_modules/@apollo/client/link/batch/batchLink.js
+// ../../../node_modules/@apollo/client/link/batch/batchLink.js
 var BatchLink = (
   /** @class */
   function(_super) {
@@ -200,7 +200,7 @@ var BatchLink = (
   }(ApolloLink)
 );
 
-// node_modules/apollo-angular/fesm2022/ngApolloLinkHttp.mjs
+// ../../../node_modules/apollo-angular/fesm2022/ngApolloLinkHttp.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var fetch = (req, httpClient, extractFiles) => {
   const shouldUseBody = ["POST", "PUT", "PATCH"].indexOf(req.method.toUpperCase()) !== -1;

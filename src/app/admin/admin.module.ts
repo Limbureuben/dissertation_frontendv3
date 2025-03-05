@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
+import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
     AdminDashboardComponent,
     AdminHeaderComponent,
     AdminSidebarComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    DoughnutChartComponent
   ],
   imports: [
     CommonModule,

@@ -6,9 +6,9 @@ import {
   __toESM
 } from "./chunk-TXDUYLVM.js";
 
-// node_modules/maplibre-gl/dist/maplibre-gl.js
+// ../../../node_modules/maplibre-gl/dist/maplibre-gl.js
 var require_maplibre_gl = __commonJS({
-  "node_modules/maplibre-gl/dist/maplibre-gl.js"(exports, module) {
+  "../../../node_modules/maplibre-gl/dist/maplibre-gl.js"(exports, module) {
     (function(global2, factory) {
       typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, global2.maplibregl = factory());
     })(exports, function() {
@@ -28241,9 +28241,9 @@ ${n2.shaderPreludeCode.vertexSource}`,
   }
 });
 
-// node_modules/events/events.js
+// ../../../node_modules/events/events.js
 var require_events = __commonJS({
-  "node_modules/events/events.js"(exports, module) {
+  "../../../node_modules/events/events.js"(exports, module) {
     "use strict";
     var R = typeof Reflect === "object" ? Reflect : null;
     var ReflectApply = R && typeof R.apply === "function" ? R.apply : function ReflectApply2(target, receiver, args) {
@@ -28593,10 +28593,10 @@ var require_events = __commonJS({
   }
 });
 
-// node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
+// ../../../node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
 var import_maplibre_gl = __toESM(require_maplibre_gl(), 1);
 
-// node_modules/quick-lru/index.js
+// ../../../node_modules/quick-lru/index.js
 var QuickLRU = class extends Map {
   #size = 0;
   #cache = /* @__PURE__ */ new Map();
@@ -28844,7 +28844,7 @@ var QuickLRU = class extends Map {
   }
 };
 
-// node_modules/@maptiler/client/dist/maptiler-client.mjs
+// ../../../node_modules/@maptiler/client/dist/maptiler-client.mjs
 function tryGettingFetch() {
   if (typeof self !== "undefined") {
     return fetch.bind(self);
@@ -31155,19 +31155,19 @@ var elevation = {
   fromMultiLineString
 };
 
-// node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
+// ../../../node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
 var import_events = __toESM(require_events(), 1);
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/regex.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/regex.js
 var regex_default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/i;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/validate.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/validate.js
 function validate(uuid) {
   return typeof uuid === "string" && regex_default.test(uuid);
 }
 var validate_default = validate;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/parse.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/parse.js
 function parse(uuid) {
   if (!validate_default(uuid)) {
     throw TypeError("Invalid UUID");
@@ -31177,7 +31177,7 @@ function parse(uuid) {
 }
 var parse_default = parse;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/stringify.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/stringify.js
 var byteToHex = [];
 for (let i = 0; i < 256; ++i) {
   byteToHex.push((i + 256).toString(16).slice(1));
@@ -31186,7 +31186,7 @@ function unsafeStringify(arr, offset = 0) {
   return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
 }
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/rng.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/rng.js
 var getRandomValues;
 var rnds8 = new Uint8Array(16);
 function rng() {
@@ -31199,7 +31199,7 @@ function rng() {
   return getRandomValues(rnds8);
 }
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/md5.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/md5.js
 function md5(bytes) {
   const words = uint8ToUint32(bytes);
   const md5Bytes = wordsToMd5(words, bytes.length * 8);
@@ -31336,7 +31336,7 @@ function md5ii(a, b, c, d, x2, s, t) {
 }
 var md5_default = md5;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v35.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v35.js
 function stringToBytes(str) {
   str = unescape(encodeURIComponent(str));
   const bytes = new Uint8Array(str.length);
@@ -31372,20 +31372,20 @@ function v35(version2, hash, value, namespace, buf, offset) {
   return unsafeStringify(bytes);
 }
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v3.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v3.js
 function v3(value, namespace, buf, offset) {
   return v35(48, md5_default, value, namespace, buf, offset);
 }
 v3.DNS = DNS;
 v3.URL = URL2;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/native.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/native.js
 var randomUUID = typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID.bind(crypto);
 var native_default = {
   randomUUID
 };
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v4.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v4.js
 function v4(options, buf, offset) {
   if (native_default.randomUUID && !buf && !options) {
     return native_default.randomUUID();
@@ -31411,7 +31411,7 @@ function v4(options, buf, offset) {
 }
 var v4_default = v4;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/sha1.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/sha1.js
 function f(s, x2, y, z2) {
   switch (s) {
     case 0:
@@ -31479,14 +31479,14 @@ function sha1(bytes) {
 }
 var sha1_default = sha1;
 
-// node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v5.js
+// ../../../node_modules/@maptiler/sdk/node_modules/uuid/dist/esm-browser/v5.js
 function v5(value, namespace, buf, offset) {
   return v35(80, sha1_default, value, namespace, buf, offset);
 }
 v5.DNS = DNS;
 v5.URL = URL2;
 
-// node_modules/js-base64/base64.mjs
+// ../../../node_modules/js-base64/base64.mjs
 var version = "3.7.7";
 var VERSION = version;
 var _hasBuffer = typeof Buffer === "function";
@@ -31638,7 +31638,7 @@ var gBase64 = {
   extendBuiltins
 };
 
-// node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
+// ../../../node_modules/@maptiler/sdk/dist/maptiler-sdk.mjs
 var Ta = Object.defineProperty;
 var Er = (r) => {
   throw TypeError(r);

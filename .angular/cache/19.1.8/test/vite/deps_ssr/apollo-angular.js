@@ -3,7 +3,7 @@ import {
   ApolloClient,
   NetworkStatus,
   gql
-} from "./chunk-JQN5MLH4.js";
+} from "./chunk-UZUASQTV.js";
 import {
   Inject,
   Injectable,
@@ -15,14 +15,14 @@ import {
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-CH64OKJE.js";
+} from "./chunk-TFCAZFE4.js";
 import {
   __spreadProps,
   __spreadValues,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// node_modules/apollo-angular/fesm2022/ngApollo.mjs
+// ../../../node_modules/apollo-angular/fesm2022/ngApollo.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
 function fromPromise(promiseFn) {

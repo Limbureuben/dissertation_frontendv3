@@ -9,6 +9,7 @@ import { UserHeaderComponent } from './user/user-header/user-header.component';
 import { MapComponent } from './user/map/map.component';
 import { ReportFormComponent } from './user/report-form/report-form.component';
 import { AdminFooterComponent } from './admin/admin-footer/admin-footer.component';
+import { DoughnutChartComponent } from './admin/doughnut-chart/doughnut-chart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full'},
@@ -69,6 +70,12 @@ const routes: Routes = [
   {
     path: 'app',
     component: AdminFooterComponent,
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) =>m.AdminModule)
+  },
+  {
+    path: 'app',
+    component: DoughnutChartComponent,
     loadChildren: () =>
       import('./admin/admin.module').then((m) =>m.AdminModule)
   }

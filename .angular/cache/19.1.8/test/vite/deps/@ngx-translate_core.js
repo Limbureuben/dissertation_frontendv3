@@ -29,13 +29,13 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵinject
-} from "./chunk-XN7UEGBS.js";
-import "./chunk-ZYKX7RMX.js";
+} from "./chunk-RTXTAHBZ.js";
+import "./chunk-UWKEZJ3G.js";
 import {
   __spreadValues
 } from "./chunk-TXDUYLVM.js";
 
-// node_modules/@ngx-translate/core/fesm2022/ngx-translate-core.mjs
+// ../../../node_modules/@ngx-translate/core/fesm2022/ngx-translate-core.mjs
 var TranslateLoader = class {
 };
 var TranslateFakeLoader = class _TranslateFakeLoader extends TranslateLoader {

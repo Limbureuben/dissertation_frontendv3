@@ -22,13 +22,13 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵinject
-} from "./chunk-CH64OKJE.js";
+} from "./chunk-TFCAZFE4.js";
 import {
   __spreadValues,
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// node_modules/@ngx-translate/core/fesm2022/ngx-translate-core.mjs
+// ../../../node_modules/@ngx-translate/core/fesm2022/ngx-translate-core.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
 var TranslateLoader = class {
