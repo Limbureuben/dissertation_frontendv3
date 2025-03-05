@@ -1,3 +1,4 @@
+import { SharingModule } from './../sharing/sharing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { GanttChartComponent } from './gantt-chart/gantt-chart.component';
 import { MatMenuModule } from '@angular/material/menu';
 
 
@@ -19,8 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
   declarations: [
     AdminDashboardComponent,
     AdminHeaderComponent,
-    AdminSidebarComponent,
-    GanttChartComponent
+    AdminSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -32,6 +31,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
+    SharingModule
   ]
 })
 export class AdminModule { }
