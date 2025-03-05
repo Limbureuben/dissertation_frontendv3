@@ -2,7 +2,7 @@ import {
   ApolloClient,
   NetworkStatus,
   gql
-} from "./chunk-Y5P5LJRO.js";
+} from "./chunk-NWGHBZE5.js";
 import {
   Inject,
   Injectable,
@@ -19,14 +19,14 @@ import {
   startWith,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-RTXTAHBZ.js";
-import "./chunk-UWKEZJ3G.js";
+} from "./chunk-XN7UEGBS.js";
+import "./chunk-ZYKX7RMX.js";
 import {
   __spreadProps,
   __spreadValues
 } from "./chunk-TXDUYLVM.js";
 
-// ../../../node_modules/apollo-angular/fesm2022/ngApollo.mjs
+// node_modules/apollo-angular/fesm2022/ngApollo.mjs
 function fromPromise(promiseFn) {
   return new Observable((subscriber) => {
     promiseFn().then((result) => {

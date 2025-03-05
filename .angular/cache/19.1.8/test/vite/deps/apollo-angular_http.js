@@ -2,28 +2,28 @@ import {
   ApolloLink,
   Observable as Observable2,
   print
-} from "./chunk-Y5P5LJRO.js";
+} from "./chunk-NWGHBZE5.js";
 import {
   HttpClient,
   HttpHeaders
-} from "./chunk-FXUSWHON.js";
-import "./chunk-OEYPU5BJ.js";
+} from "./chunk-VHDKFCAY.js";
+import "./chunk-TEEGSTMK.js";
 import {
   Injectable,
   Observable,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-RTXTAHBZ.js";
+} from "./chunk-XN7UEGBS.js";
 import {
   __assign,
   __extends
-} from "./chunk-UWKEZJ3G.js";
+} from "./chunk-ZYKX7RMX.js";
 import {
   __spreadValues
 } from "./chunk-TXDUYLVM.js";
 
-// ../../../node_modules/@apollo/client/link/batch/batching.js
+// node_modules/@apollo/client/link/batch/batching.js
 var OperationBatcher = (
   /** @class */
   function() {
@@ -162,7 +162,7 @@ var OperationBatcher = (
   }()
 );
 
-// ../../../node_modules/@apollo/client/link/batch/batchLink.js
+// node_modules/@apollo/client/link/batch/batchLink.js
 var BatchLink = (
   /** @class */
   function(_super) {
@@ -200,7 +200,7 @@ var BatchLink = (
   }(ApolloLink)
 );
 
-// ../../../node_modules/apollo-angular/fesm2022/ngApolloLinkHttp.mjs
+// node_modules/apollo-angular/fesm2022/ngApolloLinkHttp.mjs
 var fetch = (req, httpClient, extractFiles) => {
   const shouldUseBody = ["POST", "PUT", "PATCH"].indexOf(req.method.toUpperCase()) !== -1;
   const shouldStringify = (param) => ["variables", "extensions"].indexOf(param.toLowerCase()) !== -1;

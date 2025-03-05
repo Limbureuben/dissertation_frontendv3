@@ -4,11 +4,11 @@ import {
   OverlayConfig,
   OverlayModule,
   TemplatePortal
-} from "./chunk-E3EEOVPZ.js";
+} from "./chunk-TWINXCMY.js";
 import {
   CdkScrollableModule
-} from "./chunk-LC44UHRY.js";
-import "./chunk-JQNYUVVA.js";
+} from "./chunk-J2PVRS7Y.js";
+import "./chunk-CAVH5VUG.js";
 import {
   DOWN_ARROW,
   ENTER,
@@ -27,19 +27,19 @@ import {
   hasModifierKey,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-MFGTUSWH.js";
-import {
-  Directionality
-} from "./chunk-ZINO7QZQ.js";
+} from "./chunk-7U6BARJQ.js";
 import {
   _CdkPrivateStyleLoader
-} from "./chunk-GB2QNGLL.js";
+} from "./chunk-TOZYD7N4.js";
 import {
   _bindEventWithOptions
-} from "./chunk-VCN33GPO.js";
+} from "./chunk-6LO2WZFF.js";
+import {
+  Directionality
+} from "./chunk-QHZOYIBV.js";
 import {
   DOCUMENT
-} from "./chunk-OEYPU5BJ.js";
+} from "./chunk-TEEGSTMK.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
@@ -103,14 +103,14 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-RTXTAHBZ.js";
-import "./chunk-UWKEZJ3G.js";
+} from "./chunk-XN7UEGBS.js";
+import "./chunk-ZYKX7RMX.js";
 import {
   __spreadProps,
   __spreadValues
 } from "./chunk-TXDUYLVM.js";
 
-// ../../../node_modules/@angular/material/fesm2022/menu.mjs
+// node_modules/@angular/material/fesm2022/menu.mjs
 var _c0 = ["mat-menu-item", ""];
 var _c1 = [[["mat-icon"], ["", "matMenuItemIcon", ""]], "*"];
 var _c2 = ["mat-icon, [matMenuItemIcon]", "*"];

@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.componen
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    SharingModule
+    SharingModule,
+    MatProgressBarModule,
   ]
 })
 export class AdminModule { }
