@@ -13,13 +13,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     AdminHeaderComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
+    AdminFooterComponent
   ],
   imports: [
     CommonModule,
