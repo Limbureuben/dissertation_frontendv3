@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .map-wrap {
   position: relative;
   width: 100%;
-  height: calc(100vh - 77px); /* Full height minus any top navigation */
+  height: calc(100vh - 77px); /* Adjust the map height */
 }
 
 .map {
@@ -22,8 +24,9 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  gap: 5px;
-  width: 250px;
+  gap: 8px; /* Space between input and button */
+  width: 400px; /* Increase the width of the search box */
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
 }
 
 .search-box input {
@@ -32,16 +35,49 @@
   padding: 8px;
   flex: 1;
   font-size: 14px;
+  font-family: 'Poppins', sans-serif; /* Ensure font consistency */
 }
 
 .search-box button {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px; /* Increase font size for the icon */
   padding: 5px;
+  color: #333; /* Default color */
+  transition: color 0.3s ease;
 }
 
 .search-box button:hover {
-  color: #007bff;
+  color: #007bff; /* Hover effect for search icon */
+}
+
+/* Suggestions Dropdown */
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  width: 100%;
+  list-style: none;
+  padding: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;  /* Apply Poppins font to the suggestions */
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif; /* Consistent font */
+}
+
+.suggestions-list li:hover {
+  background: lightgray;
+}
+
+/* Ensure Poppins font is used across the application */
+body {
+  font-family: 'Poppins', sans-serif;
 }

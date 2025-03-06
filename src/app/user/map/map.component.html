@@ -1,10 +1,15 @@
 <div class="map-wrap">
   <!-- Search Box with Search Icon -->
   <div class="search-box">
-    <input type="text" placeholder="Search location..." (input)="searchLocation($event)">
-    <button (click)="searchLocation($event)">
-      🔍
-    </button>
+    <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">
+    <button (click)="searchLocation()">🔍</button>
+
+    <!-- Suggestions List -->
+    <ul class="suggestions-list" *ngIf="suggestions.length">
+      <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+        {{ suggestion.name }}
+      </li>
+    </ul>
   </div>
 
   <div class="map" #map></div>
