@@ -55,6 +55,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatDialogModule
 
+  ],
+  exports: [
+    MapDisplayComponent,
+    MapComponent
   ]
 })
 export class UserModule { }

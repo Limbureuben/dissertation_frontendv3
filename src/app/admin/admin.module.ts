@@ -40,6 +40,7 @@ import { MapCommonComponent } from './map-common/map-common.component';
     MatMenuModule,
     SharingModule,
     MatProgressBarModule,
+    SharingModule
   ]
 })
 export class AdminModule { }
