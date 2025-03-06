@@ -15,6 +15,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
+  openSpaces = [
+    { name: "Park A", lng: -6.658270, lat: 39.185784 },
+    { name: "Park B", lng: -6.794852, lat: 39.116709 },
+    { name: "Garden C", lng: -6.800974, lat: 39.079890 }
+  ];
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
@@ -23,34 +29,28 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
-
       this.map = new Map({
         container: this.mapContainer.nativeElement,
         style: MapStyle.STREETS,
-        center: [initialState.lng, initialState.lat],
-        zoom: initialState.zoom
+        center: [-6.800974, 39.079890], // Center on Tokyo
+        zoom: 14
       });
 
-      // Add marker
-      const marker = new Marker()
-        .setLngLat([139.753, 35.6844]) // Set coordinates for the marker
-        .addTo(this.map); // Add marker to map
+      // Loop through locations and add red markers
+      this.openSpaces.forEach(space => {
+        const marker = new Marker({ color: 'red' }) // Set marker color to red
+          .setLngLat([space.lng, space.lat])
+          .addTo(this.map as Map);
 
-      // Add click event to the marker
-      marker.getElement().addEventListener('click', () => {
-        this.showReportForm(); // Show the form when marker is clicked
+        // Click event to show popup or report form
+        marker.getElement().addEventListener('click', () => {
+          alert(`Open Space: ${space.name}\nClick to report a problem`);
+        });
       });
     }
   }
 
   ngOnDestroy() {
     this.map?.remove();
-  }
-
-  showReportForm() {
-    // Code to display a form for the user to report the issue
-    alert("Form will pop up here for reporting.");
-    // You can trigger a modal or a form dialog here
   }
 }
