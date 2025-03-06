@@ -73,6 +73,9 @@
   font-family: 'Poppins', sans-serif; /* Consistent font */
 }
 
+.suggestions-list li:hover {
+  background: lightgray;
+}
 
 /* Ensure Poppins font is used across the application */
 body {
