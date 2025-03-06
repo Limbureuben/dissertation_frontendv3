@@ -1,4 +1,4 @@
-import { SharingModule } from './../sharing/sharing.module';
+import { UserModule } from './../user/user.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +17,9 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MapCommonComponent } from './map-common/map-common.component';
+import { MapComponent } from '../user/map/map.component';
+import { MapDisplayComponent } from '../user/map-display/map-display.component';
+import { SharingModule } from '../sharing/sharing.module';
 
 
 @NgModule({
@@ -38,8 +41,8 @@ import { MapCommonComponent } from './map-common/map-common.component';
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    SharingModule,
     MatProgressBarModule,
+    UserModule,
     SharingModule
   ]
 })

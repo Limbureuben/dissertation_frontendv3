@@ -48,6 +48,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatOptionModule,
     TranslateModule,
     MatMenuModule
+  ],
+
+  exports: [
+    FooterComponent
   ]
 })
 export class SharingModule {
