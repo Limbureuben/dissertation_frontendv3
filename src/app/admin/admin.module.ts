@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MapCommonComponent } from './map-common/map-common.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AdminHeaderComponent,
     AdminSidebarComponent,
     AdminFooterComponent,
-    DoughnutChartComponent
+    DoughnutChartComponent,
+    MapCommonComponent
   ],
   imports: [
     CommonModule,
