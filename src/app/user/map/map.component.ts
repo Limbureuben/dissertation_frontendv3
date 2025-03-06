@@ -42,13 +42,19 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.map = new Map({
         container: this.mapContainer.nativeElement,
         style: 'https://api.maptiler.com/maps/hybrid/style.json?key=9rtSKNwbDOYAoeEEeW9B',
-        center: [39.185784, -6.658270],
+        center: [39.230099, -6.774133],
         zoom: 14
       });
 
       // Loop through locations and add red markers
       this.openSpaces.forEach(space => {
-        const marker = new Marker({ color: 'red' })
+        const markerElement = document.createElement('div');
+        markerElement.style.width = '7px';
+        markerElement.style.height = '7px';
+        markerElement.style.backgroundColor = 'lightseagreen'; // Change marker color
+        markerElement.style.borderRadius = '20%';
+
+        const marker = new Marker(markerElement)
           .setLngLat([space.lng, space.lat])
           .addTo(this.map as Map);
 

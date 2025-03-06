@@ -3,7 +3,6 @@
   <div class="search-box">
     <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">
     <button (click)="searchLocation()">🔍</button>
-
     <!-- Suggestions List -->
     <ul class="suggestions-list" *ngIf="suggestions.length">
       <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
@@ -11,6 +10,5 @@
       </li>
     </ul>
   </div>
-
   <div class="map" #map></div>
 </div>
