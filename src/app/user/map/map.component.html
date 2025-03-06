@@ -1,6 +1,11 @@
-<div class="search-box">
-  <input type="text" placeholder="Search location..." (input)="searchLocation($event)">
-</div>
 <div class="map-wrap">
+  <!-- Search Box with Search Icon -->
+  <div class="search-box">
+    <input type="text" placeholder="Search location..." (input)="searchLocation($event)">
+    <button (click)="searchLocation($event)">
+      🔍
+    </button>
+  </div>
+
   <div class="map" #map></div>
 </div>

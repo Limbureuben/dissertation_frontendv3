@@ -12,6 +12,7 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
+  
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
