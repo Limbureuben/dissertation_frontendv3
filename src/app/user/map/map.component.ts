@@ -24,7 +24,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     { name: "KKT Church Boko", lng: 39.144646, lat: -6.624518 },
     { name: "Bunju", lng: 39.144157, lat: -6.622651 },
     { name: "Eco Fasten", lng: 39.230099, lat: -6.774133 },
-    
+    { name: "Bora football field", lng: 39.235777, lat: -6.778251 },
     { name: "Masjid", lng: 39.233556, lat: -6.781032 },
     { name: "Mwenge", lng: 39.226800, lat: -6.768383 },
     { name: "Avan garden", lng: 39.222820, lat: -6.770813 },
