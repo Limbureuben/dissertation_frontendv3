@@ -1,45 +1,65 @@
 mat-toolbar {
   color: white;
-  height: 90px;
+  height: 190px; /* Initial large height */
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background-color: transparent; /* Set background color to transparent for background image to show */
-  position: relative; /* To ensure the image is layered properly */
-  justify-content: space-between; /* Ensures logo and buttons are positioned properly */
-  flex-wrap: wrap; /* Allow wrapping for small screens */
+  background-color: transparent;
+  position: fixed; /* Fix the header to the top */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure the header is above other content */
+  justify-content: space-between;
+  flex-wrap: wrap;
+  transition: height 0.3s ease, padding 0.3s ease, background-color 0.3s ease;
+}
+
+mat-toolbar.shrunk {
+  height: 80px; /* Smaller height when scrolling */
+  padding: 10px 20px; /* Adjust padding when shrunk */
+  background-color: rgba(0, 0, 0, 0.5); /* Slight background color change when shrunk */
 }
 
 mat-toolbar::before {
-  content: ""; /* Pseudo-element for background image */
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/assets/images/flag.jpg'); /* Replace with your image URL */
+  background-image: url('/assets/images/flag.jpg');
   background-size: cover;
-  background-position: center; /* Adjust image positioning */
+  background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.3; /* Set the opacity level */
-  z-index: -1; /* Ensures the image is in the background */
-  image-rendering: pixelated;
+  opacity: 0.3;
+  z-index: -1;
 }
 
 .logo img {
-  height: 60px; /* Make logo image fit well */
-  object-fit: contain; /* Ensures logo maintains aspect ratio */
+  height: 160px;
+  object-fit: contain;
+  transition: height 0.3s ease; /* Smooth transition for logo size */
+}
+
+mat-toolbar.shrunk .logo img {
+  height: 50px; /* Smaller logo when scrolled */
 }
 
 .title {
-  font-size: 1.5rem; /* Default font size */
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  margin-left: 20px; /* Adjust this value as needed */
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden; /* Ensure text overflow is handled */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-  flex-grow: 1; /* Allow title to grow */
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  transition: font-size 0.3s ease; /* Smooth transition for font size */
+}
+
+mat-toolbar.shrunk .title {
+  font-size: 1.2rem; /* Smaller font size when scrolled */
 }
 
 .spacer {
@@ -60,86 +80,17 @@ button {
   margin-left: 20px;
 }
 
+/* Adjust styles for smaller screens */
 @media (max-width: 1200px) {
-  mat-toolbar {
-    height: 80px; /* Reduce height for larger tablets */
+  mat-toolbar.shrunk {
+    height: 70px; /* Adjust height for larger tablets */
   }
 
-  .logo img {
+  mat-toolbar.shrunk .logo img {
     height: 50px; /* Resize logo for tablet */
   }
 
-  .title {
+  mat-toolbar.shrunk .title {
     font-size: 1.2rem; /* Slightly smaller font size */
   }
-}
-
-@media (max-width: 768px) {
-  mat-toolbar {
-    flex-direction: row; /* Keep the toolbar in a row layout for mobile */
-    height: 70px; /* Reduce height for mobile */
-    padding: 10px;
-  }
-
-  .logo img {
-    height: 40px; /* Resize logo for smaller screens */
-  }
-
-  .title {
-    font-size: 1rem; /* Make title font smaller for mobile */
-    text-align: left; /* Align text to the left */
-    margin-left: 0; /* Remove margin-left */
-    margin-top: 0;
-  }
-
-  button {
-    margin: 5px 0;
-    font-size: 0.9rem; /* Slightly smaller font size for buttons */
-  }
-}
-
-@media (max-width: 480px) {
-  mat-toolbar {
-    height: 60px; /* Further reduce height for very small screens */
-    padding: 5px;
-  }
-
-  .title {
-    font-size: 0.9rem; /* Further reduce title font size for very small screens */
-  }
-
-  .logo img {
-    height: 35px; /* Resize logo for very small screens */
-  }
-
-  button {
-    font-size: 0.8rem; /* Further reduce font size for buttons */
-  }
-}
-
-.language-dropdown {
-  position: absolute;
-  right: 130px; /* Position on the right side */
-  top: 10px;   /* Adjust vertical position if needed */
-  width: auto; /* Ensure width is set to auto */
-}
-
-/* Override the default width of mat-select */
-.language-dropdown .mat-select {
-  font-size: 12px; /* Smaller text size */
-  height: 30px; /* Reduce height of the select box */
-  padding: 0 8px; /* Reduce padding */
-  min-width: 0; /* Remove the default min-width */
-  width: 50px; /* Set the desired width */
-}
-
-/* Adjust height of each dropdown option */
-.language-dropdown .mat-option {
-  font-size: 12px; /* Smaller text for the options */
-  height: 30px; /* Set height of each dropdown option */
-}
-
-/* Adjust padding inside the mat-select trigger */
-.language-dropdown .mat-select-trigger {
-  padding: 0; /* Remove extra padding to reduce height */
 }
