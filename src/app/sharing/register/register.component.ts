@@ -11,6 +11,17 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+
+  showForm = false;  // Boolean to control visibility
+
+  toggleForm() {
+    this.showForm = !this.showForm; // Toggle form visibility
+  }
+
+  close() {
+    this.showForm = false; // Close the form
+  }
+
   registerForm: FormGroup;
 
   constructor(
@@ -114,7 +125,4 @@ export class RegisterComponent {
     });
   }
 
-  close() {
-    console.log('Closing register form');
-  }
 }

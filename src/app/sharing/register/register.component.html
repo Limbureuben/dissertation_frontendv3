@@ -3,26 +3,30 @@
 <div class="register-background">
   <div class="register-overlay" (click)="close()">
     <div class="register-container" (click)="$event.stopPropagation()">
-
-      <h2 class="registration-heading">{{ 'registration_heading' | translate }}</h2>
+      <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>{{ 'username' | translate }}</mat-label>
           <input matInput formControlName="username" placeholder="{{ 'username_placeholder' | translate }}" type="text" required>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'email' | translate }}</mat-label>
-          <input matInput formControlName="email" placeholder="{{ 'email_placeholder' | translate }}" type="email" required>
-        </mat-form-field>
+
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>{{ 'password' | translate }}</mat-label>
           <input matInput formControlName="password" placeholder="{{ 'password_placeholder' | translate }}" type="password" required>
         </mat-form-field>
+
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>{{ 'password_confirm' | translate }}</mat-label>
           <input matInput formControlName="passwordConfirm" placeholder="{{ 'password_confirm_placeholder' | translate }}" type="password" required>
         </mat-form-field>
+
+        <!-- Phone Number Field -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>{{ 'phone_number' | translate }}</mat-label>
+          <input matInput  placeholder="{{ 'phone_number_placeholder' | translate }}" type="tel" required>
+        </mat-form-field>
+
         <div class="actions">
           <button mat-raised-button color="primary" class="register-btn">{{ 'register_button' | translate }}</button>
         </div>

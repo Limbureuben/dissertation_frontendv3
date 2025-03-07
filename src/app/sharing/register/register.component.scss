@@ -1,147 +1,4 @@
-
-// .register-background {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   // background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
-//   background-image: url('https://www.mof.go.tz/site/images/emblem.png');
-//   background-size: 40%;
-//   background-position: center;
-//   height: calc(100vh - 105px); /* Adjust based on header & footer height */
-//   background-position: center top;
-//   background-repeat: no-repeat;
-//   height: calc(100vh - 105px);
-// }
-
-
-// .register-overlay {
-//   display: flex;
-//   align-items: center; /* Vertically center the form */
-//   justify-content: center; /* Horizontally center the form */
-//   width: 100%;
-//   height: 100%;
-//   background: rgba(255, 255, 255, 0.96); /* Dark overlay */
-// }
-
-// /* Container for register form */
-// .register-container {
-//   background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
-//   padding: 1rem; /* Reduced padding for compactness */
-//   border-radius: 12px;
-//   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-//   max-width: 400px;
-//   width: 90%;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-start; /* Align content to the top */
-//   margin-bottom: 3px;
-//   min-height: 230px; /* Further reduced height */
-//   z-index: 1001; /* Ensure form is above the overlay */
-//   margin-top: 0 auto;
-// }
-
-// /* Close button */
-// .close-btn {
-//   position: absolute;
-//   top: 5px; /* Reduced top margin */
-//   right: 5px; /* Reduced right margin */
-//   border: none;
-//   background: none;
-//   font-size: 20px; /* Reduced font size */
-//   cursor: pointer;
-//   color: #555;
-// }
-
-// .close-btn:hover {
-//   color: #000;
-// }
-
-// /* Registration Heading */
-// .registration-heading {
-//   font-size: 18px; /* Reduced font size */
-//   color: #333;
-//   margin-bottom: 0.2rem; /* Reduced margin-bottom */
-//   font-weight: bold;
-// }
-
-// /* Input fields */
-// .full-width mat-form-field {
-//   width: 100%;
-// }
-
-// mat-form-field {
-//   display: block;
-// }
-
-// mat-form-field .mat-form-field-wrapper {
-//   border-radius: 8px;
-//   border: 1px solid #ccc;
-//   padding: 3px;
-//   background: #f9f9f9;
-// }
-
-// mat-form-field .mat-input-element {
-//   font-size: 14px; /* Reduced font size */
-//   padding: 5px; /* Further reduced padding */
-// }
-
-// /* Actions */
-// .actions {
-//   display: flex;
-//   justify-content: center;
-//   margin-top: 0.3rem; /* Further reduced margin-top */
-// }
-
-// /* Register button */
-// .register-btn {
-//   width: 100%;
-//   padding: 6px; /* Reduced padding */
-//   font-size: 14px; /* Reduced font size */
-//   border-radius: 8px;
-//   background-color: #3f51b5 !important;
-//   color: white !important;
-//   font-weight: bold;
-//   margin-top: 0.3rem; /* Reduced top margin */
-// }
-
-// .register-btn:hover {
-//   background-color: #3f51b5 !important;
-// }
-
-// /* Login link */
-// .login-link {
-//   text-align: center;
-//   margin-top: 0.3rem; /* Reduced margin-top for closer placement */
-//   font-size: 12px; /* Reduced font size */
-// }
-
-// .login-link a {
-//   color: lightseagreen;
-//   text-decoration: none;
-//   font-weight: bold;
-//   margin-left: 5px;
-//   cursor: pointer;
-// }
-
-// .login-link a:hover {
-//   text-decoration: underline;
-// }
-
-// /* Footer styles */
-// app-footer {
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-//   color: white;
-//   text-align: center;
-//   padding: 0px 0;
-//   z-index: 999;
-//   box-shadow: none; /* Remove any border */
-// }
-
-
+/* Background styling for the register form */
 .register-background {
   display: flex;
   justify-content: center;
@@ -153,19 +10,20 @@
   height: calc(100vh - 105px); /* Adjust based on header & footer height */
 }
 
+/* Overlay to dim the background */
 .register-overlay {
   display: flex;
   align-items: center; /* Vertically center the form */
   justify-content: center; /* Horizontally center the form */
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.96); /* Dark overlay */
+  background: rgba(255, 255, 255, 0.9); /* Dark overlay */
 }
 
-/* Container for register form */
+/* Container for the register form */
 .register-container {
   background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
-  padding: 1rem; /* Reduced padding for compactness */
+  padding: 0.8rem; /* Reduced padding */
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   max-width: 400px;
@@ -175,18 +33,27 @@
   flex-direction: column;
   justify-content: flex-start; /* Align content to the top */
   margin-bottom: 3px;
-  min-height: 230px; /* Further reduced height */
-  z-index: 1001; /* Ensure form is above the overlay */
+  min-height: 200px; /* Reduced height */
+  z-index: 1001;
 }
 
-/* Close button */
+/* Styling for the login logo */
+.login-logo {
+  max-width: 60px; /* Reduced maximum width for the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 1rem; /* Add space between the logo and the form */
+  object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+  align-self: center;
+}
+
+/* Close button styles */
 .close-btn {
   position: absolute;
   top: 5px; /* Reduced top margin */
   right: 5px; /* Reduced right margin */
   border: none;
   background: none;
-  font-size: 20px; /* Reduced font size */
+  font-size: 18px; /* Reduced font size */
   cursor: pointer;
   color: #555;
 }
@@ -195,43 +62,44 @@
   color: #000;
 }
 
-/* Registration Heading */
+/* Styling for the registration heading */
 .registration-heading {
-  font-size: 18px; /* Reduced font size */
+  font-size: 16px; /* Reduced font size */
   color: #333;
-  margin-bottom: 0.2rem; /* Reduced margin-bottom */
+  margin-bottom: 0.5rem; /* Reduced margin-bottom */
   font-weight: bold;
 }
 
-/* Input fields */
+/* Input fields styling */
 .full-width mat-form-field {
   width: 100%;
 }
 
 mat-form-field {
   display: block;
+  margin-bottom: 0.5rem; /* Reduced space between form fields */
 }
 
 mat-form-field .mat-form-field-wrapper {
   border-radius: 8px;
   border: 1px solid #ccc;
-  padding: 3px;
+  padding: 2px;
   background: #f9f9f9;
 }
 
 mat-form-field .mat-input-element {
-  font-size: 14px; /* Reduced font size */
-  padding: 5px; /* Further reduced padding */
+  font-size: 13px; /* Smaller font size */
+  padding: 4px; /* Reduced padding */
 }
 
-/* Actions */
+/* Styling for actions (button) */
 .actions {
   display: flex;
   justify-content: center;
-  margin-top: 0.3rem; /* Further reduced margin-top */
+  margin-top: 0.5rem; /* Further reduced margin-top */
 }
 
-/* Register button */
+/* Register button styling */
 .register-btn {
   width: 100%;
   padding: 6px; /* Reduced padding */
@@ -247,10 +115,10 @@ mat-form-field .mat-input-element {
   background-color: #3f51b5 !important;
 }
 
-/* Login link */
+/* Styling for the login link */
 .login-link {
   text-align: center;
-  margin-top: 0.3rem; /* Reduced margin-top for closer placement */
+  margin-top: 0.5rem; /* Reduced margin-top for closer placement */
   font-size: 12px; /* Reduced font size */
 }
 
@@ -292,7 +160,7 @@ app-footer {
 
   mat-form-field .mat-input-element {
     font-size: 12px;
-    padding: 4px;
+    padding: 2px;
   }
 
   .register-btn {
@@ -305,3 +173,7 @@ app-footer {
   }
 }
 
+/* Styling for phone number field */
+mat-form-field.phone-number {
+  display: block;
+}
