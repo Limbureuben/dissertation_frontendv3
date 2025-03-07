@@ -21,7 +21,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   openSpaces = [
     { name: "Consulting Engineering", lng: 39.185784, lat: -6.658270 },
     { name: "Msigan", lng: 39.116709, lat: -6.794852 },
-    { name: "KKT Church Boko", lng: 39.144646, lat: -6.624518 },
+    
     { name: "Bunju", lng: 39.144157, lat: -6.622651 },
     { name: "Eco Fasten", lng: 39.230099, lat: -6.774133 },
     { name: "Bora football field", lng: 39.235777, lat: -6.778251 },
