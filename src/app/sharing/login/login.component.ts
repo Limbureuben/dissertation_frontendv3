@@ -37,11 +37,6 @@ export class LoginComponent implements OnInit{
   }
 
 
-  close() {
-    console.log('button clicked');
-    this.router.navigate(['/'])
-  }
-
   OnSubmit() {
     if(!this.LoginForm.valid) {
       this.LoginForm.markAllAsTouched();
