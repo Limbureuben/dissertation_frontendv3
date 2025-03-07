@@ -2,11 +2,11 @@ mat-toolbar {
   color: white;
   height: 70px;
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically align items */
+  justify-content: space-between; /* Space between items */
   padding: 0 20px;
   background-color: transparent; /* Set background color to transparent for background image to show */
   position: relative; /* To ensure the image is layered properly */
-  justify-content: space-between; /* Ensures logo and buttons are positioned properly */
   flex-wrap: wrap; /* Allow wrapping for small screens */
 }
 
@@ -26,12 +26,17 @@ mat-toolbar::before {
   image-rendering: pixelated;
 }
 
-.logo img {
+mat-toolbar .logo {
+  display: flex;
+  align-items: center; /* Ensure logo is vertically aligned */
+}
+
+mat-toolbar .logo img {
   height: 70px; /* Make logo image fit well */
   object-fit: contain; /* Ensures logo maintains aspect ratio */
 }
 
-.title {
+mat-toolbar .title {
   font-size: 1.5rem; /* Default font size */
   font-weight: bold;
   text-align: center;
@@ -39,11 +44,13 @@ mat-toolbar::before {
   white-space: nowrap; /* Prevent text from wrapping */
   overflow: hidden; /* Ensure text overflow is handled */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-  flex-grow: 1; /* Allow title to grow */
+  flex-grow: 1; /* Allow title to grow and take remaining space */
+  display: flex;
+  justify-content: center; /* Ensure title is centered horizontally */
 }
 
-.spacer {
-  flex: 1 1 auto;
+mat-toolbar .spacer {
+  flex: 1 1 auto; /* Push the title to the center */
 }
 
 button {
@@ -94,7 +101,6 @@ button {
 
   button {
     margin: 5px 0;
-
     font-size: 0.9rem; /* Slightly smaller font size for buttons */
   }
 }
