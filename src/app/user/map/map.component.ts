@@ -15,7 +15,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   searchQuery: string = '';
   suggestions: any[] = [];
 
-  
+  @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   openSpaces = [
