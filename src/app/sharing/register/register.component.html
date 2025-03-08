@@ -2,7 +2,7 @@
 
 <div class="register-background">
   <div class="register-overlay" (click)="close()">
-    <div class="register-container" (click)="$event.stopPropagation()">
+    <div *ngIf="showForm" class="register-container" @slideInOut (click)="$event.stopPropagation()">
       <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -24,7 +24,7 @@
         <!-- Phone Number Field -->
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>{{ 'phone_number' | translate }}</mat-label>
-          <input matInput  placeholder="{{ 'phone_number_placeholder' | translate }}" type="tel" required>
+          <input matInput placeholder="{{ 'phone_number_placeholder' | translate }}" type="tel" required>
         </mat-form-field>
 
         <div class="actions">
@@ -33,7 +33,7 @@
       </form>
 
       <div class="login-link">
-        <p>{{ 'already_have_account' | translate }} <a href="/login">{{ 'login' | translate }}</a></p>
+        <p>{{ 'already_have_account' | translate }} <a routerLink="/login">{{ 'login' | translate }}</a></p>
       </div>
     </div>
   </div>

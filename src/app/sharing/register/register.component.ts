@@ -1,18 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, RegisterData } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
   standalone: false,
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translateX(0)'
+      })),
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('1500ms ease-in', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
-  showForm = false;  // Boolean to control visibility
+  showForm = true;  // Boolean to control visibility
 
   toggleForm() {
     this.showForm = !this.showForm; // Toggle form visibility
@@ -36,6 +51,10 @@ export class RegisterComponent {
       password: ['', [Validators.required, this.passwordStrengthValidator]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.passwordsMatchValidator });
+  }
+
+  ngOnInit(): void {
+    this.showForm = true; // Ensure the form is visible when the component is initialized
   }
 
   // Password strength validation

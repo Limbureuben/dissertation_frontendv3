@@ -4,12 +4,27 @@ import { Router } from '@angular/router';
 import { AuthService, LoginData } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LanguageService } from '../../service/language.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translateX(0)'
+      })),
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('2000ms ease-in', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
 export class LoginComponent implements OnInit{
 

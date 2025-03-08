@@ -1,7 +1,8 @@
+<!-- filepath: /home/egovridc/Desktop/test/src/app/sharing/login/login.component.html -->
 <app-header></app-header>
 <div class="login-background">
   <div class="login-overlay">
-    <div class="login-container" (click)="$event.stopPropagation()">
+    <div class="login-container" @slideInOut (click)="$event.stopPropagation()">
       <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
       <p class="country-name">{{ 'country_name' | translate }}</p> <!-- This will change dynamically -->
 
@@ -19,7 +20,7 @@
         </div>
       </form>
       <div class="register-link">
-        <p>{{ 'no_account' | translate }} <a href="/register">{{ 'register' | translate }}</a></p>
+        <p>{{ 'no_account' | translate }} <a routerLink="/register">{{ 'register' | translate }}</a></p>
       </div>
     </div>
   </div>
