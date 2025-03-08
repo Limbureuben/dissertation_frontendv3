@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Map, Marker, Popup, config } from '@maptiler/sdk';
-
+import { Map, config, Marker, Popup } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
 @Component({
   selector: 'app-map',
-  standalone: false,
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
@@ -46,10 +44,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
-      // Loop through locations and add custom image markers with popups
+      // Loop through locations and add markers with popups
       this.openSpaces.forEach(space => {
         const markerElement = document.createElement('img');
-        markerElement.src = 'assets/images/openspace.png';
+        markerElement.src = 'assets/images/openspace.png'; // Ensure the file exists
         markerElement.style.width = '40px';
         markerElement.style.height = '40px';
 
@@ -57,28 +55,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           .setLngLat([space.lng, space.lat])
           .addTo(this.map as Map);
 
-        // Create a popup with open space details
+        // Create a popup with open space details and a report button
         const popupContent = document.createElement('div');
-        popupContent.className = 'popup-content';
+        popupContent.classList.add('popup-content');
         popupContent.innerHTML = `
           <h3>${space.name}</h3>
-          <p>Coordinates: ${space.lat}, ${space.lng}</p>
+          <p>Location: (${space.lat}, ${space.lng})</p>
           <button class="report-problem-btn">Report Problem</button>
         `;
 
-        const popup = new Popup().setDOMContent(popupContent);
+        // Attach the popup to the marker
+        const popup = new Popup({ offset: 25 })
+          .setDOMContent(popupContent);
 
         marker.getElement().addEventListener('click', () => {
           popup.setLngLat([space.lng, space.lat]).addTo(this.map as Map);
         });
 
-        // Handle "Report Problem" button click
-        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', () => {
-          alert(`Reporting a problem at ${space.name}`);
+        // Handle the report button click
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent the click from bubbling up to the marker click event
+          this.openReportForm(space.name);
         });
       });
 
-      // Add layer switcher control
+      // Add layer switcher
       this.addLayerSwitcher();
     }
   }
@@ -144,5 +145,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.map?.getContainer().appendChild(layerSwitcher);
+  }
+
+  openReportForm(locationName: string) {
+    alert(`Reporting an issue at ${locationName}`);
+    // You can replace this alert with code to open a form or modal for reporting the problem
   }
 }
