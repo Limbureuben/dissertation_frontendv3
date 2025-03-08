@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Map, config, Marker } from '@maptiler/sdk';
+import { Map, Marker, Popup, config } from '@maptiler/sdk';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
@@ -46,19 +46,35 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
-      // Loop through locations and add custom image markers
+      // Loop through locations and add custom image markers with popups
       this.openSpaces.forEach(space => {
         const markerElement = document.createElement('img');
-        markerElement.src = 'assets/images/openspace.png'; // Make sure the file is in `assets/`
-        markerElement.style.width = '40px'; // Adjust if necessary
+        markerElement.src = 'assets/images/openspace.png';
+        markerElement.style.width = '40px';
         markerElement.style.height = '40px';
 
         const marker = new Marker({ element: markerElement })
           .setLngLat([space.lng, space.lat])
           .addTo(this.map as Map);
 
+        // Create a popup with open space details
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        popupContent.innerHTML = `
+          <h3>${space.name}</h3>
+          <p>Coordinates: ${space.lat}, ${space.lng}</p>
+          <button class="report-problem-btn">Report Problem</button>
+        `;
+
+        const popup = new Popup().setDOMContent(popupContent);
+
         marker.getElement().addEventListener('click', () => {
-          alert(`Open Space: ${space.name}\nClick to report a problem`);
+          popup.setLngLat([space.lng, space.lat]).addTo(this.map as Map);
+        });
+
+        // Handle "Report Problem" button click
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', () => {
+          alert(`Reporting a problem at ${space.name}`);
         });
       });
 
@@ -71,7 +87,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map?.remove();
   }
 
-  // Fetch location suggestions within a specific region (Tanzania as an example)
   fetchSuggestions() {
     if (!this.searchQuery) {
       this.suggestions = [];
@@ -89,7 +104,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       .catch(err => console.error("Error fetching suggestions:", err));
   }
 
-  // Search for location when the button is clicked
   searchLocation() {
     if (!this.searchQuery) return;
 
@@ -104,14 +118,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       .catch(err => console.error("Error fetching location:", err));
   }
 
-  // Select a suggestion from the list
   selectSuggestion(suggestion: any) {
     this.searchQuery = suggestion.name;
     this.map?.flyTo({ center: suggestion.center, zoom: 14 });
-    this.suggestions = []; // Hide suggestions after selection
+    this.suggestions = [];
   }
 
-  // Add layer switcher control
   addLayerSwitcher() {
     const layerSwitcher = document.createElement('div');
     layerSwitcher.className = 'layer-switcher';
@@ -131,7 +143,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    // Append the layer switcher to the map container
     this.map?.getContainer().appendChild(layerSwitcher);
   }
 }
