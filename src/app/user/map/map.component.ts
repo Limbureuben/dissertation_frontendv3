@@ -61,6 +61,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           alert(`Open Space: ${space.name}\nClick to report a problem`);
         });
       });
+
+      // Add layer switcher control
+      this.addLayerSwitcher();
     }
   }
 
@@ -106,5 +109,29 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchQuery = suggestion.name;
     this.map?.flyTo({ center: suggestion.center, zoom: 14 });
     this.suggestions = []; // Hide suggestions after selection
+  }
+
+  // Add layer switcher control
+  addLayerSwitcher() {
+    const layerSwitcher = document.createElement('div');
+    layerSwitcher.className = 'layer-switcher';
+    layerSwitcher.innerHTML = `
+      <button data-style="https://api.maptiler.com/maps/hybrid/style.json?key=9rtSKNwbDOYAoeEEeW9B">Hybrid</button>
+      <button data-style="https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B">Streets</button>
+      <button data-style="https://api.maptiler.com/maps/basic/style.json?key=9rtSKNwbDOYAoeEEeW9B">Basic</button>
+    `;
+
+    layerSwitcher.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      if (target.tagName === 'BUTTON') {
+        const style = target.getAttribute('data-style');
+        if (style && this.map) {
+          this.map.setStyle(style);
+        }
+      }
+    });
+
+    // Append the layer switcher to the map container
+    this.map?.getContainer().appendChild(layerSwitcher);
   }
 }
