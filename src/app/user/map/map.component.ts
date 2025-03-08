@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Map, MapStyle, config, Marker } from '@maptiler/sdk';
+import { Map, MapStyle, config, Marker, Popup } from '@maptiler/sdk';
 
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
@@ -46,24 +46,46 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
-      // Loop through locations and add red markers
-      this.openSpaces.forEach(space => {
-        const markerElement = document.createElement('div');
-        markerElement.style.width = '7px';
-        markerElement.style.height = '7px';
-        markerElement.style.backgroundColor = 'lightseagreen'; // Change marker color
-        markerElement.style.borderRadius = '20%';
+      // Ensure the map is fully loaded before adding layers
+      this.map.on('load', () => {
+        // Loop through locations and add red colored circles
+        this.openSpaces.forEach(space => {
+          // Create a GeoJSON source for each open space location
+          this.map?.addSource(`open-space-source-${space.name}`, {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [space.lng, space.lat]
+              },
+              properties: { name: space.name }  // Add properties field with the name of the space
+            }
+          });
 
-        const marker = new Marker(markerElement)
-          .setLngLat([space.lng, space.lat])
-          .addTo(this.map as Map);
+          // Add circle layer for each open space
+          this.map?.addLayer({
+            id: `open-space-circle-${space.name}`,
+            type: 'circle',
+            source: `open-space-source-${space.name}`,
+            paint: {
+              'circle-radius': 10, // Radius of the circle
+              'circle-color': 'rgba(255, 0, 0, 0.5)' // Red with some transparency
+            }
+          });
 
-        marker.getElement().addEventListener('click', () => {
-          alert(`Open Space: ${space.name}\nClick to report a problem`);
+          // Add a popup when the circle is clicked
+          this.map?.on('click', `open-space-circle-${space.name}`, () => {
+            new Popup()
+              .setLngLat([space.lng, space.lat])
+              .setHTML(`<h3>${space.name}</h3><p>Click to report a problem.</p>`)
+              .addTo(this.map as Map);
+          });
         });
       });
     }
   }
+
 
   ngOnDestroy() {
     this.map?.remove();
