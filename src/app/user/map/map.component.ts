@@ -70,12 +70,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           .setDOMContent(popupContent);
 
         marker.getElement().addEventListener('click', () => {
-          popup.setLngLat([space.lng, space.lat]).addTo(this.map as Map);
+          console.log(`Marker for ${space.name} clicked.`);
+          this.openReportForm(space.name);  // Trigger the form opening
         });
 
         // Handle the report button click
-        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', () => {
-          alert(`Reporting an issue at ${space.name}`);
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent the click from bubbling up to the marker click event
+          this.openReportForm(space.name); // Trigger the form when the button is clicked
         });
       });
 
@@ -145,5 +147,34 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.map?.getContainer().appendChild(layerSwitcher);
+  }
+
+  openReportForm(locationName: string) {
+    const formContainer = document.getElementById('detailsForm') as HTMLElement;
+    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
+
+    // Set the location name in the form
+    const locationInput = formContainer.querySelector('#location-name') as HTMLInputElement;
+    locationInput.value = locationName;
+
+    // Slide in the form and shrink the map
+    formContainer.classList.add('open');
+    mapWrap.classList.add('shrink');
+
+    // Close form handler
+    formContainer.querySelector('.close-form-btn')?.addEventListener('click', () => {
+      formContainer.classList.remove('open');
+      mapWrap.classList.remove('shrink');
+    });
+
+    // Form submission handler
+    formContainer.querySelector('form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const description = (formContainer.querySelector('#problem-description') as HTMLTextAreaElement).value;
+      alert(`Problem reported: ${description}`);
+      // Here you can add logic to handle the form submission, e.g., send data to the server
+      formContainer.classList.remove('open');
+      mapWrap.classList.remove('shrink');
+    });
   }
 }

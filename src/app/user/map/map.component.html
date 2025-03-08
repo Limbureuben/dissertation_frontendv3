@@ -11,4 +11,15 @@
     </ul>
   </div>
   <div class="map" #map></div>
+  <div class="details-form-container" id="detailsForm">
+    <h2>Report a Problem</h2>
+    <form>
+      <label for="location-name">Location:</label>
+      <input type="text" id="location-name" name="location-name" readonly>
+      <label for="problem-description">Problem Description:</label>
+      <textarea id="problem-description" name="problem-description" rows="4" cols="50"></textarea>
+      <button type="submit">Submit</button>
+      <button type="button" class="close-form-btn">Close</button>
+    </form>
+  </div>
 </div>

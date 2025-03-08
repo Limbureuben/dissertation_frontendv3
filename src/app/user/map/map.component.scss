@@ -2,14 +2,37 @@
 
 .map-wrap {
   position: relative;
+  transition: flex 0.3s ease-in-out;
   width: 100%;
   height: calc(100vh - 77px); /* Adjust the map height */
+  display: flex;
+  transition: flex 0.3s; /* Add transition to flex property */
 }
 
 .map {
-  position: absolute;
-  width: 100%;
+  flex: 1;
+  transition: flex 0.3s; /* Add transition to flex property */
+}
+
+.details-form-container {
+  position: fixed;
+  top: 0;
+  right: -400px; /* Initially hidden */
+  width: 400px;
   height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s; /* Add transition to right property */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.details-form-container.open {
+  right: 0; /* Slide in */
+}
+
+.map-wrap.shrink .map {
+  flex: 0.75; /* Shrink map */
 }
 
 /* Search Box Styling */
@@ -148,3 +171,15 @@ body {
   z-index: 2000 !important;
 }
 
+.details-form-container.open {
+  right: 0; /* Slide in from right */
+}
+
+.map-wrap.shrink .map {
+  flex: 0.75; /* Shrink map */
+}
+
+/* Ensure smooth transitions for both map shrink and form animation */
+.details-form-container {
+  transition: right 0.3s ease-in-out;
+}
