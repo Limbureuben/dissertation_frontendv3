@@ -5,6 +5,7 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
 
 @Component({
   selector: 'app-map',
+  standalone: false,
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
@@ -73,9 +74,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         // Handle the report button click
-        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
-          e.stopPropagation(); // Prevent the click from bubbling up to the marker click event
-          this.openReportForm(space.name);
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', () => {
+          alert(`Reporting an issue at ${space.name}`);
         });
       });
 
@@ -145,10 +145,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.map?.getContainer().appendChild(layerSwitcher);
-  }
-
-  openReportForm(locationName: string) {
-    alert(`Reporting an issue at ${locationName}`);
-    // You can replace this alert with code to open a form or modal for reporting the problem
   }
 }
