@@ -80,7 +80,9 @@ body {
   transition: flex 0.3s ease-in-out; /* Animate map shrink */
 }
 
-
+.map-wrap.shrink .map {
+  flex: 0.75; /* Shrinks the map to 75% */
+}
 
 /* Form Styling */
 // .details-form-container {
