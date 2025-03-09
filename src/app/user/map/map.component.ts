@@ -15,7 +15,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   suggestions: any[] = [];
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 
   openSpaces = [
     { name: "Consulting Engineering", lng: 39.185784, lat: -6.658270 },
@@ -45,10 +44,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
-      // Loop through locations and add markers with popups
+      // Add markers
       this.openSpaces.forEach(space => {
         const markerElement = document.createElement('img');
-        markerElement.src = 'assets/images/openspace.png'; // Ensure the file exists
+        markerElement.src = 'assets/images/openspace.png';
         markerElement.style.width = '40px';
         markerElement.style.height = '40px';
 
@@ -56,7 +55,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           .setLngLat([space.lng, space.lat])
           .addTo(this.map as Map);
 
-        // Create a popup with open space details and a report button
+        // Create popup with a report button
         const popupContent = document.createElement('div');
         popupContent.classList.add('popup-content');
         popupContent.innerHTML = `
@@ -65,24 +64,26 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           <button class="report-problem-btn">Report Problem</button>
         `;
 
-        // Attach the popup to the marker
+        // Attach popup to the marker
         const popup = new Popup({ offset: 25 })
           .setDOMContent(popupContent);
 
-        marker.getElement().addEventListener('click', () => {
-          console.log(`Marker for ${space.name} clicked.`);
-          this.openReportForm(space.name);  // Trigger the form opening
+        marker.setPopup(popup);
+
+        // Open the form when clicking on the button
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.openReportForm(space.name);
         });
 
-        // Handle the report button click
-        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
-          e.stopPropagation(); // Prevent the click from bubbling up to the marker click event
-          this.openReportForm(space.name); // Trigger the form when the button is clicked
+        // Attach popup on marker click
+        marker.getElement().addEventListener('click', () => {
+          this.openReportForm(space.name);
         });
       });
 
       // Add layer switcher
-      this.addLayerSwitcher();
+
     }
   }
 
@@ -127,54 +128,39 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.suggestions = [];
   }
 
-  addLayerSwitcher() {
-    const layerSwitcher = document.createElement('div');
-    layerSwitcher.className = 'layer-switcher';
-    layerSwitcher.innerHTML = `
-      <button data-style="https://api.maptiler.com/maps/hybrid/style.json?key=9rtSKNwbDOYAoeEEeW9B">Hybrid</button>
-      <button data-style="https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B">Streets</button>
-      <button data-style="https://api.maptiler.com/maps/basic/style.json?key=9rtSKNwbDOYAoeEEeW9B">Basic</button>
-    `;
-
-    layerSwitcher.addEventListener('click', (event) => {
-      const target = event.target as HTMLElement;
-      if (target.tagName === 'BUTTON') {
-        const style = target.getAttribute('data-style');
-        if (style && this.map) {
-          this.map.setStyle(style);
-        }
-      }
-    });
-
-    this.map?.getContainer().appendChild(layerSwitcher);
-  }
-
   openReportForm(locationName: string) {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
     const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
 
-    // Set the location name in the form
-    const locationInput = formContainer.querySelector('#location-name') as HTMLInputElement;
-    locationInput.value = locationName;
+    // Update the location name in the form
+    (formContainer.querySelector('#location-name') as HTMLInputElement).value = locationName;
 
-    // Slide in the form and shrink the map
+    // Open the form and shrink the map container
     formContainer.classList.add('open');
-    mapWrap.classList.add('shrink');
-
-    // Close form handler
-    formContainer.querySelector('.close-form-btn')?.addEventListener('click', () => {
-      formContainer.classList.remove('open');
-      mapWrap.classList.remove('shrink');
-    });
-
-    // Form submission handler
-    formContainer.querySelector('form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const description = (formContainer.querySelector('#problem-description') as HTMLTextAreaElement).value;
-      alert(`Problem reported: ${description}`);
-      // Here you can add logic to handle the form submission, e.g., send data to the server
-      formContainer.classList.remove('open');
-      mapWrap.classList.remove('shrink');
-    });
+    mapWrap.classList.add('shrink');  // This shrinks the map inside map-wrap and shows the form
   }
+
+  closeForm() {
+    const formContainer = document.getElementById('detailsForm') as HTMLElement;
+    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
+
+    // Close the form and restore the map container's size
+    formContainer.classList.remove('open');
+    mapWrap.classList.remove('shrink');  // This restores the map size
+  }
+
+  submitReport(event: Event) {
+    event.preventDefault();
+    const formContainer = document.getElementById('detailsForm') as HTMLElement;
+    const description = (formContainer.querySelector('#problem-description') as HTMLTextAreaElement).value;
+    alert(`Problem reported: ${description}`);
+
+    // Close the form after submission
+    formContainer.classList.remove('open');
+
+    // Restore the map size after form submission
+    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
+    mapWrap.classList.remove('shrink');
+  }
+
 }

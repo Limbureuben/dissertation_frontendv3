@@ -11,7 +11,10 @@
     </ul>
   </div>
   <div class="map" #map></div>
+
+  <!-- The only sliding form container -->
   <div class="details-form-container" id="detailsForm">
+    <button class="close-form-btn" (click)="closeForm()">✖</button>
     <h2>Report a Problem</h2>
     <form>
       <label for="location-name">Location:</label>
@@ -19,7 +22,6 @@
       <label for="problem-description">Problem Description:</label>
       <textarea id="problem-description" name="problem-description" rows="4" cols="50"></textarea>
       <button type="submit">Submit</button>
-      <button type="button" class="close-form-btn">Close</button>
     </form>
   </div>
 </div>

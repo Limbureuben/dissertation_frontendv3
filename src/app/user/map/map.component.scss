@@ -1,55 +1,30 @@
+/* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-.map-wrap {
-  position: relative;
-  transition: flex 0.3s ease-in-out;
-  width: 100%;
-  height: calc(100vh - 77px); /* Adjust the map height */
-  display: flex;
-  transition: flex 0.3s; /* Add transition to flex property */
+/* General Body Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.map {
-  flex: 1;
-  transition: flex 0.3s; /* Add transition to flex property */
-}
-
-.details-form-container {
-  position: fixed;
-  top: 0;
-  right: -400px; /* Initially hidden */
-  width: 400px;
-  height: 100%;
-  background-color: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transition: right 0.3s; /* Add transition to right property */
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.details-form-container.open {
-  right: 0; /* Slide in */
-}
-
-.map-wrap.shrink .map {
-  flex: 0.75; /* Shrink map */
-}
-
-/* Search Box Styling */
+/* Header and Search Box Styling */
 .search-box {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
+  top: 10px; /* Position from the top */
+  left: 10px; /* Position from the left */
+  z-index: 1000; /* Ensure it stays on top of the map */
   background: white;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between input and button */
-  width: 400px; /* Increase the width of the search box */
+  gap: 10px; /* Space between input and button */
+  width: 300px; /* Set a fixed width */
   font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  transition: all 0.3s ease; /* Smooth transition on hover */
 }
 
 .search-box input {
@@ -65,17 +40,114 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 20px; /* Increase font size for the icon */
+  font-size: 20px;
   padding: 5px;
-  color: #333; /* Default color */
+  color: #333;
   transition: color 0.3s ease;
 }
 
 .search-box button:hover {
-  color: #007bff; /* Hover effect for search icon */
+  color: #007bff;
 }
 
-/* Suggestions Dropdown */
+/* Map Container Styling */
+// .map-wrap {
+//   position: relative;
+//   width: 100%;
+//   height: calc(100vh - 77px); /* Adjust the map height */
+//   display: flex;
+//   transition: flex 0.3s ease-in-out;
+// }
+
+.map-wrap {
+  display: flex;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  transition: width 0.3s ease-in-out; /* Animate width change */
+}
+
+// .map {
+//   flex: 1;
+//   transition: flex 0.3s ease;
+//   position: relative;
+// }
+
+.map {
+  flex: 1;
+  transition: flex 0.3s ease-in-out; /* Animate map shrink */
+}
+
+.map-wrap.shrink .map {
+  flex: 0.75; /* Shrinks the map to 75% */
+}
+
+/* Form Styling */
+// .details-form-container {
+//   position: fixed;
+//   top: 0;
+//   right: -440px; /* Initially hidden */
+//   width: 300px;
+//   height: 100%;
+//   background-color: white;
+//   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+//   transition: right 0.3s ease-in-out;
+//   padding: 20px;
+//   overflow-y: auto;
+// }
+
+.details-form-container {
+  position: absolute;
+  top: 0;
+  right: -350px; /* Initially off-screen */
+  width: 350px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.map-wrap.shrink .details-form-container {
+  right: 0; /* Form slides in */
+}
+
+.close-form-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+.details-form-container.open {
+  right: 0; /* Slide in */
+}
+
+.report-form-card {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.close-form-btn {
+  color: red;
+}
+
+/* Search Suggestions Dropdown */
 .suggestions-list {
   position: absolute;
   top: 100%;
@@ -105,14 +177,14 @@
   position: absolute;
   bottom: 20px;
   left: 10px;
-  z-index: 1500; /* Increase the z-index to be above the map */
+  z-index: 1500;
   background: white;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Space between buttons */
+  gap: 8px;
 }
 
 .layer-switcher button {
@@ -122,12 +194,12 @@
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif; /* Ensure font consistency */
+  font-family: 'Poppins', sans-serif;
   transition: background 0.3s ease;
 }
 
 .layer-switcher button:hover {
-  background: #0056b3; /* Hover effect for buttons */
+  background: #0056b3;
 }
 
 /* Popup Styling */
@@ -147,6 +219,7 @@
   font-size: 14px;
 }
 
+/* Report Problem Button */
 .report-problem-btn {
   background: #007bff;
   color: white;
@@ -162,24 +235,111 @@
   background: #0056b3;
 }
 
-/* Ensure Poppins font is used across the application */
-body {
-  font-family: 'Poppins', sans-serif;
-}
-
-.mapboxgl-popup {
-  z-index: 2000 !important;
-}
-
-.details-form-container.open {
-  right: 0; /* Slide in from right */
-}
-
+/* Ensure Smooth Transitions for Map and Form */
 .map-wrap.shrink .map {
-  flex: 0.75; /* Shrink map */
+  flex: 0.75; /* Shrink map when form is open */
 }
 
-/* Ensure smooth transitions for both map shrink and form animation */
-.details-form-container {
-  transition: right 0.3s ease-in-out;
+/* Additional Styles for Form Submission */
+.mat-card {
+  box-shadow: none;
+}
+
+.mat-form-field {
+  margin-bottom: 20px;
+}
+
+/* Make sure form input elements are fully responsive */
+.mat-input-element {
+  width: 100%;
+}
+
+/* For full-width inputs in forms */
+.full-width {
+  width: 100%;
+}
+
+.details-form-container label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.details-form-container input,
+.details-form-container textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded corners */
+  background-color: #fff;
+  margin-bottom: 20px; /* Space below each input */
+  box-sizing: border-box; /* Ensure padding doesn't increase the element's size */
+  transition: border 0.3s ease;
+}
+
+.details-form-container input:focus,
+.details-form-container textarea:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove default focus outline */
+}
+
+/* Button Styling */
+.details-form-container button {
+  width: 48%; /* Buttons take up half of the form width */
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.details-form-container button[type="submit"] {
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  margin-right: 4%; /* Space between the buttons */
+}
+
+.details-form-container button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+
+
+/* Optional: Close Button Position */
+.details-form-container .close-form-btn {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Styling the buttons container */
+.form-buttons {
+  display: flex;
+  justify-content: space-between; /* Space out the buttons */
+  align-items: center;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 600px) {
+  .details-form-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .details-form-container button {
+    width: 48%;
+    font-size: 14px;
+  }
 }
