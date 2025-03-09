@@ -61,7 +61,7 @@ body {
 
 .map-wrap {
   display: flex;
-  position: relative;
+  position: fixed;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -80,9 +80,7 @@ body {
   transition: flex 0.3s ease-in-out; /* Animate map shrink */
 }
 
-.map-wrap.shrink .map {
-  flex: 0.75; /* Shrinks the map to 75% */
-}
+
 
 /* Form Styling */
 // .details-form-container {
@@ -101,14 +99,16 @@ body {
 .details-form-container {
   position: absolute;
   top: 0;
-  right: -350px; /* Initially off-screen */
-  width: 350px;
-  height: 100%;
+  right: -500px; /* Initially off-screen */
+  width: 420px;
+  height: 90%;
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
   transition: right 0.3s ease-in-out;
   padding: 20px;
   margin: 0;
+  left: 200;
+  margin-left: -60;
   overflow-y: auto;
 }
 
