@@ -3,6 +3,7 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   height: 90vh; /* Full viewport height */
+  background-color: whitesmoke;
 }
 
 .cards-wrapper {
@@ -14,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(255, 255, 255);
   text-align: center;
   padding: 15px; /* Reduce padding to decrease height */
   width: 280px; /* Adjust width */
