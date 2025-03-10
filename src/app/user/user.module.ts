@@ -23,6 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UserHomeComponent } from './user-home/user-home.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -34,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MapDisplayComponent,
     MapComponent,
     ReportFormComponent,
+    UserHomeComponent,
   ],
   imports: [
     CommonModule,
@@ -53,7 +56,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatListModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
 
   ],
   exports: [
