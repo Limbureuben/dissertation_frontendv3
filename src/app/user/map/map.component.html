@@ -10,17 +10,28 @@
       </li>
     </ul>
   </div>
+
   <div class="map" #map></div>
 
   <!-- The only sliding form container -->
   <div class="details-form-container" id="detailsForm">
     <button class="close-form-btn" (click)="closeForm()">x</button>
     <h2>Report a Problem</h2>
-    <form>
-      <label for="location-name">Location:</label>
-      <input type="text" id="location-name" name="location-name" readonly>
+    <form (submit)="submitReport($event)">
+      <div class="location-info">
+        <label>Location: </label>
+        <span id="location-name"></span> <!-- Location will be displayed here -->
+
+        <br> <!-- Break line for separation -->
+
+        <label>Region: </label>
+        <span id="region"></span> <!-- Region will be displayed here -->
+        <br>
+      </div>
+
       <label for="problem-description">Problem Description:</label>
       <textarea id="problem-description" name="problem-description" rows="4" cols="50"></textarea>
+
       <button type="submit">Submit</button>
     </form>
   </div>

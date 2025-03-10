@@ -37,7 +37,8 @@ import { SharingModule } from '../sharing/sharing.module';
     MapDisplayComponent,
     MapComponent,
     ReportFormComponent,
-    UserHomeComponent,
+    UserHomeComponent
+
   ],
   imports: [
     CommonModule,

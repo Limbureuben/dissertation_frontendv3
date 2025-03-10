@@ -63,6 +63,7 @@ body {
 }
 
 /* --- REPORT FORM CONTAINER --- */
+
 .details-form-container {
   position: fixed;
   top: 0;
@@ -116,53 +117,44 @@ body {
   display: block;
 }
 
-.details-form-container input,
-.details-form-container textarea {
+.details-form-container .location-info {
+  margin-bottom: 20px;
+}
+
+.details-form-container span {
+  display: block; /* Make it a block-level element */
+  padding: 5px;
+  font-size: 16px;
+  background: #f4f4f4;
+  border-radius: 5px;
+  margin-top: 5px; /* Space between label and text */
+  width: 100%; /* Make text take full width */
+  word-wrap: break-word;
+}
+
+textarea {
   width: 100%;
   padding: 10px;
-  font-size: 14px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  margin-bottom: 15px;
-  box-sizing: border-box;
-  transition: border 0.3s ease;
+  border-radius: 5px;
 }
 
-.details-form-container input:focus,
-.details-form-container textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* --- FORM BUTTONS --- */
-.details-form-container button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease-in-out;
-}
-
-.details-form-container button[type="submit"] {
-  background-color: #007bff;
+button {
+  padding: 10px;
+  background-color: #4CAF50;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.details-form-container button[type="submit"]:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+button[type="submit"] {
+  width: 100%;
 }
 
 /* --- RESPONSIVENESS --- */
 @media (max-width: 1024px) {
-  .search-box {
-    width: 250px;
-  }
-
   .details-form-container {
     width: 350px;
   }
@@ -172,12 +164,6 @@ body {
   .map-wrap {
     flex-direction: column;
     height: auto;
-  }
-
-  .search-box {
-    width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   .details-form-container {
@@ -203,8 +189,11 @@ body {
     font-size: 20px;
   }
 
-  .search-box {
-    width: 90%;
+  .details-form-container h2 {
+    font-size: 18px;
+  }
+
+  .details-form-container button[type="submit"] {
     font-size: 14px;
   }
 }

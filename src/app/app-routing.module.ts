@@ -78,7 +78,7 @@ const routes: Routes = [
     component: DoughnutChartComponent,
     loadChildren: () =>
       import('./admin/admin.module').then((m) =>m.AdminModule)
-  }
+  },
 ];
 
 @NgModule({

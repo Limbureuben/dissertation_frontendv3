@@ -1,10 +1,10 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MatCommonModule
-} from "./chunk-P6NSAMKW.js";
+} from "./chunk-VVIO7YE3.js";
 import {
   coerceBooleanProperty
-} from "./chunk-Z5VNBO2X.js";
+} from "./chunk-36E3NYHA.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -118,4 +118,4 @@ export {
   MatDivider,
   MatDividerModule
 };
-//# sourceMappingURL=chunk-XZ67KILF.js.map
+//# sourceMappingURL=chunk-QMA5L3MX.js.map
