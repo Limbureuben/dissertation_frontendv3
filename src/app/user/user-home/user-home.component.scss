@@ -8,7 +8,7 @@
 
 .cards-wrapper {
   display: flex;
-  gap: 60px; /* Space between cards */
+  gap: 100px; /* Space between cards */
 }
 
 .card {
@@ -27,7 +27,7 @@
 }
 
 .card:hover {
-  transform: scale(1.05); /* Pop-up effect */
+  transform: scale(1.04); /* Pop-up effect */
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
@@ -47,5 +47,5 @@ h2 {
   position: absolute;
   top: 100px;
   left: 620px;
-  color: blueviolet;
+  color: #3f51b5;
 }
