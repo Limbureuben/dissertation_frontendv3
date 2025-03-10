@@ -18,4 +18,8 @@ export class UserHomeComponent {
     this.router.navigate(['/'])
   }
 
+  navigateToCreateAccount() {
+    
+  }
+
 }

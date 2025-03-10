@@ -1,4 +1,12 @@
-<app-header></app-header>
+<header class="header">
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Logo">
+  </div>
+  <div class="nav-buttons">
+    <button class="create-account" (click)="navigateToCreateAccount()">Create Account</button>
+  </div>
+</header>
+
 <div class="container">
   <h2>Services</h2>
   <div class="cards-wrapper">
@@ -16,4 +24,4 @@
     </mat-card>
   </div>
 </div>
-<app-footer></app-footer>
+
