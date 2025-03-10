@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Map, config, Marker, Popup } from '@maptiler/sdk';
+import { Map, config, Marker, Popup, NavigationControl, GeolocateControl } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
 @Component({
@@ -44,6 +44,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
+      // Move Zoom Controls to Bottom Left
+      this.map.addControl(new NavigationControl(), 'bottom-left');
+
+      // Move Geolocation Control to Bottom Left
+      this.map.addControl(new GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true
+      }), 'bottom-left');
+
       // Add markers
       this.openSpaces.forEach(space => {
         const markerElement = document.createElement('img');
@@ -64,26 +73,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           <button class="report-problem-btn">Report Problem</button>
         `;
 
-        // Attach popup to the marker
         const popup = new Popup({ offset: 25 })
           .setDOMContent(popupContent);
 
         marker.setPopup(popup);
 
-        // Open the form when clicking on the button
         popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
           e.stopPropagation();
           this.openReportForm(space.name);
         });
 
-        // Attach popup on marker click
         marker.getElement().addEventListener('click', () => {
           this.openReportForm(space.name);
         });
       });
-
-      // Add layer switcher
-
     }
   }
 

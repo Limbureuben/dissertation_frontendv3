@@ -1,7 +1,7 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* General Body Styling */
+/* Global Styling */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -9,22 +9,21 @@ body {
   box-sizing: border-box;
 }
 
-/* Header and Search Box Styling */
+/* --- SEARCH BOX --- */
 .search-box {
   position: absolute;
-  top: 10px; /* Position from the top */
-  left: 10px; /* Position from the left */
-  z-index: 1000; /* Ensure it stays on top of the map */
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
   background: white;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between input and button */
-  width: 300px; /* Set a fixed width */
-  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
-  transition: all 0.3s ease; /* Smooth transition on hover */
+  gap: 8px;
+  width: 280px;
+  transition: all 0.3s ease;
 }
 
 .search-box input {
@@ -33,7 +32,6 @@ body {
   padding: 8px;
   flex: 1;
   font-size: 14px;
-  font-family: 'Poppins', sans-serif; /* Ensure font consistency */
 }
 
 .search-box button {
@@ -50,297 +48,163 @@ body {
   color: #007bff;
 }
 
-/* Map Container Styling */
-// .map-wrap {
-//   position: relative;
-//   width: 100%;
-//   height: calc(100vh - 77px); /* Adjust the map height */
-//   display: flex;
-//   transition: flex 0.3s ease-in-out;
-// }
-
+/* --- MAP STYLING --- */
 .map-wrap {
   display: flex;
-  position: fixed;
+  position: relative;
   width: 100%;
-  margin: 0;
-  padding: 0;
   height: 100vh;
-  transition: width 0.3s ease-in-out; /* Animate width change */
+  transition: flex 0.3s ease-in-out;
 }
-
-// .map {
-//   flex: 1;
-//   transition: flex 0.3s ease;
-//   position: relative;
-// }
 
 .map {
   flex: 1;
-  transition: flex 0.3s ease-in-out; /* Animate map shrink */
+  transition: flex 0.3s ease-in-out;
 }
 
-.map-wrap.shrink .map {
-  flex: 0.75; /* Shrinks the map to 75% */
-}
-
-/* Form Styling */
-// .details-form-container {
-//   position: fixed;
-//   top: 0;
-//   right: -440px; /* Initially hidden */
-//   width: 300px;
-//   height: 100%;
-//   background-color: white;
-//   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-//   transition: right 0.3s ease-in-out;
-//   padding: 20px;
-//   overflow-y: auto;
-// }
-
+/* --- REPORT FORM CONTAINER --- */
 .details-form-container {
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: -500px; /* Initially off-screen */
-  width: 420px;
-  height: 90%;
-  background-color: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  right: -450px; /* Initially hidden */
+  width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: -3px 0px 8px rgba(0, 0, 0, 0.4);
   transition: right 0.3s ease-in-out;
   padding: 20px;
-  margin: 0;
-  left: 200;
-  margin-left: -60;
   overflow-y: auto;
-}
-
-.map-wrap.shrink .details-form-container {
-  right: 0; /* Form slides in */
-}
-
-.close-form-btn {
-  position: absolute;
-  top: 10px;
-  font-size: 20px;
-  color: #333;
-  cursor: pointer;
-}
-
-.details-form-container.open {
-  right: 0; /* Slide in */
-}
-
-.report-form-card {
-  width: 100%;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.close-form-btn {
-  color: red;
-}
-
-/* Search Suggestions Dropdown */
-.suggestions-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  width: 100%;
-  list-style: none;
-  padding: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  max-height: 300px;
-  overflow-y: auto;
-  font-family: 'Poppins', sans-serif;  /* Apply Poppins font to the suggestions */
-}
-
-.suggestions-list li {
-  padding: 8px;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif; /* Consistent font */
-}
-
-.suggestions-list li:hover {
-  background: lightgray;
-}
-
-/* Layer Switcher Styling */
-.layer-switcher {
-  position: absolute;
-  bottom: 20px;
-  left: 10px;
-  z-index: 1500;
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
-.layer-switcher button {
+/* --- FORM SLIDE IN --- */
+.map-wrap.shrink .details-form-container {
+  right: 0;
+}
+
+/* --- CLOSE BUTTON (X) --- */
+.close-form-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: transparent;
   border: none;
-  background: #007bff;
-  color: white;
-  padding: 8px;
-  border-radius: 4px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff4d4d;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  transition: background 0.3s ease;
+  transition: transform 0.2s ease, color 0.3s ease;
 }
 
-.layer-switcher button:hover {
-  background: #0056b3;
+.close-form-btn:hover {
+  color: #d60000;
+  transform: scale(1.1);
 }
 
-/* Popup Styling */
-.popup-content {
-  font-family: 'Poppins', sans-serif;
-  padding: 10px;
-}
-
-.popup-content h3 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.popup-content p {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-/* Report Problem Button */
-.report-problem-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  transition: background 0.3s ease;
-}
-
-.report-problem-btn:hover {
-  background: #0056b3;
-}
-
-/* Ensure Smooth Transitions for Map and Form */
-.map-wrap.shrink .map {
-  flex: 0.75; /* Shrink map when form is open */
-}
-
-/* Additional Styles for Form Submission */
-.mat-card {
-  box-shadow: none;
-}
-
-.mat-form-field {
-  margin-bottom: 20px;
-}
-
-/* Make sure form input elements are fully responsive */
-.mat-input-element {
-  width: 100%;
-}
-
-/* For full-width inputs in forms */
-.full-width {
-  width: 100%;
+/* --- FORM CONTENT --- */
+.details-form-container h2 {
+  text-align: center;
+  color: #3f51b5;
+  margin-bottom: 15px;
 }
 
 .details-form-container label {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   display: block;
 }
 
 .details-form-container input,
 .details-form-container textarea {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 8px; /* Rounded corners */
+  border-radius: 6px;
   background-color: #fff;
-  margin-bottom: 20px; /* Space below each input */
-  box-sizing: border-box; /* Ensure padding doesn't increase the element's size */
+  margin-bottom: 15px;
+  box-sizing: border-box;
   transition: border 0.3s ease;
 }
 
 .details-form-container input:focus,
 .details-form-container textarea:focus {
-  border-color: #007bff; /* Blue border on focus */
-  outline: none; /* Remove default focus outline */
+  border-color: #007bff;
+  outline: none;
 }
 
-/* Button Styling */
+/* --- FORM BUTTONS --- */
 .details-form-container button {
-  width: 48%; /* Buttons take up half of the form width */
+  width: 100%;
   padding: 12px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .details-form-container button[type="submit"] {
-  background-color: #007bff; /* Primary blue color */
+  background-color: #007bff;
   color: white;
-  margin-right: 4%; /* Space between the buttons */
 }
 
 .details-form-container button[type="submit"]:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-
-
-/* Optional: Close Button Position */
-.details-form-container .close-form-btn {
-  position: absolute;
-  top: 10px;
-  left: 0px;
-  background: transparent;
-  border: none;
-  font-size: 24px;
-  color: #333;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-/* Styling the buttons container */
-.form-buttons {
-  display: flex;
-  justify-content: space-between; /* Space out the buttons */
-  align-items: center;
-}
-
-/* For mobile responsiveness */
-@media (max-width: 600px) {
-  .details-form-container {
-    width: 100%;
-    padding: 10px;
+/* --- RESPONSIVENESS --- */
+@media (max-width: 1024px) {
+  .search-box {
+    width: 250px;
   }
 
-  .details-form-container button {
-    width: 48%;
+  .details-form-container {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .map-wrap {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .search-box {
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .details-form-container {
+    width: 100%;
+    height: 90%;
+    right: -100%;
+  }
+
+  .map-wrap.shrink .details-form-container {
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-form-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .close-form-btn {
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+  }
+
+  .search-box {
+    width: 90%;
     font-size: 14px;
   }
 }
