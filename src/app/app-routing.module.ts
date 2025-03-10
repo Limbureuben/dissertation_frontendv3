@@ -12,7 +12,7 @@ import { AdminFooterComponent } from './admin/admin-footer/admin-footer.componen
 import { DoughnutChartComponent } from './admin/doughnut-chart/doughnut-chart.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/homepage', pathMatch: 'full'},
+  { path: '', redirectTo: '/user-home', pathMatch: 'full'},
   {
     path: 'app',
     component: HeaderComponent,
