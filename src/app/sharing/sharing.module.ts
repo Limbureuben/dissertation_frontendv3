@@ -51,7 +51,8 @@ import { MatMenuModule } from '@angular/material/menu';
   ],
 
   exports: [
-    FooterComponent
+    FooterComponent,
+    HeaderComponent
   ]
 })
 export class SharingModule {

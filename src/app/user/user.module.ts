@@ -25,6 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { SharingModule } from '../sharing/sharing.module';
 
 
 
@@ -57,8 +58,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatGridListModule
-
+    MatGridListModule,
+    SharingModule
   ],
   exports: [
     MapDisplayComponent,

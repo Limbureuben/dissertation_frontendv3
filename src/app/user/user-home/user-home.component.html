@@ -1,6 +1,7 @@
+<app-header></app-header>
 <div class="container">
   <div class="cards-wrapper">
-    <mat-card class="card">
+    <mat-card class="card" (click)="OpenDashboard()">
       <img src="assets/images/location.png" alt="Open Space" class="icon">
       <mat-card-title>Open Space</mat-card-title>
       <mat-card-content>
@@ -8,7 +9,7 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="card">
+    <mat-card class="card" (click)="OPenBookDasboard()">
       <img src="assets/images/openspace.png" alt="Book Open Space" class="icon">
       <mat-card-title>Book Open Space</mat-card-title>
     </mat-card>

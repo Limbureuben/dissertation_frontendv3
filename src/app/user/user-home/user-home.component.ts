@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-home',
@@ -7,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './user-home.component.scss'
 })
 export class UserHomeComponent {
+  constructor(private router: Router) {}
+
+  OpenDashboard() {
+    this.router.navigate(['/login'])
+  }
+
+  OPenBookDasboard() {
+    this.router.navigate(['/'])
+  }
 
 }
