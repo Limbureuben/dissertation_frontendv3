@@ -26,7 +26,8 @@
   "CHAT_WITH_US": "Chat with Us",
   "TERMS": "Terms of Service",
   "register_button_anonymous": "Anonymous",
-  "phone_number": "Phone number"
+  "phone_number": "Phone number",
+  "phone_number_placeholder": "Enter phone number"
 
 }
 
