@@ -11,7 +11,7 @@ export class UserHomeComponent {
   constructor(private router: Router) {}
 
   OpenDashboard() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/map-display'])
   }
 
   OPenBookDasboard() {
@@ -19,7 +19,7 @@ export class UserHomeComponent {
   }
 
   navigateToCreateAccount() {
-    
+
   }
 
 }
