@@ -1,7 +1,7 @@
 <div class="map-wrap">
   <!-- Search Box with Search Icon -->
   <div class="search-box">
-    <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">
+    <input #searchInput type="text" placeholder="Search location..." (input)="fetchSuggestions()">
     <button (click)="searchLocation()">🔍</button>
     <!-- Suggestions List -->
     <ul class="suggestions-list" *ngIf="suggestions.length">
