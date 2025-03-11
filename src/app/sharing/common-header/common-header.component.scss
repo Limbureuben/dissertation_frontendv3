@@ -17,6 +17,11 @@
   max-width: 100%;
 }
 
+.title {
+  color: whitesmoke;
+  font-size: 20px;
+}
+
 /* Navigation Buttons */
 .nav-buttons {
   display: flex;
@@ -51,6 +56,8 @@
   color: white;
   cursor: pointer;
 }
+
+
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
@@ -93,7 +100,4 @@
     height: 80px;
   }
 
-  .title {
-    font-size: 18px;
-  }
 }
