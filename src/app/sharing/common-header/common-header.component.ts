@@ -9,7 +9,14 @@ import { Router } from '@angular/router';
 })
 export class CommonHeaderComponent {
 
+
   constructor(private router: Router) {}
+
+  menuOPen: boolean = false;
+
+  toggleMenu() {
+    this.menuOPen = !this.menuOPen;
+  }
 
   NavigateToHome() {
     this.router.navigate(['/'])

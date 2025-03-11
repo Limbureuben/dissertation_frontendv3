@@ -2,13 +2,17 @@
   <div class="logo">
     <img src="assets/images/logo.png" alt="Logo">
   </div>
-  <div class ="title">
+
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+
+  <div class="title">
     KINONDONI MUNICIPAL OPEN SPACE MANAGEMENT SYSTEM
     <h6>This is a platform that will help people report unusual activities to the environment and allow them to book areas for events</h6>
   </div>
-  <div class="nav-buttons">
+
+  <nav [class.active]="menuOpen" class="nav-buttons">
     <button class="create-account" (click)="navigateToCreateAccount()">Create Account</button>
-  </div>
+  </nav>
 </header>
 
 <div class="container">

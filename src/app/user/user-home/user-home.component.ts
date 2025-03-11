@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class UserHomeComponent {
   showPopup: boolean = false;
+  menuOpen: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -16,9 +17,14 @@ export class UserHomeComponent {
     this.router.navigate(['/login'])
   }
 
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
   openPopup() {
     this.showPopup = true;
   }
+
 
   navigateToCreateAccount() {
     this.showPopup = false;

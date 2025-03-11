@@ -6,7 +6,7 @@
   background-image: url('https://www.mof.go.tz/site/images/emblem.png');
   background-size: 40%;
   background-position: center;
-  height: calc(100vh - 105px); /* Adjust based on header & footer height */
+  height: calc(90vh - 105px); /* Adjust based on header & footer height */
   background-position: center top;
   background-repeat: no-repeat;
 }
@@ -28,7 +28,7 @@
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   max-width: 350px;
-  width: 90%;
+  width: 80%;
   text-align: center;
   display: flex;
   flex-direction: column;
