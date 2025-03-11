@@ -20,6 +20,7 @@ import { MapCommonComponent } from './map-common/map-common.component';
 import { MapComponent } from '../user/map/map.component';
 import { MapDisplayComponent } from '../user/map-display/map-display.component';
 import { SharingModule } from '../sharing/sharing.module';
+import { MapAdminComponent } from './map-admin/map-admin.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SharingModule } from '../sharing/sharing.module';
     AdminSidebarComponent,
     AdminFooterComponent,
     DoughnutChartComponent,
-    MapCommonComponent
+    MapCommonComponent,
+    MapAdminComponent
   ],
   imports: [
     CommonModule,
