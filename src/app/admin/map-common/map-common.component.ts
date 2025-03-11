@@ -17,7 +17,7 @@ export class MapCommonComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      this.loadGoogleMapsScript();
+      this.initMap(); // Directly initialize the map
     }
   }
 
