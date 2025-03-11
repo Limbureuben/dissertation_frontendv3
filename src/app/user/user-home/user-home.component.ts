@@ -12,10 +12,6 @@ export class UserHomeComponent {
 
   constructor(private router: Router) {}
 
-  OpenDashboard() {
-    this.router.navigate(['/map-display'])
-  }
-
   OPenBookDasboard() {
     this.router.navigate(['/login'])
   }
@@ -36,7 +32,7 @@ export class UserHomeComponent {
 
   continueAsAnonymous() {
     this.showPopup = false;
-    alert('You are continuing as an anonymous user.');
+    this.router.navigate(['/map-display'])
   }
 
 
