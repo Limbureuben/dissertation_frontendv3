@@ -15,7 +15,7 @@
   <h2>Services</h2>
   <p class="description">Choose a service below to proceed: Select Open spaces to report unusual activity to the environment
     and select Book open space to book an area for activity according to the price of an area at Kinondoni Municipal Thanks
-  </p> <!-- New text added here -->
+  </p>
   <div class="cards-wrapper">
     <mat-card class="card" (click)="OpenDashboard()">
       <img src="assets/images/location.png" alt="Open Space" class="icon">
@@ -24,11 +24,22 @@
         <p>Report illegal use of open space</p>
       </mat-card-content>
     </mat-card>
-
     <mat-card class="card" (click)="OPenBookDasboard()">
       <img src="assets/images/openspace.png" alt="Book Open Space" class="icon">
       <mat-card-title>Book Open Space</mat-card-title>
     </mat-card>
+  </div>
+</div>
+
+<div class="popup-overlay" *ngIf="showPopup">
+  <div class="popup-card">
+    <button class="close-btn" (click)="closePopup()">×</button>
+    <h3>Select an Option</h3>
+    <p>Proceed by creating an account or continue as an anonymous user.</p>
+    <div class="popup-buttons">
+      <button class="popup-btn create-account" (click)="navigateToCreateAccount()">Create Account</button>
+      <button class="popup-btn anonymous" (click)="continueAsAnonymous()">Continue as Anonymous</button>
+    </div>
   </div>
 </div>
 

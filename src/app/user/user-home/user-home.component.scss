@@ -188,3 +188,89 @@ h2 {
     font-size: 12px; /* Make description text smaller for phones */
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* Popup Overlay - Background Blur */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+/* Popup Card */
+.popup-card {
+  background: white;
+  padding: 25px;
+  width: 350px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Close Button (X) */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Popup Buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Individual Buttons */
+.popup-btn {
+  padding: 10px 15px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Create Account Button */
+.popup-btn.create-account {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.popup-btn.create-account:hover {
+  background-color: #2c387e;
+}
+
+/* Anonymous Button */
+.popup-btn.anonymous {
+  background-color: #ccc;
+  color: black;
+}
+
+.popup-btn.anonymous:hover {
+  background-color: #999;
+}
