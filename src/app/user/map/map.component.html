@@ -20,16 +20,16 @@
       <div class="location-info">
         <label>Location: </label>
         <span id="location-name"></span>
-
         <br>
-
         <label>Region: </label>
         <span id="region"></span>
         <br>
       </div>
 
-      <label for="problem-description">Problem Description:</label>
-      <textarea id="problem-description" name="problem-description" rows="4" cols="50"></textarea>
+      <!-- New Phone Number Input -->
+      <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" placeholder="+255625219727(Optional)">
+
+      <textarea id="problem-description" name="problem-description" placeholder="Problem descriptions" rows="4" cols="50"></textarea>
 
       <button type="submit">Submit</button>
     </form>

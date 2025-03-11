@@ -142,7 +142,7 @@ textarea {
 
 button {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #3f51b5;
   color: white;
   border: none;
   border-radius: 5px;
@@ -196,4 +196,42 @@ button[type="submit"] {
   .details-form-container button[type="submit"] {
     font-size: 14px;
   }
+}
+
+/* --- SUGGESTIONS LIST --- */
+.suggestions-list {
+  position: absolute;
+  top: 100%; /* Ensures it appears directly below the search box */
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0 0; /* Space between search box and suggestions */
+  z-index: 1000;
+  max-height: 400px; /* Limit height */
+  overflow-y: auto; /* Scroll if too many suggestions */
+}
+
+/* Style for individual suggestion items */
+.suggestions-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.suggestions-list li:hover {
+  background: #f1f1f1;
+}
+
+#phone-number {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
