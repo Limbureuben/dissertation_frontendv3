@@ -7,10 +7,10 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 
 const routes: Routes = [
+  { path: 'user-home', component: UserHomeComponent },
   { path: 'user-dashboard', component: UserDashboardComponent},
   { path: 'map-display', component: MapDisplayComponent },
-  { path: 'report-form', component: ReportFormComponent },
-  { path: 'user-home', component: UserHomeComponent },
+  { path: 'report-form', component: ReportFormComponent }
 ];
 
 @NgModule({
