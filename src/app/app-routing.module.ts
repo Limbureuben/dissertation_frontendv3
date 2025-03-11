@@ -10,6 +10,7 @@ import { MapComponent } from './user/map/map.component';
 import { ReportFormComponent } from './user/report-form/report-form.component';
 import { AdminFooterComponent } from './admin/admin-footer/admin-footer.component';
 import { DoughnutChartComponent } from './admin/doughnut-chart/doughnut-chart.component';
+import { CommonHeaderComponent } from './sharing/common-header/common-header.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user-home', pathMatch: 'full'},
@@ -79,6 +80,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) =>m.AdminModule)
   },
+  {
+    path: 'app',
+    component: CommonHeaderComponent,
+    loadChildren: () =>
+      import('./sharing/sharing.module').then((m) =>m.SharingModule)
+  }
 ];
 
 @NgModule({

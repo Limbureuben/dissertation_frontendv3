@@ -22,6 +22,7 @@ import { TranslateModule, TranslateLoader, TranslateModuleConfig } from '@ngx-tr
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
+import { CommonHeaderComponent } from './common-header/common-header.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatMenuModule } from '@angular/material/menu';
     HomepageComponent,
     RegisterComponent,
     OnlineComponent,
+    CommonHeaderComponent,
   ],
   imports: [
     CommonModule,
