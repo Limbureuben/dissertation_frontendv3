@@ -115,13 +115,6 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: 14
       });
 
-      // Removed controls for bottom-left
-      // this.map.addControl(new NavigationControl(), 'bottom-left');
-      // this.map.addControl(new GeolocateControl({
-      //   positionOptions: { enableHighAccuracy: true },
-      //   trackUserLocation: true
-      // }), 'bottom-left');
-
       // Add markers
       this.openSpaces.forEach(space => {
         const markerElement = document.createElement('img');
@@ -139,7 +132,6 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
         popupContent.innerHTML = `
           <h3>${space.name}</h3>
           <p>Location: (${space.lat}, ${space.lng})</p>
-          <button class="report-problem-btn">Report Problem</button>
         `;
 
         const popup = new Popup({ offset: 25 })
@@ -149,11 +141,9 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
 
         popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
           e.stopPropagation();
-          this.openReportForm(space); // Pass the entire space object here
         });
 
         marker.getElement().addEventListener('click', () => {
-          this.openReportForm(space); // Pass the entire space object here
         });
       });
 
@@ -199,46 +189,6 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchQuery = suggestion.name;
     this.map?.flyTo({ center: suggestion.center, zoom: 14 });
     this.suggestions = [];
-  }
-
-  openReportForm(space: any) {
-    const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-    // Set the Location and Region in the span elements
-    (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
-    (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
-
-
-    formContainer.classList.add('open');
-    mapWrap.classList.add('shrink');
-  }
-
-
-
-  closeForm() {
-    const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-    formContainer.classList.remove('open');
-    mapWrap.classList.remove('shrink');
-  }
-
-  submitReport(event: Event) {
-    event.preventDefault();
-
-    const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const description = (formContainer.querySelector('#problem-description') as HTMLTextAreaElement).value;
-    const locationName = (formContainer.querySelector('#location-name') as HTMLInputElement).value;
-    const region = (formContainer.querySelector('#region') as HTMLInputElement).value;
-    const council = (formContainer.querySelector('#council') as HTMLInputElement).value;
-    const district = (formContainer.querySelector('#district') as HTMLInputElement).value;
-
-    // You can now log, send, or process the report
-    alert(`Problem reported at ${locationName} (${region}, ${council}, ${district}). Description: ${description}`);
-
-    // Close the form after submission
-    this.closeForm();
   }
 
 }
