@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,8 +22,13 @@ export class UserHomeComponent {
 
   navigateToCreateAccount() {
     this.showPopup = false;
-    this.router.navigate(['/login'])
+    this.router.navigate(['/register'])
 
+  }
+
+  navigateToLogin() {
+    this.showPopup = false;
+    this.router.navigate(['/login'])
   }
 
   closePopup() {
@@ -34,6 +39,19 @@ export class UserHomeComponent {
     this.showPopup = false;
     this.router.navigate(['/map-display'])
   }
+
+  @ViewChild('chatbotContainer') chatbotContainer!: ElementRef;
+
+    openChat() {
+      if (this.chatbotContainer) {
+        this.chatbotContainer.nativeElement.style.display = 'block';
+
+        // Ensure Elfsight script reloads if needed
+        if ((window as any).eapps) {
+          (window as any).eapps.init();
+        }
+      }
+    }
 
 
 }

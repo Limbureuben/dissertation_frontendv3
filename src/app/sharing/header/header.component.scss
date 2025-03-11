@@ -17,7 +17,8 @@ mat-toolbar::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/assets/images/flag.jpg'); /* Replace with your image URL */
+  background-color: #3f51b5;
+  // background-image: url('/assets/images/flag.jpg'); /* Replace with your image URL */
   background-size: cover;
   background-position: center; /* Adjust image positioning */
   background-repeat: no-repeat;
