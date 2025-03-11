@@ -209,7 +209,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     // Set the Location and Region in the span elements
     (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
     (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
-  
+
 
     formContainer.classList.add('open');
     mapWrap.classList.add('shrink');
