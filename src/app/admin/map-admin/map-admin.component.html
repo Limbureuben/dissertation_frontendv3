@@ -10,8 +10,7 @@
   <div class="admin-form-container" *ngIf="isAdding">
     <h2>Add Open Space</h2>
     <form (submit)="submitOpenSpace()">
-      <label for="name">Open Space Name:</label>
-      <input type="text" id="name" [(ngModel)]="openSpace.name" required>
+   
 
       <label for="region">Region:</label>
       <input type="text" id="region" [(ngModel)]="openSpace.region" required>
