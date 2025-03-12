@@ -9,11 +9,27 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
   templateUrl: './map-admin.component.html',
   styleUrl: './map-admin.component.scss'
 })
-export class MapAdminComponent implements OnInit, AfterViewInit {
+export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
+  openSpace = {
+    name: '',
+    region: '',
+    district: '',
+    lat: 0,
+    lng: 0
+  }
+
+
+  isAdding = false;
   map: Map | undefined;
-  openSpaces: { id: number; lng: number; lat: number; name: string; marker?: Marker }[] = [];
+
+
+  openSpaces: { id: number; lng: number; lat: number; name: string; region: string; district: string; marker?: Marker }[] = [];
   addingMode = false;
-  selectedSpace: any = null;
+  marker: Marker | undefined;
+
+  // Form Data
+  openSpaceForm = { id: 0, name: '', region: '', district: '', lng: '', lat: '' };
+  isFormVisible = false; // Show/Hide the form
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
@@ -22,8 +38,10 @@ export class MapAdminComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
 
-    window.addEventListener('editSpace', (event: any) => this.editOpenSpace(event.detail));
-    window.addEventListener('deleteSpace', (event: any) => this.deleteOpenSpace(event.detail));
+    if (isPlatformBrowser(this.platformId)) {
+      window.addEventListener('editSpace', (event: any) => this.editOpenSpace(event.detail));
+      window.addEventListener('deleteSpace', (event: any) => this.deleteOpenSpace(event.detail));
+    }
   }
 
   ngAfterViewInit() {
@@ -37,7 +55,7 @@ export class MapAdminComponent implements OnInit, AfterViewInit {
 
       this.map.on('click', (event) => {
         if (this.addingMode) {
-          this.addOpenSpace(event.lngLat.lng, event.lngLat.lat);
+          this.placeMarker(event.lngLat.lng, event.lngLat.lat);
         }
       });
     }
@@ -45,26 +63,55 @@ export class MapAdminComponent implements OnInit, AfterViewInit {
 
   enableAddingMode() {
     this.addingMode = true;
-    alert('Click on the map to add a new open space');
+    this.isFormVisible = true;
+    this.openSpaceForm = { id: 0, name: '', region: '', district: '', lng: '', lat: '' };
   }
 
-  addOpenSpace(lng: number, lat: number) {
+  placeMarker(lng: number, lat: number) {
+    if (this.marker) {
+      this.marker.remove();
+    }
+
+    this.marker = new Marker({ color: 'blue' })
+      .setLngLat([lng, lat])
+      .addTo(this.map!);
+
+    // Bind coordinates to the form
+    this.openSpaceForm.lng = lng.toString();
+    this.openSpaceForm.lat = lat.toString();
+  }
+
+  submitOpenSpace() {
     const id = Date.now();
-    const name = prompt('Enter the name of the open space:', 'New Open Space') || 'Unnamed Open Space';
+    const { name, region, district, lng, lat } = this.openSpaceForm;
+
+    if (!name || !region || !district || !lng || !lat) {
+      alert('Please fill in all fields before submitting.');
+      return;
+    }
 
     const marker = new Marker({ color: 'red' })
-      .setLngLat([lng, lat])
+      .setLngLat([parseFloat(lng), parseFloat(lat)])
       .addTo(this.map!);
 
     const popup = new Popup()
       .setHTML(`
         <strong>${name}</strong><br>
-        <button onclick="window.dispatchEvent(new CustomEvent('editSpace', { detail: ${id} }))">✏️ Edit</button>
-        <button onclick="window.dispatchEvent(new CustomEvent('deleteSpace', { detail: ${id} }))">🗑️ Delete</button>
+        ${region}, ${district} <br>
+        <button onclick="if(window) window.dispatchEvent(new CustomEvent('editSpace', { detail: ${id} }))">✏️ Edit</button>
+        <button onclick="if(window) window.dispatchEvent(new CustomEvent('deleteSpace', { detail: ${id} }))">🗑️ Delete</button>
       `);
+
     marker.setPopup(popup);
 
-    this.openSpaces.push({ id, lng, lat, name, marker });
+    this.openSpaces.push({ id, lng: parseFloat(lng), lat: parseFloat(lat), name, region, district, marker });
+
+    this.isFormVisible = false;
+    this.addingMode = false;
+  }
+
+  cancelAdding() {
+    this.isFormVisible = false;
     this.addingMode = false;
   }
 
@@ -77,8 +124,8 @@ export class MapAdminComponent implements OnInit, AfterViewInit {
         space.marker?.setPopup(
           new Popup().setHTML(`
             <strong>${newName}</strong><br>
-            <button onclick="window.dispatchEvent(new CustomEvent('editSpace', { detail: ${id} }))">✏️ Edit</button>
-            <button onclick="window.dispatchEvent(new CustomEvent('deleteSpace', { detail: ${id} }))">🗑️ Delete</button>
+            <button onclick="if(window) window.dispatchEvent(new CustomEvent('editSpace', { detail: ${id} }))">✏️ Edit</button>
+            <button onclick="if(window) window.dispatchEvent(new CustomEvent('deleteSpace', { detail: ${id} }))">🗑️ Delete</button>
           `)
         );
       }
@@ -94,7 +141,9 @@ export class MapAdminComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    window.removeEventListener('editSpace', (event: any) => this.editOpenSpace(event.detail));
-    window.removeEventListener('deleteSpace', (event: any) => this.deleteOpenSpace(event.detail));
+    if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('editSpace', (event: any) => this.editOpenSpace(event.detail));
+      window.removeEventListener('deleteSpace', (event: any) => this.deleteOpenSpace(event.detail));
+    }
   }
 }

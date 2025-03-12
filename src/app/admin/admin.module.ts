@@ -21,6 +21,7 @@ import { MapComponent } from '../user/map/map.component';
 import { MapDisplayComponent } from '../user/map-display/map-display.component';
 import { SharingModule } from '../sharing/sharing.module';
 import { MapAdminComponent } from './map-admin/map-admin.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MapAdminComponent } from './map-admin/map-admin.component';
     MatMenuModule,
     MatProgressBarModule,
     UserModule,
-    SharingModule
+    SharingModule,
+    FormsModule
   ]
 })
 export class AdminModule { }
