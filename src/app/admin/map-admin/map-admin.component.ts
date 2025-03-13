@@ -10,13 +10,7 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
   styleUrl: './map-admin.component.scss'
 })
 export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
-  openSpace = {
-    name: '',
-    region: '',
-    district: '',
-    lat: 0,
-    lng: 0
-  }
+
 
 
   isAdding = false;
