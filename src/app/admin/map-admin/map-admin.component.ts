@@ -28,7 +28,7 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
   marker: Marker | undefined;
 
   // Form Data
-  openSpaceForm = { id: 0, name: '', region: '', district: '', lng: '', lat: '' };
+
   isFormVisible = false; // Show/Hide the form
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
