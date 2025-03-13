@@ -19,7 +19,8 @@ export class MapAdminComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  
+  isAdding = false;
+  map: Map | undefined;
 
 
   openSpaces: { id: number; lng: number; lat: number; name: string; region: string; district: string; marker?: Marker }[] = [];
