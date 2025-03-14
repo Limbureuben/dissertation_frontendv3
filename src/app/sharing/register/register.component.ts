@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showForm = true; // Ensure the form is visible when the component is initialized
+    this.showForm = true;
   }
 
   // Password strength validation
