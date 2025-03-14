@@ -19,10 +19,10 @@
     <button class="close-btn" (click)="closeForm()">✖</button>
     <h2>Add Open Space</h2>
     <form [formGroup]="addOpenspace" (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="Openspace Name" [(ngModel)]="region">
-    <input type="text" placeholder="Latitude" [(ngModel)]="lat">
-    <input type="text" placeholder="Longitude" [(ngModel)]="lng">
-    <select id="district" [(ngModel)]="district" required placeholder="District">
+    <input type="text" placeholder="Openspace" formControlName="name">
+    <input type="text" placeholder="Latitude" formControlName="latitude">
+    <input type="text" placeholder="Longitude" formControlName="longitude">
+    <select id="district" formControlName="district" required placeholder="District">
       <option value="" disabled selected>Select District</option>
       <option *ngFor="let d of districts" [value]="d">{{ d }}</option>
     </select>

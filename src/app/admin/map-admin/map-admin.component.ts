@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, Output } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Map, Marker, config } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { OpenspaceService } from '../../service/openspace.service';
+import { OpenSpaceRegisterData, OpenspaceService } from '../../service/openspace.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-map-admin',
@@ -81,17 +82,37 @@ export class MapAdminComponent implements OnInit {
   }
 
   onSubmit() {
-    this.closeForm();
+    if(this.addOpenspace.invalid) {
+      this.addOpenspace.markAllAsTouched();
+      return;
+    }
+
+    const openspaceData: OpenSpaceRegisterData = {
+      name: this.addOpenspace.value.name,
+      latitude: parseFloat(this.addOpenspace.value.latitude),
+      longitude: parseFloat(this.addOpenspace.value.longitude),
+      district: this.addOpenspace.value.district
+    };
+
+    console.log("Data being sent to mutation:", openspaceData);
+
+    this.openService.addSpace(openspaceData).subscribe({
+      next: (result) => {
+        console.log('GraphQL Response:', result);
+        const response = result.data.addSpace.output;
+
+        if(response.success) {
+          this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
+
+          this.closeForm();
+        }
+      },
+      error: (error) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Error', { positionClass: 'toast-top-right' });
+      }
+
+    })
   }
-
-
-
-
-
-
-
-
-
 
   enableAddingMode() {
     this.showForm = true;
