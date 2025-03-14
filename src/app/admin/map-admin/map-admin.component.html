@@ -18,6 +18,7 @@
   <div class="admin-form-container" *ngIf="showForm">
     <button class="close-btn" (click)="closeForm()">✖</button>
     <h2>Add Open Space</h2>
+    <form [formGroup]="addOpenspace" (ngSubmit)="onSubmit()">
     <input type="text" placeholder="Openspace Name" [(ngModel)]="region">
     <input type="text" placeholder="Latitude" [(ngModel)]="lat">
     <input type="text" placeholder="Longitude" [(ngModel)]="lng">
@@ -25,7 +26,8 @@
       <option value="" disabled selected>Select District</option>
       <option *ngFor="let d of districts" [value]="d">{{ d }}</option>
     </select>
-    <button class="submit-btn" (click)="submitForm()">Submit</button>
+    <button class="submit-btn">Submit</button>
+  </form>
   </div>
 
   <div class="map" #map></div>

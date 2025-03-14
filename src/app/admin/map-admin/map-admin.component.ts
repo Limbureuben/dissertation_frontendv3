@@ -3,6 +3,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { Map, Marker, config } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { OpenspaceService } from '../../service/openspace.service';
 
 @Component({
   selector: 'app-map-admin',
@@ -22,11 +25,26 @@ export class MapAdminComponent implements OnInit {
   clickedLat: number | null = null;
   clickedLng: number | null = null;
 
+  addOpenspace: FormGroup;
+
   districts: string[] = ['Kinondoni', 'Ilala', 'Ubungo', 'Temeke', 'Kigamboni'];
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private openService: OpenspaceService
+  ) {
+    this.addOpenspace = this.fb.group({
+      name: ['', Validators.required],
+      latitude: ['', Validators.required],
+      longitude: ['', Validators.required],
+      district: ['', Validators.required]
+    })
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -55,13 +73,25 @@ export class MapAdminComponent implements OnInit {
           this.marker.remove();
         }
 
-        // Create a small black marker and add it to the map
-        this.marker = new Marker({ color: 'black', scale: 0.6 }) // Small black marker
+        this.marker = new Marker({ color: 'black', scale: 0.6 })
           .setLngLat([lng, lat])
           .addTo(this.map!);
       });
     }
   }
+
+  onSubmit() {
+    this.closeForm();
+  }
+
+
+
+
+
+
+
+
+
 
   enableAddingMode() {
     this.showForm = true;
@@ -69,17 +99,6 @@ export class MapAdminComponent implements OnInit {
 
   closeForm() {
     this.showForm = false;
-  }
-
-  submitForm() {
-    console.log('Open Space Data:', {
-      latitude: this.lat,
-      longitude: this.lng,
-      region: this.region,
-      district: this.district
-    });
-
-    this.closeForm();
   }
 
   goBack() {
