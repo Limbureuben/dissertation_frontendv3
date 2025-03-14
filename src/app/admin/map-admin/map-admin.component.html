@@ -7,15 +7,25 @@
     <button class="add-btn" (click)="enableAddingMode()">➕</button>
   </div>
 
+  <div class="coordinates">
+    <p *ngIf="clickedLat && clickedLng">
+      Lat: {{ clickedLat.toFixed(6) }}, Lng: {{ clickedLng.toFixed(6) }}
+    </p>
+  </div>
+
+
   <!-- Pop-up Form -->
   <div class="admin-form-container" *ngIf="showForm">
+    <button class="close-btn" (click)="closeForm()">✖</button>
     <h2>Add Open Space</h2>
+    <input type="text" placeholder="Openspace Name" [(ngModel)]="region">
     <input type="text" placeholder="Latitude" [(ngModel)]="lat">
     <input type="text" placeholder="Longitude" [(ngModel)]="lng">
-    <input type="text" placeholder="Region" [(ngModel)]="region">
-    <input type="text" placeholder="District" [(ngModel)]="district">
+    <select id="district" [(ngModel)]="district" required placeholder="District">
+      <option value="" disabled selected>Select District</option>
+      <option *ngFor="let d of districts" [value]="d">{{ d }}</option>
+    </select>
     <button class="submit-btn" (click)="submitForm()">Submit</button>
-    <button class="cancel-btn" (click)="closeForm()">Cancel</button>
   </div>
 
   <div class="map" #map></div>
