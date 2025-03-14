@@ -5,28 +5,3 @@
   </div>
 
   <div class="map" #map ></div>
-
-  <!-- Open Space Form -->
-  <div class="admin-form-container" *ngIf="isAdding">
-    <h2>Add Open Space</h2>
-    <form (submit)="submitOpenSpace()">
-      <label for="name">Open Space Name:</label>
-      <input type="text" id="name" [(ngModel)]="openSpace.name" required>
-
-      <label for="region">Region:</label>
-      <input type="text" id="region" [(ngModel)]="openSpace.region" required>
-
-      <label for="district">District:</label>
-      <input type="text" id="district" [(ngModel)]="openSpace.district" required>
-
-      <label for="latitude">Latitude:</label>
-      <input type="text" id="latitude" [(ngModel)]="openSpaceForm.lat" readonly>
-
-      <label for="longitude">Longitude:</label>
-      <input type="text" id="longitude" [(ngModel)]="openSpaceForm.lng" readonly>
-
-      <button type="submit">Submit</button>
-      <button type="button" (click)="cancelAdding()">Cancel</button>
-    </form>
-  </div>
-</div>

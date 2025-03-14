@@ -11,7 +11,7 @@ export class AdminDashboardComponent {
   constructor(private router: Router) {}
 
   navigateToMap() {
-    this.router.navigate(['/map-display'])
+    this.router.navigate(['/map-common'])
   }
 
 }
