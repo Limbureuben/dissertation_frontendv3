@@ -1,7 +1,22 @@
 <div class="map-wrap">
+  <!-- Back Button -->
+  <button class="back-btn" (click)="goBack()">⬅</button>
+
   <!-- Buttons for Admin Actions -->
   <div class="admin-controls">
     <button class="add-btn" (click)="enableAddingMode()">➕</button>
   </div>
 
-  <div class="map" #map ></div>
+  <!-- Pop-up Form -->
+  <div class="admin-form-container" *ngIf="showForm">
+    <h2>Add Open Space</h2>
+    <input type="text" placeholder="Latitude" [(ngModel)]="lat">
+    <input type="text" placeholder="Longitude" [(ngModel)]="lng">
+    <input type="text" placeholder="Region" [(ngModel)]="region">
+    <input type="text" placeholder="District" [(ngModel)]="district">
+    <button class="submit-btn" (click)="submitForm()">Submit</button>
+    <button class="cancel-btn" (click)="closeForm()">Cancel</button>
+  </div>
+
+  <div class="map" #map></div>
+</div>
