@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { gql } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 export interface OpenSpaceRegisterData{
@@ -34,6 +35,17 @@ export const ADD_OPENSPACE = gql`
   }
 `;
 
+export const GET_ALL_OPENSPACES = gql`
+  query {
+    allOpenSpaces {
+      name
+      longitude
+      latitude
+      district
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,4 +64,13 @@ export class OpenspaceService {
       }
     })
   }
+
+  getAllOpenSpaces(): Observable<any> {
+    return this.apollo
+      .watchQuery({
+        query: GET_ALL_OPENSPACES
+      })
+      .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
+  }
+
 }
