@@ -59,9 +59,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   addMarkersToMap(): void {
     this.openSpaces.forEach(space => {
       const markerElement = document.createElement('img');
-      markerElement.src = 'assets/images/openspace.png';
-      markerElement.style.width = '40px';
-      markerElement.style.height = '40px';
+      markerElement.src = 'assets/images/location.png';
+      markerElement.style.width = '25px';
+      markerElement.style.height = '25px';
 
       const marker = new Marker({ element: markerElement })
         .setLngLat([space.longitude, space.latitude])
