@@ -19,7 +19,7 @@
     <button class="close-btn" (click)="closeForm()">✖</button>
     <h2>Add Open Space</h2>
     <form [formGroup]="addOpenspace" (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="Openspace" formControlName="name">
+    <input type="text" placeholder="Openspace name" formControlName="name">
     <input type="text" placeholder="Latitude" formControlName="latitude">
     <input type="text" placeholder="Longitude" formControlName="longitude">
     <select id="district" formControlName="district" required placeholder="District">

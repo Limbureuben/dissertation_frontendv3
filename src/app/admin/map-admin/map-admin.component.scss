@@ -11,7 +11,7 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #dc3545;
+  background-color: #3f51b5;
   color: white;
   border: none;
   border-radius: 50%;
@@ -28,7 +28,7 @@
 }
 
 .back-btn:hover {
-  background-color: #b02a37;
+  background-color: #3f51b5;
   transform: scale(1.1);
 }
 
@@ -121,5 +121,5 @@ select {
 }
 
 .close-btn:hover {
-  color: red;
+  color: #3f51b5;
 }
