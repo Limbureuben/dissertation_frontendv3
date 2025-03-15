@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
+import { Apollo, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ADD_OPENSPACE, GET_ALL_OPENSPACES } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES } from '../graphql';
 
 
 export interface OpenSpaceRegisterData{
@@ -43,6 +43,13 @@ export class OpenspaceService {
     return this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
       map((result: any) => result.data.allOpenSpaces)
     );
+  }
+
+  deleteOpenSpace(id: string): Observable<MutationResult<{ deleteOpenSpace: { message: string; success: boolean } }>> {
+    return this.apollo.mutate({
+      mutation: DELETE_OPEN_SPACE,
+      variables: { id: id },
+    });
   }
 
 }

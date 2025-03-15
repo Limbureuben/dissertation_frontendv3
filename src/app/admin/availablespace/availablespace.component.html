@@ -11,7 +11,7 @@
       <h2 class="table-title">Open Spaces</h2>
 
       <table mat-table [dataSource]="openSpaces" class="mat-elevation-z8 custom-table">
-        
+
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -44,7 +44,7 @@
             <button mat-icon-button color="primary" (click)="editOpenSpace()">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteOpenSpace()">
+            <button mat-icon-button color="warn" (click)="deleteOpenSpace(space.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
