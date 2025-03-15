@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { OpenspaceService } from '../../service/openspace.service';
 
 @Component({
   selector: 'app-availablespace',
@@ -6,6 +7,28 @@ import { Component } from '@angular/core';
   templateUrl: './availablespace.component.html',
   styleUrl: './availablespace.component.scss'
 })
-export class AvailablespaceComponent {
+export class AvailablespaceComponent implements OnInit{
 
+  openSpaces: any[] = [];
+
+  constructor(private openSpaceService: OpenspaceService) {}
+
+  ngOnInit(): void {
+    this.loadOpenSpaces();
+  }
+
+  loadOpenSpaces() {
+    this.openSpaceService.getOpenSpaces().subscribe((data) => {
+      this.openSpaces = data;
+    });
+  }
+
+
+  editOpenSpace() {
+
+  }
+
+  deleteOpenSpace() {
+
+  }
 }

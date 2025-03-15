@@ -23,6 +23,7 @@ import { SharingModule } from '../sharing/sharing.module';
 import { MapAdminComponent } from './map-admin/map-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvailablespaceComponent } from './availablespace/availablespace.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { AvailablespaceComponent } from './availablespace/availablespace.compone
     DoughnutChartComponent,
     MapCommonComponent,
     MapAdminComponent,
-    AvailablespaceComponent
+    AvailablespaceComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +51,8 @@ import { AvailablespaceComponent } from './availablespace/availablespace.compone
     UserModule,
     SharingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ]
 })
 export class AdminModule { }

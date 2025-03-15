@@ -11,7 +11,7 @@
 }
 
 .logo img {
-  height: 290px; /* Adjust logo size for balance */
+  height: 200px; /* Adjust logo size for balance */
   width: auto;
   max-width: 100%; /* Ensure the logo is responsive */
 }
@@ -123,6 +123,7 @@ h2 {
   font-size: 25px;
   color: white;
   justify-content: left;
+  margin-left: -20px;
 }
 
 .title h6 {
@@ -134,7 +135,6 @@ h2 {
 @media screen and (max-width: 768px) {
   .header {
     flex-direction: column;
-    justify-content: center;
     height: auto; /* Allow header to shrink on small screens */
     padding: 20px;
   }
