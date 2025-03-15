@@ -90,3 +90,23 @@ mat-sidenav-content {
   margin-left: 30px;
   background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
 }
+
+/* Reduce index column width */
+/* Minimize index column width */
+/* Reduce index column width */
+th.mat-header-cell.index-column,
+td.mat-cell.index-column {
+  width: 30px; /* Adjust as needed */
+  min-width: 30px;
+  max-width: 30px;
+  padding: 4px;
+  text-align: center;
+}
+
+/* Reduce left padding of the second column */
+th.mat-header-cell:first-of-type + th,
+td.mat-cell:first-of-type + td {
+  padding-left: 8px !important; /* Reduce padding */
+}
+
+
