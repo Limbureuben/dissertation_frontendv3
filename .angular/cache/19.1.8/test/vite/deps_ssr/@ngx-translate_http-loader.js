@@ -1,16 +1,16 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   HttpClient
-} from "./chunk-E64DKFUU.js";
-import "./chunk-NOTTSP7O.js";
+} from "./chunk-JQNF3BTU.js";
+import "./chunk-HXJ7X2OY.js";
 import {
   Inject,
   Injectable,
   setClassMetadata,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-RFV4JMOR.js";
-import "./chunk-MTN4YCJ2.js";
+} from "./chunk-62OHGUHT.js";
+import "./chunk-VKJO5GQP.js";
 import "./chunk-YHCV7DAQ.js";
 
 // node_modules/@ngx-translate/http-loader/fesm2022/ngx-translate-http-loader.mjs

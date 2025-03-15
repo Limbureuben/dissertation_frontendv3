@@ -10,6 +10,7 @@ import { OpenspaceService } from '../../service/openspace.service';
 export class AvailablespaceComponent implements OnInit{
 
   openSpaces: any[] = [];
+  displayedColumns: string[] = ['name', 'district', 'latitude', 'longitude', 'actions']; // Define displayed columns
 
   constructor(private openSpaceService: OpenspaceService) {}
 
