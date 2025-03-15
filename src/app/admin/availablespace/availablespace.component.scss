@@ -1,12 +1,15 @@
 /* Container */
 .table-container {
-  max-width: 70%;
+  width: 98%;
+  max-width: 100%;
   margin: 20px auto;
+  margin-right: 40px;
   padding: 20px;
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin-top: 100px;
+  margin-top: 10px;
+  overflow-x: auto; /* Allows scrolling if needed */
 }
 
 /* Title */
@@ -20,9 +23,23 @@
 
 /* Custom Table Styling */
 .custom-table {
-  width: 100%;
+  width: 100%; /* Ensures it takes full width */
+  max-width: 100%; /* Prevents overflow */
   border-radius: 8px;
   overflow: hidden;
+  table-layout: fixed; /* Ensures equal column spacing */
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  padding: 16px;
+  min-width: 150px; /* Adjust this value to widen columns */
+}
+
+/* Ensure buttons align properly */
+button.mat-icon-button {
+  margin: 0 5px;
+  min-width: 36px;
 }
 
 /* Header Row */
