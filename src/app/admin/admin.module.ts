@@ -57,7 +57,7 @@ import { OpenspaceService } from '../service/openspace.service';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
- 
+    StoreModule.forFeature('openSpace', openSpaceReducer),
 
   ],
 })
