@@ -42,3 +42,4 @@ export const DELETE_OPEN_SPACE = gql`
     }
   }
 `;
+

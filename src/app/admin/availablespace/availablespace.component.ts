@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
+import { response } from 'express';
 
 @Component({
   selector: 'app-availablespace',
@@ -34,23 +35,26 @@ export class AvailablespaceComponent implements OnInit{
   }
 
   deleteOpenSpace(id: string) {
+    if (!id) {
+      console.error('Error: ID is undefined or null'); // Debugging
+      return;
+    }
+
     if (confirm('Are you sure you want to delete this open space?')) {
-      this.openSpaceService.deleteOpenSpace(id).subscribe({
-        next: (response) => {
-          if (response.data?.deleteOpenSpace?.success) {
-            this.toastr.success('Open space deleted successfully!', 'Success', {
-              positionClass: 'toast-top-right',
-            });
-            this.loadOpenSpaces(); // Refresh table
+      this.openSpaceService.deleteOpenSpace(id).subscribe(
+        (response) => {
+          console.log('GraphQL Response:', response); // Debugging log
+          if (response.data.deleteOpenSpace.success) {
+            console.log('Deleted:', response.data.deleteOpenSpace.message);
+            this.openSpaces = this.openSpaces.filter(space => space.id !== id);
           } else {
-            this.toastr.error('Failed to delete open space.', 'Error');
+            console.error('Deletion failed:', response.data.deleteOpenSpace.message);
           }
         },
-        error: (err) => {
-          console.error('Delete Error:', err);
-          this.toastr.error('An error occurred while deleting.', 'Error');
+        (error) => {
+          console.error('GraphQL Error:', error);
         }
-      });
+      );
     }
   }
 

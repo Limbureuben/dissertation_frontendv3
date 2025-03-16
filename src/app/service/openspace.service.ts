@@ -45,10 +45,12 @@ export class OpenspaceService {
     );
   }
 
-  deleteOpenSpace(id: string): Observable<MutationResult<{ deleteOpenSpace: { message: string; success: boolean } }>> {
+  deleteOpenSpace(id: string): Observable<any> {
+    console.log('Attempting to delete open space with ID:', id); // Debug log
+
     return this.apollo.mutate({
       mutation: DELETE_OPEN_SPACE,
-      variables: { id: id },
+      variables: { id } // Ensure this is passed
     });
   }
 
