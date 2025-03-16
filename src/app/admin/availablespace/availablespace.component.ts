@@ -34,29 +34,50 @@ export class AvailablespaceComponent implements OnInit{
 
   }
 
-  deleteOpenSpace(id: string) {
-    if (!id) {
-      console.error('Error: ID is undefined or null'); // Debugging
-      return;
-    }
+  deleteOpenSpace(id: string): void {
+    console.log("Deleting OpenSpace with ID:", id); // Debugging log
 
-    if (confirm('Are you sure you want to delete this open space?')) {
-      this.openSpaceService.deleteOpenSpace(id).subscribe(
-        (response) => {
-          console.log('GraphQL Response:', response); // Debugging log
-          if (response.data.deleteOpenSpace.success) {
-            console.log('Deleted:', response.data.deleteOpenSpace.message);
-            this.openSpaces = this.openSpaces.filter(space => space.id !== id);
-          } else {
-            console.error('Deletion failed:', response.data.deleteOpenSpace.message);
-          }
-        },
-        (error) => {
-          console.error('GraphQL Error:', error);
+    this.openSpaceService.deleteOpenSpace(id).subscribe({
+      next: (response) => {
+        if(response.data.deleteOpenSpace.success) {
+          this.toastr.success('OpenSpace deleted successfully!', 'Success', {
+            positionClass: 'toast-top-right',
+          });
+          this.openSpaces = this.openSpaces.filter((space) => space.id !== id);
+        } else {
+          this.toastr.error('OpenSpace delete failed!', 'Error', {
+            positionClass: 'toast-top-right',
+          });
         }
-      );
-    }
-  }
+      },
+      error: () => {
+        this.toastr.error('An error occurred while deleting OpenSpace!', 'Error', {
+          positionClass: 'toast-top-right',
+        });
+      }
+    });
+}
 
 
+  // deleteOpenSpace(id: string): void {
+  //   this.openSpaceService.deleteOpenSpace(id).subscribe({
+  //     next: (response) => {
+  //       if(response.data.deleteOpenSpace.success) {
+  //         this.toastr.success('Message deleted successfully!', 'Success', {
+  //           positionClass: 'toast-top-right',
+  //         });
+  //         this.openSpaces = this.openSpaces.filter((space) => space.id !== id);
+  //       } else {
+  //         this.toastr.error('Message delete failed!', 'Error', {
+  //           positionClass: 'toast-top-right',
+  //         });
+  //       }
+  //     },
+  //     error: () => {
+  //       this.toastr.error('An error occured while delete message!', 'Error', {
+  //         positionClass: 'toast-top-right',
+  //       });
+  //     }
+  //   })
+  // }
 }

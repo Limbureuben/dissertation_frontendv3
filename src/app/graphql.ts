@@ -26,6 +26,7 @@ export const ADD_OPENSPACE = gql`
 export const GET_ALL_OPENSPACES = gql`
   query {
     allOpenSpaces {
+      id
       name
       longitude
       latitude
@@ -34,8 +35,17 @@ export const GET_ALL_OPENSPACES = gql`
   }
 `;
 
+// export const DELETE_OPEN_SPACE = gql`
+//   mutation DeleteOpenSpace($id: ID!) {
+//     deleteOpenSpace(id: $id) {
+//       message
+//       success
+//     }
+//   }
+// `;
+
 export const DELETE_OPEN_SPACE = gql`
-  mutation DeleteOpenSpace($id: ID!) {
+  mutation MyMutation($id: ID!) {
     deleteOpenSpace(id: $id) {
       message
       success
