@@ -5,7 +5,11 @@ import {
   OverlayConfig,
   OverlayModule,
   TemplatePortal
-} from "./chunk-L3RFG4ST.js";
+} from "./chunk-LZZ42GQA.js";
+import {
+  CdkScrollableModule
+} from "./chunk-AQEFPNVE.js";
+import "./chunk-Z2MIY2AQ.js";
 import {
   DOWN_ARROW,
   ENTER,
@@ -25,10 +29,6 @@ import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
 } from "./chunk-F4MBN6Z6.js";
-import {
-  CdkScrollableModule
-} from "./chunk-AQEFPNVE.js";
-import "./chunk-Z2MIY2AQ.js";
 import {
   Directionality
 } from "./chunk-JCHERVQZ.js";

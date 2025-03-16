@@ -3,7 +3,7 @@ import {
   ApolloClient,
   NetworkStatus,
   gql
-} from "./chunk-HB3UPSUQ.js";
+} from "./chunk-JQN5MLH4.js";
 import {
   Inject,
   Injectable,

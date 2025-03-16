@@ -1,8 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  MatCommonModule
-} from "./chunk-F4MBN6Z6.js";
-import {
   ScrollingModule,
   ViewportRuler
 } from "./chunk-AQEFPNVE.js";
@@ -14,6 +11,9 @@ import {
   _ViewRepeaterOperation,
   isDataSource
 } from "./chunk-Z2MIY2AQ.js";
+import {
+  MatCommonModule
+} from "./chunk-F4MBN6Z6.js";
 import {
   Directionality
 } from "./chunk-JCHERVQZ.js";

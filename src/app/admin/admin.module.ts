@@ -25,6 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvailablespaceComponent } from './availablespace/availablespace.component';
 import { MatTableModule } from '@angular/material/table';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { openSpaceReducer } from '../State/open-space.reducer';
+import { OpenspaceService } from '../service/openspace.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,9 @@ import { MatTableModule } from '@angular/material/table';
     SharingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule
-  ]
+    MatTableModule,
+    StoreModule.forFeature('openSpace', openSpaceReducer),
+
+  ],
 })
 export class AdminModule { }

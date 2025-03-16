@@ -16562,8 +16562,8 @@ gql["default"] = gql;
 setVerbosity(globalThis.__DEV__ !== false ? "log" : "silent");
 
 export {
-  print,
   setVerbosity,
+  print,
   makeReference,
   isReference,
   DocumentTransform,
@@ -16609,4 +16609,4 @@ export {
   enableExperimentalFragmentVariables,
   disableExperimentalFragmentVariables
 };
-//# sourceMappingURL=chunk-7AMKK2WY.js.map
+//# sourceMappingURL=chunk-NWGHBZE5.js.map

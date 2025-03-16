@@ -20,9 +20,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
 import { MatOptionModule } from '@angular/material/core';
+import { StoreModule } from '@ngrx/store';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { openSpaceReducer } from './State/open-space.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { OpenspaceService } from './service/openspace.service';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,12 +66,15 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    StoreModule.forRoot({ openSpace: openSpaceReducer }), // Register reducer
+ 
   ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideAnimations(),
     provideHttpClient(withFetch()),
+    OpenspaceService
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

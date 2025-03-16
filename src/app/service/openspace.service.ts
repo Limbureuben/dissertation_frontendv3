@@ -41,7 +41,10 @@ export class OpenspaceService {
 
   getOpenSpaces(): Observable<any> {
     return this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
-      map((result: any) => result.data.allOpenSpaces)
+      map((result: any) => {
+        console.log('GraphQL Data:', result.data.allOpenSpaces);
+        return result.data.allOpenSpaces;
+      })
     );
   }
 
