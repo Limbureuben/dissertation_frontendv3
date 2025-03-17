@@ -37,20 +37,8 @@ export class OpenspaceService {
     this.loadOpenSpaces();
   }
 
-  // addSpace(openData: OpenSpaceRegisterData): Observable<any> {
-  //   return this.apollo.mutate({
-  //     mutation: ADD_OPENSPACE,
-  //     variables: {
-  //       name: openData.name,
-  //       latitude: openData.latitude,
-  //       longitude: openData.longitude,
-  //       district: openData.district
-  //     }
-  //   })
-  // }
-
   addSpace(openData: OpenSpaceRegisterData): Observable<any> {
-    return this.apollo.mutate<{ addOpenSpace: any }>({
+    return this.apollo.mutate<{ addOpenSpace: { openspace: any } }>({
       mutation: ADD_OPENSPACE,
       variables: {
         name: openData.name,
@@ -58,23 +46,13 @@ export class OpenspaceService {
         longitude: openData.longitude,
         district: openData.district
       },
-      update: (cache) => {
-        const existingCount: any = cache.readQuery({ query: GET_MESSAGE_COUNT });
-        cache.writeQuery({
-          query: GET_MESSAGE_COUNT,
-          data: { totalOpenspaces: (existingCount?.totalOpenspaces || 0) + 1 },
-        });
-      }
+      refetchQueries: [
+        { query: GET_ALL_OPENSPACES_ADMIN }, //regresh list ya admin
+        { query: GET_MESSAGE_COUNT } //refresh list ya number
+      ]
     });
   }
 
-  // getAllOpenSpaces(): Observable<any> {
-  //   return this.apollo
-  //     .watchQuery({
-  //       query: GET_ALL_OPENSPACES
-  //     })
-  //     .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
-  // }
 
   getAllOpenSpacesUser(): Observable<any[]> {
     return this.apollo
@@ -94,7 +72,7 @@ export class OpenspaceService {
 
   loadOpenSpaces() {
     this.apollo.watchQuery({ query: GET_ALL_OPENSPACES_ADMIN }).valueChanges.pipe(
-      map((result: any) => result.data.allOpenSpaces)
+      map((result: any) => result.data.allOpenSpacesAdmin)
     ).subscribe((data) => {
       this.openSpacesSubject.next(data);
     });
@@ -104,10 +82,10 @@ export class OpenspaceService {
   //   return this.openSpaces$;
   // }
   getOpenSpaces(): Observable<any[]> {
-    return this.apollo.watchQuery<{ allOpenSpaces: any[] }>({
+    return this.apollo.watchQuery<{ allOpenSpacesAdmin: any[] }>({
       query: GET_ALL_OPENSPACES_ADMIN,
     })
-    .valueChanges.pipe(map(result => result.data.allOpenSpaces));
+    .valueChanges.pipe(map(result => result.data.allOpenSpacesAdmin));
   }
 
   deleteOpenSpace(id: string): Observable<any> {
@@ -115,16 +93,30 @@ export class OpenspaceService {
       mutation: DELETE_OPEN_SPACE,
       variables: { id },
       update: (cache) => {
+        // Update the list of open spaces
         const existingData: any = cache.readQuery({ query: GET_ALL_OPENSPACES_ADMIN });
-        cache.writeQuery({
-          query: GET_ALL_OPENSPACES_ADMIN,
-          data: {
-            allOpenSpaces: existingData.allOpenSpaces.filter((space: any) => space.id !== id),
-          },
-        });
+        if (existingData) {
+          cache.writeQuery({
+            query: GET_ALL_OPENSPACES_ADMIN,
+            data: {
+              allOpenSpacesAdmin: existingData.allOpenSpacesAdmin.filter((space: any) => space.id !== id),
+            },
+          });
+        }
+        // Update the open space count
+        const existingCountData: any = cache.readQuery({ query: GET_MESSAGE_COUNT });
+        if (existingCountData) {
+          cache.writeQuery({
+            query: GET_MESSAGE_COUNT,
+            data: {
+              totalOpenspaces: Math.max(0, existingCountData.totalOpenspaces - 1), // Decrease count
+            },
+          });
+        }
       },
     });
   }
+
 
   getOpenspaceCount(): Observable<any> {
     return this.apollo.watchQuery<{ totalOpenspaces: number }>({

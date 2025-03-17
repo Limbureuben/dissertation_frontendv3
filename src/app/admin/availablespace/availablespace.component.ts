@@ -47,8 +47,8 @@ export class AvailablespaceComponent implements OnInit{
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator; // Assign paginator
-    this.dataSource.sort = this.sort; // Assign sorting
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
