@@ -71,15 +71,17 @@ mat-sidenav-content {
 
 .stat-card {
   width: 320px;
-  height: 120px; /* Set a fixed height */
+  height: 130px; /* Set a fixed height */
   padding: 12px; /* Reduce padding */
   border-radius: 2px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   color: white;
   transition: transform 0.3s ease-in-out;
   position: relative;
   overflow: hidden;
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   justify-content: center; /* Centers content vertically */
 }
@@ -130,7 +132,8 @@ mat-progress-bar {
 
 /* Hover effect */
 .stat-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05); /* Increases size slightly */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Adds depth */
 }
 
 /* Chart Section */
@@ -179,5 +182,25 @@ mat-progress-bar {
     height: 250px;
   }
 }
+
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes icon and number to opposite ends */
+  padding: 10px;
+}
+
+.card-icon {
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
+
 
 

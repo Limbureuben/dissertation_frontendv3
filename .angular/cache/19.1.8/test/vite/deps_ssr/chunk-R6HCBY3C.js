@@ -1,9 +1,10 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   MatCommonModule
-} from "./chunk-JFGHRC6X.js";
+} from "./chunk-PHYZLN3B.js";
 import {
   coerceBooleanProperty
-} from "./chunk-72PB5C4S.js";
+} from "./chunk-BZN5JMO3.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +17,7 @@ import {
   ɵɵdefineComponent,
   ɵɵdefineInjector,
   ɵɵdefineNgModule
-} from "./chunk-ZZXS4UXX.js";
+} from "./chunk-ZMU7LZMM.js";
 
 // node_modules/@angular/material/fesm2022/divider.mjs
 var MatDivider = class _MatDivider {
@@ -117,4 +118,4 @@ export {
   MatDivider,
   MatDividerModule
 };
-//# sourceMappingURL=chunk-4GCJODK4.js.map
+//# sourceMappingURL=chunk-R6HCBY3C.js.map
