@@ -28,6 +28,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { openSpaceReducer } from './State/open-space.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OpenspaceService } from './service/openspace.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -58,6 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatPaginatorModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -67,7 +69,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     StoreModule.forRoot({ openSpace: openSpaceReducer }), // Register reducer
- 
+
   ],
   providers: [
     provideClientHydration(withEventReplay()),

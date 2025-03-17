@@ -29,6 +29,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { openSpaceReducer } from '../State/open-space.reducer';
 import { OpenspaceService } from '../service/openspace.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,9 @@ import { OpenspaceService } from '../service/openspace.service';
     UserModule,
     SharingModule,
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
     ReactiveFormsModule,
     MatTableModule,
     StoreModule.forFeature('openSpace', openSpaceReducer),

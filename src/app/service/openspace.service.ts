@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT } from '../graphql';
 
@@ -16,8 +16,12 @@ export interface OpenSpaceRegisterData{
   providedIn: 'root'
 })
 export class OpenspaceService {
+  private openSpacesSubject = new BehaviorSubject<any[]>([]);
+  openSpaces$ = this.openSpacesSubject.asObservable();
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {
+    this.loadOpenSpaces();
+  }
 
   addSpace(openData: OpenSpaceRegisterData): Observable<any> {
     return this.apollo.mutate({
@@ -39,19 +43,42 @@ export class OpenspaceService {
       .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
   }
 
-  getOpenSpaces(): Observable<any> {
-    return this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
-      map((result: any) => {
-        return result.data.allOpenSpaces;
-      })
-    );
+  loadOpenSpaces() {
+    this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
+      map((result: any) => result.data.allOpenSpaces)
+    ).subscribe((data) => {
+      this.openSpacesSubject.next(data);
+    });
   }
+
+  getOpenSpaces(): Observable<any[]> {
+    return this.openSpaces$;
+  }
+
+  // getOpenSpaces(): Observable<any> {
+  //   return this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
+  //     map((result: any) => {
+  //       return result.data.allOpenSpaces;
+  //     })
+  //   );
+  // }
+
+  // deleteOpenSpace(id: string): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: DELETE_OPEN_SPACE,
+  //     variables: {id},
+  //   })
+  // }
 
   deleteOpenSpace(id: string): Observable<any> {
     return this.apollo.mutate({
       mutation: DELETE_OPEN_SPACE,
-      variables: {id},
-    })
+      variables: { id },
+    }).pipe(
+      map(() => {
+        this.loadOpenSpaces(); //reload again openspace
+      })
+    );
   }
 
   getOpenspaceCount(): Observable<any> {
