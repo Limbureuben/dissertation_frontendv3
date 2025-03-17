@@ -43,19 +43,17 @@ export class OpenspaceService {
         latitude: openData.latitude,
         longitude: openData.longitude,
         district: openData.district
+      },
+      update: (cache) => {
+        const existingCount: any = cache.readQuery({ query: GET_MESSAGE_COUNT });
+        cache.writeQuery({
+          query: GET_MESSAGE_COUNT,
+          data: { totalOpenspaces: (existingCount?.totalOpenspaces || 0) + 1 },
+        });
       }
-    }).pipe(
-      tap(({ data }) => {
-        if (data && data.addOpenSpace) {
-          const newSpace = data.addOpenSpace;
-          const updatedSpaces = [...this.openSpacesSubject.value, newSpace];
-          this.openSpacesSubject.next(updatedSpaces);
-        }
-      })
-    );
+    });
   }
 
-  
   getAllOpenSpaces(): Observable<any> {
     return this.apollo
       .watchQuery({
@@ -75,21 +73,6 @@ export class OpenspaceService {
   getOpenSpaces(): Observable<any[]> {
     return this.openSpaces$;
   }
-
-  // getOpenSpaces(): Observable<any> {
-  //   return this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
-  //     map((result: any) => {
-  //       return result.data.allOpenSpaces;
-  //     })
-  //   );
-  // }
-
-  // deleteOpenSpace(id: string): Observable<any> {
-  //   return this.apollo.mutate({
-  //     mutation: DELETE_OPEN_SPACE,
-  //     variables: {id},
-  //   })
-  // }
 
   deleteOpenSpace(id: string): Observable<any> {
     return this.apollo.mutate({

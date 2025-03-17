@@ -38,39 +38,7 @@ export class AvailablespaceComponent implements OnInit{
     // private store: Store<{ openSpaces: OpenSpace[] }>
   ) {}
 
-  // ngOnInit(): void {
-  //   this.openSpaces$ = this.store.select(state => state.openSpaces); // Remove .openSpaces
-
-  //   this.openSpaces$.subscribe(data => {
-  //     this.dataSource.data = data || []; // Ensure it's never null
-  //   });
-  // }
-
-  // ngOnInit(): void {
-  //   this.loadOpenSpaces();
-  // }
-
-
-  // loadOpenSpaces() {
-  //   this.openSpaceService.getOpenSpaces().subscribe((data) => {
-  //     this.openSpaces = data;
-  //   });
-  // }
-
-  // loadOpenSpaces() {
-  //   this.openSpaceService.getOpenSpaces().subscribe({
-  //     next: (response: any) => {
-  //       const apiOpenspace = response?.data?.allOpenSpaces || [];
-  //       this.openSpaces = [ ...this.openSpaces, ...apiOpenspace];
-  //       this.loading = false;
-  //     },
-  //     error: (error) => {
-  //       this.error = 'Failed to fetch open spaces';
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
-
+ 
   ngOnInit() {
     // Subscribe to the observable for automatic updates
     this.openSpaceService.getOpenSpaces().subscribe((data) => {
