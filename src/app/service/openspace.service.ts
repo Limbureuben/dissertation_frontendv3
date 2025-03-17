@@ -75,6 +75,7 @@ export class OpenspaceService {
   //     })
   //     .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
   // }
+
   getAllOpenSpacesUser(): Observable<any[]> {
     return this.apollo
       .watchQuery<{ allOpenSpacesUser: any[] }>({
@@ -92,7 +93,7 @@ export class OpenspaceService {
   }
 
   loadOpenSpaces() {
-    this.apollo.watchQuery({ query: GET_ALL_OPENSPACES }).valueChanges.pipe(
+    this.apollo.watchQuery({ query: GET_ALL_OPENSPACES_ADMIN }).valueChanges.pipe(
       map((result: any) => result.data.allOpenSpaces)
     ).subscribe((data) => {
       this.openSpacesSubject.next(data);
@@ -104,7 +105,7 @@ export class OpenspaceService {
   // }
   getOpenSpaces(): Observable<any[]> {
     return this.apollo.watchQuery<{ allOpenSpaces: any[] }>({
-      query: GET_ALL_OPENSPACES
+      query: GET_ALL_OPENSPACES_ADMIN,
     })
     .valueChanges.pipe(map(result => result.data.allOpenSpaces));
   }
@@ -114,9 +115,9 @@ export class OpenspaceService {
       mutation: DELETE_OPEN_SPACE,
       variables: { id },
       update: (cache) => {
-        const existingData: any = cache.readQuery({ query: GET_ALL_OPENSPACES });
+        const existingData: any = cache.readQuery({ query: GET_ALL_OPENSPACES_ADMIN });
         cache.writeQuery({
-          query: GET_ALL_OPENSPACES,
+          query: GET_ALL_OPENSPACES_ADMIN,
           data: {
             allOpenSpaces: existingData.allOpenSpaces.filter((space: any) => space.id !== id),
           },
