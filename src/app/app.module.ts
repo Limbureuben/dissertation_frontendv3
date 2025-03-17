@@ -29,6 +29,7 @@ import { openSpaceReducer } from './State/open-space.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { OpenspaceService } from './service/openspace.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatOptionModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSortModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

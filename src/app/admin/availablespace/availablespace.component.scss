@@ -109,4 +109,39 @@ td.mat-cell:first-of-type + td {
   padding-left: 8px !important; /* Reduce padding */
 }
 
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
+.search-field {
+  width: 100%;
+  max-height: 100px;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 8px;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  input {
+    padding: 2px 10px;
+    font-size: 16px;
+  }
+
+  mat-icon {
+    color: gray;
+  }
+}
+
+.active {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive {
+  color: red;
+  font-weight: bold;
+}

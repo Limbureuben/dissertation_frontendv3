@@ -38,19 +38,17 @@ export class AvailablespaceComponent implements OnInit{
     // private store: Store<{ openSpaces: OpenSpace[] }>
   ) {}
 
- 
+
   ngOnInit() {
-    // Subscribe to the observable for automatic updates
     this.openSpaceService.getOpenSpaces().subscribe((data) => {
       this.dataSource.data = data;
     });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator; // Assign paginator
+    this.dataSource.sort = this.sort; // Assign sorting
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -66,35 +64,16 @@ export class AvailablespaceComponent implements OnInit{
     });
   }
 
-
-
   editOpenSpace() {
 
   }
 
-//   deleteOpenSpace(id: string): void {
-//     console.log("Deleting OpenSpace with ID:", id); // Debugging log
-
-//     this.openSpaceService.deleteOpenSpace(id).subscribe({
-//       next: (response) => {
-//         if(response.data.deleteOpenSpace.success) {
-//           this.toastr.success('OpenSpace deleted successfully!', 'Success', {
-//             positionClass: 'toast-top-right',
-//           });
-//           this.openSpaces = this.openSpaces.filter((space) => space.id !== id);
-//         } else {
-//           this.toastr.error('OpenSpace delete failed!', 'Error', {
-//             positionClass: 'toast-top-right',
-//           });
-//         }
-//       },
-//       error: () => {
-//         this.toastr.error('An error occurred while deleting OpenSpace!', 'Error', {
-//           positionClass: 'toast-top-right',
-//         });
-//       }
-//     });
-// }
-
+  toggleStatus(space: any) {
+    const newStatus = !space.isActive;  // Toggle status
+    this.openSpaceService.toggleOpenSpaceStatus(space.id, newStatus)
+      .subscribe(updatedSpace => {
+        space.isActive = updatedSpace.isActive;  // Update UI after success
+      });
+  }
 
 }

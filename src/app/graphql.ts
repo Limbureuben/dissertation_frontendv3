@@ -27,6 +27,7 @@ export const GET_ALL_OPENSPACES = gql`
   query {
     allOpenSpaces {
       id
+      isActive
       name
       longitude
       latitude
@@ -49,3 +50,16 @@ export const GET_MESSAGE_COUNT = gql`
       totalOpenspaces
   }
   `;
+
+
+export const TOGGLE_OPENSPACE_STATUS = gql`
+ mutation ToggleOpenspaceStatus($input: ToggleOpenspaceInput!) {
+  toggleOpenspaceStatus(input: $input) {
+    openspace {
+      id
+      name
+      isActive
+    }
+  }
+}
+`;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 
 
 export interface OpenSpaceRegisterData{
@@ -11,6 +11,20 @@ export interface OpenSpaceRegisterData{
   longitude: number,
   district: string
 }
+
+export interface ToggleOpenSpaceResponse {
+  toggleOpenspaceStatus: {
+    openspace: {
+      id: string;
+      name: string;
+      latitude: number;
+      longitude: number;
+      district: string;
+      isActive: boolean;
+    };
+  };
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -70,8 +84,14 @@ export class OpenspaceService {
     });
   }
 
+  // getOpenSpaces(): Observable<any[]> {
+  //   return this.openSpaces$;
+  // }
   getOpenSpaces(): Observable<any[]> {
-    return this.openSpaces$;
+    return this.apollo.watchQuery<{ allOpenSpaces: any[] }>({
+      query: GET_ALL_OPENSPACES
+    })
+    .valueChanges.pipe(map(result => result.data.allOpenSpaces));
   }
 
   deleteOpenSpace(id: string): Observable<any> {
@@ -95,4 +115,14 @@ export class OpenspaceService {
       query: GET_MESSAGE_COUNT,
     }).valueChanges;
   }
+
+  toggleOpenSpaceStatus(id: string, isActive: boolean): Observable<any> {
+    return this.apollo.mutate<ToggleOpenSpaceResponse>({
+      mutation: TOGGLE_OPENSPACE_STATUS,
+      variables: { id, isActive }
+    }).pipe(
+      map(result => result.data?.toggleOpenspaceStatus?.openspace)
+    );
+  }
+
 }
