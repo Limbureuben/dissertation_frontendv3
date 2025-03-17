@@ -1,13 +1,14 @@
 /* Container */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 .table-container {
   width: 90%;
   max-width: 100%;
   margin: 20px auto;
-  margin-right: 40px;
+  margin-right: 60px;
   padding: 20px;
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 2px;
   margin-top: 10px;
   overflow-x: auto; /* Allows scrolling if needed */
 }
@@ -19,7 +20,9 @@
   font-weight: bold;
   color: #3f51b5;
   margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif; /* Apply Poppins */
 }
+
 
 /* Custom Table Styling */
 .custom-table {
@@ -47,6 +50,7 @@ th.mat-header-cell {
   background: #3f51b5;
   color: white;
   font-weight: bold;
+  font-family: 'Poppins', sans-serif;
   text-align: left;
   padding: 12px;
 }
