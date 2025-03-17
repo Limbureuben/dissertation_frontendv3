@@ -14,7 +14,7 @@
         <button mat-button class="view-map-btn" (click)="navigateToMap()">View Map</button>
       </div>
       <!-- Statistics Section -->
-      <div class="stats-container">
+      <div class="stats-container" @listAnimation>
         <mat-card class="stat-card total-sales">
           <mat-card-header>
             <mat-card-title>Available OpenSpaces</mat-card-title>
@@ -31,7 +31,7 @@
                 <mat-icon>location_on</mat-icon>
               </div>
               <div class="card-info">
-                <h3>120</h3>
+                <h3>{{ totalOpenspaces }}</h3>
                 <mat-progress-bar mode="determinate" [value]="80"></mat-progress-bar>
               </div>
             </div>
