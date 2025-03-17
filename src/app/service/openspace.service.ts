@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT } from '../graphql';
 
 
@@ -23,8 +23,20 @@ export class OpenspaceService {
     this.loadOpenSpaces();
   }
 
+  // addSpace(openData: OpenSpaceRegisterData): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: ADD_OPENSPACE,
+  //     variables: {
+  //       name: openData.name,
+  //       latitude: openData.latitude,
+  //       longitude: openData.longitude,
+  //       district: openData.district
+  //     }
+  //   })
+  // }
+
   addSpace(openData: OpenSpaceRegisterData): Observable<any> {
-    return this.apollo.mutate({
+    return this.apollo.mutate<{ addOpenSpace: any }>({
       mutation: ADD_OPENSPACE,
       variables: {
         name: openData.name,
@@ -32,9 +44,18 @@ export class OpenspaceService {
         longitude: openData.longitude,
         district: openData.district
       }
-    })
+    }).pipe(
+      tap(({ data }) => {
+        if (data && data.addOpenSpace) {
+          const newSpace = data.addOpenSpace;
+          const updatedSpaces = [...this.openSpacesSubject.value, newSpace];
+          this.openSpacesSubject.next(updatedSpaces);
+        }
+      })
+    );
   }
 
+  
   getAllOpenSpaces(): Observable<any> {
     return this.apollo
       .watchQuery({
