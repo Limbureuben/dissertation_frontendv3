@@ -35,15 +35,6 @@ export const GET_ALL_OPENSPACES = gql`
   }
 `;
 
-// export const DELETE_OPEN_SPACE = gql`
-//   mutation DeleteOpenSpace($id: ID!) {
-//     deleteOpenSpace(id: $id) {
-//       message
-//       success
-//     }
-//   }
-// `;
-
 export const DELETE_OPEN_SPACE = gql`
   mutation MyMutation($id: ID!) {
     deleteOpenSpace(id: $id) {
@@ -53,3 +44,8 @@ export const DELETE_OPEN_SPACE = gql`
   }
 `;
 
+export const GET_MESSAGE_COUNT = gql`
+    query MyQuery {
+      totalOpenspaces
+  }
+  `;

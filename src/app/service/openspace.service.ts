@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT } from '../graphql';
 
 
 export interface OpenSpaceRegisterData{
@@ -54,9 +54,9 @@ export class OpenspaceService {
     })
   }
 
-  // totalspaces(): Observable<any> {
-  //   return this.apollo.mutate({
-
-  //   })
-  // }
+  getOpenspaceCount(): Observable<any> {
+    return this.apollo.watchQuery<{ totalOpenspaces: number }>({
+      query: GET_MESSAGE_COUNT,
+    }).valueChanges;
+  }
 }
