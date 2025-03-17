@@ -53,4 +53,10 @@ export class OpenspaceService {
       variables: {id},
     })
   }
+
+  // totalspaces(): Observable<any> {
+  //   return this.apollo.mutate({
+
+  //   })
+  // }
 }
