@@ -1,5 +1,5 @@
 // import { loadOpenSpaces } from './../../RGX/open-space.actions';
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, Input } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { response } from 'express';
@@ -10,12 +10,33 @@ import * as OpenSpaceActions from '../../State/open-space.actions';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-availablespace',
   standalone: false,
   templateUrl: './availablespace.component.html',
-  styleUrl: './availablespace.component.scss'
+  styleUrl: './availablespace.component.scss',
+  animations: [
+    // Slide table from right when opening
+    trigger('tableEnterAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(50px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ]),
+
+    // Animate row additions & deletions
+    trigger('rowAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' }))
+      ])
+    ])
+  ]
 })
 export class AvailablespaceComponent implements OnInit{
 
@@ -25,6 +46,7 @@ export class AvailablespaceComponent implements OnInit{
   // openSpaces: any[] = [];
   // loading = true;
   // error: string | null = null;
+
   displayedColumns: string[] = ['name', 'district', 'latitude', 'longitude', 'actions']; // Define displayed columns
   dataSource = new MatTableDataSource<any>([]);
 

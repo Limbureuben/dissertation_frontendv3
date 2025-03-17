@@ -19,8 +19,8 @@
         </mat-form-field>
       </div>
 
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
-
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
+        <tbody>
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
@@ -74,8 +74,9 @@
 
 
         <tr mat-header-row *matHeaderRowDef="['name', 'district', 'latitude', 'longitude', 'isActive', 'actions']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['name', 'district', 'latitude', 'longitude', 'isActive', 'actions'];"></tr>
-      </table>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'district', 'latitude', 'longitude', 'isActive', 'actions'];" @rowAnimation></tr>
+      </tbody>
+    </table>
 
       <!-- Paginator -->
       <mat-paginator #paginator [pageSizeOptions]="[8, 16, 32]" showFirstLastButtons></mat-paginator>
