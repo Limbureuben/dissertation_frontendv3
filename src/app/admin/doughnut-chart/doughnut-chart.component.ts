@@ -45,7 +45,7 @@ export class DoughnutChartComponent implements AfterViewInit {
         labels: ["Open Spaces", "Developed Areas", "Protected Lands"],
         datasets: [{
           data: [45, 35, 20],
-          backgroundColor: ["#4CAF50", "#FF9800", "#2196F3"],
+          backgroundColor: ["#4CAF50", "#FF9800", "#3f51b5"],
           hoverOffset: 8
         }]
       },
