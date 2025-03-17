@@ -40,8 +40,9 @@ export class AvailablespaceComponent implements OnInit{
 
 
   ngOnInit() {
-    this.openSpaceService.getOpenSpaces().subscribe((data) => {
+    this.openSpaceService.getAllOpenSpacesAdmin().subscribe((data) => {
       this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -69,10 +70,15 @@ export class AvailablespaceComponent implements OnInit{
   }
 
   toggleStatus(space: any) {
-    const newStatus = !space.isActive;  // Toggle status
+    const newStatus = !space.isActive;
     this.openSpaceService.toggleOpenSpaceStatus(space.id, newStatus)
       .subscribe(updatedSpace => {
-        space.isActive = updatedSpace.isActive;  // Update UI after success
+        const index = this.dataSource.data.findIndex(s => s.id === space.id);
+        if (index !== -1) {
+          this.dataSource.data[index].isActive = updatedSpace.isActive;
+        }
+        this.dataSource._updateChangeSubscription();
+        this.paginator.firstPage(); // Move back to first page after status update
       });
   }
 

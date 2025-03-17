@@ -45,7 +45,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fetchOpenSpaces(): void {
-    this.openSpaceService.getAllOpenSpaces().subscribe(
+    this.openSpaceService.getAllOpenSpacesUser().subscribe(
       (data) => {
         this.openSpaces = data;
         this.addMarkersToMap();

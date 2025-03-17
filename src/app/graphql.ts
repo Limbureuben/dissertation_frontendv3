@@ -63,3 +63,29 @@ export const TOGGLE_OPENSPACE_STATUS = gql`
   }
 }
 `;
+
+export const GET_ALL_OPENSPACES_ADMIN = gql`
+  query MyQuery {
+    allOpenSpacesAdmin {
+      district
+      id
+      isActive
+      latitude
+      longitude
+      name
+    }
+  }
+`;
+
+export const GET_ALL_OPENSPACES_USER = gql`
+  query MyQuery {
+    allOpenSpacesUser {
+      district
+      id
+      isActive
+      latitude
+      longitude
+      name
+    }
+  }
+`;

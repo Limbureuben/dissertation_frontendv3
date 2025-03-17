@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 
 
 export interface OpenSpaceRegisterData{
@@ -68,12 +68,27 @@ export class OpenspaceService {
     });
   }
 
-  getAllOpenSpaces(): Observable<any> {
+  // getAllOpenSpaces(): Observable<any> {
+  //   return this.apollo
+  //     .watchQuery({
+  //       query: GET_ALL_OPENSPACES
+  //     })
+  //     .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
+  // }
+  getAllOpenSpacesUser(): Observable<any[]> {
     return this.apollo
-      .watchQuery({
-        query: GET_ALL_OPENSPACES
+      .watchQuery<{ allOpenSpacesUser: any[] }>({
+        query: GET_ALL_OPENSPACES_USER,
       })
-      .valueChanges.pipe(map((result: any) => result.data.allOpenSpaces));
+      .valueChanges.pipe(map((result) => result.data.allOpenSpacesUser));
+  }
+
+  getAllOpenSpacesAdmin(): Observable<any[]> {
+    return this.apollo
+      .watchQuery<{ allOpenSpacesAdmin: any[] }>({
+        query: GET_ALL_OPENSPACES_ADMIN,
+      })
+      .valueChanges.pipe(map((result) => result.data.allOpenSpacesAdmin));
   }
 
   loadOpenSpaces() {
@@ -119,7 +134,7 @@ export class OpenspaceService {
   toggleOpenSpaceStatus(id: string, isActive: boolean): Observable<any> {
     return this.apollo.mutate<ToggleOpenSpaceResponse>({
       mutation: TOGGLE_OPENSPACE_STATUS,
-      variables: { id, isActive }
+      variables: { input: { id, isActive } }
     }).pipe(
       map(result => result.data?.toggleOpenspaceStatus?.openspace)
     );
