@@ -74,11 +74,16 @@ export class OpenspaceService {
     return this.apollo.mutate({
       mutation: DELETE_OPEN_SPACE,
       variables: { id },
-    }).pipe(
-      map(() => {
-        this.loadOpenSpaces(); //reload again openspace
-      })
-    );
+      update: (cache) => {
+        const existingData: any = cache.readQuery({ query: GET_ALL_OPENSPACES });
+        cache.writeQuery({
+          query: GET_ALL_OPENSPACES,
+          data: {
+            allOpenSpaces: existingData.allOpenSpaces.filter((space: any) => space.id !== id),
+          },
+        });
+      },
+    });
   }
 
   getOpenspaceCount(): Observable<any> {

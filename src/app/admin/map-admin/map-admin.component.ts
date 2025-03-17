@@ -108,7 +108,7 @@ export class MapAdminComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.toastr.error('Something went wrong. Please try again.', 'Error', { positionClass: 'toast-top-right' });
+        this.toastr.error('Something went wrong.', 'Error', { positionClass: 'toast-top-right' });
       }
 
     })

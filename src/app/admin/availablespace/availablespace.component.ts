@@ -92,6 +92,9 @@ export class AvailablespaceComponent implements OnInit{
     this.openSpaceService.deleteOpenSpace(id).subscribe(() => {
       // Filter the data source after deletion
       this.dataSource.data = this.dataSource.data.filter(space => space.id !== id);
+      this.toastr.success('Open spac deleted successfully!', 'Success', {
+        positionClass: 'toast-top-right',
+      })
     });
   }
 
