@@ -19,17 +19,15 @@ export const REGISTER_USER = gql`
 export const LOGIN_USER = gql`
   mutation LoginUser($input: UserLoginInputObject!) {
     loginUser(input: $input) {
-      success
       message
-      user {
-        id
-        username
-        email
-        emailVerified
-        accessToken
-        refreshToken
-        isSuperuser
-      }
+      success
+        user {
+          accessToken
+          id
+          isStaff
+          refreshToken
+          username
+        }
     }
   }
 `;

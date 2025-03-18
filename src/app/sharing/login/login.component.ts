@@ -79,6 +79,15 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('success_token', user.accessToken);
           localStorage.setItem('refresh_token', user.refreshToken);
 
+          const accessToken = localStorage.getItem('success_token');
+          const refreshToken = localStorage.getItem('refresh_token');
+
+          if (accessToken && refreshToken) {
+            console.log('Tokens successfully stored!');
+          } else {
+            console.error('Failed to store tokens');
+          }
+
           this.toastr.success('Login successful!', 'Success', {
             positionClass: 'toast-top-right',
           });
@@ -87,7 +96,7 @@ export class LoginComponent implements OnInit{
             this.router.navigate(['/admindashboard'])
             return;
           }
-          if(user.emailVerified) {
+          if(user) {
             this.router.navigate(['/map-display']);
           }
         } else {
