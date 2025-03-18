@@ -20,7 +20,6 @@ export class AuthService {
     return this.apollo.mutate({
       mutation: REGISTER_USER,
       variables: {
-        email: userData.email,
         password: userData.password,
         passwordConfirm: userData.passwordConfirm,
         username: userData.username

@@ -27,14 +27,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class RegisterComponent implements OnInit {
 
-  showForm = true;  // Boolean to control visibility
+  showForm = true;
 
   toggleForm() {
-    this.showForm = !this.showForm; // Toggle form visibility
+    this.showForm = !this.showForm;
   }
 
   close() {
-    this.showForm = false; // Close the form
+    this.showForm = false;
   }
 
   registerForm: FormGroup;
@@ -47,7 +47,6 @@ export class RegisterComponent implements OnInit {
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, this.passwordStrengthValidator]],
       passwordConfirm: ['', [Validators.required]]
     }, { validators: this.passwordsMatchValidator });
@@ -100,7 +99,6 @@ export class RegisterComponent implements OnInit {
 
     const registrationData: RegisterData = {
       username: this.registerForm.value.username,
-      email: this.registerForm.value.email,
       password: this.registerForm.value.password,
       passwordConfirm: this.registerForm.value.passwordConfirm
     };
@@ -123,8 +121,6 @@ export class RegisterComponent implements OnInit {
         } else {
           if (response.message.includes('username')) {
             this.toastr.error('Username already exists. Try another.', 'Registration Failed', { positionClass: 'toast-top-right' });
-          } else if (response.message.includes('email')) {
-            this.toastr.error('Email is already taken.', 'Registration Failed', { positionClass: 'toast-top-right' });
           } else {
             this.toastr.error(response.message, 'Registration Failed', { positionClass: 'toast-top-right' });
           }
@@ -135,8 +131,6 @@ export class RegisterComponent implements OnInit {
 
         if (err.message.includes('username')) {
           this.toastr.error('Username already exists. Try another.', 'Error', { positionClass: 'toast-top-right' });
-        } else if (err.message.includes('email')) {
-          this.toastr.error('Email is already registered. Use a different email.', 'Error', { positionClass: 'toast-top-right' });
         } else {
           this.toastr.error('Something went wrong. Please try again.', 'Error', { positionClass: 'toast-top-right' });
         }
