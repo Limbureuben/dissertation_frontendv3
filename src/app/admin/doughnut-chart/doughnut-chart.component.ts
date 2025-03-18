@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, OnChanges, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, PLATFORM_ID, SimpleChanges, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { OpenspaceService } from '../../service/openspace.service';
 
 @Component({
   selector: 'app-doughnut-chart',
@@ -8,17 +9,27 @@ import { Chart } from 'chart.js/auto';
   templateUrl: './doughnut-chart.component.html',
   styleUrl: './doughnut-chart.component.scss'
 })
-export class DoughnutChartComponent implements AfterViewInit {
+export class DoughnutChartComponent implements AfterViewInit, OnChanges {
   @ViewChild('doughnutCanvas', { static: false }) doughnutCanvas!: ElementRef;
+  @Input() totalOpenSpaces: number = 0;
   chart!: Chart;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: object,
+
+  ) {}
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.createDoughnutChart();
       }, 500);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['totalOpenSpaces'] && !changes['totalOpenSpaces'].firstChange) {
+      this.updateDoughnutChart();
     }
   }
 
@@ -44,7 +55,7 @@ export class DoughnutChartComponent implements AfterViewInit {
       data: {
         labels: ["Open Spaces", "Developed Areas", "Protected Lands"],
         datasets: [{
-          data: [45, 35, 20],
+          data: [this.totalOpenSpaces, 35, 20],
           backgroundColor: ["#4CAF50", "#FF9800", "#3f51b5"],
           hoverOffset: 8
         }]
@@ -61,4 +72,12 @@ export class DoughnutChartComponent implements AfterViewInit {
       }
     });
   }
+
+  updateDoughnutChart() {
+    if (this.chart) {
+      this.chart.data.datasets[0].data[0] = this.totalOpenSpaces;
+      this.chart.update();
+    }
+  }
+
 }

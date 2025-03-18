@@ -68,7 +68,7 @@ export const DELETE_OPEN_SPACE = gql`
   }
 `;
 
-export const GET_MESSAGE_COUNT = gql`
+export const GET_OPENSPACE_COUNT = gql`
     query MyQuery {
       totalOpenspaces
   }

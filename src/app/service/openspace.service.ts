@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_OPENSPACE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
 
 export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
@@ -30,7 +30,7 @@ export class OpenspaceService {
       },
       refetchQueries: [
         { query: GET_ALL_OPENSPACES_ADMIN }, //regresh list ya admin
-        { query: GET_MESSAGE_COUNT } //refresh list ya number
+        { query: GET_OPENSPACE_COUNT } //refresh list ya number
       ]
     });
   }
@@ -60,9 +60,6 @@ export class OpenspaceService {
     });
   }
 
-  // getOpenSpaces(): Observable<any[]> {
-  //   return this.openSpaces$;
-  // }
   getOpenSpaces(): Observable<any[]> {
     return this.apollo.watchQuery<{ allOpenSpacesAdmin: any[] }>({
       query: GET_ALL_OPENSPACES_ADMIN,
@@ -86,10 +83,10 @@ export class OpenspaceService {
           });
         }
         // Update the open space count
-        const existingCountData: any = cache.readQuery({ query: GET_MESSAGE_COUNT });
+        const existingCountData: any = cache.readQuery({ query: GET_OPENSPACE_COUNT });
         if (existingCountData) {
           cache.writeQuery({
-            query: GET_MESSAGE_COUNT,
+            query: GET_OPENSPACE_COUNT,
             data: {
               totalOpenspaces: Math.max(0, existingCountData.totalOpenspaces - 1), // Decrease count
             },
@@ -102,7 +99,7 @@ export class OpenspaceService {
 
   getOpenspaceCount(): Observable<any> {
     return this.apollo.watchQuery<{ totalOpenspaces: number }>({
-      query: GET_MESSAGE_COUNT,
+      query: GET_OPENSPACE_COUNT,
     }).valueChanges;
   }
 
