@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit{
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(this.auth, provider);
-      console.log('User logged in:', result.user);
     } catch (error) {
       console.error('Google Sign-In Error:', error);
     }
@@ -72,10 +71,6 @@ export class LoginComponent implements OnInit{
 
     const {username, password}: LoginData = this.LoginForm.value;
 
-    console.log('data pass here');
-
-    console.log('Mutation taken', {username, password});
-
     this.authservice.signinUser(username, password).subscribe(
       (result) => {
         if(result.data?.loginUser.success) {
@@ -88,14 +83,12 @@ export class LoginComponent implements OnInit{
             positionClass: 'toast-top-right',
           });
 
-          if(user.isSuperuser) {
+          if(user.isStaff) {
             this.router.navigate(['/admindashboard'])
             return;
           }
           if(user.emailVerified) {
             this.router.navigate(['/map-display']);
-          } else {
-            this.toastr.warning('Please verify your email first.');
           }
         } else {
           this.registrationError = result.data?.loginUser?.message || 'Login failed';
@@ -104,22 +97,8 @@ export class LoginComponent implements OnInit{
         }
       },
       (error) => {
-        if (error?.graphQLErrors?.length) {
-          const message = error.graphQLErrors[0].message;
-
-          if (message.includes('Email not verified')) {
-            // Toast for unverified email
-            this.toastr.warning('Please verify your email first.');
-          } else {
-            // Toast for other errors
-            this.toastr.error(message);
-          }
-        } else {
-          // General error fallback
-          this.registrationError = 'An error occurred during login.';
-          this.toastr.error(this.registrationError);
-        }
-        this.showFailure(this.registrationError);
+       this.registrationError = error;
+       this.toastr.error('Login failed');
       }
     )
   }
