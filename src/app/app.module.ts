@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';  // Import MatSelect
 import { MatOptionModule } from '@angular/material/core';
 import { StoreModule } from '@ngrx/store';
 
+
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -30,6 +31,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { OpenspaceService } from './service/openspace.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -70,17 +76,21 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({ openSpace: openSpaceReducer }), // Register reducer
-
+    StoreModule.forRoot({ openSpace: openSpaceReducer }),
   ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideAnimations(),
     provideHttpClient(withFetch()),
-    OpenspaceService
+    OpenspaceService,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
+
+

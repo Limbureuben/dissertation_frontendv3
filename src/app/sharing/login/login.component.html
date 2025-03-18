@@ -19,6 +19,12 @@
           <button mat-raised-button color="primary" class="login-btn">{{ 'login_button' | translate }}</button>
         </div>
       </form>
+      <div class="google-login">
+        <button mat-raised-button color="accent" (click)="loginWithGoogle()">
+          <img src="assets/images/google-logo.png" alt="Google" class="google-icon"> <!-- Add a Google logo -->
+          {{ 'login_with_google' | translate }}
+        </button>
+      </div>
       <div class="register-link">
         <p>{{ 'no_account' | translate }} <a routerLink="/register">{{ 'register' | translate }}</a></p>
       </div>

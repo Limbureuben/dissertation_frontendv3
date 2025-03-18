@@ -5,6 +5,7 @@ import { AuthService, LoginData } from '../../service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LanguageService } from '../../service/language.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit{
     private router: Router,
     private authservice: AuthService,
     private toastr: ToastrService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private auth: Auth
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +51,16 @@ export class LoginComponent implements OnInit{
   // Method to handle language change
   changeLanguage(language: string) {
     this.languageService.changeLanguage(language);  // Use the LanguageService to change the language
+  }
+
+  async loginWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(this.auth, provider);
+      console.log('User logged in:', result.user);
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+    }
   }
 
 
@@ -116,3 +128,7 @@ export class LoginComponent implements OnInit{
     console.error('Login Error:', message);
   }
 }
+function loginWithGoogle() {
+  throw new Error('Function not implemented.');
+}
+

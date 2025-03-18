@@ -1,6 +1,8 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  DestroyRef,
+  toSignal
+} from "./chunk-6D5V2YER.js";
+import {
   ENVIRONMENT_INITIALIZER,
   Inject,
   Injectable,
@@ -9,29 +11,25 @@ import {
   NgModule,
   NgZone,
   Optional,
-  RuntimeError,
-  assertInInjectionContext,
-  assertNotInReactiveContext,
   computed,
   effect,
   inject,
   isDevMode,
   makeEnvironmentProviders,
   setClassMetadata,
-  signal,
   untracked,
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory,
   ɵɵinject
-} from "./chunk-OPKZAI53.js";
-import {
-  require_operators
-} from "./chunk-XCIYP5SE.js";
+} from "./chunk-5BULJAIG.js";
 import {
   require_cjs
 } from "./chunk-ZUJ64LXG.js";
+import {
+  require_operators
+} from "./chunk-XCIYP5SE.js";
 import "./chunk-OYTRG5F6.js";
 import {
   __spreadProps,
@@ -40,74 +38,8 @@ import {
 } from "./chunk-YHCV7DAQ.js";
 
 // node_modules/@ngrx/store/fesm2022/ngrx-store.mjs
-var import_rxjs2 = __toESM(require_cjs(), 1);
-var import_operators2 = __toESM(require_operators(), 1);
-
-// node_modules/@angular/core/fesm2022/rxjs-interop.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
-function toSignal(source, options) {
-  ngDevMode && assertNotInReactiveContext(toSignal, "Invoking `toSignal` causes new subscriptions every time. Consider moving `toSignal` outside of the reactive context and read the signal value where needed.");
-  const requiresCleanup = !options?.manualCleanup;
-  requiresCleanup && !options?.injector && assertInInjectionContext(toSignal);
-  const cleanupRef = requiresCleanup ? options?.injector?.get(DestroyRef) ?? inject(DestroyRef) : null;
-  const equal = makeToSignalEqual(options?.equal);
-  let state;
-  if (options?.requireSync) {
-    state = signal({
-      kind: 0
-      /* StateKind.NoValue */
-    }, {
-      equal
-    });
-  } else {
-    state = signal({
-      kind: 1,
-      value: options?.initialValue
-    }, {
-      equal
-    });
-  }
-  const sub = source.subscribe({
-    next: (value) => state.set({
-      kind: 1,
-      value
-    }),
-    error: (error) => {
-      if (options?.rejectErrors) {
-        throw error;
-      }
-      state.set({
-        kind: 2,
-        error
-      });
-    }
-    // Completion of the Observable is meaningless to the signal. Signals don't have a concept of
-    // "complete".
-  });
-  if (options?.requireSync && state().kind === 0) {
-    throw new RuntimeError(601, (typeof ngDevMode === "undefined" || ngDevMode) && "`toSignal()` called with `requireSync` but `Observable` did not emit synchronously.");
-  }
-  cleanupRef?.onDestroy(sub.unsubscribe.bind(sub));
-  return computed(() => {
-    const current = state();
-    switch (current.kind) {
-      case 1:
-        return current.value;
-      case 2:
-        throw current.error;
-      case 0:
-        throw new RuntimeError(601, (typeof ngDevMode === "undefined" || ngDevMode) && "`toSignal()` called with `requireSync` but `Observable` did not emit synchronously.");
-    }
-  }, {
-    equal: options?.equal
-  });
-}
-function makeToSignalEqual(userEquality = Object.is) {
-  return (a, b) => a.kind === 1 && b.kind === 1 && userEquality(a.value, b.value);
-}
-
-// node_modules/@ngrx/store/fesm2022/ngrx-store.mjs
 var REGISTERED_ACTION_TYPES = {};
 function createAction(type, config) {
   REGISTERED_ACTION_TYPES[type] = (REGISTERED_ACTION_TYPES[type] || 0) + 1;
@@ -175,7 +107,7 @@ function toActionType(source, eventName) {
   return `[${source}] ${eventName}`;
 }
 var INIT = "@ngrx/store/init";
-var ActionsSubject = class _ActionsSubject extends import_rxjs2.BehaviorSubject {
+var ActionsSubject = class _ActionsSubject extends import_rxjs.BehaviorSubject {
   constructor() {
     super({
       type: INIT
@@ -302,12 +234,12 @@ function createFeatureReducerFactory(metaReducers) {
     };
   };
 }
-var ReducerObservable = class extends import_rxjs2.Observable {
+var ReducerObservable = class extends import_rxjs.Observable {
 };
 var ReducerManagerDispatcher = class extends ActionsSubject {
 };
 var UPDATE = "@ngrx/store/update-reducers";
-var ReducerManager = class _ReducerManager extends import_rxjs2.BehaviorSubject {
+var ReducerManager = class _ReducerManager extends import_rxjs.BehaviorSubject {
   get currentReducers() {
     return this.reducers;
   }
@@ -413,7 +345,7 @@ var REDUCER_MANAGER_PROVIDERS = [ReducerManager, {
   provide: ReducerManagerDispatcher,
   useExisting: ActionsSubject
 }];
-var ScannedActionsSubject = class _ScannedActionsSubject extends import_rxjs2.Subject {
+var ScannedActionsSubject = class _ScannedActionsSubject extends import_rxjs.Subject {
   ngOnDestroy() {
     this.complete();
   }
@@ -438,20 +370,20 @@ var ScannedActionsSubject = class _ScannedActionsSubject extends import_rxjs2.Su
   }], null, null);
 })();
 var SCANNED_ACTIONS_SUBJECT_PROVIDERS = [ScannedActionsSubject];
-var StateObservable = class extends import_rxjs2.Observable {
+var StateObservable = class extends import_rxjs.Observable {
 };
-var State = class _State extends import_rxjs2.BehaviorSubject {
+var State = class _State extends import_rxjs.BehaviorSubject {
   static {
     this.INIT = INIT;
   }
   constructor(actions$, reducer$, scannedActions, initialState) {
     super(initialState);
-    const actionsOnQueue$ = actions$.pipe((0, import_operators2.observeOn)(import_rxjs2.queueScheduler));
-    const withLatestReducer$ = actionsOnQueue$.pipe((0, import_operators2.withLatestFrom)(reducer$));
+    const actionsOnQueue$ = actions$.pipe((0, import_operators.observeOn)(import_rxjs.queueScheduler));
+    const withLatestReducer$ = actionsOnQueue$.pipe((0, import_operators.withLatestFrom)(reducer$));
     const seed = {
       state: initialState
     };
-    const stateAndAction$ = withLatestReducer$.pipe((0, import_operators2.scan)(reduceState, seed));
+    const stateAndAction$ = withLatestReducer$.pipe((0, import_operators.scan)(reduceState, seed));
     this.stateSubscription = stateAndAction$.subscribe(({
       state,
       action
@@ -512,7 +444,7 @@ var STATE_PROVIDERS = [State, {
   provide: StateObservable,
   useExisting: State
 }];
-var Store = class _Store extends import_rxjs2.Observable {
+var Store = class _Store extends import_rxjs.Observable {
   constructor(state$, actionsObserver, reducerManager, injector) {
     super();
     this.actionsObserver = actionsObserver;
@@ -600,13 +532,13 @@ function select(pathOrMapFn, propsOrPath, ...paths) {
     let mapped$;
     if (typeof pathOrMapFn === "string") {
       const pathSlices = [propsOrPath, ...paths].filter(Boolean);
-      mapped$ = source$.pipe((0, import_operators2.pluck)(pathOrMapFn, ...pathSlices));
+      mapped$ = source$.pipe((0, import_operators.pluck)(pathOrMapFn, ...pathSlices));
     } else if (typeof pathOrMapFn === "function") {
-      mapped$ = source$.pipe((0, import_operators2.map)((source) => pathOrMapFn(source, propsOrPath)));
+      mapped$ = source$.pipe((0, import_operators.map)((source) => pathOrMapFn(source, propsOrPath)));
     } else {
       throw new TypeError(`Unexpected type '${typeof pathOrMapFn}' in select operator, expected 'string' or 'function'`);
     }
-    return mapped$.pipe((0, import_operators2.distinctUntilChanged)());
+    return mapped$.pipe((0, import_operators.distinctUntilChanged)());
   };
 }
 function getCallerInjector() {
@@ -1379,13 +1311,4 @@ export {
   setNgrxMockEnvironment,
   union
 };
-/*! Bundled license information:
-
-@angular/core/fesm2022/rxjs-interop.mjs:
-  (**
-   * @license Angular v19.2.2
-   * (c) 2010-2025 Google LLC. https://angular.io/
-   * License: MIT
-   *)
-*/
 //# sourceMappingURL=@ngrx_store.js.map
