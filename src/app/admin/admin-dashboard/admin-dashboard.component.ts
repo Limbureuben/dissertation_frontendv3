@@ -27,7 +27,7 @@ export class AdminDashboardComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private openspaceservice: OpenspaceService
+    private openspaceservice: OpenspaceService,
   ) {}
 
   navigateToMap() {
@@ -45,6 +45,8 @@ export class AdminDashboardComponent implements OnInit{
     });
 }
 
-
+  NavigateToOpenSpace() {
+    this.router.navigate(['/openspace'])
+  }
 
 }
