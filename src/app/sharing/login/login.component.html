@@ -19,15 +19,12 @@
           <button mat-raised-button color="primary" class="login-btn">{{ 'login_button' | translate }}</button>
         </div>
         <div class="or-separator">
-          <span>OR</span>
+          <span>or use</span>
         </div>
       </form>
-      <div class="google-login">
-        <button mat-raised-button color="accent" (click)="loginWithGoogle()">
-          <img src="assets/images/google.png" alt="Google" class="google-icon"> <!-- Add a Google logo -->
-          {{ 'login_with_google' | translate }}
-        </button>
-      </div>
+      <div class="google-login" (click)="loginWithGoogle()">
+      <img src="assets/images/google.png" alt="Google" class="google-icon">
+       </div>
       <div class="register-link">
         <p>{{ 'no_account' | translate }} <a routerLink="/register">{{ 'register' | translate }}</a></p>
       </div>

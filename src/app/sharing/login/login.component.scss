@@ -211,35 +211,23 @@ app-footer {
 .google-login {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Ensures everything is centered */
-    gap: 10px;
-    width: 100%; /* Takes full width of the parent */
-    max-width: 400px; /* Adjust width as needed */
-    background-color: #ffffff;
-    color: #000;
-    font-weight: 400;
-    border-radius: 8px;
-    padding: 12px 24px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background-color: #f5f5f5;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    .google-icon {
-      width: 24px;
-      height: 24px;
-    }
-  }
+  align-items: center;
+  cursor: pointer;
+  margin-top: 10px; /* Adjust spacing */
 }
+
+.google-login img {
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  border-radius: 50%; /* Makes it round */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow */
+  transition: transform 0.2s ease-in-out;
+}
+
+.google-login img:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
 
 .or-separator {
   display: flex;
@@ -248,7 +236,6 @@ app-footer {
   margin: 5px 0;
   font-weight: 600;
   color: #666;
-  text-transform: uppercase;
   font-size: 14px;
 }
 
