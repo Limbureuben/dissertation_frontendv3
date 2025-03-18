@@ -5,11 +5,12 @@ import { MapDisplayComponent } from './map-display/map-display.component';
 import { MapComponent } from './map/map.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
   { path: 'user-dashboard', component: UserDashboardComponent},
-  { path: 'map-display', component: MapDisplayComponent },
+  { path: 'map-display', component: MapDisplayComponent, canActivate: [authGuard] },
   { path: 'report-form', component: ReportFormComponent }
 ];
 

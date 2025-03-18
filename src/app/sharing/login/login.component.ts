@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit{
 
           localStorage.setItem('success_token', user.accessToken);
           localStorage.setItem('refresh_token', user.refreshToken);
+          localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
 
           const accessToken = localStorage.getItem('success_token');
           const refreshToken = localStorage.getItem('refresh_token');
