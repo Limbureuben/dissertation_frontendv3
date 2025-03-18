@@ -3,27 +3,7 @@ import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
-
-
-export interface OpenSpaceRegisterData{
-  name: string,
-  latitude: number,
-  longitude: number,
-  district: string
-}
-
-export interface ToggleOpenSpaceResponse {
-  toggleOpenspaceStatus: {
-    openspace: {
-      id: string;
-      name: string;
-      latitude: number;
-      longitude: number;
-      district: string;
-      isActive: boolean;
-    };
-  };
-}
+import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
 
 
 @Injectable({

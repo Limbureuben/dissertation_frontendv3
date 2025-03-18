@@ -1,5 +1,40 @@
 import { gql } from '@apollo/client/core';
 
+
+export const REGISTER_USER = gql`
+  mutation RegisterUser($email: String!, $password: String!, $passwordConfirm: String!, $username: String!) {
+    registerUser(input: { email: $email, password: $password, passwordConfirm: $passwordConfirm, username: $username }) {
+      output {
+        message
+        success
+        user {
+          id
+          email
+          username
+        }
+      }
+    }
+  }
+`;
+
+export const LOGIN_USER = gql`
+  mutation LoginUser($input: UserLoginInputObject!) {
+    loginUser(input: $input) {
+      success
+      message
+      user {
+        id
+        username
+        email
+        emailVerified
+        accessToken
+        refreshToken
+        isSuperuser
+      }
+    }
+  }
+`;
+
 export const ADD_OPENSPACE = gql`
   mutation AddOpenSpace($name: String!, $latitude: Float!, $longitude: Float!, $district: String!) {
     addSpace(input: { name: $name, latitude: $latitude, longitude: $longitude, district: $district }) {
