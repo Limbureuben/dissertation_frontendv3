@@ -24,7 +24,6 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 export class AdminDashboardComponent implements OnInit{
 
   totalOpenspaces: number = 0;
-  openSpacesCount: number = 0;
 
   constructor(
     private router: Router,

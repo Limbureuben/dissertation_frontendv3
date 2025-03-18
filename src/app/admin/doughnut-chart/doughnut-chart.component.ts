@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, PLATFORM_ID, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { OpenspaceService } from '../../service/openspace.service';
 
@@ -7,29 +7,40 @@ import { OpenspaceService } from '../../service/openspace.service';
   selector: 'app-doughnut-chart',
   standalone: false,
   templateUrl: './doughnut-chart.component.html',
-  styleUrl: './doughnut-chart.component.scss'
+  styleUrls: ['./doughnut-chart.component.scss']
 })
-export class DoughnutChartComponent implements AfterViewInit, OnChanges {
+export class DoughnutChartComponent implements AfterViewInit, OnInit {
   @ViewChild('doughnutCanvas', { static: false }) doughnutCanvas!: ElementRef;
-  @Input() totalOpenSpaces: number = 0;
+  totalOpenSpaces: number = 0;
   chart!: Chart;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
-
+    private openspaceservice: OpenspaceService
   ) {}
+
+  ngOnInit(): void {
+    this.openspaceservice.getOpenspaceCount().subscribe({
+      next: (result) => {
+        if (result.data && result.data.totalOpenspaces !== undefined) {
+          this.totalOpenSpaces = result.data.totalOpenspaces;
+          this.updateDoughnutChart();
+        } else {
+          console.error("totalOpenspaces not found in API response.");
+        }
+      },
+      error: (err) => {
+        console.error("Failed to fetch open space count:", err);
+      }
+    });
+  }
+
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.createDoughnutChart();
       }, 500);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['totalOpenSpaces'] && !changes['totalOpenSpaces'].firstChange) {
-      this.updateDoughnutChart();
     }
   }
 
@@ -79,5 +90,4 @@ export class DoughnutChartComponent implements AfterViewInit, OnChanges {
       this.chart.update();
     }
   }
-
 }
