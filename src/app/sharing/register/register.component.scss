@@ -22,20 +22,34 @@
 
 /* Container for the register form */
 .register-container {
-  background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
-  padding: 0.8rem; /* Reduced padding */
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  width: 90%;
+  max-width: 350px;
+  width: 80%;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content to the top */
   margin-bottom: 3px;
-  min-height: 200px; /* Reduced height */
+  min-height: 150px;
   z-index: 1001;
-  align-items: center;
+}
+
+
+.register-container {
+  background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 350px;
+  width: 80%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure the form elements fill the container */
+  min-height: 150px; /* Minimum height of the container */
+  z-index: 1001;
 }
 
 /* Styling for the login logo */
@@ -71,16 +85,12 @@
   font-weight: bold;
 }
 
-/* Input fields styling */
-.full-width mat-form-field {
-  width: 70%;
-}
 
 mat-form-field {
   display: block;
   margin-bottom: 0.3rem;
-  max-width: 350px;
-  width: 90%;
+  max-width: 450px;
+  width: 100%;
 }
 
 mat-form-field .mat-form-field-wrapper {
@@ -94,7 +104,7 @@ mat-form-field .mat-form-field-wrapper {
 
 mat-form-field .mat-input-element {
   font-size: 16px;
-  padding: 10px;
+  padding: 1px;
 }
 
 /* Styling for actions (button) */
