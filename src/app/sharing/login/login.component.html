@@ -18,10 +18,13 @@
         <div class="actions">
           <button mat-raised-button color="primary" class="login-btn">{{ 'login_button' | translate }}</button>
         </div>
+        <div class="or-separator">
+          <span>OR</span>
+        </div>
       </form>
       <div class="google-login">
         <button mat-raised-button color="accent" (click)="loginWithGoogle()">
-          <img src="assets/images/google-logo.png" alt="Google" class="google-icon"> <!-- Add a Google logo -->
+          <img src="assets/images/google.png" alt="Google" class="google-icon"> <!-- Add a Google logo -->
           {{ 'login_with_google' | translate }}
         </button>
       </div>

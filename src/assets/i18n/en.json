@@ -27,7 +27,8 @@
   "TERMS": "Terms of Service",
   "register_button_anonymous": "Anonymous",
   "phone_number": "Phone number",
-  "phone_number_placeholder": "Enter phone number"
+  "phone_number_placeholder": "Enter phone number",
+  "login_with_google": "Login with Google"
 
 }
 
