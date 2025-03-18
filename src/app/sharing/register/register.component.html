@@ -1,37 +1,35 @@
 <app-common-header></app-common-header>
 
 <div class="register-background">
-  <div class="register-overlay" (click)="close()">
+  <div class="register-overlay">
     <div *ngIf="showForm" class="register-container" @slideInOut (click)="$event.stopPropagation()">
       <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
+      <p class="country-name">The United Republic of Tanzania</p>
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'username' | translate }}</mat-label>
-          <input matInput formControlName="username" placeholder="{{ 'username_placeholder' | translate }}" type="text" required>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Enter your username" type="text" required>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'phone_number' | translate }}</mat-label>
-          <input matInput placeholder="{{ 'phone_number_placeholder' | translate }}" type="tel" required>
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="passwordConfirm" placeholder="Confirm your password" type="password" required>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'password' | translate }}</mat-label>
-          <input matInput formControlName="password" placeholder="{{ 'password_placeholder' | translate }}" type="password" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'password_confirm' | translate }}</mat-label>
-          <input matInput formControlName="passwordConfirm" placeholder="{{ 'password_confirm_placeholder' | translate }}" type="password" required>
-        </mat-form-field>
         <div class="actions">
-          <button mat-raised-button color="primary" class="register-btn">{{ 'register_button' | translate }}</button>
+          <button mat-raised-button color="primary" class="register-btn">Register</button>
         </div>
       </form>
 
       <div class="login-link">
-        <p>{{ 'already_have_account' | translate }} <a routerLink="/login">{{ 'login' | translate }}</a></p>
+        <p>Already have an account? <a routerLink="/login">Login</a></p>
       </div>
     </div>
   </div>
