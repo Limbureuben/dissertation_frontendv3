@@ -207,3 +207,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.closeForm();
   }
 }
+
+
+
+
