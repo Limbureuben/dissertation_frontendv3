@@ -3,7 +3,9 @@ import { gql } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { LOGIN_USER, REGISTER_USER } from '../graphql';
-import { RegisterData } from '../models/openspace.model';
+import { LoginData, RegisterData } from '../models/openspace.model';
+
+  export type { RegisterData, LoginData };
 
 @Injectable({
   providedIn: 'root'

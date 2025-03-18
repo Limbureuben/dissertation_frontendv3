@@ -5,6 +5,8 @@ import { map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_MESSAGE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
 
+export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
+
 
 @Injectable({
   providedIn: 'root'
