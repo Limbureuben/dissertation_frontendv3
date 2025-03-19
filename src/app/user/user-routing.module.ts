@@ -6,6 +6,7 @@ import { MapComponent } from './map/map.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { authGuard } from '../guards/auth.guard';
+import { adminExitGuard } from '../guards/admin-exist.guard';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
