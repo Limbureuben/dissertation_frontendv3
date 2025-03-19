@@ -1,18 +1,19 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 
-let actionTaken = false;
+let isNavigationAllowed = false;
 
-export const adminExistGuard: CanActivateFn = (route, state) => {
-  const isAdminLoggingIn = state.url === '/admindashboard';
-
-  if (isAdminLoggingIn || actionTaken) {
-    return true; // Allow navigation on login OR after clicking a button
+export const adminExitGuard: CanActivateFn = (route, state) => {
+  if (isNavigationAllowed) {
+    return true; // Allow navigation
   }
 
-  console.warn("Navigation blocked: Admin must take an action before leaving.");
-  return false; // Block manual navigation
+  // If admin tries to navigate manually, block it
+  const router = new Router();
+  router.navigate(['/admindashboard']); // Force them back to dashboard
+  return false;
 };
 
+// Function to allow navigation after an action
 export function allowNavigation() {
-  actionTaken = true;
+  isNavigationAllowed = true;
 }
