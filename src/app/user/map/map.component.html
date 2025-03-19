@@ -26,12 +26,32 @@
         <br>
       </div>
 
-      <!-- New Phone Number Input -->
-      <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" placeholder="+255625219727(Optional)">
+      <!-- Email Input -->
+      <div class="input-group">
+        <label for="email">Email (Optional)</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+      </div>
 
-      <textarea id="problem-description" name="problem-description" placeholder="Problem descriptions" rows="4" cols="50"></textarea>
+      <!-- Phone Number Input -->
+      <div class="input-group">
+        <label for="phone-number">Phone Number (Optional)</label>
+        <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" placeholder="+255625219727">
+      </div>
 
-      <button type="submit">Submit</button>
+      <!-- Problem Description -->
+      <div class="input-group">
+        <label for="problem-description">Problem Description</label>
+        <textarea id="problem-description" name="problem-description" placeholder="Describe the problem" rows="4"></textarea>
+      </div>
+
+      <!-- Media Upload Input -->
+      <div class="input-group file-upload">
+        <label for="media-upload">Upload Media (Optional)</label>
+        <input type="file" id="media-upload" name="media-upload" accept="image/*,video/*">
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
     </form>
   </div>
 </div>
+
