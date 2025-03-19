@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit{
 
   // Method to handle language change
   changeLanguage(language: string) {
-    this.languageService.changeLanguage(language);  // Use the LanguageService to change the language
+    this.languageService.changeLanguage(language);
   }
 
   async loginWithGoogle() {
