@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OpenspaceService } from '../../service/openspace.service';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { allowNavigation } from '../../guards/admin-exist.guard';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -29,6 +30,11 @@ export class AdminDashboardComponent implements OnInit{
     private router: Router,
     private openspaceservice: OpenspaceService,
   ) {}
+
+  enableNavigation() {
+    allowNavigation(); // This will allow navigation
+    console.log("Admin action taken, navigation unlocked.");
+  }
 
   navigateToMap() {
     this.router.navigate(['/map-common'])

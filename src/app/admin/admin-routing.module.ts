@@ -5,9 +5,10 @@ import { MapCommonComponent } from './map-common/map-common.component';
 import { AvailablespaceComponent } from './availablespace/availablespace.component';
 import { authGuard } from '../guards/auth.guard';
 import { adminGuard } from '../guards/admin.guard';
+import { adminExistGuard } from '../guards/admin-exist.guard';
 
 const routes: Routes = [
-  { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
+  { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard, adminExistGuard] },
   { path: 'map-common', component: MapCommonComponent },
   { path: 'openspace', component: AvailablespaceComponent }
 ];
