@@ -24,6 +24,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private openSpaceService: OpenspaceService
 ) {}
 
+selectedFileName: string = "";
+
   ngOnInit(): void {
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
   }
@@ -81,11 +83,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       marker.setPopup(popup);
 
+      //open form when button is clicked
       popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
         e.stopPropagation();
         this.openReportForm(space);
       });
 
+      // open form when marker is clicked
       marker.getElement().addEventListener('click', () => {
         this.openReportForm(space);
       });
@@ -96,17 +100,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map?.remove();
   }
 
-  // openReportForm(space: any) {
-  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
-  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-  //   (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
-  //   (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
-
-  //   formContainer.classList.add('open');
-  //   mapWrap.classList.add('shrink');
-  // }
-
   openReportForm(space: any) {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
 
@@ -115,18 +108,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
 
       formContainer.style.display = 'flex'; // Make it visible
+      void formContainer.offsetWidth; // Force reflow for animations
       formContainer.classList.add('open'); // Add animation class
     }
   }
 
+  triggerFileInput() {
+    document.getElementById('file-upload')?.click();
+  }
 
-  // closeForm() {
-  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
-  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-  //   formContainer.classList.remove('open');
-  //   mapWrap.classList.remove('shrink');
-  // }
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+    }
+}
 
   closeForm() {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;

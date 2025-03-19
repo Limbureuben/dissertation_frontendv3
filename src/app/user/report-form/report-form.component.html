@@ -3,7 +3,6 @@
     <div class="report-container" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeForm()">×</button>
 
-
       <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
         <!-- Issue Description -->
         <mat-form-field appearance="outline" class="full-width custom-input">
