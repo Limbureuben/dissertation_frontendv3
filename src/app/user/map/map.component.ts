@@ -96,24 +96,47 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map?.remove();
   }
 
+  // openReportForm(space: any) {
+  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
+  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
+
+  //   (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
+  //   (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
+
+  //   formContainer.classList.add('open');
+  //   mapWrap.classList.add('shrink');
+  // }
+
   openReportForm(space: any) {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
 
-    (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
-    (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
+    if (formContainer) {
+      (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
+      (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
 
-    formContainer.classList.add('open');
-    mapWrap.classList.add('shrink');
+      formContainer.style.display = 'flex'; // Make it visible
+      formContainer.classList.add('open'); // Add animation class
+    }
   }
+
+
+  // closeForm() {
+  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
+  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
+
+  //   formContainer.classList.remove('open');
+  //   mapWrap.classList.remove('shrink');
+  // }
 
   closeForm() {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
 
-    formContainer.classList.remove('open');
-    mapWrap.classList.remove('shrink');
+    if (formContainer) {
+      formContainer.style.display = 'none';
+      formContainer.classList.remove('open');
+    }
   }
+
 
 
 

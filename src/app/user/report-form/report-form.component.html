@@ -2,38 +2,31 @@
   <div class="report-overlay" (click)="closeForm()">
     <div class="report-container" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeForm()">×</button>
-      <img src="assets/images/emblem.png" alt="Logo" class="report-logo">
+
+
       <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
         <!-- Issue Description -->
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>Issue Description</mat-label>
-          <textarea matInput formControlName="description" name="description" placeholder="Describe the issue here" required></textarea>
+          <textarea matInput formControlName="description" placeholder="Describe the issue here" required></textarea>
         </mat-form-field>
 
-        <!-- Contact Email -->
+        <!-- Contact Email (Optional) -->
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Contact Email</mat-label>
-          <input matInput formControlName="email" name="email" placeholder="Enter your email" type="email" required />
+          <mat-label>Your Email (Optional)</mat-label>
+          <input matInput formControlName="email" placeholder="Enter your email (optional)" type="email" />
         </mat-form-field>
 
-        <!-- District Dropdown -->
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Select District</mat-label>
-          <mat-select formControlName="district" name="district" required>
-            <mat-option value="makongo">Makongo</mat-option>
-            <mat-option value="mwenge">Mwenge</mat-option>
-            <mat-option value="goba">Goba</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <!-- File Upload (Styled as Material UI) -->
+        <div class="file-upload-container">
+          <label class="file-upload-label">Upload File (Optional)</label>
 
-        <!-- Date Picker -->
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Date of the Issue</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="date" name="date" type="date" required />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
+          <!-- File Input Wrapper for Full Width -->
+          <div class="file-input-wrapper">
+            <input type="file" id="file-upload" (change)="onFileSelected($event)" />
+            <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
+          </div>
+        </div>
         <!-- Submit Button -->
         <div class="actions">
           <button mat-raised-button color="primary" type="submit">Submit Report</button>
@@ -42,4 +35,3 @@
     </div>
   </div>
 </div>
-

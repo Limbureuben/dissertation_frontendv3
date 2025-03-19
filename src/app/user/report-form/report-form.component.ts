@@ -11,6 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ReportFormComponent {
 
   reportForm!: FormGroup;
+  selectedFileName: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -37,5 +38,14 @@ export class ReportFormComponent {
     this.dialogRef.close();
   }
 
+  triggerFileInput() {
+    document.getElementById('file-upload')?.click();
+  }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+    }
+}
 }

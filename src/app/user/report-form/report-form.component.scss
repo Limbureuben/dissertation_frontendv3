@@ -1,83 +1,14 @@
-// .report-form-container {
-//   position: fixed;
-//   top: 10%;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   background-color: white;
-//   padding: 20px;
-//   border-radius: 8px;
-//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-//   width: 400px;
-//   z-index: 1000;
-//   max-width: 100%;
-//   text-align: center;
-//   animation: slideIn 0.3s ease-out;
-// }
-
-// h2 {
-//   font-size: 24px;
-//   margin-bottom: 20px;
-//   font-family: 'Roboto', sans-serif;
-// }
-
-// .form-field {
-//   width: 100%;
-//   margin-bottom: 20px;
-// }
-
-// mat-form-field {
-//   width: 100%;
-//   margin: 10px 0;
-//   position: relative;
-// }
-
-// button[type="submit"] {
-//   margin-top: 20px;
-// }
-
-// .close-button {
-//   position: absolute;
-//   top: 10px;
-//   right: 10px;
-//   background: transparent;
-//   border: none;
-//   font-size: 24px;
-//   color: #aaa;
-//   cursor: pointer;
-//   transition: color 0.3s ease;
-// }
-
-// .close-button:hover {
-//   color: red;
-// }
-
-// @keyframes slideIn {
-//   from {
-//     transform: translateX(-50%) scale(0.8);
-//     opacity: 0;
-//   }
-//   to {
-//     transform: translateX(-50%) scale(1);
-//     opacity: 1;
-//   }
-// }
-
-// mat-label {
-//   transition: all 0.3s ease;
-// }
-
-
-/* Ensure full-width inputs like login form */
+/* Full-width form fields */
 .full-width {
   width: 100%;
 }
 
-/* Custom input field styles */
+/* Input styling */
 .custom-input {
-  margin-bottom: 0px;
+  margin-bottom: 15px;
 }
 
-/* Styling for the background and overlay */
+/* Modal background overlay */
 .report-background {
   position: fixed;
   top: 0;
@@ -90,23 +21,28 @@
   align-items: center;
 }
 
+/* Report form container */
 .report-overlay {
   background-color: white;
   padding: 30px;
   border-radius: 8px;
   position: relative;
   width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Center form elements */
 .report-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 30px;
 }
 
+/* Close button */
 .close-btn {
   position: absolute;
-  top: 10px;
+  top: 3px;
   right: 10px;
   font-size: 24px;
   border: none;
@@ -114,14 +50,8 @@
   cursor: pointer;
 }
 
-/* Styling for the logo */
-.report-logo {
-  width: 80px;
-  height: auto;
-  margin-bottom: 20px;
-}
 
-/* Button styling */
+/* Submit button */
 .actions {
   display: flex;
   justify-content: center;
@@ -132,3 +62,47 @@
 .actions button {
   width: 100%;
 }
+
+/* Increase the width of the file input container */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Make it full-width */
+  margin-bottom: 15px;
+}
+
+/* File input label */
+.file-upload-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* File input styling */
+#file-upload {
+  width: 100%; /* Increase width */
+  border: none;
+  background-color: transparent; /* Remove background */
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* File input wrapper for better visibility */
+.file-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc; /* Light border for visibility */
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* File name display */
+.file-name {
+  font-size: 10px;
+  color: #333;
+  margin-left: 10px;
+}
+
+

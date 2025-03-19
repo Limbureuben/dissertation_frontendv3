@@ -1,9 +1,8 @@
 <div class="map-wrap">
-  <!-- Search Box with Search Icon -->
+  <!-- Search Box -->
   <div class="search-box">
     <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">
     <button (click)="searchLocation()">🔍</button>
-    <!-- Suggestions List -->
     <ul class="suggestions-list" *ngIf="suggestions.length">
       <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
         {{ suggestion.name }}
@@ -13,45 +12,47 @@
 
   <div class="map" #map></div>
 
-  <div class="details-form-container" id="detailsForm">
-    <button class="close-form-btn" (click)="closeForm()">x</button>
-    <h2>Report a Problem</h2>
-    <form (submit)="submitReport($event)">
-      <div class="location-info">
-        <label>Location: </label>
-        <span id="location-name"></span>
-        <br>
-        <label>Region: </label>
-        <span id="region"></span>
-        <br>
-      </div>
+  <!-- Report Form (Initially Hidden) -->
+  <!-- Report Form -->
+<div class="details-form-container" id="detailsForm">
+  <button class="close-form-btn" (click)="closeForm()">✖</button>
+  <h2>Report a Problem</h2>
 
-      <!-- Email Input -->
-      <div class="input-group">
-        <label for="email">Email (Optional)</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email">
-      </div>
+  <form (submit)="submitReport($event)">
+    <div class="location-info">
+      <label>Location: </label>
+      <span id="location-name" class="highlight-text"></span>
+      <br>
+      <label>Region: </label>
+      <span id="region" class="highlight-text"></span>
+      <br>
+    </div>
 
-      <!-- Phone Number Input -->
-      <div class="input-group">
-        <label for="phone-number">Phone Number (Optional)</label>
-        <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" placeholder="+255625219727">
-      </div>
+    <div class="input-group">
+      <label for="email">Email (Optional)</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email">
+    </div>
 
-      <!-- Problem Description -->
-      <div class="input-group">
-        <label for="problem-description">Problem Description</label>
-        <textarea id="problem-description" name="problem-description" placeholder="Describe the problem" rows="4"></textarea>
-      </div>
+    <div class="input-group">
+      <label for="phone-number">Phone Number (Optional)</label>
+      <input type="tel" id="phone-number" name="phone-number" pattern="[0-9]{10}" placeholder="+255625219727">
+    </div>
 
-      <!-- Media Upload Input -->
-      <div class="input-group file-upload">
-        <label for="media-upload">Upload Media (Optional)</label>
-        <input type="file" id="media-upload" name="media-upload" accept="image/*,video/*">
-      </div>
+    <div class="input-group">
+      <label for="problem-description">Problem Description</label>
+      <textarea id="problem-description" name="problem-description" placeholder="Describe the problem" rows="4"></textarea>
+    </div>
 
-      <button type="submit" class="submit-btn">Submit</button>
-    </form>
-  </div>
+    <div class="input-group file-upload">
+      <label for="media-upload">Upload Media (Optional)</label>
+      <input type="file" id="media-upload" name="media-upload" accept="image/*,video/*">
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+</div>
+
+<!-- Background Overlay -->
+<div class="overlay" (click)="closeForm()"></div>
 </div>
 
