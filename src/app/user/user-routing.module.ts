@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
   { path: 'user-dashboard', component: UserDashboardComponent},
   { path: 'map-display', component: MapDisplayComponent, canActivate: [authGuard] },
-  { path: 'report-form', component: ReportFormComponent }
+  { path: 'report-form', component: ReportFormComponent },
+  { path: 'map', component: MapComponent }
 ];
 
 @NgModule({
