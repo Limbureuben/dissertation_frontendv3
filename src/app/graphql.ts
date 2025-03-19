@@ -122,3 +122,19 @@ export const GET_ALL_OPENSPACES_USER = gql`
     }
   }
 `;
+
+export const REGISTER_REPORT_MUTATION = gql`
+      mutation MyMutation($input: ReportInputObject!) {
+        registerReport(input: $input) {
+          output {
+            message
+            success
+            report {
+              id
+              description
+              email
+            }
+          }
+        }
+      }
+    `;

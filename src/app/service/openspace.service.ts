@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_OPENSPACE_COUNT, TOGGLE_OPENSPACE_STATUS } from '../graphql';
+import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_OPENSPACE_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
+import { HttpClient } from '@angular/common/http';
 
 export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
 
@@ -12,10 +13,12 @@ export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
   providedIn: 'root'
 })
 export class OpenspaceService {
+
+  private fileUploadUrl = 'http://127.0.0.1:8000/api/v1/upload/';
   private openSpacesSubject = new BehaviorSubject<any[]>([]);
   openSpaces$ = this.openSpacesSubject.asObservable();
 
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, private http: HttpClient,) {
     this.loadOpenSpaces();
   }
 
@@ -110,6 +113,21 @@ export class OpenspaceService {
     }).pipe(
       map(result => result.data?.toggleOpenspaceStatus?.openspace)
     );
+  }
+
+  registerReport(description: string, email: string): Observable<any> {
+    return this.apollo.mutate({
+      mutation: REGISTER_REPORT_MUTATION,
+      variables: { description, email}
+    });
+  }
+
+  uploadFile(reportId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('report_id', reportId);
+
+    return this.http.post(this.fileUploadUrl, formData);
   }
 
 }

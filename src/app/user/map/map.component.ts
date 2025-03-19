@@ -3,6 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Map, config, Marker, Popup } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { OpenspaceService } from '../../service/openspace.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { response } from 'express';
 
 @Component({
   selector: 'app-map',
@@ -15,27 +17,29 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   searchQuery: string = '';
   suggestions: any[] = [];
   locationName: string = '';
+  selectedFile: File | null = null;
   openSpaces: any[] = [];
+  reportForm: FormGroup;
+  selectedFileName: string = 'No file chosen';
+  message: string = '';
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private openSpaceService: OpenspaceService
-) {}
+    private openSpaceService: OpenspaceService,
+    private fb: FormBuilder
+) {
+  this.reportForm = this.fb.group({
+    description: ['', [Validators.required, Validators.minLength(20)]],
+    email: ['', [Validators.email]],
+  });
+}
 
-selectedFileName: string = "";
 
   ngOnInit(): void {
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
   }
-
-  // ngAfterViewInit() {
-  //   if (isPlatformBrowser(this.platformId)) {
-  //     this.initializeMap();
-  //     this.fetchOpenSpaces();
-  //   }
-  // }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -48,8 +52,6 @@ selectedFileName: string = "";
       });
     }
   }
-
-
 
   initializeMap(): void {
     this.map = new Map({
@@ -155,9 +157,6 @@ selectedFileName: string = "";
     }
   }
 
-
-
-
 triggerFileInput() {
   document.getElementById('file-upload')?.click();
 }
@@ -165,6 +164,7 @@ triggerFileInput() {
 onFileSelected(event: any) {
   const file = event.target.files[0];
   if (file) {
+    this.selectedFile = file;
     this.selectedFileName = file.name;
   }
 }
@@ -206,6 +206,43 @@ onFileSelected(event: any) {
     this.suggestions = [];
   }
 
+
+
+
+  submitReport() {
+    if(this.reportForm.invalid) {
+      this.message = 'Please fill all required fields';
+      return;
+    }
+
+    const { description, email } = this.reportForm.value;
+
+    this.openSpaceService.registerReport(description, email).subscribe(
+      response => {
+        if(response.success) {
+          const reportId = response.report.id;
+          this.message = `Report submitted successfully! Report ID: ${reportId}`;
+
+          if(this.selectedFile) {
+            this.openSpaceService.uploadFile(reportId, this.selectedFile).subscribe(
+              (uploadResponse) => {
+                this.message += ' File uploaded successfully!';
+              },
+              (uploadError) => {
+                this.message += ' File upload failed!';
+              }
+            );
+          }
+        } else {
+          this.message = 'Failed to submit report.';
+        }
+      },
+      (error) => {
+        console.error('Error submitting report:', error);
+        this.message = 'Error submitting report. Please try again.';
+      }
+    );
+  }
 }
 
 

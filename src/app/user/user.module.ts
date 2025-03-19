@@ -60,7 +60,7 @@ import { SharingModule } from '../sharing/sharing.module';
     ReactiveFormsModule,
     MatDialogModule,
     MatGridListModule,
-    SharingModule
+    SharingModule,
   ],
   exports: [
     MapDisplayComponent,
