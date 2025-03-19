@@ -12,7 +12,7 @@ body {
 /* --- SEARCH BOX --- */
 .search-box {
   position: absolute;
-  top: 10px;
+  top: 80px;
   left: 10px;
   z-index: 1000;
   background: white;
@@ -49,21 +49,34 @@ body {
 }
 
 /* --- MAP STYLING --- */
+// .map-wrap {
+//   display: flex;
+//   position: relative;
+//   width: 100%;
+//   height: 100vh;
+//   transition: flex 0.3s ease-in-out;
+// }
+
 .map-wrap {
-  display: flex;
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  transition: flex 0.3s ease-in-out;
+  flex-direction: column;
+  min-height: 400px;
 }
+
+
+// .map {
+//   flex: 1;
+//   transition: flex 0.3s ease-in-out;
+// }
 
 .map {
   flex: 1;
-  transition: flex 0.3s ease-in-out;
+  width: 100%;
+  height: 1000px !important; /* Ensure it has a height */
+  display: block !important;
 }
 
 
-/* Full-width form fields */
+
 .full-width {
   width: 100%;
 }
@@ -73,17 +86,24 @@ body {
   margin-bottom: 15px;
 }
 
-/* Modal background overlay */
 .report-background {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
+  background-color: rgba(0, 0, 0, 0.5); /* This causes the dark background */
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Remove this too if not needed */
+.report-background.open {
+  display: flex;
+  opacity: 1;
 }
 
 /* Report form container */
@@ -170,33 +190,36 @@ body {
   margin-left: 10px;
 }
 
+#detailsForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8); /* Initially small */
+  width: 350px;
+  height: auto;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: none; /* Initially hidden */
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  z-index: 1000;
+}
 
+/* When the form is open, smoothly pop in */
+#detailsForm.open {
+  display: flex;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* When closing the form */
+#detailsForm.closing {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+}
 
 /* --- RESPONSIVENESS --- */
 @media (max-width: 1024px) {
@@ -219,6 +242,13 @@ body {
 
   .map-wrap.shrink .details-form-container {
     right: 0;
+  }
+
+  #map {
+    display: block !important;
+    height: 400px !important;
+    min-height: 300px;
+    background: lightgray; /* Temporary to check if it's rendering */
   }
 }
 

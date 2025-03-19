@@ -30,12 +30,26 @@ selectedFileName: string = "";
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
   }
 
+  // ngAfterViewInit() {
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     this.initializeMap();
+  //     this.fetchOpenSpaces();
+  //   }
+  // }
+
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initializeMap();
       this.fetchOpenSpaces();
+
+      // Add event listener to close form button
+      document.getElementById('closeFormBtn')?.addEventListener('click', () => {
+        this.closeForm();
+      });
     }
   }
+
+
 
   initializeMap(): void {
     this.map = new Map({
@@ -64,6 +78,7 @@ selectedFileName: string = "";
       markerElement.src = 'assets/images/location.png';
       markerElement.style.width = '25px';
       markerElement.style.height = '25px';
+      markerElement.style.cursor = 'pointer'; // Ensure cursor is set
 
       const marker = new Marker({ element: markerElement })
         .setLngLat([space.longitude, space.latitude])
@@ -83,18 +98,21 @@ selectedFileName: string = "";
 
       marker.setPopup(popup);
 
-      //open form when button is clicked
+      // Open form when button inside popup is clicked
       popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
         e.stopPropagation();
+        console.log('Report button clicked for:', space.name);
         this.openReportForm(space);
       });
 
-      // open form when marker is clicked
+      // Open form when marker is clicked
       marker.getElement().addEventListener('click', () => {
+        console.log('Marker clicked for:', space.name);
         this.openReportForm(space);
       });
     });
   }
+
 
   ngOnDestroy() {
     this.map?.remove();
@@ -102,52 +120,54 @@ selectedFileName: string = "";
 
   openReportForm(space: any) {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
+    const locationName = document.getElementById('location-name') as HTMLElement;
+
+    if (locationName) {
+      locationName.textContent = space.name; // Bind location name
+    } else {
+      console.error('Location or region element not found');
+    }
 
     if (formContainer) {
-      (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
-      (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
+      console.log('Opening form for:', space.name);
+      formContainer.style.display = 'flex';
 
-      formContainer.style.display = 'flex'; // Make it visible
-      void formContainer.offsetWidth; // Force reflow for animations
-      formContainer.classList.add('open'); // Add animation class
+      // Small delay before adding "open" for smooth pop-up animation
+      setTimeout(() => {
+        formContainer.classList.add('open');
+      }, 10);
+    } else {
+      console.error('Form container not found');
     }
   }
-
-  triggerFileInput() {
-    document.getElementById('file-upload')?.click();
-  }
-
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFileName = file.name;
-    }
-}
 
   closeForm() {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
 
     if (formContainer) {
-      formContainer.style.display = 'none';
-      formContainer.classList.remove('open');
+      formContainer.classList.add('closing');
+
+      // Wait for animation to complete before hiding
+      setTimeout(() => {
+        formContainer.classList.remove('open', 'closing');
+        formContainer.style.display = 'none';
+      }, 300); // Matches CSS transition duration
     }
   }
 
 
 
 
+triggerFileInput() {
+  document.getElementById('file-upload')?.click();
+}
 
-
-
-
-
-
-
-
-
-
-
-
+onFileSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedFileName = file.name;
+  }
+}
 
   fetchSuggestions() {
     if (!this.searchQuery) {
@@ -186,45 +206,6 @@ selectedFileName: string = "";
     this.suggestions = [];
   }
 
-  // openReportForm(space: any) {
-  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
-  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-  //   // Set the Location and Region in the span elements
-  //   (formContainer.querySelector('#location-name') as HTMLElement).textContent = space.name;
-  //   (formContainer.querySelector('#region') as HTMLElement).textContent = 'Dar-es-salaam';
-
-
-  //   formContainer.classList.add('open');
-  //   mapWrap.classList.add('shrink');
-  // }
-
-
-
-  // closeForm() {
-  //   const formContainer = document.getElementById('detailsForm') as HTMLElement;
-  //   const mapWrap = document.querySelector('.map-wrap') as HTMLElement;
-
-  //   formContainer.classList.remove('open');
-  //   mapWrap.classList.remove('shrink');
-  // }
-
-  submitReport(event: Event) {
-    event.preventDefault();
-
-    const formContainer = document.getElementById('detailsForm') as HTMLElement;
-    const description = (formContainer.querySelector('#problem-description') as HTMLTextAreaElement).value;
-    const locationName = (formContainer.querySelector('#location-name') as HTMLInputElement).value;
-    const region = (formContainer.querySelector('#region') as HTMLInputElement).value;
-    const council = (formContainer.querySelector('#council') as HTMLInputElement).value;
-    const district = (formContainer.querySelector('#district') as HTMLInputElement).value;
-
-    // You can now log, send, or process the report
-    alert(`Problem reported at ${locationName} (${region}, ${council}, ${district}). Description: ${description}`);
-
-    // Close the form after submission
-    this.closeForm();
-  }
 }
 
 
