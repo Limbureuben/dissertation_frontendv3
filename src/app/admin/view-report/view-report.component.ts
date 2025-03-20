@@ -8,17 +8,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ViewReportComponent {
 
-  report: any;
-  loading = true;
-  error: any;
   
-  constructor(
-    public dialogRef: MatDialogRef<ViewReportComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  close(): void {
-    this.dialogRef.close();
-  }
 
 }
