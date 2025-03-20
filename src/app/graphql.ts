@@ -123,21 +123,6 @@ export const GET_ALL_OPENSPACES_USER = gql`
   }
 `;
 
-// export const REGISTER_REPORT_MUTATION = gql`
-//       mutation RegisterReport($input: ReportInputObject!) {
-//         registerReport(input: $input) {
-//           output {
-//             message
-//             success
-//           }
-//           report {
-//             description
-//             email
-//             id
-//           }
-//         }
-//       }
-//     `;
 
 export  const REGISTER_REPORT_MUTATION = gql`
     mutation RegisterReport($input: ReportInputObject!) {
