@@ -6,11 +6,13 @@ import { AvailablespaceComponent } from './availablespace/availablespace.compone
 import { authGuard } from '../guards/auth.guard';
 import { adminGuard } from '../guards/admin.guard';
 import { adminExitGuard } from '../guards/admin-exist.guard';
+import { AvailablereportComponent } from './availablereport/availablereport.component';
 
 const routes: Routes = [
   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
   { path: 'map-common', component: MapCommonComponent },
-  { path: 'openspace', component: AvailablespaceComponent }
+  { path: 'openspace', component: AvailablespaceComponent },
+  { path: 'report', component: AvailablereportComponent },
 ];
 
 @NgModule({
