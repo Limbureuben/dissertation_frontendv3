@@ -189,3 +189,12 @@ export const GET_ALL_REPORTS = gql`
     }
   }
 `;
+
+export const CONFIRM_REPORT = gql`
+  mutation MyMutation($reportId: String!) {
+    confirmReport(reportId: $reportId) {
+      message
+      success
+    }
+  }
+`;

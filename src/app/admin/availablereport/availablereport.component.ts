@@ -67,7 +67,22 @@ export class AvailablereportComponent implements OnInit{
   }
 
   confirmReport(reportId: string): void {
-    console.log('Confirming Report:', reportId);
+    this.openSpaceService.confirmReport(reportId).subscribe(response => {
+      if (response.data.confirmReport.success) {
+        this.toastr.success(response.data.confirmReport.message, 'Success', {
+          positionClass: 'toast-top-right',
+        });
+
+        this.loadReport();
+      } else {
+        this.toastr.error('Failed to confirm report', 'Error', {
+          positionClass: 'toast-top-right',
+        });
+      }
+    }, error => {
+      this.toastr.error('Error confirming report', 'Error');
+    }
+  )
   }
 
   deleteReport(reportId: string): void {
