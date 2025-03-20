@@ -173,3 +173,19 @@ export  const REGISTER_REPORT_MUTATION = gql`
     }
   }
 `;
+
+export const GET_ALL_REPORTS = gql`
+  query MyQuery {
+    allReports {
+      createdAt
+      description
+      email
+      file
+      id
+      latitude
+      longitude
+      reportId
+      spaceName
+    }
+  }
+`;
