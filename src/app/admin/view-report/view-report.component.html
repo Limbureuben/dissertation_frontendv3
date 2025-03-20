@@ -39,13 +39,13 @@
         <!-- Uploaded File -->
         <div class="report-detail" *ngIf="data.file">
           <strong>Uploaded File:</strong>
-          <a [href]="data.file" target="_blank" class="file-link">View File</a>
+          <a [href]="getFileUrl()" target="_blank" class="file-link">View File</a>
         </div>
       </div>
 
       <!-- Close Button -->
       <div class="actions">
-        <button mat-raised-button color="primary" (click)="closeForm()">Close</button>
+        <button mat-raised-button style="background-color: #3F51B5; color: white;" (click)="closeForm()">Close</button>
       </div>
     </div>
   </div>

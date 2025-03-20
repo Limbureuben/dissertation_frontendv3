@@ -8,6 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ViewReportComponent {
 
+
+  private backendUrl = 'http://127.0.0.1:8000/api/v1/upload/';
+
   constructor(
     public dialogRef: MatDialogRef<ViewReportComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -15,5 +18,9 @@ export class ViewReportComponent {
 
   closeForm(): void {
     this.dialogRef.close();
+  }
+
+  getFileUrl(): string {
+    return this.data.file ? `${this.backendUrl}${this.data.file}` : '';
   }
 }
