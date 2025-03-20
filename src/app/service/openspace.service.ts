@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ADD_OPENSPACE, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_OPENSPACE_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
+import { ADD_OPENSPACE, CREATE_REPORT, DELETE_OPEN_SPACE, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_OPENSPACE_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,7 +14,7 @@ export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
 })
 export class OpenspaceService {
 
-  private fileUploadUrl = 'http://127.0.0.1:8000/api/v1/upload/';
+  private apiUrl = 'http://127.0.0.1:8000/api/v1/upload/';
   private openSpacesSubject = new BehaviorSubject<any[]>([]);
   openSpaces$ = this.openSpacesSubject.asObservable();
 
@@ -122,12 +122,31 @@ export class OpenspaceService {
     });
   }
 
-  uploadFile(reportId: string, file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('report_id', reportId);
+  uploadFile(file: File | null): Observable<{ file_path: string | null }> {
+    if (!file) {
+      return of({ file_path: null });
+    }
 
-    return this.http.post(this.fileUploadUrl, formData);
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<{ file_path: string }>(this.apiUrl, formData);
+  }
+
+
+  createReport(description: string, email: string | null, filePath: string | null, spaceName: string, latitude: number, longitude: number): Observable<any> {
+    return this.apollo.mutate({
+      mutation: CREATE_REPORT,
+      variables: {
+        description,
+        email: email || null,
+        filePath: filePath || null,
+        spaceName,
+        latitude,
+        longitude
+      }
+    }).pipe(
+      map(result => result.data)
+    );
   }
 
 }

@@ -123,18 +123,53 @@ export const GET_ALL_OPENSPACES_USER = gql`
   }
 `;
 
-export const REGISTER_REPORT_MUTATION = gql`
-      mutation MyMutation($input: ReportInputObject!) {
-        registerReport(input: $input) {
-          output {
-            message
-            success
-            report {
-              id
-              description
-              email
-            }
+// export const REGISTER_REPORT_MUTATION = gql`
+//       mutation RegisterReport($input: ReportInputObject!) {
+//         registerReport(input: $input) {
+//           output {
+//             message
+//             success
+//           }
+//           report {
+//             description
+//             email
+//             id
+//           }
+//         }
+//       }
+//     `;
+
+export  const REGISTER_REPORT_MUTATION = gql`
+    mutation RegisterReport($input: ReportInputObject!) {
+      registerReport(input: $input) {
+        output {
+          message
+          success
+          report {
+            id
+            description
+            email
+            fileUrl
           }
         }
       }
-    `;
+    }
+  `;
+
+
+  export const CREATE_REPORT = gql`
+  mutation CreateReport($description: String!, $email: String, $filePath: String, $spaceName: String, $latitude: Float, $longitude: Float) {
+    createReport(description: $description, email: $email, filePath: $filePath, spaceName: $spaceName, latitude: $latitude, longitude: $longitude) {
+      report {
+        reportId
+        description
+        email
+        file
+        createdAt
+        latitude
+        longitude
+        createdAt
+      }
+    }
+  }
+`;

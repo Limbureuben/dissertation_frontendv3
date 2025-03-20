@@ -27,8 +27,6 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SharingModule } from '../sharing/sharing.module';
 
-
-
 @NgModule({
   declarations: [
     UserDashboardComponent,
@@ -46,6 +44,7 @@ import { SharingModule } from '../sharing/sharing.module';
     MatSelectModule,
     UserRoutingModule,
     MatSidenavModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatListModule,
     MatIconModule,
@@ -57,7 +56,6 @@ import { SharingModule } from '../sharing/sharing.module';
     MatInputModule,
     MatFormFieldModule,
     MatListModule,
-    ReactiveFormsModule,
     MatDialogModule,
     MatGridListModule,
     SharingModule,

@@ -310,3 +310,12 @@ body {
   border-radius: 5px;
   font-size: 16px;
 }
+
+.success-message {
+  color: green; /* Green text */
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #4caf50; /* Green border */
+  border-radius: 5px;
+  margin-top: 10px;
+}
