@@ -19,7 +19,7 @@
         </mat-form-field>
       </div>
 
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
         <tbody>
 
           <!-- Report ID Column -->
@@ -63,7 +63,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="['reportId', 'spaceName', 'latitude', 'longitude', 'actions']"></tr>
-          <tr mat-row *matRowDef="let row; columns: ['reportId', 'spaceName', 'latitude', 'longitude', 'actions'];"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['reportId', 'spaceName', 'latitude', 'longitude', 'actions'];" @rowAnimation></tr>
 
         </tbody>
       </table>

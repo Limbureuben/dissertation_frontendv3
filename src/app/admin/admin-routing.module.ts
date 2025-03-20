@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
   { path: 'map-common', component: MapCommonComponent },
   { path: 'openspace', component: AvailablespaceComponent },
-  { path: 'report', component: AvailablereportComponent },
+  { path: 'reports', component: AvailablereportComponent },
 ];
 
 @NgModule({
