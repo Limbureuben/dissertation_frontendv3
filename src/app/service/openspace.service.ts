@@ -155,7 +155,7 @@ export class OpenspaceService {
     }).valueChanges.pipe(map(result => result.data.allReports));
   }
 
-
+  
   confirmReport(reportId: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CONFIRM_REPORT,

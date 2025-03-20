@@ -35,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvailablereportComponent } from './availablereport/availablereport.component';
+import { ViewReportComponent } from './view-report/view-report.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AvailablereportComponent } from './availablereport/availablereport.comp
     MapAdminComponent,
     AvailablespaceComponent,
     AvailablereportComponent,
+    ViewReportComponent,
   ],
   imports: [
     CommonModule,
