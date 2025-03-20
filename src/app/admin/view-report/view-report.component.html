@@ -37,11 +37,19 @@
         </div>
 
         <!-- Uploaded File -->
+        <!-- Uploaded File -->
         <div class="report-detail" *ngIf="data.file">
           <strong>Uploaded File:</strong>
-          <a [href]="getFileUrl()" target="_blank" class="file-link">View File</a>
+          <img [src]="getFileUrl()" (click)="openImageModal(getFileUrl())" class="thumbnail" alt="Uploaded File">
         </div>
-      </div>
+
+        <!-- Image Modal (Hidden Initially) -->
+        <div class="image-modal" *ngIf="isImageModalOpen" (click)="closeImageModal()">
+          <div class="image-container" (click)="$event.stopPropagation()">
+            <button class="close-btn" (click)="closeImageModal()">×</button>
+            <img [src]="selectedImage" class="full-image" alt="Full View">
+          </div>
+        </div>
 
       <!-- Close Button -->
       <div class="actions">

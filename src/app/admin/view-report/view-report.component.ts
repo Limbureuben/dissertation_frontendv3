@@ -9,7 +9,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class ViewReportComponent {
 
 
-  private backendUrl = 'http://127.0.0.1:8000/api/v1/upload/';
+  private backendUrl = 'http://127.0.0.1:8000/media/';
+  isImageModalOpen = false;
+  selectedImage: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<ViewReportComponent>,
@@ -22,5 +24,14 @@ export class ViewReportComponent {
 
   getFileUrl(): string {
     return this.data.file ? `${this.backendUrl}${this.data.file}` : '';
+  }
+
+  openImageModal(imagePath: string): void {
+    this.selectedImage = imagePath;
+    this.isImageModalOpen = true;
+  }
+
+  closeImageModal(): void {
+    this.isImageModalOpen = false;
   }
 }
