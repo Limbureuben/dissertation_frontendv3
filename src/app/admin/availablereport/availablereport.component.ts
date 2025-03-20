@@ -94,6 +94,7 @@ export class AvailablereportComponent implements OnInit{
 
   viewReport(report: any): void {
     this.dialog.open(ViewReportComponent, {
+      data: report,
     });
 }
 }

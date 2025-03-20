@@ -1,0 +1,52 @@
+<div class="report-background">
+  <div class="report-overlay" (click)="closeForm()">
+    <div class="report-container" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeForm()">×</button>
+
+      <h2 class="report-title">Report Details</h2>
+
+      <div class="report-content">
+        <!-- Report ID -->
+        <div class="report-detail">
+          <strong>Report ID:</strong>
+          <span>{{ data.reportId }}</span>
+        </div>
+
+        <!-- Open Space Name -->
+        <div class="report-detail">
+          <strong>Open Space Name:</strong>
+          <span>{{ data.spaceName }}</span>
+        </div>
+
+        <!-- Issue Description -->
+        <div class="report-detail">
+          <strong>Issue Description:</strong>
+          <p class="description-box">{{ data.description }}</p>
+        </div>
+
+        <!-- Contact Email -->
+        <div class="report-detail">
+          <strong>Your Email (Optional):</strong>
+          <span>{{ data.email || 'N/A' }}</span>
+        </div>
+
+        <!-- Latitude & Longitude -->
+        <div class="report-detail">
+          <strong>Location:</strong>
+          <span>Lat: {{ data.latitude }}, Lng: {{ data.longitude }}</span>
+        </div>
+
+        <!-- Uploaded File -->
+        <div class="report-detail" *ngIf="data.file">
+          <strong>Uploaded File:</strong>
+          <a [href]="data.file" target="_blank" class="file-link">View File</a>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="closeForm()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
