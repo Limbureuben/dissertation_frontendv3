@@ -33,7 +33,7 @@ export class OpenspaceService {
       },
       refetchQueries: [
         { query: GET_ALL_OPENSPACES_ADMIN }, //regresh list ya admin
-        { query: GET_OPENSPACE_COUNT } //refresh list ya number
+        { query: GET_OPENSPACE_COUNT }
       ]
     });
   }
@@ -155,13 +155,27 @@ export class OpenspaceService {
     }).valueChanges.pipe(map(result => result.data.allReports));
   }
 
+
   confirmReport(reportId: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CONFIRM_REPORT,
-      variables: {
-        reportId
-      }
-    })
-  }
+      variables: { reportId },
+      update: (cache) => {
+        // Read the existing reports from cache
+        const existingData: any = cache.readQuery({ query: GET_ALL_REPORTS });
 
+        if (existingData) {
+          // Filter out the confirmed report
+          cache.writeQuery({
+            query: GET_ALL_REPORTS,
+            data: {
+              allReports: existingData.allReports.filter(
+                (report: any) => report.reportId !== reportId
+              ),
+            },
+          });
+        }
+      },
+    });
+  }
 }
