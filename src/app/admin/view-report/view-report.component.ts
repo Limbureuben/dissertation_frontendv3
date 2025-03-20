@@ -16,4 +16,10 @@ export class ViewReportComponent {
     this.dialogRef.close();
   }
 
+  isImage(fileUrl: string): boolean {
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+    const extension = fileUrl.split('.').pop()?.toLowerCase();
+    return extension ? imageExtensions.includes(extension) : false;
+  }
+
 }

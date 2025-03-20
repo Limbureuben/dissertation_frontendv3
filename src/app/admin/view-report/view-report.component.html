@@ -17,7 +17,12 @@
 
     <div *ngIf="data.file" class="file-section">
       <p><strong>Attached File:</strong></p>
-      <a [href]="data.file" target="_blank" class="file-link">View File</a>
+
+      <!-- If the file is an image, display it -->
+      <img *ngIf="isImage(data.file)" [src]="data.file" alt="Report Image" class="preview-image" />
+
+      <!-- If the file is not an image, show download link -->
+      <a *ngIf="!isImage(data.file)" [href]="data.file" target="_blank" class="file-link">Download File</a>
     </div>
   </mat-dialog-content>
 </div>
