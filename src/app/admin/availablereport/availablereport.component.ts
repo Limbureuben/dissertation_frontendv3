@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewReportComponent } from '../view-report/view-report.component';
 
 @Component({
   selector: 'app-availablereport',
@@ -41,6 +43,7 @@ export class AvailablereportComponent implements OnInit{
   constructor(
     private openSpaceService: OpenspaceService,
     private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
 
@@ -88,4 +91,11 @@ export class AvailablereportComponent implements OnInit{
   deleteReport(reportId: string): void {
     console.log('Deleting Report:', reportId);
   }
+
+  viewReport(report: any): void {
+    this.dialog.open(ViewReportComponent, {
+      width: '500px',
+      data: report
+    });
+}
 }

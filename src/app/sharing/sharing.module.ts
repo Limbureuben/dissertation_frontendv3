@@ -23,6 +23,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonHeaderComponent } from './common-header/common-header.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     MatSelectModule,
     MatOptionModule,
     TranslateModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
 
   exports: [

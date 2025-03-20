@@ -36,6 +36,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvailablereportComponent } from './availablereport/availablereport.component';
 import { ViewReportComponent } from './view-report/view-report.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ViewReportComponent } from './view-report/view-report.component';
     MatFormFieldModule,
     MatSortModule,
     MatInputModule,
+    MatDialogModule,
     MatPaginatorModule,
     ReactiveFormsModule,
     MatTableModule,
