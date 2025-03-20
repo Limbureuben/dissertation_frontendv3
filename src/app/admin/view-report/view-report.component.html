@@ -1,18 +1,23 @@
-<h2 mat-dialog-title>Report Details</h2>
-<mat-dialog-content>
-  <p><strong>Report ID:</strong> {{ data.reportId }}</p>
-  <p><strong>Open Space Name:</strong> {{ data.spaceName }}</p>
-  <p><strong>Latitude:</strong> {{ data.latitude }}</p>
-  <p><strong>Longitude:</strong> {{ data.longitude }}</p>
-  <p><strong>Description:</strong> {{ data.description }}</p>
-  <p><strong>Email:</strong> {{ data.email ? data.email : 'N/A' }}</p>
-  <p><strong>Date Created:</strong> {{ data.createdAt | date }}</p>
+<div class="dialog-container">
+  <!-- Close Button (X) at the top-right corner -->
+  <button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
 
-  <div *ngIf="data.file">
-    <p><strong>Attached File:</strong></p>
-    <a [href]="data.file" target="_blank">View File</a>
-  </div>
-</mat-dialog-content>
-<div class="dialog-actions">
-  <button mat-button (click)="close()">Close</button>
+  <h2 mat-dialog-title class="dialog-title">Report Details</h2>
+
+  <mat-dialog-content class="dialog-content">
+    <p><strong>Report ID:</strong> {{ data.reportId }}</p>
+    <p><strong>Open Space Name:</strong> {{ data.spaceName }}</p>
+    <p><strong>Latitude:</strong> {{ data.latitude }}</p>
+    <p><strong>Longitude:</strong> {{ data.longitude }}</p>
+    <p><strong>Description:</strong> {{ data.description }}</p>
+    <p><strong>Email:</strong> {{ data.email ? data.email : 'N/A' }}</p>
+    <p><strong>Date Created:</strong> {{ data.createdAt | date }}</p>
+
+    <div *ngIf="data.file" class="file-section">
+      <p><strong>Attached File:</strong></p>
+      <a [href]="data.file" target="_blank" class="file-link">View File</a>
+    </div>
+  </mat-dialog-content>
 </div>
