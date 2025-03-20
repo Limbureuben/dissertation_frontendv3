@@ -39,15 +39,34 @@
         <!-- Uploaded File -->
         <div class="report-detail" *ngIf="data.file">
           <strong>Uploaded File:</strong>
-          <img [src]="getFileUrl()" (click)="openImageModal(getFileUrl())" class="thumbnail" alt="Uploaded File">
+          <ng-container *ngIf="isVideoFile(getFileUrl()); else imageTemplate">
+            <video width="200" controls (click)="openMediaModal(getFileUrl())">
+              <source [src]="getFileUrl()" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </ng-container>
+
+          <ng-template #imageTemplate>
+            <img [src]="getFileUrl()" (click)="openMediaModal(getFileUrl())" class="thumbnail" alt="Uploaded File">
+          </ng-template>
         </div>
       </div>
 
-      <!-- Image Modal with Fade Effect -->
-      <div class="image-modal" *ngIf="isImageModalOpen" (click)="closeImageModal()" @fadeInOut>
-        <div class="image-container" (click)="$event.stopPropagation()">
-          <button class="close-btn" (click)="closeImageModal()">×</button>
-          <img [src]="selectedImage" class="full-image" alt="Full View">
+      <!-- Media Modal (Handles Images & Videos) -->
+      <div class="media-modal" *ngIf="isMediaModalOpen" (click)="closeMediaModal()" @fadeInOut>
+        <div class="media-container" (click)="$event.stopPropagation()">
+          <button class="close-btn" (click)="closeMediaModal()">×</button>
+
+          <ng-container *ngIf="isVideo; else imageView">
+            <video controls class="full-video">
+              <source [src]="selectedMedia" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </ng-container>
+
+          <ng-template #imageView>
+            <img [src]="selectedMedia" class="full-image" alt="Full View">
+          </ng-template>
         </div>
       </div>
 

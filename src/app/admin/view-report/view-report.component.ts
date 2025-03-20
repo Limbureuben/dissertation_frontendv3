@@ -27,8 +27,9 @@ export class ViewReportComponent {
 
 
   private backendUrl = 'http://127.0.0.1:8000/media/';
-  isImageModalOpen = false;
-  selectedImage: string = '';
+  isMediaModalOpen = false;
+  selectedMedia: string = '';
+  isVideo: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<ViewReportComponent>,
@@ -43,12 +44,17 @@ export class ViewReportComponent {
     return this.data.file ? `${this.backendUrl}${this.data.file}` : '';
   }
 
-  openImageModal(imagePath: string): void {
-    this.selectedImage = imagePath;
-    this.isImageModalOpen = true;
+  isVideoFile(fileUrl: string): boolean {
+    return fileUrl.match(/\.(mp4|webm|ogg)$/i) !== null;
   }
 
-  closeImageModal(): void {
-    this.isImageModalOpen = false;
+  openMediaModal(mediaUrl: string): void {
+    this.selectedMedia = mediaUrl;
+    this.isVideo = this.isVideoFile(mediaUrl);
+    this.isMediaModalOpen = true;
+  }
+
+  closeMediaModal(): void {
+    this.isMediaModalOpen = false;
   }
 }
