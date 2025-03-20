@@ -1,28 +1,58 @@
-<div class="dialog-container">
-  <!-- Close Button (X) -->
-  <button mat-icon-button class="close-button" (click)="close()">
-    <mat-icon>close</mat-icon>
-  </button>
+<!-- report-details-dialog.component.html -->
+<h2 mat-dialog-title>Report Details</h2>
 
-  <h2 mat-dialog-title class="dialog-title">Report Details</h2>
+<mat-dialog-content>
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading report details...</p>
+  </div>
 
-  <mat-dialog-content class="dialog-content">
-    <p><strong>Report ID:</strong> {{ data.reportId }}</p>
-    <p><strong>Open Space Name:</strong> {{ data.spaceName }}</p>
-    <p><strong>Latitude:</strong> {{ data.latitude }}</p>
-    <p><strong>Longitude:</strong> {{ data.longitude }}</p>
-    <p><strong>Description:</strong> {{ data.description }}</p>
-    <p><strong>Email:</strong> {{ data.email ? data.email : 'N/A' }}</p>
-    <p><strong>Date Created:</strong> {{ data.createdAt | date }}</p>
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>Error loading report details. Please try again.</p>
+    <button mat-button color="primary" (click)="fetchReportDetails()">Retry</button>
+  </div>
 
-    <div *ngIf="data.file" class="file-section">
-      <p><strong>Attached File:</strong></p>
-
-      <!-- Show image if file is an image -->
-      <img *ngIf="isImage(data.file)" [src]="data.file" alt="Report Image" class="preview-image" />
-
-      <!-- Download link for non-image files -->
-      <a *ngIf="!isImage(data.file)" [href]="data.file" target="_blank" class="file-link">Download File</a>
+  <div *ngIf="!loading && !error && report" class="report-details">
+    <div class="detail-row">
+      <span class="label">Report ID:</span>
+      <span class="value">{{report.reportId}}</span>
     </div>
-  </mat-dialog-content>
-</div>
+
+    <div class="detail-row">
+      <span class="label">Created:</span>
+      <span class="value">{{formatDate(report.createdAt)}}</span>
+    </div>
+
+    <div class="detail-row" *ngIf="report.spaceName">
+      <span class="label">Open Space:</span>
+      <span class="value">{{report.spaceName}}</span>
+    </div>
+
+    <div class="detail-row" *ngIf="report.latitude && report.longitude">
+      <span class="label">Coordinates:</span>
+      <span class="value">{{report.latitude}}, {{report.longitude}}</span>
+    </div>
+
+    <div class="detail-row" *ngIf="report.email">
+      <span class="label">Contact Email:</span>
+      <span class="value">{{report.email}}</span>
+    </div>
+
+    <div class="description-section">
+      <div class="label">Description:</div>
+      <div class="description-content">{{report.description}}</div>
+    </div>
+
+    <div class="file-section" *ngIf="report.file">
+      <span class="label">Attachment:</span>
+      <button mat-stroked-button color="primary">
+        <mat-icon>download</mat-icon> Download File
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="close()">Close</button>
+</mat-dialog-actions>

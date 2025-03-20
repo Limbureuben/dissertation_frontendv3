@@ -7,6 +7,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './view-report.component.scss'
 })
 export class ViewReportComponent {
+
+  report: any;
+  loading = true;
+  error: any;
+  
   constructor(
     public dialogRef: MatDialogRef<ViewReportComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -14,12 +19,6 @@ export class ViewReportComponent {
 
   close(): void {
     this.dialogRef.close();
-  }
-
-  isImage(fileUrl: string): boolean {
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
-    const extension = fileUrl.split('.').pop()?.toLowerCase();
-    return extension ? imageExtensions.includes(extension) : false;
   }
 
 }
