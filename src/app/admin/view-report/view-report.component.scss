@@ -1,25 +1,20 @@
 .dialog-container {
   position: relative;
   width: 100%;
-  max-width: 500px;
-  background: #fff;
+  max-width: 900px;
+  background: #ffffff; /* Ensure the background is white */
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.dialog-title {
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .dialog-content {
   font-size: 16px;
   color: #555;
   padding: 10px 0;
+  max-height: none; /* Remove height limit */
+  overflow: hidden; /* Prevent internal scrolling */
 
   p {
     margin: 10px 0;
@@ -27,6 +22,20 @@
     background: #f9f9f9;
     border-radius: 6px;
   }
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #333;
 }
 
 .file-section {
@@ -42,30 +51,15 @@
   margin-top: 10px;
 }
 
-.file-link {
-  display: inline-block;
-  padding: 8px 12px;
-  background: #007bff;
-  color: white;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
+// Remove the background overlay for the dialog
+.custom-dialog-container .cdk-overlay-backdrop {
+  background: transparent !important; /* Make the background fully transparent */
 }
 
-.file-link:hover {
-  background: #0056b3;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #888;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.close-button:hover {
-  color: #333;
+// Ensure the dialog container is centered and has no background constraints
+.custom-dialog-container .mat-dialog-container {
+  background: #fff !important; /* Keep the dialog white */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Optional: Light shadow for contrast */
+  border-radius: 12px;
+  padding: 20px;
 }

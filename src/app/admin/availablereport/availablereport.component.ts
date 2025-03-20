@@ -94,8 +94,10 @@ export class AvailablereportComponent implements OnInit{
 
   viewReport(report: any): void {
     this.dialog.open(ViewReportComponent, {
-      width: '500px',
-      data: report
+      width: '700px',
+      data: report,
+      disableClose: true, // Prevent accidental closing
+      panelClass: 'custom-dialog-container',
     });
 }
 }
