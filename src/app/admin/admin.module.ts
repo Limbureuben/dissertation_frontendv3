@@ -37,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvailablereportComponent } from './availablereport/availablereport.component';
 import { ViewReportComponent } from './view-report/view-report.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReportHistoryComponent } from './report-history/report-history.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AvailablespaceComponent,
     AvailablereportComponent,
     ViewReportComponent,
+    ReportHistoryComponent,
   ],
   imports: [
     CommonModule,
