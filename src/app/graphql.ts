@@ -175,6 +175,15 @@ export const GET_ALL_REPORTS = gql`
   }
 `;
 
+export const GET_ALL_HISTORY = gql`
+  query MyQuery {
+    allHistorys {
+      createdAt
+      description
+    }
+}
+`;
+
 export const CONFIRM_REPORT = gql`
   mutation MyMutation($reportId: String!) {
     confirmReport(reportId: $reportId) {
