@@ -4,7 +4,6 @@ import { OpenspaceService } from '../../service/openspace.service';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { allowNavigation } from '../../guards/admin-exist.guard';
 import { error } from 'console';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -45,22 +44,33 @@ export class AdminDashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    forkJoin({
-      totalOpenspaces: this.openspaceservice.getOpenspaceCount(),
-      totalHistorys: this.openspaceservice.getAllHistoryReport(),
-      totalReport: this.openspaceservice.getAllReportPending()
-    }).subscribe({
-      next: ({ totalOpenspaces, totalHistorys, totalReport }) => {
-        this.totalOpenspaces = totalOpenspaces.data.totalOpenspaces;
-        this.totalHistorys = totalHistorys.data.totalHistorys;
-        this.totalReport = totalReport.data.totalReport;
+    this.openspaceservice.getOpenspaceCount().subscribe({
+      next: (result) => {
+        this.totalOpenspaces = result.data.totalOpenspaces;
       },
       error: (err) => {
-        console.error('Error fetching data', err);
+        console.error('Error fetching total open spaces', 'err')
       }
     });
-  }
 
+    this.openspaceservice.getAllHistoryReport().subscribe({
+      next: (result) => {
+        this.totalHistorys = result.data.totalHistorys;
+      },
+      error: (error)=> {
+        console.error('Error fetching the report history')
+      }
+    });
+
+    this.openspaceservice.getAllReportPending().subscribe({
+      next: (result) => {
+        this.totalReport = result.data.totalReport;
+      },
+      error: (error) => {
+        console.error('Error fetching report pending')
+      }
+    });
+}
 
   NavigateToOpenSpace() {
     this.router.navigate(['/openspace'])
