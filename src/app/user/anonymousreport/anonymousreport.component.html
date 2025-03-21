@@ -1,0 +1,20 @@
+<div *ngIf="loading">Loading reports...</div>
+
+<div *ngIf="errorMessage">
+  <p class="error">{{ errorMessage }}</p>
+</div>
+
+<div *ngIf="reports.length > 0; else noReports">
+  <h3>Your Submitted Reports</h3>
+  <ul>
+    <li *ngFor="let report of reports">
+      <strong>{{ report.spaceName }}</strong> - {{ report.description }}<br />
+      <small>Submitted on: {{ report.createdAt | date }}</small><br />
+      <img *ngIf="report.file" [src]="'/media/' + report.file" alt="Uploaded file" width="100">
+    </li>
+  </ul>
+</div>
+
+<ng-template #noReports>
+  <p>No reports found for your session.</p>
+</ng-template>

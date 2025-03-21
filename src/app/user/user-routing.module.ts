@@ -7,13 +7,15 @@ import { ReportFormComponent } from './report-form/report-form.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { authGuard } from '../guards/auth.guard';
 import { adminExitGuard } from '../guards/admin-exist.guard';
+import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
   { path: 'user-dashboard', component: UserDashboardComponent},
   { path: 'map-display', component: MapDisplayComponent, canActivate: [authGuard] },
   { path: 'report-form', component: ReportFormComponent },
-  { path: 'map', component: MapComponent }
+  { path: 'map', component: MapComponent },
+  { path: 'anonymousreport', component: AnonymousreportComponent }
 ];
 
 @NgModule({

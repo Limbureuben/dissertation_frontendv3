@@ -27,6 +27,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SharingModule } from '../sharing/sharing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MapDisplayComponent,
     MapComponent,
     ReportFormComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    AnonymousreportComponent
 
   ],
   imports: [
