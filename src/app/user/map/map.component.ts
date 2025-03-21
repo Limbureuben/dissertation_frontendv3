@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { response } from 'express';
 import { switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -39,7 +40,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     private openSpaceService: OpenspaceService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authservice: AuthService
 ) {
   this.reportForm = this.fb.group({
     description: ['', [Validators.required, Validators.minLength(20)]],
@@ -225,8 +227,15 @@ triggerFileInput() {
 
 
   submitReport(): void {
+    const sessionId = localStorage.getItem('session_id');
+    if (!sessionId) {
+      console.error('Error: No session ID found for anonymous user');
+      return;
+    }
+
+    console.log('Submitting report with sessionId:', sessionId);
+
     if (this.reportForm.invalid) {
-      // Mark all fields as touched to trigger validation messages
       Object.keys(this.reportForm.controls).forEach(key => {
         const control = this.reportForm.get(key);
         control?.markAsTouched();
@@ -238,17 +247,30 @@ triggerFileInput() {
     this.success = false;
     this.errorMessage = '';
 
-    // First, upload the file if there is one, then create the report
+    // Upload file if there is one, then create the report
     this.openSpaceService.uploadFile(this.selectedFile)
       .pipe(
         switchMap(response => {
+          const reportData = {
+            description: this.reportForm.get('description')?.value,
+            email: this.reportForm.get('email')?.value || null,
+            filePath: response.file_path || null,
+            spaceName: this.selectedSpace.name,
+            latitude: this.selectedSpace.latitude,
+            longitude: this.selectedSpace.longitude,
+            sessionId: sessionId
+          };
+
+          console.log('Submitting report with data:', reportData);
+
           return this.openSpaceService.createReport(
-            this.reportForm.get('description')?.value,
-            this.reportForm.get('email')?.value || null,  // Ensure null is sent if email is empty
-            response.file_path,
-            this.selectedSpace.name,
-            this.selectedSpace.latitude,
-            this.selectedSpace.longitude
+            reportData.description,
+            reportData.email,
+            reportData.filePath,
+            reportData.spaceName,
+            reportData.latitude,
+            reportData.longitude,
+            reportData.sessionId
           );
         })
       )
@@ -258,15 +280,13 @@ triggerFileInput() {
           this.success = true;
           this.reportId = response.createReport.report.reportId;
 
-          // Show success toast BEFORE resetting the form
           this.toastr.success('Report submitted successfully!', 'Success', {
             positionClass: 'toast-top-right',
           });
 
-          // Delay form reset to ensure the toast appears
           setTimeout(() => {
             this.resetForm();
-            this.closeForm(); // Close form after reset
+            this.closeForm();
           }, 3000);
         },
         error: (error) => {
@@ -274,13 +294,13 @@ triggerFileInput() {
           this.errorMessage = 'Failed to submit report. Please try again.';
           console.error('Error submitting report:', error);
 
-          // Show error toast
           this.toastr.error('Error submitting report', 'Error', {
             positionClass: 'toast-top-right',
           });
         }
       });
-  }
+}
+
 
   private resetForm(): void {
     this.reportForm.reset();

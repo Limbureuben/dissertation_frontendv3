@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, MutationResult } from 'apollo-angular';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, CONFIRM_REPORT, CREATE_REPORT, DELETE_OPEN_SPACE, GET_ALL_HISTORY, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_ALL_REPORTS, GET_HISTORY_COUNT, GET_OPENSPACE_COUNT, GET_REPORT_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
@@ -118,7 +118,7 @@ export class OpenspaceService {
     const sessionId = localStorage.getItem('session_id');
     return this.apollo.mutate({
       mutation: REGISTER_REPORT_MUTATION,
-      variables: { description, email}
+      variables: { description, email, sessionId}
     });
   }
 
@@ -133,12 +133,13 @@ export class OpenspaceService {
   }
 
 
-  createReport(description: string, email: string | null, filePath: string | null, spaceName: string, latitude: number, longitude: number): Observable<any> {
+  createReport(description: string, email: string | null, filePath: string | null, spaceName: string, latitude: number, longitude: number, sessionId: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CREATE_REPORT,
       variables: {
         description,
         email: email || null,
+        sessionId,
         filePath: filePath || null,
         spaceName,
         latitude,

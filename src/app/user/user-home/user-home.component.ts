@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-user-home',
@@ -11,7 +12,7 @@ export class UserHomeComponent {
   showPopup: boolean = false;
   menuOpen: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authservice: AuthService ) {}
 
   OPenBookDasboard() {
     this.router.navigate(['/login'])
@@ -41,8 +42,9 @@ export class UserHomeComponent {
     this.showPopup = false;
   }
 
-  continueAsAnonymous() {
+  continueAsAnonymous(): void {
     this.showPopup = false;
+    this.authservice.generateSessionId();
     this.router.navigate(['/map-display'])
   }
 
