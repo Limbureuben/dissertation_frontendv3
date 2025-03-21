@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-admin-sidebar',
@@ -12,7 +13,8 @@ export class AdminSidebarComponent implements OnInit{
   totalOpenspaces: number = 0;
 
   constructor(
-    private openspaceservice: OpenspaceService
+    private openspaceservice: OpenspaceService,
+    private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +26,10 @@ export class AdminSidebarComponent implements OnInit{
           console.error('Error fetching total open spaces', 'err')
         }
       });
+  }
+
+  OnLogout() {
+    this.authservice.Logout();
   }
 
 }

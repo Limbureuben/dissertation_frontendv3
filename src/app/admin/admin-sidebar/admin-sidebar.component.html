@@ -30,7 +30,7 @@
     <mat-icon class="colored-icon">settings</mat-icon>
     <span class="nav-text">Settings</span>
   </a>
-  <a mat-list-item routerLink="/admin/logout">
+  <a mat-list-item (click)=OnLogout()>
     <mat-icon class="colored-icon">exit_to_app</mat-icon>
     <span class="nav-text">Logout</span>
   </a>

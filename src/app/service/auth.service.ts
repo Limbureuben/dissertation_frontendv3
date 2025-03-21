@@ -4,6 +4,8 @@ import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { LOGIN_USER, REGISTER_USER } from '../graphql';
 import { LoginData, RegisterData } from '../models/openspace.model';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
   export type { RegisterData, LoginData };
 
@@ -13,7 +15,7 @@ import { LoginData, RegisterData } from '../models/openspace.model';
 export class AuthService {
 
   constructor(
-    private apollo: Apollo
+    private apollo: Apollo, private router: Router, private toast: ToastrService
   ) { }
 
   registrationUser(userData: RegisterData): Observable<any> {
@@ -37,5 +39,15 @@ export class AuthService {
         }
       }
     })
+  }
+
+  Logout() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userData');
+
+    this.toast.success('Logout successful!', 'Success', {
+      positionClass: 'toast-top-right'
+    });
+    this.router.navigate(['/'])
   }
 }
