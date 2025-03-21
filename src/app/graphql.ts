@@ -225,5 +225,16 @@ export const CONFIRM_REPORT = gql`
 `;
 
 export const GET_ANONYMOUS_REPORTS = gql`
-  
+  query GetAnonymousReports($sessionId: String!) {
+    anonymousReports(sessionId: $sessionId) {
+      reportId
+      description
+      email
+      file
+      createdAt
+      latitude
+      longitude
+      spaceName
+    }
+  }
 `;
