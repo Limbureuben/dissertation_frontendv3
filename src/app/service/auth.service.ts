@@ -6,6 +6,7 @@ import { LOGIN_USER, REGISTER_USER } from '../graphql';
 import { LoginData, RegisterData } from '../models/openspace.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { match } from 'assert';
 
   export type { RegisterData, LoginData };
 
@@ -66,5 +67,14 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('success_token');
+  }
+
+  generateSessionId(): string {
+    let sessionId = localStorage.getItem('session_id');
+    if (!sessionId) {
+      sessionId = 'anon_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('session_id', sessionId);
+    }
+    return sessionId;
   }
 }

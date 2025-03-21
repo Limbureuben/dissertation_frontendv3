@@ -115,6 +115,7 @@ export class OpenspaceService {
   }
 
   registerReport(description: string, email: string): Observable<any> {
+    const sessionId = localStorage.getItem('session_id');
     return this.apollo.mutate({
       mutation: REGISTER_REPORT_MUTATION,
       variables: { description, email}
@@ -198,7 +199,7 @@ export class OpenspaceService {
     }).valueChanges;
   }
 
-  
+
 
 
 }
