@@ -88,7 +88,7 @@ export class AvailablereportComponent implements OnInit{
   )
   }
 
-  deleteReport(reportId: string): void {
+  markAsPending(reportId: string): void {
     console.log('Deleting Report:', reportId);
   }
 

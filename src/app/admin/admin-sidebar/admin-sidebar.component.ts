@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { AuthService } from '../../service/auth.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-admin-sidebar',
@@ -11,6 +12,7 @@ import { AuthService } from '../../service/auth.service';
 export class AdminSidebarComponent implements OnInit{
 
   totalOpenspaces: number = 0;
+  totalReport: number = 0;
 
   constructor(
     private openspaceservice: OpenspaceService,
@@ -26,6 +28,15 @@ export class AdminSidebarComponent implements OnInit{
           console.error('Error fetching total open spaces', 'err')
         }
       });
+
+      this.openspaceservice.getAllReportPending().subscribe({
+        next: (result) => {
+          this.totalReport = result.data.totalReport;
+        },
+        error: (error) => {
+          console.error('Error fetching total report', 'errr')
+        }
+      })
   }
 
   OnLogout() {
