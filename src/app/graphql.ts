@@ -71,6 +71,12 @@ export const GET_OPENSPACE_COUNT = gql`
   }
   `;
 
+export const GET_HISTORY_COUNT = gql`
+  query MyQuery {
+    totalHistorys
+}
+`;
+
 
 export const TOGGLE_OPENSPACE_STATUS = gql`
  mutation ToggleOpenspaceStatus($input: ToggleOpenspaceInput!) {
