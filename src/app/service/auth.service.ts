@@ -42,12 +42,17 @@ export class AuthService {
   }
 
   Logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userData');
+    localStorage.removeItem('success_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('is_staff');
 
     this.toast.success('Logout successful!', 'Success', {
       positionClass: 'toast-top-right'
     });
     this.router.navigate(['/'])
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('success_token');
   }
 }
