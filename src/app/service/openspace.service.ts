@@ -214,4 +214,10 @@ export class OpenspaceService {
       query: GET_HISTORY_COUNT,
     }).valueChanges;
   }
+
+  getAllReportPending(): Observable<any> {
+    return this.apollo.watchQuery<{ totalReport: number }> ({
+      query: TOGGLE_OPENSPACE_STATUS,
+    }).valueChanges;
+  }
 }

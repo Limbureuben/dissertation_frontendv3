@@ -4,6 +4,7 @@ import { OpenspaceService } from '../../service/openspace.service';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { allowNavigation } from '../../guards/admin-exist.guard';
 import { error } from 'console';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -27,6 +28,7 @@ export class AdminDashboardComponent implements OnInit{
 
   totalOpenspaces: number = 0;
   totalHistorys: number = 0;
+  totalReport: number = 0;
 
   constructor(
     private router: Router,
@@ -43,24 +45,22 @@ export class AdminDashboardComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.openspaceservice.getOpenspaceCount().subscribe({
-      next: (result) => {
-        this.totalOpenspaces = result.data.totalOpenspaces;
+    forkJoin({
+      totalOpenspaces: this.openspaceservice.getOpenspaceCount(),
+      totalHistorys: this.openspaceservice.getAllHistoryReport(),
+      totalReport: this.openspaceservice.getAllReportPending()
+    }).subscribe({
+      next: ({ totalOpenspaces, totalHistorys, totalReport }) => {
+        this.totalOpenspaces = totalOpenspaces.data.totalOpenspaces;
+        this.totalHistorys = totalHistorys.data.totalHistorys;
+        this.totalReport = totalReport.data.totalReport;
       },
       error: (err) => {
-        console.error('Error fetching total open spaces', 'err')
+        console.error('Error fetching data', err);
       }
     });
+  }
 
-    this.openspaceservice.getAllHistoryReport().subscribe({
-      next: (result) => {
-        this.totalHistorys = result.data.totalHistorys;
-      },
-      error: (error)=> {
-        console.error('Error fetching the report history')
-      }
-    })
-}
 
   NavigateToOpenSpace() {
     this.router.navigate(['/openspace'])
@@ -68,6 +68,10 @@ export class AdminDashboardComponent implements OnInit{
 
   NavigateToHistory() {
     this.router.navigate(['/history'])
+  }
+
+  NavigateToReport() {
+    this.router.navigate(['/reports'])
   }
 
 }

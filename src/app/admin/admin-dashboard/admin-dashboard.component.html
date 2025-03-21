@@ -61,7 +61,7 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card class="stat-card traffic">
+        <mat-card class="stat-card traffic" (click)="NavigateToReport()">
           <mat-card-header>
             <mat-card-title>Pending Issues</mat-card-title>
             <button mat-icon-button [matMenuTriggerFor]="menu3">
@@ -79,7 +79,7 @@
                 <mat-icon>hourglass_empty</mat-icon>
               </div>
               <div class="card-info">
-                <h3>80%</h3>
+                <h3>{{ totalReport }}</h3>
                 <mat-progress-bar mode="determinate" [value]="80"></mat-progress-bar>
               </div>
             </div>
