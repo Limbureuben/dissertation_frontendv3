@@ -58,6 +58,12 @@ export class ReportHistoryComponent implements OnInit{
     });
   }
 
+  confirmReport(reportId: string) {
+    this.openSpaceService.confirmReport(reportId).subscribe(() => {
+      this.loadReport(); // Reload history after confirmation
+    });
+  }
+
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

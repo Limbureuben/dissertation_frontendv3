@@ -156,16 +156,46 @@ export class OpenspaceService {
   }
 
 
+  // confirmReport(reportId: string): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: CONFIRM_REPORT,
+  //     variables: { reportId },
+  //     update: (cache) => {
+  //       // Read the existing reports from cache
+  //       const existingData: any = cache.readQuery({ query: GET_ALL_REPORTS });
+
+  //       if (existingData) {
+  //         // Filter out the confirmed report
+  //         cache.writeQuery({
+  //           query: GET_ALL_REPORTS,
+  //           data: {
+  //             allReports: existingData.allReports.filter(
+  //               (report: any) => report.reportId !== reportId
+  //             ),
+  //           },
+  //         });
+  //       }
+  //     },
+  //   });
+  // }
+
+  getAllHistory(): Observable<any> {
+    return this.apollo.watchQuery<any>({
+      query: GET_ALL_HISTORY,
+    }).valueChanges.pipe(map(result =>result.data.allHistorys))
+  }
+
+
   confirmReport(reportId: string): Observable<any> {
     return this.apollo.mutate({
       mutation: CONFIRM_REPORT,
       variables: { reportId },
+      refetchQueries: [{ query: GET_ALL_HISTORY }], // Fetch updated history
       update: (cache) => {
-        // Read the existing reports from cache
+        // Update GET_ALL_REPORTS cache to remove confirmed report
         const existingData: any = cache.readQuery({ query: GET_ALL_REPORTS });
 
         if (existingData) {
-          // Filter out the confirmed report
           cache.writeQuery({
             query: GET_ALL_REPORTS,
             data: {
@@ -178,12 +208,4 @@ export class OpenspaceService {
       },
     });
   }
-
-  getAllHistory(): Observable<any> {
-    return this.apollo.watchQuery<any>({
-      query: GET_ALL_HISTORY,
-    }).valueChanges.pipe(map(result =>result.data.allHistorys))
-  }
-
-
 }
