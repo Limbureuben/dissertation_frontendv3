@@ -32,3 +32,17 @@ mat-toolbar {
 
 }
 
+
+.register-button {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #e64a19;
+}
+

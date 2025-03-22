@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportFormComponent } from '../report-form/report-form.component';
 import { AnonymousreportComponent } from '../anonymousreport/anonymousreport.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-user-header',
@@ -12,14 +13,16 @@ import { Router } from '@angular/router';
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.scss'
 })
-export class UserHeaderComponent {
+export class UserHeaderComponent implements OnInit{
   isDarkTheme = false;
+  isAuthenticated = false;
 
   constructor(
     private themeService: ThemeService,
     public dialog: MatDialog,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   openReportDialog(): void {
@@ -63,6 +66,10 @@ export class UserHeaderComponent {
     this.showReportForm();
   }
 
+  ngOnInit() {
+    this.isAuthenticated = this.authService.isLoggedIn();
+  }
+
 
   onLogout() {
     localStorage.removeItem('anonymousUser');
@@ -73,6 +80,10 @@ export class UserHeaderComponent {
   }
 
   closeReportForm() {
+
+  }
+
+  onRegister() {
 
   }
 }

@@ -1,6 +1,6 @@
 <mat-toolbar class="heading">
   <button mat-icon-button (click)="toggleTheme()">
-    <mat-icon>brightness_6</mat-icon> <!-- A sun or moon icon can be used for dark/light theme toggle -->
+    <mat-icon>brightness_6</mat-icon> <!-- Theme Toggle -->
   </button>
 
   <!-- Profile Icon (Left) with Dropdown Menu -->
@@ -14,7 +14,6 @@
     <button mat-menu-item (click)="onYourReport()">
       <mat-icon>assignment</mat-icon> Report History
     </button>
-
     <button mat-menu-item (click)="onLogout()">
       <mat-icon>logout</mat-icon> Logout
     </button>
@@ -26,6 +25,11 @@
 
   <!-- Title in Center -->
   <span class="title">Kinondoni Municipal</span>
+
+  <!-- Register Button for Anonymous Users -->
+  <ng-container *ngIf="!isAuthenticated">
+    <button mat-button class="register-button" (click)="onRegister()">Register</button>
+  </ng-container>
 
   <!-- Emblem Icon on the Right -->
   <mat-icon class="profile-icon">verified</mat-icon>

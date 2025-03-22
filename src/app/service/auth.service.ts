@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { gql } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LOGIN_USER, REGISTER_USER } from '../graphql';
 import { LoginData, RegisterData } from '../models/openspace.model';
 import { Router } from '@angular/router';
@@ -19,6 +19,17 @@ export class AuthService {
     private apollo: Apollo, private router: Router, private toast: ToastrService
   ) { }
 
+  // registrationUser(userData: RegisterData): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: REGISTER_USER,
+  //     variables: {
+  //       password: userData.password,
+  //       passwordConfirm: userData.passwordConfirm,
+  //       username: userData.username
+  //     }
+  //   });
+  // }
+
   registrationUser(userData: RegisterData): Observable<any> {
     return this.apollo.mutate({
       mutation: REGISTER_USER,
@@ -27,8 +38,17 @@ export class AuthService {
         passwordConfirm: userData.passwordConfirm,
         username: userData.username
       }
-    });
+    }).pipe(
+      tap((response: any) => {
+        if (response.data.registerUser.output.success) {
+          const userId = response.data.registerUser.output.user.id;
+          localStorage.setItem('userId', userId);
+          console.log('User registered with ID:', userId);
+        }
+      })
+    );
   }
+
 
   signinUser(username: string, password: string): Observable<any> {
     return this.apollo.mutate({
