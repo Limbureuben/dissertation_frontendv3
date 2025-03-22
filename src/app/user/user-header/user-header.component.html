@@ -27,7 +27,7 @@
   <span class="title">Kinondoni Municipal</span>
 
   <!-- Register Button for Anonymous Users -->
-  <ng-container *ngIf="!isAuthenticated">
+  <ng-container *ngIf="isAnonymous">
     <button mat-button class="register-button" (click)="onRegister()">Register</button>
   </ng-container>
 

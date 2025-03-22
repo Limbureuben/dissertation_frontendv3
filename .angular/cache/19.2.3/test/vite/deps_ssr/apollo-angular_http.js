@@ -1,10 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  HttpClient,
-  HttpHeaders
-} from "./chunk-XBCUWV6W.js";
-import "./chunk-P447DJIG.js";
-import {
   ApolloLink,
   Observable,
   print
@@ -13,6 +8,11 @@ import {
   __assign,
   __extends
 } from "./chunk-5HFBECCQ.js";
+import {
+  HttpClient,
+  HttpHeaders
+} from "./chunk-XBCUWV6W.js";
+import "./chunk-P447DJIG.js";
 import {
   Injectable,
   setClassMetadata,

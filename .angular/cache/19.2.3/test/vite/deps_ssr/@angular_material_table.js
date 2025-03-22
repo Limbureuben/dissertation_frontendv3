@@ -1,11 +1,8 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  MatCommonModule
-} from "./chunk-B3WBZVZG.js";
-import {
   ScrollingModule,
   ViewportRuler
-} from "./chunk-5EXTMLK3.js";
+} from "./chunk-3CMQJ3QM.js";
 import {
   DataSource,
   _DisposeViewRepeaterStrategy,
@@ -15,13 +12,16 @@ import {
   isDataSource
 } from "./chunk-3MM5DAKB.js";
 import {
-  Directionality
-} from "./chunk-5ZYDBGAT.js";
+  MatCommonModule
+} from "./chunk-GYY2ZVQY.js";
 import "./chunk-ACC5EITK.js";
 import {
   Platform,
   _isNumberValue
 } from "./chunk-V2UKY3KY.js";
+import {
+  Directionality
+} from "./chunk-5ZYDBGAT.js";
 import {
   DOCUMENT
 } from "./chunk-P447DJIG.js";
