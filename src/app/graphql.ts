@@ -225,7 +225,6 @@ export const CONFIRM_REPORT = gql`
   }
 `;
 
-
 export const GET_ANONYMOUS_REPORTS = gql`
   query GetAnonymousReports($sessionId: String!) {
     anonymous(sessionId: $sessionId) {
