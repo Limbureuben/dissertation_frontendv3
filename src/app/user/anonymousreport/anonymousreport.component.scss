@@ -106,6 +106,7 @@ h3 {
 }
 
 /* Close Button */
+/* Close Button (X) */
 .close-icon {
   position: absolute;
   top: 10px;
@@ -120,3 +121,38 @@ h3 {
   transform: scale(1.2);
 }
 
+/* Report Card Styling */
+.reports-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.report-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  position: relative;
+}
+
+
+.confirmed-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.confirmed-icon {
+  color: #4caf50; /* Green */
+  font-size: 20px;
+}
+
+.confirmed-text {
+  color: #4caf50; /* Green */
+  font-size: 14px;
+  font-weight: bold;
+}

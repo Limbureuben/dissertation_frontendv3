@@ -12,9 +12,13 @@
     <h3>Your Submitted Reports</h3>
     <ul class="reports-list">
       <li *ngFor="let report of reports" class="report-card">
-        <div class="report-title">{{ report.spaceName }}</div>
         <p class="report-description">{{ report.description }}</p>
         <small class="report-date">Submitted on: {{ report.createdAt | date }}</small>
+
+        <div class="confirmed-container">
+          <mat-icon class="confirmed-icon">check_circle</mat-icon>
+          <span class="confirmed-text">Confirmed</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -23,3 +27,4 @@
     <p>No reports found for your session.</p>
   </ng-template>
 </mat-dialog-content>
+
