@@ -31,26 +31,6 @@ export class AuthService {
     });
   }
 
-  // registrationUser(userData: RegisterData): Observable<any> {
-  //   return this.apollo.mutate({
-  //     mutation: REGISTER_USER,
-  //     variables: {
-  //       password: userData.password,
-  //       passwordConfirm: userData.passwordConfirm,
-  //       username: userData.username
-  //     }
-  //   }).pipe(
-  //     tap((response: any) => {
-  //       if (response.data.registerUser.output.success) {
-  //         const userId = response.data.registerUser.output.user.id;
-  //         localStorage.setItem('userId', userId);
-  //         console.log('User registered with ID:', userId);
-  //       }
-  //     })
-  //   );
-  // }
-
-
   signinUser(username: string, password: string): Observable<any> {
     return this.apollo.mutate({
       mutation: LOGIN_USER,
@@ -86,43 +66,11 @@ export class AuthService {
     this.router.navigate(['/'])
   }
 
-  // isLoggedIn(): boolean {
-  //   const accessToken = localStorage.getItem('success_token');
-  //   console.log('Access Token:', accessToken);
-  //   return !!accessToken;
-  // }
-
   isLoggedIn(): boolean {
     const accessToken = localStorage.getItem('success_token');
-    const isStaff = localStorage.getItem('is_staff'); // Check if admin
-    const userId = localStorage.getItem('user_id'); // Check if registered user
-
     console.log('Access Token:', accessToken);
-    console.log('User ID:', userId);
-    console.log('Is Staff:', isStaff);
-
-    return !!accessToken && (!!isStaff || !!userId); // Must have a user ID or be staff
+    return !!accessToken;
   }
-
-  storeTokens(accessToken: string, refreshToken: string) {
-    localStorage.setItem('success_token', accessToken);
-    localStorage.setItem('refresh_token', refreshToken);
-
-    try {
-      const decodedToken: any = jwtDecode(accessToken);
-      console.log('Decoded Token:', decodedToken); // Debugging log
-
-      if (decodedToken?.user_id) {
-        localStorage.setItem('user_id', String(decodedToken.user_id)); // Store as string
-        console.log('Stored user ID:', localStorage.getItem('user_id'));
-      } else {
-        console.warn('User ID not found in token');
-      }
-    } catch (error) {
-      console.error('Error decoding token:', error);
-    }
-  }
-
 
   generateSessionId(): string {
     let sessionId = localStorage.getItem('session_id');
