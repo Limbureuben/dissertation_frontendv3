@@ -22,6 +22,7 @@ export interface RegisterData {
   password: string,
   passwordConfirm: string,
   username: string,
+  sessionId?: string | null;
 }
 
 export interface LoginData {

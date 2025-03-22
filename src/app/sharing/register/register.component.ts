@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, RegisterData } from '../../service/auth.service';
@@ -43,7 +43,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authservice: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private zone: NgZone
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -87,55 +88,73 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
-
-      if (this.registerForm.errors?.['passwordMismatch']) {
-        this.toastr.error('Passwords do not match!', 'Validation Error', { positionClass: 'toast-top-right' });
-      } else {
-        this.toastr.error('Enter valid values', 'Validation Error', { positionClass: 'toast-top-right' });
-      }
-
+      this.toastr.error('Enter valid values', 'Validation Error', { positionClass: 'toast-top-right' });
       return;
     }
 
+    const sessionId = localStorage.getItem('sessionId');
     const registrationData: RegisterData = {
       username: this.registerForm.value.username,
       password: this.registerForm.value.password,
-      passwordConfirm: this.registerForm.value.passwordConfirm
+      passwordConfirm: this.registerForm.value.passwordConfirm,
+      ...(sessionId ? { sessionId } : {})
     };
 
-    console.log("Data being sent to mutation:", registrationData);
+    console.log("🚀 Sending Registration Data:", registrationData);
 
     this.authservice.registrationUser(registrationData).subscribe({
       next: (result) => {
-        console.log('GraphQL Response:', result);
+        console.log("✅ Full GraphQL Response:", JSON.stringify(result, null, 2));
+
+        if (!result.data?.registerUser?.output) {
+          this.toastr.error('Unexpected response from server', 'Error');
+          return;
+        }
+
         const response = result.data.registerUser.output;
+        const user = response?.user;
 
         if (response.success) {
           this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
 
-          // Reset the form after success
-          this.registerForm.reset();
-
-          // Redirect to login after a short delay
-          this.router.navigate(['/login']);
-        } else {
-          if (response.message.includes('username')) {
-            this.toastr.error('Username already exists. Try another.', 'Registration Failed', { positionClass: 'toast-top-right' });
-          } else {
-            this.toastr.error(response.message, 'Registration Failed', { positionClass: 'toast-top-right' });
+          if (sessionId) {
+            console.log("🧹 Removing sessionId...");
+            localStorage.removeItem('sessionId');
           }
+
+          if (user?.id) {
+            localStorage.setItem('userId', user.id);
+          } else {
+            console.warn("⚠️ User object is missing or has no ID!");
+          }
+
+          // ✅ Reset form
+          this.registerForm.reset();
+          Object.keys(this.registerForm.controls).forEach(key => {
+            this.registerForm.controls[key].setErrors(null);
+          });
+
+          // ✅ Navigate to login **without timeout**
+          console.log("🔀 Navigating to login...");
+          this.router.navigate(['/login']).then(success => {
+            if (!success) {
+              console.error("⚠️ Navigation failed!");
+            }
+          });
+
+        } else {
+          this.toastr.error(response.message || 'Registration failed', 'Error');
         }
       },
       error: (err) => {
-        console.error('GraphQL Error:', err);
-
-        if (err.message.includes('username')) {
-          this.toastr.error('Username already exists. Try another.', 'Error', { positionClass: 'toast-top-right' });
-        } else {
-          this.toastr.error('Something went wrong. Please try again.', 'Error', { positionClass: 'toast-top-right' });
-        }
+        console.error('❌ GraphQL Error:', err);
+        this.toastr.error('Something went wrong. Please try again.', 'Error');
       }
     });
   }
+
+
+
+
 
 }

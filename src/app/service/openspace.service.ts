@@ -207,7 +207,16 @@ export class OpenspaceService {
     }).valueChanges;
   }
 
-
+  // getReports(userId: string | null, sessionId: string | null) {
+  //   return this.apollo.watchQuery({
+  //     query: GET_REPORTS,
+  //     variables: {
+  //       userId: userId || null,
+  //       sessionId: userId ? null : sessionId // Use sessionId only if userId is not available
+  //     },
+  //     fetchPolicy: 'network-only'
+  //   }).valueChanges;
+  // }
 
 
 }

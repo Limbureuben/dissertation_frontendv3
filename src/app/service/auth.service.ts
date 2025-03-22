@@ -20,13 +20,27 @@ export class AuthService {
     private apollo: Apollo, private router: Router, private toast: ToastrService
   ) { }
 
+  // registrationUser(userData: RegisterData): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: REGISTER_USER,
+  //     variables: {
+  //       password: userData.password,
+  //       passwordConfirm: userData.passwordConfirm,
+  //       username: userData.username
+  //     }
+  //   });
+  // }
+
   registrationUser(userData: RegisterData): Observable<any> {
+    const sessionId = localStorage.getItem('sessionId');
+
     return this.apollo.mutate({
       mutation: REGISTER_USER,
       variables: {
         password: userData.password,
         passwordConfirm: userData.passwordConfirm,
-        username: userData.username
+        username: userData.username,
+        sessionId: sessionId ? sessionId : null
       }
     });
   }

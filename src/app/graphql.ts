@@ -2,8 +2,8 @@ import { gql } from '@apollo/client/core';
 
 
 export const REGISTER_USER = gql`
-  mutation RegisterUser($password: String!, $passwordConfirm: String!, $username: String!) {
-    registerUser(input: { password: $password, passwordConfirm: $passwordConfirm, username: $username }) {
+  mutation RegisterUser($password: String!, $passwordConfirm: String!, $username: String!, $sessionId: String) {
+    registerUser(input: { password: $password, passwordConfirm: $passwordConfirm, username: $username, sessionId: $sessionId }) {
       output {
         message
         success
@@ -233,3 +233,12 @@ export const GET_ANONYMOUS_REPORTS = gql`
     }
   }
 `;
+
+// export const GET_REPORTS = gql`
+//   query GetReports($sessionId: String, $userId: ID) {
+//     reports(sessionId: $sessionId, userId: $userId) {
+//       createdAt
+//       description
+//     }
+//   }
+// `;
