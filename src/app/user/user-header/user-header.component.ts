@@ -67,25 +67,10 @@ export class UserHeaderComponent implements OnInit{
     this.showReportForm();
   }
 
-  // ngOnInit() {
-  //   this.isAuthenticated = this.authService.isLoggedIn();
-  //   console.log('User authenticated:', this.isAuthenticated);
-  // }
-
   ngOnInit() {
-    const accessToken = localStorage.getItem('success_token');
-    const userId = localStorage.getItem('user_id'); // Fetch user ID
-    const isStaff = localStorage.getItem('is_staff') === 'true';
-
-    this.isAuthenticated = !!accessToken && !!userId; // Authenticated only if token & user ID exist
-    this.isAnonymous = !this.isAuthenticated; // Anonymous if no valid login
-
-    console.log('Access Token:', accessToken);
-    console.log('User ID:', userId);
-    console.log('Is Staff:', isStaff);
-    console.log('User authenticated:', this.isAuthenticated);
-    console.log('Anonymous user:', this.isAnonymous);
+    this.isAuthenticated = this.authService.isLoggedIn();
   }
+
 
 
 

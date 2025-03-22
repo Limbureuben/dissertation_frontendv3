@@ -3,11 +3,7 @@ import {
   MAT_FORM_FIELD,
   MatFormFieldControl,
   MatFormFieldModule
-} from "./chunk-CMIXBP5R.js";
-import {
-  AutofillMonitor,
-  TextFieldModule
-} from "./chunk-2OMEIUWS.js";
+} from "./chunk-VVTHAKBE.js";
 import {
   FormGroupDirective,
   NgControl,
@@ -19,7 +15,11 @@ import {
   MatCommonModule,
   _ErrorStateTracker,
   _IdGenerator
-} from "./chunk-GYY2ZVQY.js";
+} from "./chunk-B3WBZVZG.js";
+import {
+  AutofillMonitor,
+  TextFieldModule
+} from "./chunk-2OMEIUWS.js";
 import {
   Platform,
   coerceBooleanProperty,
@@ -612,4 +612,4 @@ export {
   MatInput,
   MatInputModule
 };
-//# sourceMappingURL=chunk-ATHBNOO6.js.map
+//# sourceMappingURL=chunk-FH3BLX53.js.map

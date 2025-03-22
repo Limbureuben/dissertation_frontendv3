@@ -1,11 +1,11 @@
 import {
   MatCommonModule
-} from "./chunk-LKGKN3H4.js";
+} from "./chunk-53ATIRFD.js";
+import "./chunk-NB3GWOWA.js";
 import "./chunk-YE4TGNEC.js";
 import {
   Platform
 } from "./chunk-SUK46SJT.js";
-import "./chunk-NB3GWOWA.js";
 import {
   DOCUMENT
 } from "./chunk-ZPHFRFDG.js";
