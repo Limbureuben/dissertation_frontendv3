@@ -28,9 +28,11 @@ export class UserHeaderComponent {
     });
   }
 
-  openReport(): void {
+  openReportAnonymous(): void {
     const dialogRef = this.dialog.open(AnonymousreportComponent, {
-      width: '1000px'
+      width: '600px',
+      panelClass: 'animated-dialog',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {

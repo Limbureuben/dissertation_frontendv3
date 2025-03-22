@@ -1,4 +1,4 @@
-<mat-dialog-content class="reports-container">
+<mat-dialog-content class="reports-container" @dialogAnimation>
   <!-- Close Button (X) on Top-Right -->
   <mat-icon class="close-icon" (click)="closeDialog()">close</mat-icon>
 
@@ -15,7 +15,6 @@
         <div class="report-title">{{ report.spaceName }}</div>
         <p class="report-description">{{ report.description }}</p>
         <small class="report-date">Submitted on: {{ report.createdAt | date }}</small>
-        <img *ngIf="report.file" [src]="'/media/' + report.file" alt="Uploaded file" class="report-image">
       </li>
     </ul>
   </div>

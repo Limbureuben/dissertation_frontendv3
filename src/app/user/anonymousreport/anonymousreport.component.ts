@@ -1,12 +1,24 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-anonymousreport',
   standalone: false,
   templateUrl: './anonymousreport.component.html',
-  styleUrl: './anonymousreport.component.scss'
+  styleUrl: './anonymousreport.component.scss',
+  animations: [
+    trigger('dialogAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.8)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0, transform: 'scale(0.8)' }))
+      ])
+    ])
+  ]
 })
 export class AnonymousreportComponent implements OnInit {
   reports: any[] = [];
@@ -17,7 +29,7 @@ export class AnonymousreportComponent implements OnInit {
   constructor(
     private openSpaceService: OpenspaceService,
     @Optional() public dialogRef: MatDialogRef<AnonymousreportComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
@@ -54,8 +66,6 @@ export class AnonymousreportComponent implements OnInit {
   }
 
   closeDialog(): void {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
+    this.dialogRef.close()
   }
 }
