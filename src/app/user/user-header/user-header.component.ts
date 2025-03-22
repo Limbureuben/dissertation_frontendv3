@@ -3,6 +3,8 @@ import { ThemeService } from '../../../theme/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportFormComponent } from '../report-form/report-form.component';
 import { AnonymousreportComponent } from '../anonymousreport/anonymousreport.component';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-header',
@@ -15,7 +17,9 @@ export class UserHeaderComponent {
 
   constructor(
     private themeService: ThemeService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   openReportDialog(): void {
@@ -61,12 +65,14 @@ export class UserHeaderComponent {
 
 
   onLogout() {
-    console.log('Logout clicked');
-
+    localStorage.removeItem('anonymousUser');
+    this.toastr.success('Logout successfuly', 'Success', {
+      positionClass: 'toast-top-right'
+    });
+    this.router.navigate(['/user-home']);
   }
 
   closeReportForm() {
 
   }
-
 }
