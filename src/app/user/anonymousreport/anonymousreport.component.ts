@@ -54,7 +54,7 @@ export class AnonymousreportComponent implements OnInit {
     this.loading = true;
     this.openSpaceService.getAnonymousReports(this.sessionId).subscribe({
       next: (response: any) => {
-        this.reports = response.data.anonymousReports;
+        this.reports = response.data.anonymous;
         this.loading = false;
       },
       error: (error) => {
