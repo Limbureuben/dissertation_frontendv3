@@ -42,10 +42,27 @@ export class UserHomeComponent {
     this.showPopup = false;
   }
 
+  // continueAsAnonymous(): void {
+  //   this.showPopup = false;
+  //   this.authservice.generateSessionId();
+
+  //   this.router.navigate(['/map-display'])
+  // }
+
   continueAsAnonymous(): void {
     this.showPopup = false;
-    this.authservice.generateSessionId();
-    this.router.navigate(['/map-display'])
+
+    let sessionID = localStorage.getItem('session_id');
+    if (!sessionID) {
+      this.authservice.generateSessionId();
+      sessionID = localStorage.getItem('session_id');
+    }
+    if(sessionID) {
+      this.router.navigate(['/map-display'])
+    }
+    else {
+      console.error('Failed to create session ID');
+    }
   }
 
   @ViewChild('chatbotContainer') chatbotContainer!: ElementRef;
@@ -53,8 +70,6 @@ export class UserHomeComponent {
     openChat() {
       if (this.chatbotContainer) {
         this.chatbotContainer.nativeElement.style.display = 'block';
-
-        // Ensure Elfsight script reloads if needed
         if ((window as any).eapps) {
           (window as any).eapps.init();
         }
