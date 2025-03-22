@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-anonymousreport',
@@ -13,7 +14,11 @@ export class AnonymousreportComponent implements OnInit {
   loading: boolean = false;
   errorMessage: string = '';
 
-  constructor(private openSpaceService: OpenspaceService) {}
+  constructor(
+    private openSpaceService: OpenspaceService,
+    @Optional() public dialogRef: MatDialogRef<AnonymousreportComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -31,8 +36,6 @@ export class AnonymousreportComponent implements OnInit {
     }
   }
 
-
-
   fetchReports() {
     if (!this.sessionId) return; // Prevent execution if sessionId is null
 
@@ -48,5 +51,11 @@ export class AnonymousreportComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  closeDialog(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }

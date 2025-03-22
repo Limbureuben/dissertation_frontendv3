@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReportFormComponent } from '../report-form/report-form.component';
+import { AnonymousreportComponent } from '../anonymousreport/anonymousreport.component';
 
 @Component({
   selector: 'app-user-header',
@@ -27,9 +28,15 @@ export class UserHeaderComponent {
     });
   }
 
+  openReport(): void {
+    const dialogRef = this.dialog.open(AnonymousreportComponent, {
+      width: '1000px'
+    });
 
-
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Anonymous report closed')
+    });
+  }
 
   toggleTheme(): void {
     this.isDarkTheme = !this.isDarkTheme;

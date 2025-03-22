@@ -1,4 +1,7 @@
-<div class="reports-container">
+<mat-dialog-content class="reports-container">
+  <!-- Close Button (X) on Top-Right -->
+  <mat-icon class="close-icon" (click)="closeDialog()">close</mat-icon>
+
   <div *ngIf="loading" class="loading">Loading reports...</div>
 
   <div *ngIf="errorMessage">
@@ -20,4 +23,4 @@
   <ng-template #noReports>
     <p>No reports found for your session.</p>
   </ng-template>
-</div>
+</mat-dialog-content>
