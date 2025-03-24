@@ -211,106 +211,120 @@ h2 {
 
 
 
-
-/* Popup Overlay - Background Blur */
+/* Overlay background */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's above everything */
+  z-index: 1000;
+  padding: 20px; /* Prevents content from sticking to the edges */
 }
 
-/* Popup Card */
 .popup-card {
+  position: relative; /* Ensures proper positioning */
   background: white;
-  padding: 25px;
-  width: 350px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  border-radius: 2px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
+  width: 90%;
+  max-width: 400px; /* Prevents excessive width on large screens */
+  animation: fadeIn 0.3s ease-in-out;
+  overflow: hidden; /* Prevents content from overflowing */
 }
 
-/* Close Button (X) */
+/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
-  left: 10px;
-  background: none;
+  right: 15px;
+  background: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  color: #333; /* Ensure visibility */
   cursor: pointer;
+  transition: color 0.3s ease-in-out;
 }
 
-/* Popup Buttons */
+.close-btn:hover {
+  color: red; /* Make it clear when hovered */
+}
+
+/* Buttons */
 .popup-buttons {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 20px;
 }
 
-/* Individual Buttons */
 .popup-btn {
-  padding: 10px 15px;
+  padding: 12px;
+  font-size: 16px;
   border: none;
-  font-size: 14px;
   cursor: pointer;
   border-radius: 5px;
-  font-weight: bold;
-  transition: 0.3s;
+  width: 100%;
+  transition: background 0.3s ease;
 }
 
-/* Create Account Button */
-.popup-btn.create-account {
-  background-color: #3f51b5;
+/* Primary Button */
+.create-account {
+  background: #4A90E2;
   color: white;
 }
 
-.popup-btn.create-account:hover {
-  background-color: #2c387e;
+.create-account:hover {
+  background: #357ABD;
 }
 
-/* Anonymous Button */
-.popup-btn.anonymous {
-  background-color: #ccc;
+/* Secondary Button */
+.anonymous {
+  background: #E0E0E0;
   color: black;
 }
 
-.popup-btn.anonymous:hover {
-  background-color: #d6d2d2;
+.anonymous:hover {
+  background: #C0C0C0;
 }
 
-@media screen and (max-width: 768px) {
-  .menu-toggle {
-    display: block; /* Show on small screens */
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .popup-card {
+    width: 95%; /* Adjusts width for very small devices */
+    padding: 15px;
+    max-width: 90%; /* Prevents unnecessary scaling */
   }
 
-  .nav-buttons {
-    display: none; /* Hide menu by default */
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.95);
-    position: absolute;
-    top: 80px;
-    right: 20px;
-    width: 200px;
+  h3 {
+    font-size: 18px; /* Adjusts heading size for small screens */
+  }
+
+  p {
+    font-size: 14px; /* Adjusts text for readability */
+  }
+
+  .popup-btn {
+    font-size: 14px;
     padding: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
   }
+}
 
-  .nav-buttons.active {
-    display: flex; /* Show when menuOpen is true */
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
   }
-
-  .create-account {
-    width: 100%;
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
