@@ -227,13 +227,7 @@ triggerFileInput() {
 
 
   submitReport(): void {
-    const sessionId = localStorage.getItem('session_id');
-    if (!sessionId) {
-      console.error('Error: No session ID found for anonymous user');
-      return;
-    }
-
-    console.log('Submitting report with sessionId:', sessionId);
+    const userId = localStorage.getItem('user_id');
 
     if (this.reportForm.invalid) {
       Object.keys(this.reportForm.controls).forEach(key => {
@@ -258,7 +252,7 @@ triggerFileInput() {
             spaceName: this.selectedSpace.name,
             latitude: this.selectedSpace.latitude,
             longitude: this.selectedSpace.longitude,
-            sessionId: sessionId
+            userId: userId || null
           };
 
           console.log('Submitting report with data:', reportData);
@@ -270,7 +264,7 @@ triggerFileInput() {
             reportData.spaceName,
             reportData.latitude,
             reportData.longitude,
-            reportData.sessionId
+            reportData.userId
           );
         })
       )

@@ -174,8 +174,8 @@ export const REGISTER_REPORT_MUTATION = gql`
 
 
   export const CREATE_REPORT = gql`
-  mutation CreateReport($description: String!, $email: String, $filePath: String, $spaceName: String, $latitude: Float, $longitude: Float, $sessionId: String!) {
-    createReport(description: $description, email: $email, filePath: $filePath, spaceName: $spaceName, latitude: $latitude, longitude: $longitude, sessionId: $sessionId) {
+  mutation CreateReport($description: String!, $email: String, $filePath: String, $spaceName: String, $latitude: Float, $longitude: Float, $userId: ID) {
+    createReport(description: $description, email: $email, filePath: $filePath, spaceName: $spaceName, latitude: $latitude, longitude: $longitude, userId: $userId) {
       report {
         reportId
         description

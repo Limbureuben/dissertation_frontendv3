@@ -133,13 +133,13 @@ export class OpenspaceService {
   }
 
 
-  createReport(description: string, email: string | null, filePath: string | null, spaceName: string, latitude: number, longitude: number, sessionId: string): Observable<any> {
+  createReport(description: string, email: string | null, filePath: string | null, spaceName: string, latitude: number, longitude: number, userId: string | null): Observable<any> {
     return this.apollo.mutate({
       mutation: CREATE_REPORT,
       variables: {
         description,
         email: email || null,
-        sessionId,
+        userId,
         filePath: filePath || null,
         spaceName,
         latitude,

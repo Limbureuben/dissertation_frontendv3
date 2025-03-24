@@ -64,54 +64,59 @@ export class LoginComponent implements OnInit{
 
 
   OnSubmit() {
-    if(!this.LoginForm.valid) {
-      this.LoginForm.markAllAsTouched();
-      return;
+    if (!this.LoginForm.valid) {
+        this.LoginForm.markAllAsTouched();
+        return;
     }
 
-    const {username, password}: LoginData = this.LoginForm.value;
+    const { username, password }: LoginData = this.LoginForm.value;
 
     this.authservice.signinUser(username, password).subscribe(
-      (result) => {
-        if(result.data?.loginUser.success) {
-          const user = result.data.loginUser.user;
+        (result) => {
+            if (result.data?.loginUser.success) {
+                const user = result.data.loginUser.user;
 
-          localStorage.setItem('success_token', user.accessToken);
-          localStorage.setItem('refresh_token', user.refreshToken);
-          localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
+                localStorage.setItem('user_id', user.id);
 
-          const accessToken = localStorage.getItem('success_token');
-          const refreshToken = localStorage.getItem('refresh_token');
+                localStorage.setItem('success_token', user.accessToken);
+                localStorage.setItem('refresh_token', user.refreshToken);
+                localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
 
-          if (accessToken && refreshToken) {
-            console.log('Tokens successfully stored!');
-          } else {
-            console.error('Failed to store tokens');
-          }
+                const accessToken = localStorage.getItem('success_token');
+                const refreshToken = localStorage.getItem('refresh_token');
 
-          this.toastr.success('Login successful!', 'Success', {
-            positionClass: 'toast-top-right',
-          });
+                if (accessToken && refreshToken) {
+                    console.log('Tokens successfully stored!');
+                } else {
+                    console.error('Failed to store tokens');
+                }
 
-          if(user.isStaff) {
-            this.router.navigate(['/admindashboard'])
-            return;
-          }
-          if(user) {
-            this.router.navigate(['/map-display']);
-          }
-        } else {
-          this.registrationError = result.data?.loginUser?.message || 'Login failed';
-          this.toastr.error(this.registrationError);
-          this.showFailure(this.registrationError);
+                console.log('User ID stored:', user.id);
+
+                this.toastr.success('Login successful!', 'Success', {
+                    positionClass: 'toast-top-right',
+                });
+
+                if (user.isStaff) {
+                    this.router.navigate(['/admindashboard']);
+                    return;
+                }
+                if (user) {
+                    this.router.navigate(['/map-display']);
+                }
+            } else {
+                this.registrationError = result.data?.loginUser?.message || 'Login failed';
+                this.toastr.error(this.registrationError);
+                this.showFailure(this.registrationError);
+            }
+        },
+        (error) => {
+            this.registrationError = error;
+            this.toastr.error('Login failed');
         }
-      },
-      (error) => {
-       this.registrationError = error;
-       this.toastr.error('Login failed');
-      }
-    )
-  }
+    );
+}
+
 
   showFailure(message: string) {
     console.error('Login Error:', message);
