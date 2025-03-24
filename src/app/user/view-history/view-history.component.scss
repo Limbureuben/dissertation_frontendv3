@@ -177,13 +177,14 @@
   overflow: hidden;
 }
 
+
 /* Header styling */
 .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+  padding-bottom: 4px;
 }
 
 .table-title {
@@ -194,18 +195,13 @@
 
 /* Close button */
 .close-btn {
-  background: #ff5252;
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   font-size: 18px;
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 50%;
   transition: 0.3s;
-}
-
-.close-btn:hover {
-  background: #d32f2f;
 }
 
 /* Search Bar */
@@ -224,12 +220,12 @@
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
 }
 
 .custom-table th {
-  background: #1976d2;
+  background: #3f51b5;
   color: white;
   text-align: left;
   padding: 12px;
