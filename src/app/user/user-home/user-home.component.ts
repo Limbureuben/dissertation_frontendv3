@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { ViewHistoryComponent } from '../view-history/view-history.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-home',
@@ -13,9 +14,8 @@ export class UserHomeComponent {
   showPopup: boolean = false;
   menuOpen: boolean = false;
   showHistoryPopup = false;
-  dialog: any;
 
-  constructor(private router: Router, private authservice: AuthService ) {}
+  constructor(private router: Router, private authservice: AuthService, private dialog: MatDialog ) {}
 
   OPenBookDasboard() {
     this.router.navigate(['/login'])
@@ -75,13 +75,10 @@ export class UserHomeComponent {
 
     openReportHistoryDialog() {
       this.dialog.open(ViewHistoryComponent, {
-        width: '80%', // Set width of the dialog
-        height: '80%', // Set height of the dialog
-        disableClose: false, // Allow closing by clicking outside
+        width: '80%',
+        height: '80%',
+        disableClose: false,
       });
     }
-
-
-
 
 }

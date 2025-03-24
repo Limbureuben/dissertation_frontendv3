@@ -34,6 +34,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   ]
 })
 export class ViewHistoryComponent {
+  showTable: boolean = true;
+
 
   dataSource = new MatTableDataSource<any>([]);
 
@@ -71,5 +73,9 @@ export class ViewHistoryComponent {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  closeTable() {
+    this.showTable = false;
   }
 }

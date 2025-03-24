@@ -159,3 +159,16 @@ td.mat-cell:first-of-type + td {
   color: #4caf50; /* Green */
   font-size: 20px;
 }
+
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+}
+
+.close-btn:hover {
+  color: darkred;
+}
