@@ -34,7 +34,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   ]
 })
 export class ViewHistoryComponent {
-  showTable: boolean = true;
+  showReportHistory = true;
 
 
   dataSource = new MatTableDataSource<any>([]);
@@ -43,10 +43,10 @@ export class ViewHistoryComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
+    public dialogRef: MatDialogRef<ViewHistoryComponent>,
     private openSpaceService: OpenspaceService,
     private toastr: ToastrService,
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<ViewHistoryComponent>
+    private dialog: MatDialog
   ) {}
 
 
@@ -71,11 +71,11 @@ export class ViewHistoryComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  closeDialog() {
+  openReportHistoryDialog() {
     this.dialogRef.close();
   }
 
   closeTable() {
-    this.showTable = false;
+    this.showReportHistory = false; // Hide when close button is clicked
   }
 }

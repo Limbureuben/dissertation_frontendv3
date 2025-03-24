@@ -14,6 +14,7 @@ export class UserHomeComponent {
   showPopup: boolean = false;
   menuOpen: boolean = false;
   showHistoryPopup = false;
+  dialogRef: any;
 
   constructor(private router: Router, private authservice: AuthService, private dialog: MatDialog ) {}
 
@@ -73,12 +74,26 @@ export class UserHomeComponent {
     }
 
 
+    // openReportHistoryDialog() {
+    //   this.dialog.open(ViewHistoryComponent, {
+    //     width: '80%', // Adjust width as needed
+    //     height: '80%', // Adjust height as needed
+    //     disableClose: false // Allows user to close the dialog
+    //   });
+    // }
+
     openReportHistoryDialog() {
-      this.dialog.open(ViewHistoryComponent, {
-        width: '80%',
-        height: '80%',
-        disableClose: false,
-      });
+      if (!this.dialogRef || this.dialogRef.getState() === 2) {
+        this.dialogRef = this.dialog.open(ViewHistoryComponent, {
+          width: '800px',
+          height: '600px',
+          disableClose: false
+        });
+
+        this.dialogRef.afterClosed().subscribe(() => {
+          this.dialogRef = null; // Reset when dialog is closed
+        });
+      }
     }
 
 }
