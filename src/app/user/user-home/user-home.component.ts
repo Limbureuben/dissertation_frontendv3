@@ -42,13 +42,6 @@ export class UserHomeComponent {
     this.showPopup = false;
   }
 
-  // continueAsAnonymous(): void {
-  //   this.showPopup = false;
-  //   this.authservice.generateSessionId();
-
-  //   this.router.navigate(['/map-display'])
-  // }
-
   continueAsAnonymous(): void {
     this.showPopup = false;
 
@@ -74,6 +67,10 @@ export class UserHomeComponent {
           (window as any).eapps.init();
         }
       }
+    }
+
+    OpenReportHistory() {
+      
     }
 
 
