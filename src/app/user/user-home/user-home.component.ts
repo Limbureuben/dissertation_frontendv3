@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { ViewHistoryComponent } from '../view-history/view-history.component';
 
 @Component({
   selector: 'app-user-home',
@@ -11,6 +12,8 @@ import { AuthService } from '../../service/auth.service';
 export class UserHomeComponent {
   showPopup: boolean = false;
   menuOpen: boolean = false;
+  showHistoryPopup = false;
+  dialog: any;
 
   constructor(private router: Router, private authservice: AuthService ) {}
 
@@ -69,9 +72,16 @@ export class UserHomeComponent {
       }
     }
 
-    OpenReportHistory() {
-      
+
+    openReportHistoryDialog() {
+      this.dialog.open(ViewHistoryComponent, {
+        width: '80%', // Set width of the dialog
+        height: '80%', // Set height of the dialog
+        disableClose: false, // Allow closing by clicking outside
+      });
     }
+
+
 
 
 }

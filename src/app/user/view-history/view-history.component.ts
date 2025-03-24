@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-view-history',
@@ -43,7 +43,8 @@ export class ViewHistoryComponent {
   constructor(
     private openSpaceService: OpenspaceService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<ViewHistoryComponent>
   ) {}
 
 
@@ -68,6 +69,7 @@ export class ViewHistoryComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }
