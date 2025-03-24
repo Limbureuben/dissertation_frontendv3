@@ -8,6 +8,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { authGuard } from '../guards/auth.guard';
 import { adminExitGuard } from '../guards/admin-exist.guard';
 import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
+import { ViewHistoryComponent } from './view-history/view-history.component';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'map-display', component: MapDisplayComponent, canActivate: [authGuard] },
   { path: 'report-form', component: ReportFormComponent },
   { path: 'map', component: MapComponent },
-  { path: 'anonymousreport', component: AnonymousreportComponent }
+  { path: 'anonymousreport', component: AnonymousreportComponent },
+  { path: 'viewhistory', component: ViewHistoryComponent }
 ];
 
 @NgModule({

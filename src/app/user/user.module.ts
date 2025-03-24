@@ -29,6 +29,8 @@ import { SharingModule } from '../sharing/sharing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
 import { ViewHistoryComponent } from './view-history/view-history.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { ViewHistoryComponent } from './view-history/view-history.component';
     MatDialogModule,
     MatGridListModule,
     SharingModule,
+    MatPaginatorModule,
+    MatTableModule,
   ],
   exports: [
     MapDisplayComponent,
