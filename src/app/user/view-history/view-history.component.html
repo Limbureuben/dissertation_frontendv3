@@ -1,7 +1,7 @@
-<div class="table-container">
+<mat-dialog-content class="table-container">
   <div class="table-header">
     <h2 class="table-title">Report History</h2>
-    <button class="close-btn" (click)="openReportHistoryDialog()">✖</button>
+    <button class="close-btn" (click)="closeReportHistoryDialog()">✖</button>
   </div>
 
   <!-- Search Input -->
@@ -13,7 +13,7 @@
     </mat-form-field>
   </div>
 
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
     <tbody>
       <ng-container matColumnDef="reportId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ReportID</th>
@@ -41,10 +41,10 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="['reportId','description', 'createdAt', 'status']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];" @rowAnimation></tr>
+      <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];"></tr>
     </tbody>
   </table>
 
   <!-- Paginator -->
   <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
+</mat-dialog-content>

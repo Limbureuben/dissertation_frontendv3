@@ -71,7 +71,7 @@ export class ViewHistoryComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openReportHistoryDialog() {
+  closeReportHistoryDialog() {
     this.dialogRef.close();
   }
 
