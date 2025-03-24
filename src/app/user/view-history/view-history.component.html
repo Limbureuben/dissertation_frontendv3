@@ -1,4 +1,4 @@
-<mat-dialog-content class="table-container">
+<mat-dialog-content class="table-container" @popupAnimation>
   <div class="table-header">
     <h2 class="table-title">Report History</h2>
     <button class="close-btn" (click)="closeReportHistoryDialog()">✖</button>
@@ -41,7 +41,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="['reportId','description', 'createdAt', 'status']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];" @rowAnimation></tr>
     </tbody>
   </table>
 

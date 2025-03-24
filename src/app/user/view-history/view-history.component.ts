@@ -13,22 +13,22 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './view-history.component.html',
   styleUrl: './view-history.component.scss',
   animations: [
-    // Slide table from right when opening
-    trigger('tableEnterAnimation', [
+    // Table Pop-up: Slide-in from Bottom
+    trigger('popupAnimation', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(50px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate('400ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
       ])
     ]),
 
-    // Animate row additions & deletions
+    // Table Row: Fade-in + Slide-up
     trigger('rowAnimation', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        style({ opacity: 0, transform: 'translateY(10px)' }),
         animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' }))
       ])
     ])
   ]
