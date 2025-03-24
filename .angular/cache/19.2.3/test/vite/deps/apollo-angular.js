@@ -2,7 +2,8 @@ import {
   ApolloClient,
   NetworkStatus,
   gql
-} from "./chunk-EU5YLTH7.js";
+} from "./chunk-VBGCASP7.js";
+import "./chunk-CRBPVACN.js";
 import {
   Inject,
   Injectable,

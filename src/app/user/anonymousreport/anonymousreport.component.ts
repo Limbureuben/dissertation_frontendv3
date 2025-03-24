@@ -35,6 +35,7 @@ export class AnonymousreportComponent implements OnInit {
   ngOnInit(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       const storedUserId = localStorage.getItem('user_id'); // Get user ID
+      console.log("Retrieved user_id from localStorage:", storedUserId);
 
       if (!storedUserId) {
         this.errorMessage = 'No user ID found. Please log in to view reports.';
@@ -52,10 +53,18 @@ export class AnonymousreportComponent implements OnInit {
     if (!this.userId) return; // Prevent execution if userId is null
 
     this.loading = true;
+    console.log("Fetching reports for userId:", this.userId); // Debugging
+
     this.openSpaceService.getMyReports(this.userId).subscribe({
       next: (response: any) => {
-        this.reports = response.data.myReports; // Adjust based on the actual response structure
+        console.log("API Response:", response); // Log the full response
+        this.reports = response.data?.myReports || []; // Ensure safe access
         this.loading = false;
+
+        if (this.reports.length === 0) {
+          console.warn("No reports found for this user.");
+          this.errorMessage = "No reports found.";
+        }
       },
       error: (error) => {
         console.error('Error fetching reports:', error);

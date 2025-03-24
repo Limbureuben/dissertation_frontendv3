@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, CONFIRM_REPORT, CREATE_REPORT, DELETE_OPEN_SPACE, GET_ALL_HISTORY, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_ALL_REPORTS, GET_ANONYMOUS_REPORTS, GET_HISTORY_COUNT, GET_MY_REPORTS, GET_OPENSPACE_COUNT, GET_REPORT_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
 
@@ -208,14 +208,35 @@ export class OpenspaceService {
   }
 
 
+  // getMyReports(userId: string): Observable<any> {
+  //   return this.apollo.watchQuery({
+  //     query: GET_MY_REPORTS,
+  //     variables: { userId },
+  //     fetchPolicy: 'network-only'
+  //   }).valueChanges.pipe(
+  //     map(result =>result.data)
+  //   )
+  // }
+
   getMyReports(userId: string): Observable<any> {
+    const token = localStorage.getItem('success_token'); // Ensure correct token key
+    if (!token) {
+      console.error("No auth token found. User might not be logged in.");
+      return new Observable(observer => observer.error("No authentication token found."));
+    }
+
     return this.apollo.watchQuery({
       query: GET_MY_REPORTS,
       variables: { userId },
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
+      context: {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`
+        })
+      }
     }).valueChanges.pipe(
-      map(result =>result.data)
-    )
+      map(result => result.data)
+    );
   }
 
 
