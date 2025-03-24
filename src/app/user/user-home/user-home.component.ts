@@ -19,7 +19,7 @@ export class UserHomeComponent {
   constructor(private router: Router, private authservice: AuthService, private dialog: MatDialog ) {}
 
   OPenBookDasboard() {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/'])
   }
 
   toggleMenu() {
@@ -77,7 +77,7 @@ export class UserHomeComponent {
     openReportHistoryDialog() {
       this.dialog.open(ViewHistoryComponent, {
         width: '1200px',
-        height: '500px',
+        height: '700px',
         disableClose: false
       });
     }
