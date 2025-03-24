@@ -8,7 +8,7 @@
     <p class="error">{{ errorMessage }}</p>
   </div>
 
-  <div *ngIf="reports.length > 0; else noReports">
+  <div *ngIf="reports && reports.length > 0; else noReports">
     <h3>Your Submitted Reports</h3>
     <ul class="reports-list">
       <li *ngFor="let report of reports" class="report-card">
@@ -24,7 +24,6 @@
   </div>
 
   <ng-template #noReports>
-    <p>No reports found for your session.</p>
+    <p>No reports found.</p>
   </ng-template>
 </mat-dialog-content>
-

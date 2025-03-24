@@ -136,24 +136,6 @@ export const GET_ALL_OPENSPACES_USER = gql`
 `;
 
 
-// export  const REGISTER_REPORT_MUTATION = gql`
-//     mutation RegisterReport($input: ReportInputObject!) {
-//       registerReport(input: $input) {
-//         output {
-//           message
-//           success
-//           report {
-//             id
-//             description
-//             email
-//             sessionId
-//             fileUrl
-//           }
-//         }
-//       }
-//     }
-//   `;
-
 export const REGISTER_REPORT_MUTATION = gql`
   mutation RegisterReport($input: ReportInputObject!) {
     registerReport(input: $input) {
@@ -170,8 +152,6 @@ export const REGISTER_REPORT_MUTATION = gql`
     }
   }
 `;
-
-
 
   export const CREATE_REPORT = gql`
   mutation CreateReport($description: String!, $email: String, $filePath: String, $spaceName: String, $latitude: Float, $longitude: Float, $userId: ID) {
@@ -242,3 +222,12 @@ export const GET_ANONYMOUS_REPORTS = gql`
 //     }
 //   }
 // `;
+
+export const GET_MY_REPORTS = gql`
+  query GetMyReports {
+    myReports {
+      createdAt
+      description
+    }
+  }
+`;

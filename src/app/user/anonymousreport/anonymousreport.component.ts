@@ -22,7 +22,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class AnonymousreportComponent implements OnInit {
   reports: any[] = [];
-  sessionId: string | null = null;
+  userId: string | null = null;
   loading: boolean = false;
   errorMessage: string = '';
 
@@ -34,14 +34,14 @@ export class AnonymousreportComponent implements OnInit {
 
   ngOnInit(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const storedSessionId = localStorage.getItem('session_id');
+      const storedUserId = localStorage.getItem('user_id'); // Get user ID
 
-      if (!storedSessionId) {
-        this.errorMessage = 'No session ID found. Please submit a report first.';
+      if (!storedUserId) {
+        this.errorMessage = 'No user ID found. Please log in to view reports.';
         return;
       }
 
-      this.sessionId = storedSessionId ?? ''; // Ensure sessionId is a string
+      this.userId = storedUserId;
       this.fetchReports();
     } else {
       console.warn("localStorage is not available (probably running on server-side).");
@@ -49,12 +49,12 @@ export class AnonymousreportComponent implements OnInit {
   }
 
   fetchReports() {
-    if (!this.sessionId) return; // Prevent execution if sessionId is null
+    if (!this.userId) return; // Prevent execution if userId is null
 
     this.loading = true;
-    this.openSpaceService.getAnonymousReports(this.sessionId).subscribe({
+    this.openSpaceService.getMyReports(this.userId).subscribe({
       next: (response: any) => {
-        this.reports = response.data.anonymous;
+        this.reports = response.data.myReports; // Adjust based on the actual response structure
         this.loading = false;
       },
       error: (error) => {
@@ -66,6 +66,7 @@ export class AnonymousreportComponent implements OnInit {
   }
 
   closeDialog(): void {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 }
+
