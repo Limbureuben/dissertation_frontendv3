@@ -28,6 +28,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SharingModule } from '../sharing/sharing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
+import { ViewHistoryComponent } from './view-history/view-history.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AnonymousreportComponent } from './anonymousreport/anonymousreport.comp
     MapComponent,
     ReportFormComponent,
     UserHomeComponent,
-    AnonymousreportComponent
+    AnonymousreportComponent,
+    ViewHistoryComponent
 
   ],
   imports: [

@@ -187,12 +187,13 @@ export const GET_ALL_REPORTS = gql`
 `;
 
 export const GET_ALL_HISTORY = gql`
-  query MyQuery {
+   query MyQuery {
     allHistorys {
       createdAt
       description
+      reportId
     }
-}
+  }
 `;
 
 
