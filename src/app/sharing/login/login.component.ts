@@ -63,59 +63,114 @@ export class LoginComponent implements OnInit{
   }
 
 
-  OnSubmit() {
-    if (!this.LoginForm.valid) {
-        this.LoginForm.markAllAsTouched();
-        return;
-    }
+//   OnSubmit() {
+//     if (!this.LoginForm.valid) {
+//         this.LoginForm.markAllAsTouched();
+//         return;
+//     }
 
-    const { username, password }: LoginData = this.LoginForm.value;
+//     const { username, password }: LoginData = this.LoginForm.value;
 
-    this.authservice.signinUser(username, password).subscribe(
-        (result) => {
-            if (result.data?.loginUser.success) {
-                const user = result.data.loginUser.user;
+//     this.authservice.signinUser(username, password).subscribe(
+//         (result) => {
+//             if (result.data?.loginUser.success) {
+//                 const user = result.data.loginUser.user;
 
-                localStorage.setItem('user_id', user.id);
+//                 localStorage.setItem('user_id', user.id);
 
-                localStorage.setItem('success_token', user.accessToken);
-                localStorage.setItem('refresh_token', user.refreshToken);
-                localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
+//                 localStorage.setItem('success_token', user.accessToken);
+//                 localStorage.setItem('refresh_token', user.refreshToken);
+//                 localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
 
-                const accessToken = localStorage.getItem('success_token');
-                const refreshToken = localStorage.getItem('refresh_token');
+//                 const accessToken = localStorage.getItem('success_token');
+//                 const refreshToken = localStorage.getItem('refresh_token');
 
-                if (accessToken && refreshToken) {
-                    console.log('Tokens successfully stored!');
-                } else {
-                    console.error('Failed to store tokens');
-                }
+//                 if (accessToken && refreshToken) {
+//                     console.log('Tokens successfully stored!');
+//                 } else {
+//                     console.error('Failed to store tokens');
+//                 }
 
-                console.log('User ID stored:', user.id);
+//                 console.log('User ID stored:', user.id);
 
-                this.toastr.success('Login successful!', 'Success', {
-                    positionClass: 'toast-top-right',
-                });
+//                 this.toastr.success('Login successful!', 'Success', {
+//                     positionClass: 'toast-top-right',
+//                 });
 
-                if (user.isStaff) {
-                    this.router.navigate(['/admindashboard']);
-                    return;
-                }
-                if (user) {
-                    this.router.navigate(['/map-display']);
-                }
-            } else {
-                this.registrationError = result.data?.loginUser?.message || 'Login failed';
-                this.toastr.error(this.registrationError);
-                this.showFailure(this.registrationError);
-            }
-        },
-        (error) => {
-            this.registrationError = error;
-            this.toastr.error('Login failed');
-        }
-    );
+//                 if (user.isStaff) {
+//                     this.router.navigate(['/admindashboard']);
+//                     return;
+//                 }
+//                 if (user) {
+//                     this.router.navigate(['/map-display']);
+//                 }
+//             } else {
+//                 this.registrationError = result.data?.loginUser?.message || 'Login failed';
+//                 this.toastr.error(this.registrationError);
+//                 this.showFailure(this.registrationError);
+//             }
+//         },
+//         (error) => {
+//             this.registrationError = error;
+//             this.toastr.error('Login failed');
+//         }
+//     );
+// }
+
+OnSubmit() {
+  if (!this.LoginForm.valid) {
+      this.LoginForm.markAllAsTouched();
+      return;
+  }
+
+  const { username, password }: LoginData = this.LoginForm.value;
+
+  this.authservice.signinUser(username, password).subscribe(
+      (result) => {
+          if (result.data?.loginUser.success) {
+              const user = result.data.loginUser.user;
+
+              if (!user || !user.id || !user.accessToken) {
+                  console.error("Login response missing user details!");
+                  this.toastr.error("Login failed: Missing user details.");
+                  return;
+              }
+
+              // Store user details in localStorage
+              localStorage.setItem('user_id', user.id.toString()); // Ensure stored as string
+              localStorage.setItem('success_token', user.accessToken);
+              localStorage.setItem('refresh_token', user.refreshToken);
+              localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
+
+              // Confirm stored values
+              console.log("User ID stored:", localStorage.getItem('user_id'));
+              console.log("Access Token stored:", !!localStorage.getItem('success_token'));
+              console.log("Refresh Token stored:", !!localStorage.getItem('refresh_token'));
+
+              this.toastr.success('Login successful!', 'Success', {
+                  positionClass: 'toast-top-right',
+              });
+
+              // Navigate based on user role
+              if (user.isStaff) {
+                  this.router.navigate(['/admindashboard']);
+              } else {
+                  this.router.navigate(['/map-display']);
+              }
+          } else {
+              const errorMessage = result.data?.loginUser?.message || 'Login failed';
+              console.error("Login Error:", errorMessage);
+              this.toastr.error(errorMessage);
+              this.showFailure(errorMessage);
+          }
+      },
+      (error) => {
+          console.error("Login Request Error:", error);
+          this.toastr.error('Login failed. Please check your credentials.');
+      }
+  );
 }
+
 
 
   showFailure(message: string) {

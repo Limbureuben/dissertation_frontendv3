@@ -218,26 +218,24 @@ export class OpenspaceService {
   //   )
   // }
 
-  getMyReports(userId: string): Observable<any> {
-    const token = localStorage.getItem('success_token'); // Ensure correct token key
-    if (!token) {
-      console.error("No auth token found. User might not be logged in.");
-      return new Observable(observer => observer.error("No authentication token found."));
-    }
-
+  getMyReports(userId: number): Observable<any> {
     return this.apollo.watchQuery({
       query: GET_MY_REPORTS,
       variables: { userId },
       fetchPolicy: 'network-only',
       context: {
-        headers: new HttpHeaders({
-          Authorization: `Bearer ${token}`
-        })
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('success_token')}`
+        }
       }
     }).valueChanges.pipe(
-      map(result => result.data)
+      map(result => {
+        console.log("Fetched Reports:", result.data); // Debugging
+        return result.data;
+      })
     );
-  }
+}
+
 
 
 }

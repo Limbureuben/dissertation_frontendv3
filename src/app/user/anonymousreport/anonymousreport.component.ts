@@ -22,9 +22,10 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class AnonymousreportComponent implements OnInit {
   reports: any[] = [];
-  userId: string | null = null;
   loading: boolean = false;
   errorMessage: string = '';
+  userId: number | null = null;
+
 
   constructor(
     private openSpaceService: OpenspaceService,
@@ -32,9 +33,10 @@ export class AnonymousreportComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+
   ngOnInit(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const storedUserId = localStorage.getItem('user_id'); // Get user ID
+      const storedUserId = localStorage.getItem('user_id'); // Get user ID as string
       console.log("Retrieved user_id from localStorage:", storedUserId);
 
       if (!storedUserId) {
@@ -42,33 +44,36 @@ export class AnonymousreportComponent implements OnInit {
         return;
       }
 
-      this.userId = storedUserId;
+      this.userId = parseInt(storedUserId, 10);  // Convert to number
       this.fetchReports();
     } else {
       console.warn("localStorage is not available (probably running on server-side).");
     }
   }
 
-  fetchReports() {
-    if (!this.userId) return; // Prevent execution if userId is null
+  fetchReports(): void {
+    if (!this.userId) {
+      console.warn("User ID is missing. Skipping report fetch.");
+      return;
+    }
 
     this.loading = true;
-    console.log("Fetching reports for userId:", this.userId); // Debugging
+    console.log("Fetching reports for userId:", this.userId);
 
     this.openSpaceService.getMyReports(this.userId).subscribe({
       next: (response: any) => {
-        console.log("API Response:", response); // Log the full response
-        this.reports = response.data?.myReports || []; // Ensure safe access
-        this.loading = false;
+        console.log("API Response:", response);
+        this.reports = response?.data?.myReports ?? [];
 
-        if (this.reports.length === 0) {
+        this.loading = false;
+        if (!this.reports.length) {
           console.warn("No reports found for this user.");
           this.errorMessage = "No reports found.";
         }
       },
       error: (error) => {
-        console.error('Error fetching reports:', error);
-        this.errorMessage = 'Failed to fetch reports. Please try again later.';
+        console.error("Error fetching reports:", error);
+        this.errorMessage = error?.message || 'Failed to fetch reports. Please try again later.';
         this.loading = false;
       }
     });
