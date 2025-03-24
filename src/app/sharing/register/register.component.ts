@@ -11,16 +11,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   animations: [
-    trigger('slideInOut', [
-      state('in', style({
-        transform: 'translateX(0)'
-      })),
+    trigger('rotateFade', [
       transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in')
+        style({ opacity: 0, transform: 'rotateY(90deg)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'rotateY(0deg)' }))
       ]),
       transition(':leave', [
-        animate('1500ms ease-in', style({ transform: 'translateX(100%)' }))
+        animate('300ms ease-in', style({ opacity: 0, transform: 'rotateY(90deg)' }))
       ])
     ])
   ]

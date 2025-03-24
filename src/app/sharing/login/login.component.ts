@@ -13,19 +13,17 @@ import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   animations: [
-    trigger('slideInOut', [
-      state('in', style({
-        transform: 'translateX(0)'
-      })),
+    trigger('rotateFade', [
       transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in')
+        style({ opacity: 0, transform: 'rotateY(90deg)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'rotateY(0deg)' }))
       ]),
       transition(':leave', [
-        animate('2000ms ease-in', style({ transform: 'translateX(100%)' }))
+        animate('300ms ease-in', style({ opacity: 0, transform: 'rotateY(90deg)' }))
       ])
     ])
   ]
+
 })
 export class LoginComponent implements OnInit{
 
@@ -181,3 +179,50 @@ function loginWithGoogle() {
   throw new Error('Function not implemented.');
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//animations @slideInOut
+// animations: [
+//   trigger('slideInOut', [
+//     state('in', style({
+//       transform: 'translateX(0)'
+//     })),
+//     transition(':enter', [
+//       style({ transform: 'translateX(100%)' }),
+//       animate('300ms ease-in')
+//     ]),
+//     transition(':leave', [
+//       animate('2000ms ease-in', style({ transform: 'translateX(100%)' }))
+//     ])
+//   ])
+// ]
+
+
+//bounce @slideBounce
+// animations: [
+//   trigger('slideBounce', [
+//     transition(':enter', [
+//       style({ transform: 'translateY(-100%)', opacity: 0 }),
+//       animate('600ms cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+//         style({ transform: 'translateY(0)', opacity: 1 }))
+//     ]),
+//     transition(':leave', [
+//       animate('300ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
+//     ])
+//   ])
+// ]
