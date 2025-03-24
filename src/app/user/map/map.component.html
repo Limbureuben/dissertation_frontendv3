@@ -16,6 +16,9 @@
   <div id="closeFormBtn" (click)="closeForm()">
     <div class="report-container" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeForm()">×</button>
+      <div *ngIf="emailWarning" class="email-warning">
+        ⚠️ To receive your report ID, please enter your email.
+      </div>
       <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
         <p><strong>Open Space:</strong> <span id="location-name"></span></p>
 

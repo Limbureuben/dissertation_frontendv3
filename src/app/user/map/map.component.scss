@@ -319,3 +319,26 @@ body {
   border-radius: 5px;
   margin-top: 10px;
 }
+
+.email-warning {
+  background-color: #f0f0ef; /* Yellow background */
+  color: #db3f3f; /* Dark text */
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

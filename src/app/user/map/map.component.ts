@@ -22,6 +22,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   locationName: string = '';
   selectedSpace: any = null;
   openSpaces: any[] = [];
+  emailWarning: boolean = false;
 
 
   message: string = '';
@@ -52,6 +53,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+
+    this.reportForm.valueChanges.subscribe(() => {
+      const email = this.reportForm.get('email')?.value;
+      this.emailWarning = !email; // Show warning if email is empty
+    });
   }
 
   ngAfterViewInit() {
@@ -236,6 +242,8 @@ triggerFileInput() {
       });
       return;
     }
+
+
 
     this.submitting = true;
     this.success = false;
