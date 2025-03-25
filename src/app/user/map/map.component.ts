@@ -8,7 +8,6 @@ import { response } from 'express';
 import { switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth.service';
-import { SuccessComponent } from '../success/success.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -47,7 +46,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private authservice: AuthService,
-    private dialog: MatDialog
 ) {
   this.reportForm = this.fb.group({
     description: ['', [Validators.required, Validators.minLength(20)]],
