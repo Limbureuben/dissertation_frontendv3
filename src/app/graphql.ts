@@ -225,10 +225,12 @@ export const GET_ANONYMOUS_REPORTS = gql`
 // `;
 
 export const GET_MY_REPORTS = gql`
-   query GetMyReports($userId: ID!) {
-    myReports(userId: $userId) {
+  query GetMyReports {
+    myReports {
       description
-      created_at
+      createdAt
+      reportId
     }
   }
 `;
+

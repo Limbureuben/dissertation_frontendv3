@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Apollo, MutationResult } from 'apollo-angular';
+import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ADD_OPENSPACE, CONFIRM_REPORT, CREATE_REPORT, DELETE_OPEN_SPACE, GET_ALL_HISTORY, GET_ALL_OPENSPACES, GET_ALL_OPENSPACES_ADMIN, GET_ALL_OPENSPACES_USER, GET_ALL_REPORTS, GET_ANONYMOUS_REPORTS, GET_HISTORY_COUNT, GET_MY_REPORTS, GET_OPENSPACE_COUNT, GET_REPORT_COUNT, REGISTER_REPORT_MUTATION, TOGGLE_OPENSPACE_STATUS } from '../graphql';
 import { OpenSpaceRegisterData, ToggleOpenSpaceResponse } from '../models/openspace.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -208,34 +208,46 @@ export class OpenspaceService {
   }
 
 
-  // getMyReports(userId: string): Observable<any> {
-  //   return this.apollo.watchQuery({
-  //     query: GET_MY_REPORTS,
-  //     variables: { userId },
-  //     fetchPolicy: 'network-only'
-  //   }).valueChanges.pipe(
-  //     map(result =>result.data)
-  //   )
-  // }
+//   getMyReports(userId: number): Observable<any> {
+//     return this.apollo.watchQuery({
+//       query: GET_MY_REPORTS,
+//       variables: { userId },
+//       fetchPolicy: 'network-only',
+//       context: {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem('success_token')}`
+//         }
+//       }
+//     }).valueChanges.pipe(
+//       map(result => {
+//         console.log("Fetched Reports:", result.data); // Debugging
+//         return result.data;
+//       })
+//     );
+// }
 
-  getMyReports(userId: number): Observable<any> {
-    return this.apollo.watchQuery({
-      query: GET_MY_REPORTS,
-      variables: { userId },
-      fetchPolicy: 'network-only',
-      context: {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('success_token')}`
-        }
+getMyReports(): Observable<any> {
+  const token = localStorage.getItem('success_token'); // Get token from storage
+
+  if (!token) {
+    console.error("No authentication token found. User may not be logged in.");
+    return throwError(() => new Error("Authentication token missing."));
+  }
+
+  return this.apollo.watchQuery({
+    query: GET_MY_REPORTS,
+    fetchPolicy: 'network-only',
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}` // Include token in header
       }
-    }).valueChanges.pipe(
-      map(result => {
-        console.log("Fetched Reports:", result.data); // Debugging
-        return result.data;
-      })
-    );
+    }
+  }).valueChanges.pipe(
+    map(result => {
+      console.log("Fetched Reports:", result.data);
+      return result.data;
+    })
+  );
 }
-
-
 
 }

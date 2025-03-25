@@ -36,48 +36,52 @@ export class AnonymousreportComponent implements OnInit {
 
   ngOnInit(): void {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-      const storedUserId = localStorage.getItem('user_id'); // Get user ID as string
-      console.log("Retrieved user_id from localStorage:", storedUserId);
-
-      if (!storedUserId) {
-        this.errorMessage = 'No user ID found. Please log in to view reports.';
+      const token = localStorage.getItem('success_token'); // Get token
+      if (!token) {
+        this.errorMessage = 'Authentication token missing. Please log in.';
+        console.warn("No token found in localStorage.");
         return;
       }
 
-      this.userId = parseInt(storedUserId, 10);  // Convert to number
-      this.fetchReports();
+      this.fetchReports();  // Fetch reports only if token is valid
     } else {
       console.warn("localStorage is not available (probably running on server-side).");
     }
   }
 
   fetchReports(): void {
-    if (!this.userId) {
-      console.warn("User ID is missing. Skipping report fetch.");
+    const token = localStorage.getItem('success_token');
+
+    if (!token) {
+      this.errorMessage = "Authentication token missing. Please log in.";
+      console.warn("No token found. Aborting request.");
       return;
     }
 
     this.loading = true;
-    console.log("Fetching reports for userId:", this.userId);
+    console.log("Fetching reports...");
 
-    this.openSpaceService.getMyReports(this.userId).subscribe({
+    this.openSpaceService.getMyReports().subscribe({
       next: (response: any) => {
         console.log("API Response:", response);
         this.reports = response?.data?.myReports ?? [];
 
         this.loading = false;
         if (!this.reports.length) {
-          console.warn("No reports found for this user.");
+          console.warn("No reports found.");
           this.errorMessage = "No reports found.";
         }
       },
       error: (error) => {
         console.error("Error fetching reports:", error);
-        this.errorMessage = error?.message || 'Failed to fetch reports. Please try again later.';
+        this.errorMessage = error?.message || "Failed to fetch reports. Please try again.";
         this.loading = false;
       }
     });
   }
+
+
+
 
   closeDialog(): void {
     this.dialogRef.close();
