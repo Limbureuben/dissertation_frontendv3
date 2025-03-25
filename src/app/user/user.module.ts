@@ -31,7 +31,6 @@ import { AnonymousreportComponent } from './anonymousreport/anonymousreport.comp
 import { ViewHistoryComponent } from './view-history/view-history.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { SuccessComponent } from './success/success.component';
     ReportFormComponent,
     UserHomeComponent,
     AnonymousreportComponent,
-    ViewHistoryComponent,
-    SuccessComponent
+    ViewHistoryComponent
 
   ],
   imports: [

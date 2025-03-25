@@ -14,7 +14,7 @@ export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
 })
 export class OpenspaceService {
 
-  private apiUrl = 'http://192.168.137.42:8000/api/v1/upload/';
+  private apiUrl = 'http://127.0.0.1:8000/api/v1/upload/';
   private openSpacesSubject = new BehaviorSubject<any[]>([]);
   openSpaces$ = this.openSpacesSubject.asObservable();
 
