@@ -63,7 +63,7 @@
                 <button mat-icon-button color="primary" (click)="editOpenSpace()">
                   <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="deleteOpenSpace(space.id)">
+                <button mat-icon-button color="warn" (click)="deleteOpenSpaceWithConfirmation(space.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-button [color]="space.isActive ? 'warn' : 'primary'" (click)="toggleStatus(space)">

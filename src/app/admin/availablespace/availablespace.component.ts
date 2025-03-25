@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-availablespace',
@@ -77,13 +78,41 @@ export class AvailablespaceComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+  deleteOpenSpaceWithConfirmation(id: string) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the deletion if confirmed
+        this.deleteOpenSpace(id);
+      }
+    });
+  }
+
+
+
+
   deleteOpenSpace(id: string) {
     this.openSpaceService.deleteOpenSpace(id).subscribe(() => {
       // Filter the data source after deletion
       this.dataSource.data = this.dataSource.data.filter(space => space.id !== id);
-      this.toastr.success('Open spac deleted successfully!', 'Success', {
-        positionClass: 'toast-top-right',
-      })
+
+      Swal.fire({
+        title: "Deleted!",
+        text: "Openspace delete successfully",
+        icon: "success"
+      });
+
+      // this.toastr.success('Open spac deleted successfully!', 'Success', {
+      //   positionClass: 'toast-top-right',
+      // })
     });
   }
 

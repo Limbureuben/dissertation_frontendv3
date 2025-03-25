@@ -35,3 +35,13 @@ mat-form-field {
   color: red !important;
 }
 
+
+.swal2-actions {
+  display: flex;
+  justify-content: space-between; /* Distribute the buttons evenly */
+  gap: 20px; /* Adjust the gap between the buttons */
+}
+
+.swal2-confirm, .swal2-cancel {
+  padding: 10px 20px; /* Adjust the padding for the buttons if necessary */
+}
