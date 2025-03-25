@@ -3,9 +3,6 @@ import {
   MatDividerModule
 } from "./chunk-7MA4MVFE.js";
 import {
-  SelectionModel
-} from "./chunk-3MM5DAKB.js";
-import {
   NG_VALUE_ACCESSOR
 } from "./chunk-ZT3VHJQ3.js";
 import {
@@ -23,6 +20,9 @@ import {
   _StructuralStylesLoader,
   hasModifierKey
 } from "./chunk-4MLEXLNB.js";
+import {
+  SelectionModel
+} from "./chunk-3MM5DAKB.js";
 import "./chunk-5ZYDBGAT.js";
 import {
   _CdkPrivateStyleLoader

@@ -8,6 +8,10 @@ import { response } from 'express';
 import { switchMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth.service';
+import { SuccessComponent } from '../success/success.component';
+import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-map',
@@ -42,7 +46,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private openSpaceService: OpenspaceService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private dialog: MatDialog
 ) {
   this.reportForm = this.fb.group({
     description: ['', [Validators.required, Validators.minLength(20)]],
@@ -243,8 +248,6 @@ triggerFileInput() {
       return;
     }
 
-
-
     this.submitting = true;
     this.success = false;
     this.errorMessage = '';
@@ -282,9 +285,16 @@ triggerFileInput() {
           this.success = true;
           this.reportId = response.createReport.report.reportId;
 
-          this.toastr.success('Report submitted successfully!', 'Success', {
-            positionClass: 'toast-top-right',
+          Swal.fire({
+            title: `Report of ID ${this.reportId} has been submitted successfully!`,
+            icon: "success",
+            draggable: true,
+            customClass: {
+              title: 'custom-title',  // Apply custom class to the title
+              popup: 'custom-popup'   // Apply custom class to the whole popup (optional)
+            }
           });
+
 
           setTimeout(() => {
             this.resetForm();
@@ -316,3 +326,25 @@ triggerFileInput() {
 
 
 
+//swal
+// Swal.fire({
+//   title: "Drag me!",
+//   icon: "success",
+//   draggable: true
+// });
+
+
+// Swal.fire({
+//   title: "Do you want to save the changes?",
+//   showDenyButton: true,
+//   showCancelButton: true,
+//   confirmButtonText: "Save",
+//   denyButtonText: `Don't save`
+// }).then((result) => {
+//   /* Read more about isConfirmed, isDenied below */
+//   if (result.isConfirmed) {
+//     Swal.fire("Saved!", "", "success");
+//   } else if (result.isDenied) {
+//     Swal.fire("Changes are not saved", "", "info");
+//   }
+// });

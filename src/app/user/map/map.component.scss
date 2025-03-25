@@ -342,3 +342,14 @@ body {
   }
 }
 
+
+/* Reduces the font size of the SweetAlert title */
+.custom-title {
+  font-size: 7px !important;  /* Adjust the font size as per your requirement */
+}
+
+/* Optionally, you can also adjust the size of the whole popup */
+.custom-popup {
+  font-size: 12px;  /* Adjust the font size for the entire popup */
+}
+
