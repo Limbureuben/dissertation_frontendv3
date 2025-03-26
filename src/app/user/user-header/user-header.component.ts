@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReportFormComponent } from '../report-form/report-form.component';
 import { AnonymousreportComponent } from '../anonymousreport/anonymousreport.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-user-header',
@@ -54,8 +55,10 @@ export class UserHeaderComponent implements OnInit{
   }
 
   onProfile() {
-    console.log('Profile clicked');
-    // Navigate to profile page if needed
+    const dialogRef = this.dialog.open(ProfileComponent, {
+      width: '500px',
+      data: {}
+    })
   }
 
   onYourReport() {

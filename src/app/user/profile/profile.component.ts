@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { error } from 'console';
 import { AuthService } from '../../service/auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,11 @@ export class ProfileComponent implements OnInit{
  loading = true
  errorMessage: string = '';
 
- constructor(private authservice: AuthService) {}
+ constructor(
+  private authservice: AuthService,
+  public dialogRef: MatDialogRef<ProfileComponent>,
+
+ ) {}
 
  ngOnInit(): void {
      this.authservice.getUserProfile().subscribe({
@@ -28,5 +33,9 @@ export class ProfileComponent implements OnInit{
       }
      });
  }
+
+ closeProfileDialog() {
+  this.dialogRef.close();
+}
 
 }
