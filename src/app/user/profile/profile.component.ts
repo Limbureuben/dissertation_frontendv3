@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { error } from 'console';
 import { AuthService } from '../../service/auth.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit{
  constructor(
   private authservice: AuthService,
   public dialogRef: MatDialogRef<ProfileComponent>,
-
+  @Inject(MAT_DIALOG_DATA) public data: any
  ) {}
 
  ngOnInit(): void {

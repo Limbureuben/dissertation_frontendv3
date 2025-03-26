@@ -24,7 +24,8 @@ export class UserHeaderComponent implements OnInit{
     public dialog: MatDialog,
     private toastr: ToastrService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    
   ) {}
 
   openReportDialog(): void {
