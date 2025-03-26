@@ -90,16 +90,14 @@ export class AvailablereportComponent implements OnInit{
   // }
 
   confirmReport(reportId: string): void {
-    // Create the SweetAlert with Bootstrap buttons
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+        confirmButton: "btn btn-success px-4 py-2 me-2 fw-bold text-white",
+        cancelButton: "btn btn-danger px-4 py-2 fw-bold text-white"
       },
       buttonsStyling: false
     });
 
-    // Show SweetAlert with confirmation buttons
     swalWithBootstrapButtons.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -110,19 +108,17 @@ export class AvailablereportComponent implements OnInit{
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        // Proceed with the mutation to confirm the report
         this.openSpaceService.confirmReport(reportId).subscribe(response => {
           if (response.data.confirmReport.success) {
-            // Show success message with SweetAlert
             swalWithBootstrapButtons.fire({
               title: "Confirmed!",
               text: "The report has been confirmed.",
-              icon: "success"
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2000 // Auto-close after 2 seconds
             });
-            // Optionally, reload the report list or update the UI
             this.loadReport();
           } else {
-            // Show failure message with SweetAlert
             swalWithBootstrapButtons.fire({
               title: "Failed!",
               text: "The report could not be confirmed.",
@@ -130,7 +126,6 @@ export class AvailablereportComponent implements OnInit{
             });
           }
         }, error => {
-          // Show error message with SweetAlert in case of backend error
           swalWithBootstrapButtons.fire({
             title: "Error!",
             text: "There was an error confirming the report.",
@@ -138,7 +133,6 @@ export class AvailablereportComponent implements OnInit{
           });
         });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Show cancellation message with SweetAlert
         swalWithBootstrapButtons.fire({
           title: "Cancelled",
           text: "The report has not been confirmed.",
@@ -147,6 +141,7 @@ export class AvailablereportComponent implements OnInit{
       }
     });
   }
+
 
   markAsPending(reportId: string): void {
     console.log('Deleting Report:', reportId);
