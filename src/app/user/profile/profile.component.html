@@ -1,1 +1,8 @@
-<p>profile works!</p>
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div *ngIf="profile">
+  <h2>User Profile</h2>
+  <p><strong>ID:</strong> {{ profile.id }}</p>
+  <p><strong>Username:</strong> {{ profile.username }}</p>
+</div>
