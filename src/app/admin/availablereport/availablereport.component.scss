@@ -149,3 +149,21 @@ td.mat-cell:first-of-type + td {
   color: red;
   font-weight: bold;
 }
+
+
+/* Custom SweetAlert2 button styles */
+.swal2-confirm {
+  background-color: green !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 8px 16px !important;
+  font-weight: bold !important;
+}
+
+.swal2-cancel {
+  background-color: red !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 8px 16px !important;
+  font-weight: bold !important;
+}

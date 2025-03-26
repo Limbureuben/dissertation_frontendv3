@@ -90,15 +90,15 @@ export class AvailablereportComponent implements OnInit{
   // }
 
   confirmReport(reportId: string): void {
-    const swalWithBootstrapButtons = Swal.mixin({
+    const swalWithCustomButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success px-4 py-2 me-2 fw-bold text-white",
-        cancelButton: "btn btn-danger px-4 py-2 fw-bold text-white"
+        confirmButton: "swal2-confirm", // Uses custom styles
+        cancelButton: "swal2-cancel" // Uses custom styles
       },
-      buttonsStyling: false
+      buttonsStyling: false // Prevent SweetAlert2 from overriding custom styles
     });
 
-    swalWithBootstrapButtons.fire({
+    swalWithCustomButtons.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -110,30 +110,30 @@ export class AvailablereportComponent implements OnInit{
       if (result.isConfirmed) {
         this.openSpaceService.confirmReport(reportId).subscribe(response => {
           if (response.data.confirmReport.success) {
-            swalWithBootstrapButtons.fire({
+            swalWithCustomButtons.fire({
               title: "Confirmed!",
               text: "The report has been confirmed.",
               icon: "success",
               showConfirmButton: false,
-              timer: 2000 // Auto-close after 2 seconds
+              timer: 2000
             });
             this.loadReport();
           } else {
-            swalWithBootstrapButtons.fire({
+            swalWithCustomButtons.fire({
               title: "Failed!",
               text: "The report could not be confirmed.",
               icon: "error"
             });
           }
         }, error => {
-          swalWithBootstrapButtons.fire({
+          swalWithCustomButtons.fire({
             title: "Error!",
             text: "There was an error confirming the report.",
             icon: "error"
           });
         });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        swalWithBootstrapButtons.fire({
+        swalWithCustomButtons.fire({
           title: "Cancelled",
           text: "The report has not been confirmed.",
           icon: "error"
@@ -141,6 +141,7 @@ export class AvailablereportComponent implements OnInit{
       }
     });
   }
+
 
 
   markAsPending(reportId: string): void {
