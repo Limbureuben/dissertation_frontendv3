@@ -288,8 +288,8 @@ triggerFileInput() {
             icon: "success",
             draggable: true,
             customClass: {
-              title: 'custom-title',  // Apply custom class to the title
-              popup: 'custom-popup'   // Apply custom class to the whole popup (optional)
+              title: 'custom-title',
+              popup: 'custom-popup'
             }
           });
 

@@ -32,6 +32,7 @@ import { ViewHistoryComponent } from './view-history/view-history.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { ProfileComponent } from './profile/profile.component';
+import { ReviewreportComponent } from './reviewreport/reviewreport.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProfileComponent } from './profile/profile.component';
     UserHomeComponent,
     AnonymousreportComponent,
     ViewHistoryComponent,
-    ProfileComponent
+    ProfileComponent,
+    ReviewreportComponent
 
   ],
   imports: [
