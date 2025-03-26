@@ -234,13 +234,22 @@ export const GET_MY_REPORTS = gql`
   }
 `;
 
+// export const GET_USER_PROFILE = gql`
+//   query GetUserprofile {
+//     query {
+//       profile {
+//         id
+//         username
+//       }
+//     }
+//    }
+// `;
+
 export const GET_USER_PROFILE = gql`
-  query GetUserprofile {
-    query MyQuery {
-      profile {
-        id
-        username
-      }
+  query {
+    profile {
+      id
+      username
     }
-   }
+  }
 `;
