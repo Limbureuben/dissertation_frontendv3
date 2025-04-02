@@ -6,6 +6,8 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 
 mat-form-field {
   width: 100%;

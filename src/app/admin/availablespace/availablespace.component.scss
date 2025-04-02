@@ -1,5 +1,6 @@
 /* Container */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* Container */
 .table-container {
   width: 90%;
   max-width: 100%;
@@ -10,7 +11,32 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
   margin-top: 10px;
-  overflow-x: auto; /* Allows scrolling if needed */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  height: calc(100vh - 200px); /* Adjust height as needed to leave space for sidebar */
+}
+
+/* Table Wrapper to Handle Scroll */
+.table-wrapper {
+  flex-grow: 1;
+  overflow-y: auto; /* Allow vertical scrolling if content exceeds the height */
+  max-height: calc(100vh - 300px); /* Adjust height to fit content without affecting sidebar */
+}
+
+/* Custom Table Styling */
+.custom-table {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: fixed; /* Ensures equal column spacing */
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  padding: 16px;
+  min-width: 150px;
 }
 
 /* Title */
@@ -20,41 +46,20 @@
   font-weight: bold;
   color: #3f51b5;
   margin-bottom: 15px;
-  font-family: 'Poppins', sans-serif; /* Apply Poppins */
+  font-family: 'Poppins', sans-serif;
 }
 
-
-/* Custom Table Styling */
-.custom-table {
-  width: 100%; /* Ensures it takes full width */
-  max-width: 100%; /* Prevents overflow */
-  border-radius: 8px;
-  overflow: hidden;
-  table-layout: fixed; /* Ensures equal column spacing */
-}
-
-th.mat-header-cell,
-td.mat-cell {
-  padding: 16px;
-  min-width: 150px; /* Adjust this value to widen columns */
-}
-
-/* Ensure buttons align properly */
-button.mat-icon-button {
-  margin: 0 5px;
-  min-width: 36px;
-}
-
+/* Header Row */
 th.mat-header-cell {
-  background: linear-gradient(to right, #3f51b5, #1a237e); /* Gradient Effect */
+  background: linear-gradient(to right, #3f51b5, #1a237e);
   color: white;
   font-weight: bold;
   font-size: 16px;
-  text-transform: uppercase; /* Make text all caps for emphasis */
+  text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
   text-align: left;
   padding: 14px;
-  border-bottom: 2px solid #ffffff; /* White separator for contrast */
+  border-bottom: 2px solid #ffffff;
 }
 
 /* Table Rows */
@@ -79,42 +84,7 @@ button.mat-icon-button:hover {
   transition: transform 0.2s;
 }
 
-
-.sidenav-container {
-  height: 90vh;
-  background-image: url('https://www.mof.go.tz/site/images/emblem.png');
-  background-size: 800px;
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling */
-}
-
-mat-sidenav-content {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  margin-top: -20px;
-  margin-left: 30px;
-  background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
-}
-
-/* Reduce index column width */
-/* Minimize index column width */
-/* Reduce index column width */
-th.mat-header-cell.index-column,
-td.mat-cell.index-column {
-  width: 30px; /* Adjust as needed */
-  min-width: 30px;
-  max-width: 30px;
-  padding: 4px;
-  text-align: center;
-}
-
-/* Reduce left padding of the second column */
-th.mat-header-cell:first-of-type + th,
-td.mat-cell:first-of-type + td {
-  padding-left: 8px !important; /* Reduce padding */
-}
-
+/* Search Input Styling */
 .search-container {
   display: flex;
   justify-content: center;
@@ -127,21 +97,9 @@ td.mat-cell:first-of-type + td {
   max-width: 600px;
   background: #fff;
   border-radius: 8px;
-
-  mat-form-field {
-    width: 100%;
-  }
-
-  input {
-    padding: 2px 10px;
-    font-size: 16px;
-  }
-
-  mat-icon {
-    color: gray;
-  }
 }
 
+/* Active and Inactive Classes */
 .active {
   color: green;
   font-weight: bold;
@@ -151,3 +109,4 @@ td.mat-cell:first-of-type + td {
   color: red;
   font-weight: bold;
 }
+

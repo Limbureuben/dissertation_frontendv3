@@ -8,14 +8,35 @@ import { adminGuard } from '../guards/admin.guard';
 import { adminExitGuard } from '../guards/admin-exist.guard';
 import { AvailablereportComponent } from './availablereport/availablereport.component';
 import { ReportHistoryComponent } from './report-history/report-history.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
+// const routes: Routes = [
+//   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
+//   { path: 'map-common', component: MapCommonComponent },
+//   { path: 'openspace', component: AvailablespaceComponent },
+//   { path: 'reports', component: AvailablereportComponent },
+//   { path: 'history', component: ReportHistoryComponent },
+//   { path: 'sidebar', component: SidebarComponent },
+//   { path: 'sidebartwo', component: SidebartwoComponent }
+// ];
 
 const routes: Routes = [
-  { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
-  { path: 'map-common', component: MapCommonComponent },
-  { path: 'openspace', component: AvailablespaceComponent },
-  { path: 'reports', component: AvailablereportComponent },
-  { path: 'history', component: ReportHistoryComponent }
+  {
+    path: 'admin',
+    component: SidebarComponent,  // Wraps all admin routes
+    canActivate: [authGuard, adminGuard],
+    children: [
+      { path: 'admindashboard', component: AdminDashboardComponent },
+      { path: 'map-common', component: MapCommonComponent },
+      { path: 'openspace', component: AvailablespaceComponent },
+      { path: 'reports', component: AvailablereportComponent },
+      { path: 'history', component: ReportHistoryComponent },
+      { path: '', redirectTo: 'admindashboard', pathMatch: 'full' } // Default route
+    ]
+  }
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

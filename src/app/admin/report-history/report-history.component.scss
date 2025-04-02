@@ -1,5 +1,7 @@
 /* Container */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* Container */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 .table-container {
   width: 90%;
   max-width: 100%;
@@ -9,28 +11,43 @@
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 2px;
-  margin-top: 10px;
-  overflow-x: auto; /* Allows scrolling if needed */
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  height: calc(105vh - 200px); /* Adjust this as needed to ensure space for the sidebar */
 }
 
 /* Title */
 .table-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 25px;
   font-weight: bold;
   color: #3f51b5;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-family: 'Poppins', sans-serif; /* Apply Poppins */
 }
 
 
 /* Custom Table Styling */
 .custom-table {
-  width: 100%; /* Ensures it takes full width */
-  max-width: 100%; /* Prevents overflow */
+  width: 100%;
+  max-width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  table-layout: fixed; /* Ensures equal column spacing */
+  table-layout: fixed;
+  flex-grow: 1; /* This ensures the table takes up the remaining space */
+}
+
+.table-wrapper {
+  flex-grow: 1;
+  overflow-y: auto; /* Allow scrolling if content exceeds the fixed height */
+}
+
+/* Table styling */
+th.mat-header-cell,
+td.mat-cell {
+  padding: 16px;
+  min-width: 150px;
 }
 
 th.mat-header-cell,
@@ -78,22 +95,7 @@ button.mat-icon-button:hover {
 }
 
 
-.sidenav-container {
-  height: 90vh;
-  background-image: url('https://www.mof.go.tz/site/images/emblem.png');
-  background-size: 800px;
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling */
-}
 
-mat-sidenav-content {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  margin-top: -20px;
-  margin-left: 30px;
-  background-color: rgba(244, 246, 249, 0.9); /* Light overlay for readability */
-}
 
 /* Reduce index column width */
 /* Minimize index column width */
@@ -116,7 +118,7 @@ td.mat-cell:first-of-type + td {
 .search-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .search-field {
@@ -150,12 +152,90 @@ td.mat-cell:first-of-type + td {
   font-weight: bold;
 }
 
-.confirmed-label {
-  color: green;
-  font-weight: bold;
+
+/* Custom SweetAlert2 button styles */
+.swal2-confirm {
+  background-color: green !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 8px 16px !important;
+  font-weight: bold !important;
 }
 
-.confirmed-icon {
-  color: #4caf50; /* Green */
-  font-size: 20px;
+.swal2-cancel {
+  background-color: red !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 8px 16px !important;
+  font-weight: bold !important;
 }
+
+
+.confirmed-icon {
+  color: green;
+}
+
+
+
+// <mat-sidenav-container class="sidenav-container">
+//   <!-- Sidebar -->
+//   <mat-sidenav mode="side" opened class="sidenav">
+//     <app-admin-sidebar></app-admin-sidebar>
+//   </mat-sidenav>
+
+//   <!-- Main Content -->
+//   <mat-sidenav-content>
+//     <app-admin-header></app-admin-header>
+//     <div class="table-container">
+//       <h2 class="table-title">Report History</h2>
+
+//       <!-- Search Input -->
+//       <div class="search-container">
+//         <mat-form-field appearance="outline" class="search-field">
+//           <mat-label>Search hHistory</mat-label>
+//           <input matInput (keyup)="applyFilter($event)" placeholder="Filter by description or email">
+//           <mat-icon matSuffix>search</mat-icon>
+//         </mat-form-field>
+//       </div>
+//       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
+//         <tbody>
+
+//           <ng-container matColumnDef="reportId">
+//             <th mat-header-cell *matHeaderCellDef mat-sort-header> ReportID</th>
+//             <td mat-cell *matCellDef="let report"> {{ report.reportId }} </td>
+//           </ng-container>
+
+//           <!-- Report Description Column -->
+//           <ng-container matColumnDef="description">
+//             <th mat-header-cell *matHeaderCellDef mat-sort-header> Report Description</th>
+//             <td mat-cell *matCellDef="let report"> {{ report.description }} </td>
+//           </ng-container>
+
+//           <!-- Confirmed Time Column -->
+//           <ng-container matColumnDef="createdAt">
+//             <th mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed Time</th>
+//             <td mat-cell *matCellDef="let report"> {{ report.createdAt }} </td>
+//           </ng-container>
+
+//           <!-- Status Column -->
+//           <ng-container matColumnDef="status">
+//             <th mat-header-cell *matHeaderCellDef> Status </th>
+//             <td mat-cell *matCellDef="let report">
+//               <mat-icon class="confirmed-icon">check_circle</mat-icon>
+//             </td>
+//           </ng-container>
+
+//           <tr mat-header-row *matHeaderRowDef="['reportId','description', 'createdAt', 'status']"></tr>
+//           <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];" @rowAnimation></tr>
+
+//         </tbody>
+//       </table>
+
+//       <!-- Paginator -->
+//       <mat-paginator #paginator [pageSizeOptions]="[7, 14, 28]" showFirstLastButtons></mat-paginator>
+
+//     </div>
+//   </mat-sidenav-content>
+
+//   <app-admin-footer></app-admin-footer>
+// </mat-sidenav-container>

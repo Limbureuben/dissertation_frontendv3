@@ -1,13 +1,13 @@
 import {
+  DomSanitizer
+} from "./chunk-X5R7HJ5O.js";
+import {
   animate,
   state,
   style,
   transition,
   trigger
 } from "./chunk-ZKU74YQ4.js";
-import {
-  DomSanitizer
-} from "./chunk-X5R7HJ5O.js";
 import "./chunk-KCIXUOLT.js";
 import {
   DOCUMENT,

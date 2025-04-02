@@ -38,6 +38,9 @@ import { AvailablereportComponent } from './availablereport/availablereport.comp
 import { ViewReportComponent } from './view-report/view-report.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReportHistoryComponent } from './report-history/report-history.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterOutlet } from '@angular/router';
+import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,8 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
     AvailablereportComponent,
     ViewReportComponent,
     ReportHistoryComponent,
+    SidebarComponent,
+    CustomerSidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +71,7 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
     MatProgressBarModule,
     UserModule,
     SharingModule,
+    RouterOutlet,
     FormsModule,
     MatFormFieldModule,
     MatSortModule,

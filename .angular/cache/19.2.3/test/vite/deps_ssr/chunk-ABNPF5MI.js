@@ -1,5 +1,8 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  __rest
+} from "./chunk-5HFBECCQ.js";
+import {
   Component,
   Deferred,
   ErrorFactory,
@@ -36,9 +39,6 @@ import {
   ɵgetDefaultInstanceOf,
   ɵzoneWrap
 } from "./chunk-RTR6AU5B.js";
-import {
-  __rest
-} from "./chunk-5HFBECCQ.js";
 import {
   InjectionToken,
   Injector,
@@ -7236,4 +7236,4 @@ rxfire/auth/index.esm.js:
    * limitations under the License.
    *)
 */
-//# sourceMappingURL=chunk-7EYARO5M.js.map
+//# sourceMappingURL=chunk-ABNPF5MI.js.map

@@ -151,7 +151,7 @@ OnSubmit() {
 
               // Navigate based on user role
               if (user.isStaff) {
-                  this.router.navigate(['/admindashboard']);
+                  this.router.navigate(['/admin']);
               } else {
                   this.router.navigate(['/map-display']);
               }
