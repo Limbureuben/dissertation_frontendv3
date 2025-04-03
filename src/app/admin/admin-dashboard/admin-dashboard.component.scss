@@ -158,19 +158,7 @@ mat-progress-bar {
   margin-left: 76px;
 }
 
-/* Chart Card */
-.chart-card {
-  flex: 1;
-  background: transparent;
-  padding: 10px;
-  border-radius: 2px;
-  text-align: center;
-  margin-right: 1100px;
 
-  height: 400px; /* Reduce the height */
-  max-height: 500px; /* Ensures it doesn't expand */
-  overflow: hidden; /* Prevents content overflow */
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
