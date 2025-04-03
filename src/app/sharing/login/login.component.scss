@@ -6,7 +6,7 @@
   background-image: url('https://www.mof.go.tz/site/images/emblem.png');
   background-size: 40%;
   background-position: center;
-  height: calc(90vh - 105px); /* Adjust based on header & footer height */
+  height: calc(90vh - 70px); /* Adjust based on header & footer height */
   background-position: center top;
   background-repeat: no-repeat;
 }
@@ -25,8 +25,8 @@
 .login-container {
   background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-width: 350px;
   width: 80%;
   text-align: center;
@@ -55,9 +55,9 @@
 
 /* Logo */
 .login-logo {
-  width: 70px;
-  margin: 0 auto 1rem; /* Center the logo and add bottom margin */
-  display: block;
+  width: 60px;
+  margin-top: -30px;
+  margin: 0 auto 0.5rem; /* Center the logo and add bottom margin */
 }
 
 /* Add styles for the country name text */
