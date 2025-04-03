@@ -25,38 +25,23 @@
   background: rgba(255, 255, 255, 0.9);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-width: 350px;
   width: 80%;
   text-align: center;
   display: flex;
   flex-direction: column;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   min-height: 150px;
   z-index: 1001;
 }
 
 
-.register-container {
-  background: rgba(255, 255, 255, 0.9); /* Slight opacity for the form background */
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 350px;
-  width: 80%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensure the form elements fill the container */
-  min-height: 150px; /* Minimum height of the container */
-  z-index: 1001;
-}
-
 /* Styling for the login logo */
 .login-logo {
-  max-width: 70px; /* Reduced maximum width for the logo */
+  max-width: 60px; /* Reduced maximum width for the logo */
   height: auto; /* Maintain aspect ratio */
-  margin-bottom: 1rem; /* Add space between the logo and the form */
+  margin-bottom: 0rem; /* Add space between the logo and the form */
   object-fit: contain; /* Ensure the logo maintains its aspect ratio */
   align-self: center;
 }
@@ -88,7 +73,7 @@
 
 mat-form-field {
   display: block;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0rem;
   max-width: 450px;
   width: 100%;
 }
@@ -96,11 +81,9 @@ mat-form-field {
 mat-form-field .mat-form-field-wrapper {
   border-radius: 8px;
   border: 1px solid #ccc;
-  padding: 4px;
+  padding: 2px;
   background: #f9f9f9;
 }
-
-
 
 mat-form-field .mat-input-element {
   font-size: 16px;
@@ -116,15 +99,15 @@ mat-form-field .mat-input-element {
 
 /* Register button styling */
 .register-btn {
-  max-width: 350px;
+  max-width: 450px;
   width: 95%;
   padding: 6px; /* Reduced padding */
   font-size: 14px; /* Reduced font size */
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: #3f51b5 !important;
   color: white !important;
   font-weight: bold;
-  margin-top: 0.3rem; /* Reduced top margin */
+  margin-top: 0rem; /* Reduced top margin */
 }
 
 .register-btn:hover {
