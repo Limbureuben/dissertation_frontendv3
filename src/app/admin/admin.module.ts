@@ -41,6 +41,7 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.component';
+import { DashComponent } from './dash/dash.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.co
     ReportHistoryComponent,
     SidebarComponent,
     CustomerSidebarComponent,
+    DashComponent,
   ],
   imports: [
     CommonModule,

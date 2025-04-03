@@ -9,6 +9,7 @@ import { adminExitGuard } from '../guards/admin-exist.guard';
 import { AvailablereportComponent } from './availablereport/availablereport.component';
 import { ReportHistoryComponent } from './report-history/report-history.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashComponent } from './dash/dash.component';
 
 // const routes: Routes = [
 //   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'openspace', component: AvailablespaceComponent },
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
+      { path: 'dash', component: DashComponent },
       { path: '', redirectTo: 'admindashboard', pathMatch: 'full' } // Default route
     ]
   }
