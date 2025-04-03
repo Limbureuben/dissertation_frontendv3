@@ -151,7 +151,12 @@ mat-progress-bar {
 
 
 /* Chart & Map Section */
-
+.chart-map-section {
+  display: flex;
+  gap: 20px;
+  margin-top: 90px;
+  margin-left: 76px;
+}
 
 /* Chart Card */
 .chart-card {
