@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
       { path: 'dash', component: DashComponent },
-      { path: '', redirectTo: 'admindashboard', pathMatch: 'full' } // Default route
+      { path: '', redirectTo: 'dash', pathMatch: 'full' } // Default route
     ]
   }
 ];
