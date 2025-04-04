@@ -1,112 +1,60 @@
-/* Container */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-/* Container */
 .table-container {
-  width: 90%;
-  max-width: 100%;
-  margin: 20px auto;
-  margin-right: 60px;
+  margin: 20px;
   padding: 20px;
-  background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  margin-top: 10px;
-  overflow-x: auto; /* Allows horizontal scrolling if needed */
-  display: flex;
-  flex-direction: column; /* Align content vertically */
-  height: calc(100vh - 200px); /* Adjust height as needed to leave space for sidebar */
-}
-
-/* Table Wrapper to Handle Scroll */
-.table-wrapper {
-  flex-grow: 1;
-  overflow-y: auto; /* Allow vertical scrolling if content exceeds the height */
-  max-height: calc(100vh - 300px); /* Adjust height to fit content without affecting sidebar */
-}
-
-/* Custom Table Styling */
-.custom-table {
-  width: 100%;
-  max-width: 100%;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  overflow: hidden;
-  table-layout: fixed; /* Ensures equal column spacing */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 400px; /* Set a minimum height to maintain sidebar height */
 }
 
-th.mat-header-cell,
-td.mat-cell {
-  padding: 16px;
-  min-width: 150px;
-}
-
-/* Title */
-.table-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #3f51b5;
-  margin-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Header Row */
-th.mat-header-cell {
-  background: linear-gradient(to right, #3f51b5, #1a237e);
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  text-transform: uppercase;
-  font-family: 'Poppins', sans-serif;
-  text-align: left;
-  padding: 14px;
-  border-bottom: 2px solid #ffffff;
-}
-
-/* Table Rows */
-td.mat-cell {
-  padding: 12px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-/* Hover Effect */
-tr.mat-row:hover {
-  background: rgba(0, 0, 255, 0.1);
-  transition: background 0.3s ease;
-}
-
-/* Button Styling */
-button.mat-icon-button {
-  margin: 0 5px;
-}
-
-button.mat-icon-button:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s;
-}
-
-/* Search Input Styling */
-.search-container {
+.header-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.search-field {
-  width: 100%;
-  max-height: 100px;
-  max-width: 600px;
-  background: #fff;
-  border-radius: 8px;
+.table-title {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-/* Active and Inactive Classes */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-field {
+  width: 300px;
+}
+
+.custom-table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.mat-header-cell {
+  background-color: #3f51b5; /* Blue color for the header */
+  color: white;
+  font-weight: bold;
+}
+
+.mat-cell {
+  background-color: white;
+}
+
 .active {
   color: green;
-  font-weight: bold;
 }
 
 .inactive {
   color: red;
-  font-weight: bold;
 }
 
+.confirmed-icon {
+  color: green;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}

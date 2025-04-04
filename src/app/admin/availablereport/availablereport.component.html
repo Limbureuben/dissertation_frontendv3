@@ -1,18 +1,23 @@
 <div class="table-container">
-  <h2 class="table-title">Reports</h2>
+  <div class="header-container">
+    <h2 class="table-title">Reports</h2>
 
-  <!-- Search Input -->
-  <div class="search-container">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search Reports</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Filter by description or email">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+    <!-- Search Input -->
+    <div class="search-container">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search Reports</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filter by description or email">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
   </div>
 
   <!-- Table Wrapper to Handle Scroll -->
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
+      <thead>
+        <tr mat-header-row *matHeaderRowDef="['reportId', 'spaceName', 'latitude', 'longitude', 'actions']"></tr>
+      </thead>
       <tbody>
         <!-- Report ID Column -->
         <ng-container matColumnDef="reportId">
@@ -51,9 +56,7 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['reportId', 'spaceName', 'latitude', 'longitude', 'actions']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['reportId', 'spaceName', 'latitude', 'longitude', 'actions'];" @rowAnimation></tr>
-
       </tbody>
     </table>
   </div>
