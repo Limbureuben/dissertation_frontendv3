@@ -1,5 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from 'express';
 import { OpenspaceService } from '../../service/openspace.service';
 
@@ -21,7 +21,7 @@ import { OpenspaceService } from '../../service/openspace.service';
     ])
   ]
 })
-export class DashComponent {
+export class DashComponent implements OnInit{
 
   totalOpenspaces: number = 0;
   totalHistorys: number = 0;
