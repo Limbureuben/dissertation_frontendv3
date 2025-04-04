@@ -1,19 +1,20 @@
 <mat-dialog-content class="table-container" @popupAnimation>
-  <div class="table-header">
+  <div class="header-container">
     <h2 class="table-title">Report History</h2>
+    <div class="search-container">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search Report by ID</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Search Using your ReportID">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
     <button class="close-btn" (click)="closeReportHistoryDialog()">✖</button>
   </div>
 
-  <!-- Search Input -->
-  <div class="search-container">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search Report by ID</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search Using your ReportID">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-  </div>
-
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
+    <thead>
+      <tr mat-header-row *matHeaderRowDef="['reportId','description', 'createdAt', 'status']"></tr>
+    </thead>
     <tbody>
       <ng-container matColumnDef="reportId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ReportID</th>
@@ -40,11 +41,10 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['reportId','description', 'createdAt', 'status']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['reportId','description', 'createdAt', 'status'];" @rowAnimation></tr>
     </tbody>
   </table>
 
   <!-- Paginator -->
-  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator #paginator [pageSizeOptions]="[4, 8, 16]" showFirstLastButtons></mat-paginator>
 </mat-dialog-content>

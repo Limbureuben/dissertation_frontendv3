@@ -77,7 +77,7 @@ export class UserHomeComponent {
     openReportHistoryDialog() {
       this.dialog.open(ViewHistoryComponent, {
         width: '1200px',
-        height: '700px',
+        height: '500px',
         disableClose: false
       });
     }
