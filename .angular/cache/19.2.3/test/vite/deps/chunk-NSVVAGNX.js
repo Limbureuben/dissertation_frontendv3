@@ -8,7 +8,7 @@ import {
   computed,
   inject,
   signal
-} from "./chunk-A4ZVG34I.js";
+} from "./chunk-DDS2YNXC.js";
 import {
   Observable
 } from "./chunk-XT6ZCHFH.js";
@@ -127,4 +127,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-AV4E6GTW.js.map
+//# sourceMappingURL=chunk-NSVVAGNX.js.map

@@ -3,11 +3,7 @@ import {
   _RecycleViewRepeaterStrategy,
   _VIEW_REPEATER_STRATEGY,
   isDataSource
-} from "./chunk-OCJVQKYM.js";
-import {
-  BidiModule,
-  Directionality
-} from "./chunk-NB3GWOWA.js";
+} from "./chunk-ZLLODWIA.js";
 import {
   Platform,
   RtlScrollAxisType,
@@ -15,10 +11,14 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-SUK46SJT.js";
+} from "./chunk-FEKOUFXO.js";
+import {
+  BidiModule,
+  Directionality
+} from "./chunk-HZMSNVUQ.js";
 import {
   DOCUMENT
-} from "./chunk-ZPHFRFDG.js";
+} from "./chunk-24O5NFYB.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -65,7 +65,7 @@ import {
   ɵɵqueryRefresh,
   ɵɵstyleProp,
   ɵɵviewQuery
-} from "./chunk-A4ZVG34I.js";
+} from "./chunk-DDS2YNXC.js";
 import {
   animationFrameScheduler,
   asapScheduler,
@@ -1563,4 +1563,4 @@ export {
   CdkScrollableModule,
   ScrollingModule
 };
-//# sourceMappingURL=chunk-4V4ZXIQT.js.map
+//# sourceMappingURL=chunk-CFZFHYYE.js.map
