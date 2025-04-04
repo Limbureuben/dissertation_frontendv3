@@ -29,12 +29,12 @@ export class DashComponent implements OnInit{
 
   constructor(
     privaterouter: Router,
-    private openspaceservice: OpenspaceService
+    private opespace: OpenspaceService
   ) {}
 
 
   ngOnInit(): void {
-    this.openspaceservice.getOpenspaceCount().subscribe({
+    this.opespace.getOpenspaceCount().subscribe({
       next: (result) => {
         this.totalOpenspaces = result.data.totalOpenspaces;
       },
@@ -43,7 +43,7 @@ export class DashComponent implements OnInit{
       }
     });
 
-    this.openspaceservice.getAllHistoryReport().subscribe({
+    this.opespace.getAllHistoryReport().subscribe({
       next: (result) => {
         this.totalHistorys = result.data.totalHistorys;
       },
@@ -52,7 +52,7 @@ export class DashComponent implements OnInit{
       }
     });
 
-    this.openspaceservice.getAllReportPending().subscribe({
+    this.opespace.getAllReportPending().subscribe({
       next: (result) => {
         this.totalReport = result.data.totalReport;
       },
