@@ -54,12 +54,14 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let space">
-            <button mat-icon-button color="warn" (click)="deleteOpenSpaceWithConfirmation(space.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-icon-button [ngStyle]="{'color': space.isActive ? 'red' : 'green'}" (click)="toggleStatus(space)">
-              <mat-icon>{{ space.isActive ? 'toggle_off' : 'toggle_on' }}</mat-icon>
-            </button>
+            <div class="action-buttons">
+              <button mat-icon-button color="warn" (click)="deleteOpenSpaceWithConfirmation(space.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-button class="status-btn" [ngStyle]="{'color': space.isActive ? 'red' : 'green'}" (click)="toggleStatus(space)">
+                {{ space.isActive ? 'Inactive' : 'Active' }}
+              </button>
+            </div>
           </td>
         </ng-container>
 

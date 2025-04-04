@@ -58,3 +58,21 @@
 .mat-paginator {
   margin-top: 20px;
 }
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* spacing between delete and toggle */
+}
+
+.status-btn {
+  font-size: 14px;
+  line-height: 1;
+  height: 36px;             /* match icon button height */
+  padding: 0 12px;
+  min-width: unset;         /* avoid default wide Material button */
+  text-transform: none;     /* keeps text like 'Active', not 'ACTIVE' */
+  display: flex;
+  align-items: center;
+}
+
