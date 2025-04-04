@@ -33,5 +33,34 @@ export class DashComponent {
   ) {}
 
 
+  ngOnInit(): void {
+    this.openspaceservice.getOpenspaceCount().subscribe({
+      next: (result) => {
+        this.totalOpenspaces = result.data.totalOpenspaces;
+      },
+      error: (err) => {
+        console.error('Error fetching total open spaces', 'err')
+      }
+    });
+
+    this.openspaceservice.getAllHistoryReport().subscribe({
+      next: (result) => {
+        this.totalHistorys = result.data.totalHistorys;
+      },
+      error: (error)=> {
+        console.error('Error fetching the report history')
+      }
+    });
+
+    this.openspaceservice.getAllReportPending().subscribe({
+      next: (result) => {
+        this.totalReport = result.data.totalReport;
+      },
+      error: (error) => {
+        console.error('Error fetching report pending')
+      }
+    });
+}
+
 
 }
