@@ -15,7 +15,7 @@ export type MenuItem = {
 })
 export class CustomerSidebarComponent {
   MenuItems = signal<MenuItem[]>([
-    { icon: 'dashboard', label: 'Dashboard', route: 'admindashboard' },
+    { icon: 'dashboard', label: 'Dashboard', route: 'dash' },
     { icon: 'map', label: 'Map', route: 'map-common' },
     { icon: 'location_on', label: 'OpenSpace', route: 'openspace' },
     { icon: 'report', label: 'Report', route: 'reports' },
