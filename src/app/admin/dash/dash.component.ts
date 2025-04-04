@@ -7,17 +7,17 @@ import { Component } from '@angular/core';
   templateUrl: './dash.component.html',
   styleUrl: './dash.component.scss',
   animations: [
-      trigger('listAnimation', [
-        transition(':enter', [
-          query('.stat-card', [
-            style({ opacity: 0, transform: 'scale(0.8)' }),
-            stagger(200, [
-              animate('500ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
-            ])
-          ], { optional: true })
-        ])
+    trigger('cardStagger', [
+      transition(':enter', [
+        query('.dashboard-card', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger(100, [
+            animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
       ])
-    ]
+    ])
+  ]
 })
 export class DashComponent {
 
