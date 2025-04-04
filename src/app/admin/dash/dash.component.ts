@@ -1,5 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
+import { Router } from 'express';
+import { OpenspaceService } from '../../service/openspace.service';
 
 @Component({
   selector: 'app-dash',
@@ -20,5 +22,16 @@ import { Component } from '@angular/core';
   ]
 })
 export class DashComponent {
+
+  totalOpenspaces: number = 0;
+  totalHistorys: number = 0;
+  totalReport: number = 0;
+
+  constructor(
+    privaterouter: Router,
+    private openspaceservice: OpenspaceService
+  ) {}
+
+
 
 }
