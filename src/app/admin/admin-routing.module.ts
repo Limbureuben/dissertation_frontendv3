@@ -27,18 +27,16 @@ const routes: Routes = [
     component: SidebarComponent,  // Wraps all admin routes
     canActivate: [authGuard, adminGuard],
     children: [
+      { path: 'dash', component: DashComponent },
       { path: 'admindashboard', component: AdminDashboardComponent },
       { path: 'map-common', component: MapCommonComponent },
       { path: 'openspace', component: AvailablespaceComponent },
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
-      { path: 'dash', component: DashComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' } // Default route
     ]
   }
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

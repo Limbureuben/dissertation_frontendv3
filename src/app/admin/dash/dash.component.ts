@@ -1,6 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Router } from 'express';
 import { OpenspaceService } from '../../service/openspace.service';
 
 @Component({
@@ -28,7 +27,6 @@ export class DashComponent implements OnInit{
   totalReport: number = 0;
 
   constructor(
-    privaterouter: Router,
     private opespace: OpenspaceService
   ) {}
 

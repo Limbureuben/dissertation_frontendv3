@@ -1,6 +1,6 @@
 import {
   toSignal
-} from "./chunk-NSVVAGNX.js";
+} from "./chunk-AV4E6GTW.js";
 import {
   ENVIRONMENT_INITIALIZER,
   Inject,
@@ -22,11 +22,11 @@ import {
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory,
   ɵɵinject
-} from "./chunk-DDS2YNXC.js";
-import "./chunk-SGMLAKGD.js";
+} from "./chunk-A4ZVG34I.js";
 import {
   queueScheduler
 } from "./chunk-XS73CW5H.js";
+import "./chunk-SGMLAKGD.js";
 import {
   BehaviorSubject,
   Observable,
@@ -42,7 +42,7 @@ import "./chunk-ZYKX7RMX.js";
 import {
   __spreadProps,
   __spreadValues
-} from "./chunk-NB53XM2W.js";
+} from "./chunk-TWWAJFRB.js";
 
 // node_modules/@ngrx/store/fesm2022/ngrx-store.mjs
 var REGISTERED_ACTION_TYPES = {};
