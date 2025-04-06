@@ -68,9 +68,21 @@ export class ReportUssdComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  confirmReport() {
-    
+  confirmReport(report: any) {
+    const reportId = report.id;
+
+    this.openspace.confirmReport(reportId).subscribe({
+      next: () => {
+        this.toastr.success('Report confirmed and SMS sent');
+        this.loadreportussd(); // Reload data after confirmation
+      },
+      error: (err) => {
+        this.toastr.error('Failed to confirm report');
+        console.error(err);
+      }
+    });
   }
+
 
 
 }

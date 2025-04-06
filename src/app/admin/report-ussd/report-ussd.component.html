@@ -47,7 +47,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> ACTIONS</th>
           <td mat-cell *matCellDef="let report">
-            <button mat-button color="primary" (click)="confirmReport()">
+            <button mat-button color="primary" (click)="confirmReport(report)">
               Confirm
             </button>
           </td>
