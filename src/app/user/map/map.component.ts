@@ -319,6 +319,14 @@ triggerFileInput() {
     this.selectedSpace = null;
   }
 
+  confirmSubmission() {
+
+  }
+
+  cancelSubmission() {
+    
+  }
+
 }
 
 
