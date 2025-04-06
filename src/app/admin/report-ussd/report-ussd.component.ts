@@ -71,7 +71,7 @@ export class ReportUssdComponent implements OnInit {
   confirmReport(report: any) {
     const reportId = report.id;
 
-    this.openspace.confirmReport(reportId).subscribe({
+    this.openspace.ConfirmReportUssd(reportId).subscribe({
       next: () => {
         this.toastr.success('Report confirmed and SMS sent');
         this.loadreportussd(); // Reload data after confirmation

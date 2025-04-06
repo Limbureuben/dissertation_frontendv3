@@ -15,6 +15,7 @@ export type { OpenSpaceRegisterData, ToggleOpenSpaceResponse };
 export class OpenspaceService {
 
   private apiUrl = 'http://127.0.0.1:8000/api/v1/upload/';
+  private confirmReportUrl = 'http://127.0.0.1:8000/api/v1/confirm-report/';
   private openSpacesSubject = new BehaviorSubject<any[]>([]);
   openSpaces$ = this.openSpacesSubject.asObservable();
 
@@ -257,6 +258,10 @@ getMyReports(): Observable<any> {
     }).valueChanges.pipe(
       map((result: any) => result.data.allReportsUssds)
     )
+}
+
+  ConfirmReportUssd(id: number): Observable<any> {
+    return this.http.post(`${this.confirmReportUrl}${id}/`, {});
 }
 
 }
