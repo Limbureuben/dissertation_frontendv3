@@ -16,44 +16,29 @@
     <div id="closeFormBtn" (click)="closeForm()">
       <div class="report-container" (click)="$event.stopPropagation()">
         <button class="close-btn" (click)="closeForm()">×</button>
-
         <div *ngIf="emailWarning" class="email-warning">
           ⚠️ To receive your report ID, please enter your email.
         </div>
-
         <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
           <p><strong>Open Space:</strong> <span id="location-name"></span></p>
 
-          <!-- Description + Email side by side -->
-          <div class="input-row">
-            <!-- Issue Description -->
-            <mat-form-field appearance="outline" class="custom-input">
-              <mat-label>Issue Description</mat-label>
-              <textarea
-                matInput
-                formControlName="description"
-                placeholder="Describe the issue here"
-                required
-              ></textarea>
-              <mat-error *ngIf="reportForm.get('description')?.invalid && reportForm.get('description')?.touched">
-                Description is required
-              </mat-error>
-            </mat-form-field>
+          <!-- Issue Description -->
+          <mat-form-field appearance="outline" class="full-width custom-input">
+            <mat-label>Issue Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Describe the issue here" required></textarea>
+            <mat-error *ngIf="reportForm.get('description')?.invalid && reportForm.get('description')?.touched">
+              Description is required
+            </mat-error>
+          </mat-form-field>
 
-            <!-- Contact Email -->
-            <mat-form-field appearance="outline" class="custom-input">
-              <mat-label>Your Email (Optional)</mat-label>
-              <input
-                matInput
-                formControlName="email"
-                placeholder="Enter your email (optional)"
-                type="email"
-              />
-              <mat-error *ngIf="reportForm.get('email')?.invalid && reportForm.get('email')?.touched">
-                Please enter a valid email
-              </mat-error>
-            </mat-form-field>
-          </div>
+          <!-- Contact Email (Optional) -->
+          <mat-form-field appearance="outline" class="full-width custom-input">
+            <mat-label>Your Email (Optional)</mat-label>
+            <input matInput formControlName="email" placeholder="Enter your email (optional)" type="email" />
+            <mat-error *ngIf="reportForm.get('email')?.invalid && reportForm.get('email')?.touched">
+              Please enter a valid email
+            </mat-error>
+          </mat-form-field>
 
           <!-- File Upload -->
           <div class="file-upload-container">
@@ -62,11 +47,6 @@
               <input type="file" id="file-upload" (change)="onFileSelected($event)" />
               <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
             </div>
-          </div>
-
-          <!-- Error Message -->
-          <div *ngIf="errorMessage" class="error-message">
-            {{ errorMessage }}
           </div>
 
           <!-- Submit Button -->
@@ -80,6 +60,7 @@
     </div>
   </div>
 
+  <!-- Confirmation Modal -->
   <div *ngIf="showConfirmationModal" class="confirmation-modal">
     <div class="modal-content">
       <h3>Confirm Your Report</h3>

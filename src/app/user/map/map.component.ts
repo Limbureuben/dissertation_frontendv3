@@ -331,6 +331,7 @@ submitReport(): void {
     return;
   }
 
+  this.closeForm();
   // Show the confirmation modal instead of submitting immediately
   this.showConfirmationModal = true;
 }
@@ -387,7 +388,7 @@ confirmSubmission(): void {
 
         setTimeout(() => {
           this.resetForm();
-          this.closeForm();
+          this.closeForm(); // Close the form after submission
         }, 3000);
       },
       error: (error) => {
