@@ -97,11 +97,11 @@ export class RegisterComponent implements OnInit {
       ...(sessionId ? { sessionId } : {})
     };
 
-    console.log("🚀 Sending Registration Data:", registrationData);
+    console.log("Sending Registration Data:", registrationData);
 
     this.authservice.registrationUser(registrationData).subscribe({
       next: (result) => {
-        console.log("✅ Full GraphQL Response:", JSON.stringify(result, null, 2));
+        console.log("Full GraphQL Response:", JSON.stringify(result, null, 2));
 
         if (!result.data?.registerUser?.output) {
           this.toastr.error('Unexpected response from server', 'Error');
@@ -115,27 +115,24 @@ export class RegisterComponent implements OnInit {
           this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
 
           if (sessionId) {
-            console.log("🧹 Removing sessionId...");
+            console.log("Removing sessionId...");
             localStorage.removeItem('sessionId');
           }
 
           if (user?.id) {
             localStorage.setItem('userId', user.id);
           } else {
-            console.warn("⚠️ User object is missing or has no ID!");
+            console.warn("User object is missing or has no ID!");
           }
 
-          // ✅ Reset form
           this.registerForm.reset();
           Object.keys(this.registerForm.controls).forEach(key => {
             this.registerForm.controls[key].setErrors(null);
           });
-
-          // ✅ Navigate to login **without timeout**
-          console.log("🔀 Navigating to login...");
+          console.log("Navigating to login...");
           this.router.navigate(['/login']).then(success => {
             if (!success) {
-              console.error("⚠️ Navigation failed!");
+              console.error("Navigation failed!");
             }
           });
 
@@ -144,14 +141,12 @@ export class RegisterComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('❌ GraphQL Error:', err);
         this.toastr.error('Something went wrong. Please try again.', 'Error');
       }
     });
   }
 
-
-
-
-
+  goBack() {
+    this.router.navigate(['/']);
+  }
 }

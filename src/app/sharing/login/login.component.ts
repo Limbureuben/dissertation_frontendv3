@@ -169,6 +169,10 @@ OnSubmit() {
   );
 }
 
+goBack() {
+  this.router.navigate(['/']);
+}
+
 
 
   showFailure(message: string) {

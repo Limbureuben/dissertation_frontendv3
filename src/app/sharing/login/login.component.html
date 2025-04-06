@@ -1,5 +1,5 @@
 <!-- filepath: /home/egovridc/Desktop/test/src/app/sharing/login/login.component.html -->
-<app-common-header></app-common-header>
+
 <div class="login-background">
   <div class="login-overlay">
     <div class="login-container" @rotateFade (click)="$event.stopPropagation()">
@@ -31,3 +31,8 @@
     </div>
   </div>
 </div>
+
+<button mat-fab color="accent" class="back-button" (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<app-footer></app-footer>

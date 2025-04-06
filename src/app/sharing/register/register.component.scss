@@ -191,3 +191,16 @@ app-footer {
     width: 80%; /* Adjust for better usability */
   }
 }
+
+.back-button {
+  position: fixed;
+  bottom: 590px;  /* Adjust position to place the button at the bottom of the page */
+  left: 20px;    /* Adjust position to place it towards the left */
+  z-index: 999;  /* Ensure it stays above other elements */
+  background-color: transparent;  /* No background */
+  box-shadow: none;  /* No shadow */
+  border: none;  /* No border */
+  font-size: 34px;  /* Increase the font size for better visibility */
+  font-weight: bold;  /* Make the icon bold */
+  color: #333;  /* Set a color to the icon */
+}
