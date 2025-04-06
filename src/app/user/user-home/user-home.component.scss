@@ -64,8 +64,7 @@
   justify-content: flex-start;
   height: auto; /* Set to auto for flexibility based on content */
   background-color: white;
-  padding: 80px 80px;
-  margin-top: -10px;
+  padding: 30px 80px;
 }
 
 .cards-wrapper {
@@ -112,7 +111,7 @@ mat-card-title, mat-card-content {
 .container .description {
   text-align: center; /* Align text with the cards */
   width: 100%; /* Ensures it stretches to match the card width */
-  max-width: 600px; /* Limit width for better readability */
+  max-width: 900px; /* Limit width for better readability */
   margin-bottom: 10px; /* Reduce space between heading, text, and cards */
 }
 
@@ -126,6 +125,7 @@ h2 {
   color: white;
   justify-content: left;
   margin-left: -20px;
+  font-weight: bold;
 }
 
 .title h6 {
