@@ -26,6 +26,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedSpace: any = null;
   openSpaces: any[] = [];
   emailWarning: boolean = false;
+  showConfirmationModal = false;
 
 
   message: string = '';
@@ -235,82 +236,175 @@ triggerFileInput() {
   }
 
 
-  submitReport(): void {
-    const userId = localStorage.getItem('user_id');
+//   submitReport(): void {
+//     const userId = localStorage.getItem('user_id');
 
-    if (this.reportForm.invalid) {
-      Object.keys(this.reportForm.controls).forEach(key => {
-        const control = this.reportForm.get(key);
-        control?.markAsTouched();
-      });
-      return;
-    }
+//     if (this.reportForm.invalid) {
+//       Object.keys(this.reportForm.controls).forEach(key => {
+//         const control = this.reportForm.get(key);
+//         control?.markAsTouched();
+//       });
+//       return;
+//     }
 
-    this.submitting = true;
-    this.success = false;
-    this.errorMessage = '';
+//     this.submitting = true;
+//     this.success = false;
+//     this.errorMessage = '';
 
-    // Upload file if there is one, then create the report
-    this.openSpaceService.uploadFile(this.selectedFile)
-      .pipe(
-        switchMap(response => {
-          const reportData = {
-            description: this.reportForm.get('description')?.value,
-            email: this.reportForm.get('email')?.value || null,
-            filePath: response.file_path || null,
-            spaceName: this.selectedSpace.name,
-            latitude: this.selectedSpace.latitude,
-            longitude: this.selectedSpace.longitude,
-            userId: userId || null
-          };
+//     // Upload file if there is one, then create the report
+//     this.openSpaceService.uploadFile(this.selectedFile)
+//       .pipe(
+//         switchMap(response => {
+//           const reportData = {
+//             description: this.reportForm.get('description')?.value,
+//             email: this.reportForm.get('email')?.value || null,
+//             filePath: response.file_path || null,
+//             spaceName: this.selectedSpace.name,
+//             latitude: this.selectedSpace.latitude,
+//             longitude: this.selectedSpace.longitude,
+//             userId: userId || null
+//           };
 
-          console.log('Submitting report with data:', reportData);
+//           console.log('Submitting report with data:', reportData);
 
-          return this.openSpaceService.createReport(
-            reportData.description,
-            reportData.email,
-            reportData.filePath,
-            reportData.spaceName,
-            reportData.latitude,
-            reportData.longitude,
-            reportData.userId
-          );
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          this.submitting = false;
-          this.success = true;
-          this.reportId = response.createReport.report.reportId;
+//           return this.openSpaceService.createReport(
+//             reportData.description,
+//             reportData.email,
+//             reportData.filePath,
+//             reportData.spaceName,
+//             reportData.latitude,
+//             reportData.longitude,
+//             reportData.userId
+//           );
+//         })
+//       )
+//       .subscribe({
+//         next: (response) => {
+//           this.submitting = false;
+//           this.success = true;
+//           this.reportId = response.createReport.report.reportId;
 
-          Swal.fire({
-            title: `Report of ID ${this.reportId} has been submitted successfully!`,
-            icon: "success",
-            draggable: true,
-            customClass: {
-              title: 'custom-title',
-              popup: 'custom-popup'
-            }
-          });
+//           Swal.fire({
+//             title: `Report of ID ${this.reportId} has been submitted successfully!`,
+//             icon: "success",
+//             draggable: true,
+//             customClass: {
+//               title: 'custom-title',
+//               popup: 'custom-popup'
+//             }
+//           });
 
 
-          setTimeout(() => {
-            this.resetForm();
-            this.closeForm();
-          }, 3000);
-        },
-        error: (error) => {
-          this.submitting = false;
-          this.errorMessage = 'Failed to submit report. Please try again.';
-          console.error('Error submitting report:', error);
+//           setTimeout(() => {
+//             this.resetForm();
+//             this.closeForm();
+//           }, 3000);
+//         },
+//         error: (error) => {
+//           this.submitting = false;
+//           this.errorMessage = 'Failed to submit report. Please try again.';
+//           console.error('Error submitting report:', error);
 
-          this.toastr.error('Error submitting report', 'Error', {
-            positionClass: 'toast-top-right',
-          });
-        }
-      });
+//           this.toastr.error('Error submitting report', 'Error', {
+//             positionClass: 'toast-top-right',
+//           });
+//         }
+//       });
+// }
+
+
+//   private resetForm(): void {
+//     this.reportForm.reset();
+//     this.selectedFile = null;
+//     this.selectedFileName = '';
+//     this.selectedSpace = null;
+//   }
+
+submitReport(): void {
+  const userId = localStorage.getItem('user_id');
+
+  if (this.reportForm.invalid) {
+    Object.keys(this.reportForm.controls).forEach(key => {
+      const control = this.reportForm.get(key);
+      control?.markAsTouched();
+    });
+    return;
+  }
+
+  // Show the confirmation modal instead of submitting immediately
+  this.showConfirmationModal = true;
 }
 
+confirmSubmission(): void {
+  const userId = localStorage.getItem('user_id');
+
+  this.submitting = true;
+  this.success = false;
+  this.errorMessage = '';
+
+  // Upload file if there is one, then create the report
+  this.openSpaceService.uploadFile(this.selectedFile)
+    .pipe(
+      switchMap(response => {
+        const reportData = {
+          description: this.reportForm.get('description')?.value,
+          email: this.reportForm.get('email')?.value || null,
+          filePath: response.file_path || null,
+          spaceName: this.selectedSpace.name,
+          latitude: this.selectedSpace.latitude,
+          longitude: this.selectedSpace.longitude,
+          userId: userId || null
+        };
+
+        console.log('Submitting report with data:', reportData);
+
+        return this.openSpaceService.createReport(
+          reportData.description,
+          reportData.email,
+          reportData.filePath,
+          reportData.spaceName,
+          reportData.latitude,
+          reportData.longitude,
+          reportData.userId
+        );
+      })
+    )
+    .subscribe({
+      next: (response) => {
+        this.submitting = false;
+        this.success = true;
+        this.reportId = response.createReport.report.reportId;
+
+        Swal.fire({
+          title: `Report of ID ${this.reportId} has been submitted successfully!`,
+          icon: "success",
+          draggable: true,
+          customClass: {
+            title: 'custom-title',
+            popup: 'custom-popup'
+          }
+        });
+
+        setTimeout(() => {
+          this.resetForm();
+          this.closeForm();
+        }, 3000);
+      },
+      error: (error) => {
+        this.submitting = false;
+        this.errorMessage = 'Failed to submit report. Please try again.';
+        console.error('Error submitting report:', error);
+
+        this.toastr.error('Error submitting report', 'Error', {
+          positionClass: 'toast-top-right',
+        });
+      }
+    });
+}
+
+cancelSubmission(): void {
+  this.showConfirmationModal = false; // Close the confirmation modal
+}
 
   private resetForm(): void {
     this.reportForm.reset();
@@ -319,13 +413,6 @@ triggerFileInput() {
     this.selectedSpace = null;
   }
 
-  confirmSubmission() {
-
-  }
-
-  cancelSubmission() {
-    
-  }
 
 }
 
