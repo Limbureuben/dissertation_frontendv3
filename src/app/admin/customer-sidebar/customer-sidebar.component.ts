@@ -19,6 +19,7 @@ export class CustomerSidebarComponent {
     { icon: 'map', label: 'Map', route: 'map-common' },
     { icon: 'location_on', label: 'OpenSpace', route: 'openspace' },
     { icon: 'report', label: 'Report', route: 'reports' },
+    { icon: 'report', label: 'Report-USSD', route: 'report-ussd' },
     { icon: 'history', label: 'History', route: 'history' },
     { icon: 'logout', label: 'Logout' }
   ])
