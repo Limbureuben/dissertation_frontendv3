@@ -42,6 +42,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.component';
 import { DashComponent } from './dash/dash.component';
+import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { DashComponent } from './dash/dash.component';
     SidebarComponent,
     CustomerSidebarComponent,
     DashComponent,
+    ReportUssdComponent,
   ],
   imports: [
     CommonModule,

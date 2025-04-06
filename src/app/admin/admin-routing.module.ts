@@ -10,6 +10,7 @@ import { AvailablereportComponent } from './availablereport/availablereport.comp
 import { ReportHistoryComponent } from './report-history/report-history.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashComponent } from './dash/dash.component';
+import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 
 // const routes: Routes = [
 //   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: 'openspace', component: AvailablespaceComponent },
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
+      { path: 'report-ussd', component: ReportUssdComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' } // Default route
     ]
   }
