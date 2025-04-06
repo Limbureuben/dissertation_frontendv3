@@ -253,3 +253,17 @@ export const GET_USER_PROFILE = gql`
     }
   }
 `;
+
+export const GET_ALL_REPORT_USSD = gql`
+  query MyQuery {
+    allReportsUssds {
+      description
+      id
+      openSpace
+      phoneNumber
+      referenceNumber
+      status
+    }
+  }
+`;
+

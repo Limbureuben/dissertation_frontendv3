@@ -1,5 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { OpenspaceService } from '../../service/openspace.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-ussd',
@@ -13,8 +19,11 @@ import { Component } from '@angular/core';
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ]),
-
-    // Animate row additions & deletions
+    trigger('tableLeaveAnimation', [
+      transition(':leave', [
+        animate('500ms ease-in', style({ opacity: 0, transform: 'translateX(-50px)' }))
+      ])
+    ]),
     trigger('rowAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10px)' }),
@@ -26,6 +35,42 @@ import { Component } from '@angular/core';
     ])
   ]
 })
-export class ReportUssdComponent {
+export class ReportUssdComponent implements OnInit {
+  dataSource = new MatTableDataSource<any>([]);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private openspace: OpenspaceService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadreportussd();
+  }
+
+  loadreportussd() {
+    this.openspace.getAllReportUssd().subscribe((data) => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
+    })
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  confirmReport() {
+    
+  }
+
 
 }
