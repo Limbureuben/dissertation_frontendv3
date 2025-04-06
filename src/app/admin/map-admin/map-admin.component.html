@@ -1,6 +1,4 @@
 <div class="map-wrap">
-  <!-- Back Button -->
-  <button class="back-btn" (click)="goBack()">⬅</button>
 
   <!-- Buttons for Admin Actions -->
   <div class="admin-controls">
@@ -17,7 +15,7 @@
   <!-- Pop-up Form -->
   <div class="admin-form-container" *ngIf="showForm">
     <button class="close-btn" (click)="closeForm()">✖</button>
-    <h2>Add Open Space</h2>
+    <h3>Add Open Space</h3>
     <form [formGroup]="addOpenspace" (ngSubmit)="onSubmit()">
     <input type="text" placeholder="Openspace name" formControlName="name">
     <input type="text" placeholder="Latitude" formControlName="latitude">
