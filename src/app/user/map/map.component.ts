@@ -339,9 +339,6 @@ submitReport(): void {
 confirmSubmission(): void {
   console.log('Confirm clicked');
   const startTime = Date.now();
-  this.resetForm();
-
-  this.showConfirmationModal = false;
 
   const userId = localStorage.getItem('user_id');
   this.submitting = true;
@@ -392,9 +389,11 @@ confirmSubmission(): void {
             popup: 'custom-popup'
           }
         });
+        this.showConfirmationModal = false;
 
         setTimeout(() => {
           this.closeForm();
+          this.resetForm();
         }, 1000);
       },
       error: (error) => {
