@@ -77,15 +77,17 @@ body {
 
 
 
+/* Full-width utility */
 .full-width {
   width: 100%;
 }
 
-/* Input styling */
+/* Margin between fields */
 .custom-input {
-  margin-bottom: 15px;
+  margin-bottom: 0; /* Remove individual spacing */
 }
 
+/* Report overlay background */
 .report-background {
   display: none;
   position: fixed;
@@ -93,185 +95,354 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* This causes the dark background */
+  background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  z-index: 1000;
 }
 
-/* Remove this too if not needed */
 .report-background.open {
   display: flex;
   opacity: 1;
 }
 
-/* Report form container */
-.report-overlay {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  position: relative;
-  width: 400px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Center form elements */
+/* Modal container */
 .report-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 600px;
+  max-width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 30px;
+  padding-top: 10px;
 }
+
+/* Make the description box taller */
+mat-form-field.custom-input textarea {
+  min-height: 120px;
+}
+
 
 /* Close button */
 .close-btn {
   position: absolute;
-  top: 3px;
-  right: 10px;
+  top: 10px;
+  right: 12px;
   font-size: 24px;
   border: none;
   background: transparent;
   cursor: pointer;
 }
 
+/* Email warning */
+.email-warning {
+  color: #d9534f;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Side-by-side input group */
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input-row .custom-input {
+  width: 50%;
+}
+
+/* File upload section */
+.file-upload-container {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.file-upload-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.file-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+#file-upload {
+  flex: 1;
+  cursor: pointer;
+}
+
+.file-name {
+  font-size: 12px;
+  margin-left: 10px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Error message */
+.error-message {
+  color: #d9534f;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
 /* Submit button */
 .actions {
-  display: flex;
-  justify-content: center;
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .actions button {
   width: 100%;
 }
 
-/* Increase the width of the file input container */
-.file-upload-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%; /* Make it full-width */
-  margin-bottom: 15px;
-}
-
-/* File input label */
-.file-upload-label {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-/* File input styling */
-#file-upload {
-  width: 100%; /* Increase width */
-  border: none;
-  background-color: transparent; /* Remove background */
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* File input wrapper for better visibility */
-.file-input-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #ccc; /* Light border for visibility */
-  padding: 8px;
-  border-radius: 4px;
-  width: 100%;
-}
-
-/* File name display */
-.file-name {
-  font-size: 10px;
-  color: #333;
-  margin-left: 10px;
-}
-
-#detailsForm {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8); /* Initially small */
-  width: 350px;
-  height: auto;
-  background: white;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  display: none; /* Initially hidden */
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  z-index: 1000;
-}
-
-/* When the form is open, smoothly pop in */
-#detailsForm.open {
-  display: flex;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* When closing the form */
-#detailsForm.closing {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.8);
-}
-
-/* --- RESPONSIVENESS --- */
-@media (max-width: 1024px) {
-  .details-form-container {
-    width: 350px;
-  }
-}
-
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  .map-wrap {
+  .report-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .input-row {
     flex-direction: column;
-    height: auto;
+    gap: 10px;
   }
 
-  .details-form-container {
+  .input-row .custom-input {
     width: 100%;
-    height: 90%;
-    right: -100%;
   }
 
-  .map-wrap.shrink .details-form-container {
-    right: 0;
+  .file-name {
+    font-size: 10px;
   }
 
-  #map {
-    display: block !important;
-    height: 400px !important;
-    min-height: 300px;
-    background: lightgray; /* Temporary to check if it's rendering */
-  }
-}
-
-@media (max-width: 480px) {
-  .details-form-container {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .close-form-btn {
-    top: 10px;
-    left: 10px;
+  .close-btn {
     font-size: 20px;
   }
-
-  .details-form-container h2 {
-    font-size: 18px;
-  }
-
-  .details-form-container button[type="submit"] {
-    font-size: 14px;
-  }
 }
+
+
+
+
+
+
+// .full-width {
+//   width: 100%;
+// }
+
+// /* Input styling */
+// .custom-input {
+//   margin-bottom: 15px;
+// }
+
+// .report-background {
+//   display: none;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.5); /* This causes the dark background */
+//   justify-content: center;
+//   align-items: center;
+//   opacity: 0;
+//   transition: opacity 0.3s ease-in-out;
+// }
+
+// /* Remove this too if not needed */
+// .report-background.open {
+//   display: flex;
+//   opacity: 1;
+// }
+
+// /* Report form container */
+// .report-overlay {
+//   background-color: white;
+//   padding: 30px;
+//   border-radius: 8px;
+//   position: relative;
+//   width: 400px;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+// }
+
+// /* Center form elements */
+// .report-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding-top: 30px;
+// }
+
+// /* Close button */
+// .close-btn {
+//   position: absolute;
+//   top: 3px;
+//   right: 10px;
+//   font-size: 24px;
+//   border: none;
+//   background: transparent;
+//   cursor: pointer;
+// }
+
+
+// /* Submit button */
+// .actions {
+//   display: flex;
+//   justify-content: center;
+//   width: 100%;
+//   margin-top: 20px;
+// }
+
+// .actions button {
+//   width: 100%;
+// }
+
+
+// /* Increase the width of the file input container */
+// .file-upload-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%; /* Make it full-width */
+//   margin-bottom: 15px;
+// }
+
+// /* File input label */
+// .file-upload-label {
+//   font-size: 14px;
+//   margin-bottom: 5px;
+// }
+
+// /* File input styling */
+// #file-upload {
+//   width: 100%; /* Increase width */
+//   border: none;
+//   background-color: transparent; /* Remove background */
+//   cursor: pointer;
+//   font-size: 14px;
+// }
+
+// /* File input wrapper for better visibility */
+// .file-input-wrapper {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   border: 1px solid #ccc; /* Light border for visibility */
+//   padding: 8px;
+//   border-radius: 4px;
+//   width: 100%;
+// }
+
+// /* File name display */
+// .file-name {
+//   font-size: 10px;
+//   color: #333;
+//   margin-left: 10px;
+// }
+
+// #detailsForm {
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%) scale(0.8); /* Initially small */
+//   width: 350px;
+//   height: auto;
+//   background: white;
+//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+//   display: none; /* Initially hidden */
+//   flex-direction: column;
+//   padding: 20px;
+//   border-radius: 10px;
+//   opacity: 0;
+//   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+//   z-index: 1000;
+// }
+
+// /* When the form is open, smoothly pop in */
+// #detailsForm.open {
+//   display: flex;
+//   opacity: 1;
+//   transform: translate(-50%, -50%) scale(1);
+// }
+
+// /* When closing the form */
+// #detailsForm.closing {
+//   opacity: 0;
+//   transform: translate(-50%, -50%) scale(0.8);
+// }
+
+// /* --- RESPONSIVENESS --- */
+// @media (max-width: 1024px) {
+//   .details-form-container {
+//     width: 350px;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .map-wrap {
+//     flex-direction: column;
+//     height: auto;
+//   }
+
+//   .details-form-container {
+//     width: 100%;
+//     height: 90%;
+//     right: -100%;
+//   }
+
+//   .map-wrap.shrink .details-form-container {
+//     right: 0;
+//   }
+
+//   #map {
+//     display: block !important;
+//     height: 400px !important;
+//     min-height: 300px;
+//     background: lightgray; /* Temporary to check if it's rendering */
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .details-form-container {
+//     width: 100%;
+//     padding: 15px;
+//   }
+
+//   .close-form-btn {
+//     top: 10px;
+//     left: 10px;
+//     font-size: 20px;
+//   }
+
+//   .details-form-container h2 {
+//     font-size: 18px;
+//   }
+
+//   .details-form-container button[type="submit"] {
+//     font-size: 14px;
+//   }
+// }
 
 /* --- SUGGESTIONS LIST --- */
 .suggestions-list {
