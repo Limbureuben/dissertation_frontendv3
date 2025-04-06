@@ -251,11 +251,13 @@ mat-form-field.custom-input textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
+  padding: 30px; /* Increased padding */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  width: 400px;
+  width: 600px; /* Increased width */
+  max-height: 80vh; /* Limit the height */
+  overflow-y: auto; /* Allow scroll if content exceeds height */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,6 +277,7 @@ mat-form-field.custom-input textarea {
 .modal-actions button {
   width: 45%;
 }
+
 
 
 
