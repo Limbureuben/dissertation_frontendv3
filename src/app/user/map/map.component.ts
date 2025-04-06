@@ -339,6 +339,9 @@ submitReport(): void {
 confirmSubmission(): void {
   console.log('Confirm clicked');
   const startTime = Date.now();
+  this.resetForm();
+
+  this.showConfirmationModal = false;
 
   const userId = localStorage.getItem('user_id');
   this.submitting = true;
@@ -391,9 +394,8 @@ confirmSubmission(): void {
         });
 
         setTimeout(() => {
-          this.resetForm();
-          this.closeForm(); // Close the form after submission
-        }, 3000);
+          this.closeForm();
+        }, 1000);
       },
       error: (error) => {
         console.error('Error submitting report:', error);
