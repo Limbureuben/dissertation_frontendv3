@@ -337,16 +337,20 @@ submitReport(): void {
 }
 
 confirmSubmission(): void {
-  const userId = localStorage.getItem('user_id');
+  console.log('Confirm clicked');
+  const startTime = Date.now();
 
+  const userId = localStorage.getItem('user_id');
   this.submitting = true;
   this.success = false;
   this.errorMessage = '';
 
-  // Upload file if there is one, then create the report
+  console.log('Before file upload');
+
   this.openSpaceService.uploadFile(this.selectedFile)
     .pipe(
       switchMap(response => {
+        console.log('File upload finished in', Date.now() - startTime, 'ms');
         const reportData = {
           description: this.reportForm.get('description')?.value,
           email: this.reportForm.get('email')?.value || null,
@@ -358,7 +362,6 @@ confirmSubmission(): void {
         };
 
         console.log('Submitting report with data:', reportData);
-
         return this.openSpaceService.createReport(
           reportData.description,
           reportData.email,
@@ -372,6 +375,7 @@ confirmSubmission(): void {
     )
     .subscribe({
       next: (response) => {
+        console.log('Report created successfully in', Date.now() - startTime, 'ms');
         this.submitting = false;
         this.success = true;
         this.reportId = response.createReport.report.reportId;
@@ -392,16 +396,16 @@ confirmSubmission(): void {
         }, 3000);
       },
       error: (error) => {
+        console.error('Error submitting report:', error);
         this.submitting = false;
         this.errorMessage = 'Failed to submit report. Please try again.';
-        console.error('Error submitting report:', error);
-
         this.toastr.error('Error submitting report', 'Error', {
           positionClass: 'toast-top-right',
         });
       }
     });
 }
+
 
 cancelSubmission(): void {
   this.showConfirmationModal = false; // Close the confirmation modal
