@@ -19,7 +19,7 @@ export class UserHomeComponent {
   constructor(private router: Router, private authservice: AuthService, private dialog: MatDialog ) {}
 
   OPenBookDasboard() {
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   toggleMenu() {
