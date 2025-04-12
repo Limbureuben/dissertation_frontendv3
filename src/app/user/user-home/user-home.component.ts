@@ -30,6 +30,7 @@ export class UserHomeComponent {
     this.showPopup = true;
   }
 
+
   navigateToCreateAccount() {
     this.showPopup = false;
     this.router.navigate(['/register'])
