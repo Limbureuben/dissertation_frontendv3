@@ -47,7 +47,6 @@ export class AvailablereportComponent implements OnInit{
     private dialog: MatDialog
   ) {}
 
-
   ngOnInit(): void {
       this.loadReport()
   }
@@ -58,7 +57,6 @@ export class AvailablereportComponent implements OnInit{
       this.dataSource.paginator = this.paginator;
     });
   }
-
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

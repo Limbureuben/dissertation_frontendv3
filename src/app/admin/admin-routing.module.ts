@@ -25,7 +25,7 @@ import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 const routes: Routes = [
   {
     path: 'admin',
-    component: SidebarComponent,  // Wraps all admin routes
+    component: SidebarComponent,
     canActivate: [authGuard, adminGuard],
     children: [
       { path: 'dash', component: DashComponent },
