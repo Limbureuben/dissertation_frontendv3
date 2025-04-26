@@ -1,4 +1,14 @@
 <div class="map-wrap">
+
+  <div class="map-style-toggle">
+    <select #styleSelect (change)="changeMapStyle(styleSelect.value)">
+      <option value="streets">Street</option>
+      <option value="hybrid">Satellite</option>
+      <option value="topo">Topographic</option>
+      <option value="basic">Basic</option>
+    </select>
+
+  </div>
   <!-- Search Box -->
   <div class="search-box">
     <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">

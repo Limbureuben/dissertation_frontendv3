@@ -125,4 +125,9 @@ export class MapAdminComponent implements OnInit {
   goBack() {
     this.router.navigate(['/admindashboard'])
   }
+
+  changeMapStyle(styleName: string) {
+    const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=9rtSKNwbDOYAoeEEeW9B`;
+    this.map?.setStyle(styleUrl);
+  }
 }

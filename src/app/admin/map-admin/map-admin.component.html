@@ -1,5 +1,13 @@
 <div class="map-wrap">
+  <div class="map-style-toggle">
+    <select #styleSelect (change)="changeMapStyle(styleSelect.value)">
+      <option value="streets">Street</option>
+      <option value="hybrid">Satellite</option>
+      <option value="topo">Topographic</option>
+      <option value="basic">Basic</option>
+    </select>
 
+  </div>
   <!-- Buttons for Admin Actions -->
   <div class="admin-controls">
     <button class="add-btn" (click)="enableAddingMode()">➕</button>
