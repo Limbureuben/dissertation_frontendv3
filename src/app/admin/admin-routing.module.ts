@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { MapCommonComponent } from './map-common/map-common.component';
 import { AvailablespaceComponent } from './availablespace/availablespace.component';
 import { authGuard } from '../guards/auth.guard';
@@ -29,13 +28,12 @@ const routes: Routes = [
     canActivate: [authGuard, adminGuard],
     children: [
       { path: 'dash', component: DashComponent },
-      { path: 'admindashboard', component: AdminDashboardComponent },
       { path: 'map-common', component: MapCommonComponent },
       { path: 'openspace', component: AvailablespaceComponent },
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
       { path: 'report-ussd', component: ReportUssdComponent },
-      { path: '', redirectTo: 'dash', pathMatch: 'full' } // Default route
+      { path: '', redirectTo: 'dash', pathMatch: 'full' }
     ]
   }
 ];
