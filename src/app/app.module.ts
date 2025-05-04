@@ -36,6 +36,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { BookingModule } from './booking/booking.module';
+import { WardexecutiveModule } from './wardexecutive/wardexecutive.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,6 +57,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminModule,
     SharingModule,
     UserModule,
+    BookingModule,
+    WardexecutiveModule,
     HttpClientModule,
     GraphQLModule,
     ReactiveFormsModule,
