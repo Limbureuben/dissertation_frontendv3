@@ -41,6 +41,7 @@ import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.co
 import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { RegisterWardComponent } from './Book/register-ward/register-ward.component';
+import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { RegisterWardComponent } from './Book/register-ward/register-ward.compon
     DashComponent,
     ReportUssdComponent,
     RegisterWardComponent,
+    ManagewardexecutiveComponent,
   ],
   imports: [
     CommonModule,
