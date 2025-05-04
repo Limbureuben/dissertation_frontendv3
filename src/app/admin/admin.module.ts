@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,7 +43,6 @@ import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 
 @NgModule({
   declarations: [
-    AdminSidebarComponent,
     AdminFooterComponent,
     DoughnutChartComponent,
     MapCommonComponent,
