@@ -40,6 +40,7 @@ import { RouterOutlet } from '@angular/router';
 import { CustomerSidebarComponent } from './customer-sidebar/customer-sidebar.component';
 import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
+import { RegisterWardComponent } from './Book/register-ward/register-ward.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ReportUssdComponent } from './report-ussd/report-ussd.component';
     CustomerSidebarComponent,
     DashComponent,
     ReportUssdComponent,
+    RegisterWardComponent,
   ],
   imports: [
     CommonModule,
