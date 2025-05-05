@@ -6,7 +6,6 @@ import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { ViewReportComponent } from '../view-report/view-report.component';
 
 @Component({
   selector: 'app-report-history',
