@@ -148,13 +148,28 @@ OnSubmit() {
               this.toastr.success('Login successful!', 'Success', {
                   positionClass: 'toast-top-right',
               });
+              // if (user.isStaff) {
+              //     this.router.navigate(['/admin']);
+              // } else {
+              //   this.router.navigate(['/map-display']);
+              // }
 
-              // Navigate based on user role
               if (user.isStaff) {
-                  this.router.navigate(['/admin']);
+                this.router.navigate(['/admin']);
+              } else if (user.isWardExecutive) {
+                this.router.navigate(['/ward-executive']);
               } else {
-                  this.router.navigate(['/map-display']);
+                this.router.navigate(['/map-display']);
               }
+
+              // if (user.role === 'isStaff') {
+              //   this.router.navigate(['/admin']);
+              // } else if(user.role === 'ward_executive') {
+              //   this.router.navigate(['/ward_executive'])
+              // } else {
+              //   this.router.navigate(['/map-display']);
+              // }
+
           } else {
               const errorMessage = result.data?.loginUser?.message || 'Login failed';
               console.error("Login Error:", errorMessage);

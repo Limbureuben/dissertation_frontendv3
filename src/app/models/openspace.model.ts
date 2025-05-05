@@ -23,6 +23,7 @@ export interface RegisterData {
   passwordConfirm: string,
   username: string,
   sessionId?: string | null;
+  role?: string;
 }
 
 export interface LoginData {
