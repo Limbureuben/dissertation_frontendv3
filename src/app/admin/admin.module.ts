@@ -42,6 +42,7 @@ import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { RegisterWardComponent } from './Book/register-ward/register-ward.component';
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
+import { BookSidebarComponent } from './Book/book-sidebar/book-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
     ReportUssdComponent,
     RegisterWardComponent,
     ManagewardexecutiveComponent,
+    BookSidebarComponent,
   ],
   imports: [
     CommonModule,
