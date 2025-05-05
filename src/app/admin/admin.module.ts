@@ -87,7 +87,6 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
     MatTableModule,
     StoreModule.forFeature('openSpace', openSpaceReducer),
-
   ],
 })
 export class AdminModule { }
