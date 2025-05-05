@@ -1,9 +1,19 @@
+import { WardSidebarComponent } from './ward-sidebar/ward-sidebar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WarddashboardComponent } from './warddashboard/warddashboard.component';
 
 const routes: Routes = [
-  { path: 'ward-dashboard', component: WarddashboardComponent }
+  { path: 'ward-dashboard', component: WarddashboardComponent },
+   {
+      path: 'executive',
+      component: WardSidebarComponent,
+      canActivate: [],
+      children: [
+        { path: 'ward-dashboard', component: WarddashboardComponent },
+        { path: '', redirectTo: 'ward-dashboard', pathMatch: 'full' }
+      ]
+    },
 ];
 
 @NgModule({
