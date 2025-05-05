@@ -11,6 +11,7 @@ import { DoughnutChartComponent } from './admin/doughnut-chart/doughnut-chart.co
 import { CommonHeaderComponent } from './sharing/common-header/common-header.component';
 import { MapAdminComponent } from './admin/map-admin/map-admin.component';
 import { CustomerSidebarComponent } from './admin/customer-sidebar/customer-sidebar.component';
+import { WardCustomersidebarComponent } from './wardexecutive/ward-customersidebar/ward-customersidebar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user-home', pathMatch: 'full'},
@@ -85,6 +86,12 @@ const routes: Routes = [
     component: CustomerSidebarComponent,
     loadChildren: () =>
       import('./admin/admin.module').then((m) =>m.AdminModule)
+  },
+  {
+    path: 'app',
+    component: WardCustomersidebarComponent,
+    loadChildren: () =>
+      import('./wardexecutive/wardexecutive.module').then((m) =>m.WardexecutiveModule)
   }
 ];
 
