@@ -1,0 +1,75 @@
+
+
+.dashboard-cards-container {
+  height: 80vh; /* Increase the height of the container */
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  padding: 20px;
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.dashboard-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  height: 150px;
+  max-height: 200px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #ffffff; /* Set text color to white */
+}
+
+.dashboard-card.borrowed {
+  background-color: #1e88e5; /* Blue */
+}
+
+.dashboard-card.profit {
+  background-color: #43a047; /* Green */
+}
+
+.dashboard-card.conversion {
+  background-color: #fb8c00; /* Orange */
+}
+
+.dashboard-card.income {
+  background-color: #e53935; /* Red */
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  font-size: 40px;
+  margin-right: 20px;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-info h3 {
+  font-size: 24px;
+  margin: 5px 0;
+}
+
+.card-footer {
+  font-size: 14px;
+}
