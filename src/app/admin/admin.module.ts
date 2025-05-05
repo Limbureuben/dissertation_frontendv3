@@ -42,9 +42,6 @@ import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { RegisterWardComponent } from './Book/register-ward/register-ward.component';
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
-import { BookSidebarComponent } from './Book/book-sidebar/book-sidebar.component';
-import { BooksidebarComponent } from './Book/booksidebar/booksidebar.component';
-import { BookdashComponent } from './Book/bookdash/bookdash.component';
 
 @NgModule({
   declarations: [
@@ -62,9 +59,6 @@ import { BookdashComponent } from './Book/bookdash/bookdash.component';
     ReportUssdComponent,
     RegisterWardComponent,
     ManagewardexecutiveComponent,
-    BookSidebarComponent,
-    BooksidebarComponent,
-    BookdashComponent,
   ],
   imports: [
     CommonModule,

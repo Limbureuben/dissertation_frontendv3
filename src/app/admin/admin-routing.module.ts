@@ -10,7 +10,7 @@ import { ReportHistoryComponent } from './report-history/report-history.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
-import { BookdashComponent } from './Book/bookdash/bookdash.component';
+import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
 
 // const routes: Routes = [
 //   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
@@ -34,7 +34,7 @@ const routes: Routes = [
       { path: 'reports', component: AvailablereportComponent },
       { path: 'history', component: ReportHistoryComponent },
       { path: 'report-ussd', component: ReportUssdComponent },
-      { path: 'bookdash', component: BookdashComponent },
+      { path: 'manage-wardexecutive', component: ManagewardexecutiveComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' }
     ]
   },
