@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { WarddashboardComponent } from './warddashboard/warddashboard.component';
 
 const routes: Routes = [
-  { path: 'ward-dashboard', component: WarddashboardComponent },
    {
       path: 'executive',
       component: WardSidebarComponent,

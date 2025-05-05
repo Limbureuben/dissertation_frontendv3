@@ -97,7 +97,7 @@ OnSubmit() {
               if (user.isStaff) {
                 this.router.navigate(['/admin']);
               } else if (user.isWardExecutive) {
-                this.router.navigate(['/ward-dashboard']);
+                this.router.navigate(['/executive']);
               } else {
                 this.router.navigate(['/map-display']);
               }
