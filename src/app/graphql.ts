@@ -31,6 +31,7 @@ export const LOGIN_USER = gql`
           accessToken
           id
           isStaff
+          isWardExecutive
           refreshToken
           username
         }

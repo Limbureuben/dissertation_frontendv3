@@ -148,27 +148,14 @@ OnSubmit() {
               this.toastr.success('Login successful!', 'Success', {
                   positionClass: 'toast-top-right',
               });
-              // if (user.isStaff) {
-              //     this.router.navigate(['/admin']);
-              // } else {
-              //   this.router.navigate(['/map-display']);
-              // }
 
               if (user.isStaff) {
                 this.router.navigate(['/admin']);
               } else if (user.isWardExecutive) {
-                this.router.navigate(['/ward-executive']);
+                this.router.navigate(['/ward-dashboard']);
               } else {
                 this.router.navigate(['/map-display']);
               }
-
-              // if (user.role === 'isStaff') {
-              //   this.router.navigate(['/admin']);
-              // } else if(user.role === 'ward_executive') {
-              //   this.router.navigate(['/ward_executive'])
-              // } else {
-              //   this.router.navigate(['/map-display']);
-              // }
 
           } else {
               const errorMessage = result.data?.loginUser?.message || 'Login failed';

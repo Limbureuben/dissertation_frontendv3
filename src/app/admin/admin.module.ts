@@ -42,6 +42,8 @@ import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { RegisterWardComponent } from './Book/register-ward/register-ward.component';
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,8 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
     MatDialogModule,
     MatPaginatorModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MatOptionModule,
     MatTableModule,
     StoreModule.forFeature('openSpace', openSpaceReducer),
 

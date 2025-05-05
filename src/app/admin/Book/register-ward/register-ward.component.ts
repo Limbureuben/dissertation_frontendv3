@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService, RegisterData } from '../../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-ward',
@@ -14,12 +17,104 @@ export class RegisterWardComponent {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<RegisterWardComponent>
+    private toastr: ToastrService,
+    private authservice: AuthService,
+    private dialogRef: MatDialogRef<RegisterWardComponent>,
+    private router: Router
   ) {
     this.form = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, this.passwordStrengthValidator]],
+      passwordConfirm: ['', [Validators.required]],
+      role: ['']
+    });
+  }
+
+  passwordStrengthValidator(control: any) {
+    const value = control.value;
+    if (!value) return { weakPassword: true };
+
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    const isValidLength = value.length >= 8;
+
+    if (hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && isValidLength) {
+      return null;
+    }
+    return { weakPassword: true };
+  }
+
+  passwordsMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('passwordConfirm')?.value;
+
+    if (password && confirmPassword && password !== confirmPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
+  }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.toastr.error('Enter valid values', 'Validation Error', { positionClass: 'toast-top-right' });
+      return;
+    }
+
+    const sessionId = localStorage.getItem('sessionId');
+    const registrationData: RegisterData = {
+      username: this.form.value.username,
+      password: this.form.value.password,
+      passwordConfirm: this.form.value.passwordConfirm,
+      ...(this.form.value.role ? { role: this.form.value.role } : {})
+    };
+
+    this.authservice.registrationUser(registrationData).subscribe({
+      next: (result) => {
+        console.log("Full GraphQL Response:", JSON.stringify(result, null, 2));
+
+        if (!result.data?.registerUser?.output) {
+          this.toastr.error('Unexpected response from server', 'Error');
+          return;
+        }
+
+        const response = result.data.registerUser.output;
+        const user = response?.user;
+
+        if (response.success) {
+          this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
+
+          if (sessionId) {
+            console.log("Removing sessionId...");
+            localStorage.removeItem('sessionId');
+          }
+
+          if (user?.id) {
+            localStorage.setItem('userId', user.id);
+          } else {
+            console.warn("User object is missing or has no ID!");
+          }
+
+          this.form.reset();
+          Object.keys(this.form.controls).forEach(key => {
+            this.form.controls[key].setErrors(null);
+          });
+          console.log("Navigating to login...");
+          this.router.navigate(['/admin/manage-wardexecutive']).then(success => {
+            if (!success) {
+              console.error("Navigation failed!");
+            }
+          });
+
+        } else {
+          this.toastr.error(response.message || 'Registration failed', 'Error');
+        }
+      },
+      error: (err) => {
+        this.toastr.error('Something went wrong. Please try again.', 'Error');
+      }
     });
   }
 
@@ -27,10 +122,10 @@ export class RegisterWardComponent {
     this.dialogRef.close();
   }
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value); // send data to parent
-    }
-  }
+  // onSubmit(): void {
+  //   if (this.form.valid) {
+  //     this.dialogRef.close(this.form.value); // send data to parent
+  //   }
+  // }
 
 }
