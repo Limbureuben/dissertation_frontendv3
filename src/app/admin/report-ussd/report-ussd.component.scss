@@ -47,18 +47,10 @@
   background-color: white;
 }
 
-.active {
+
+
+.confirmed-status {
   color: green;
-}
-
-.inactive {
-  color: red;
-}
-
-.confirmed-icon {
-  color: green;
-}
-
-.mat-paginator {
-  margin-top: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
 }

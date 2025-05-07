@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-report-ussd',
@@ -71,17 +72,42 @@ export class ReportUssdComponent implements OnInit {
   confirmReport(report: any) {
     const reportId = report.id;
 
-    this.openspace.ConfirmReportUssd(reportId).subscribe({
-      next: () => {
-        this.toastr.success('Report confirmed and SMS sent');
-        this.loadreportussd(); // Reload data after confirmation
-      },
-      error: (err) => {
-        this.toastr.error('Failed to confirm report');
-        console.error(err);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to confirm this report.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, confirm it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.openspace.ConfirmReportUssd(reportId).subscribe({
+          next: () => {
+            Swal.fire({
+              title: "Confirmed!",
+              text: "The report has been confirmed and SMS sent.",
+              icon: "success"
+            });
+
+            report.status = 'processed';
+
+            this.dataSource.data = [...this.dataSource.data];
+
+          },
+          error: (err) => {
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to confirm the report.",
+              icon: "error"
+            });
+            console.error(err);
+          }
+        });
       }
     });
   }
+
 
 
 
