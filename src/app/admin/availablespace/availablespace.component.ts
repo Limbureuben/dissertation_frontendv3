@@ -41,13 +41,6 @@ import Swal from 'sweetalert2';
 })
 export class AvailablespaceComponent implements OnInit{
 
-  // dataSource = new MatTableDataSource<OpenSpace>();
-
-  // openSpaces$!: Observable<OpenSpace[]>;
-  // openSpaces: any[] = [];
-  // loading = true;
-  // error: string | null = null;
-
   displayedColumns: string[] = ['name', 'district', 'latitude', 'longitude', 'actions']; // Define displayed columns
   dataSource = new MatTableDataSource<any>([]);
 
@@ -89,7 +82,6 @@ export class AvailablespaceComponent implements OnInit{
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        // Proceed with the deletion if confirmed
         this.deleteOpenSpace(id);
       }
     });
@@ -105,10 +97,6 @@ export class AvailablespaceComponent implements OnInit{
         text: "Openspace delete successfully",
         icon: "success"
       });
-
-      // this.toastr.success('Open spac deleted successfully!', 'Success', {
-      //   positionClass: 'toast-top-right',
-      // })
     });
   }
 
@@ -125,7 +113,7 @@ export class AvailablespaceComponent implements OnInit{
           this.dataSource.data[index].isActive = updatedSpace.isActive;
         }
         this.dataSource._updateChangeSubscription();
-        this.paginator.firstPage(); // Move back to first page after status update
+        this.paginator.firstPage();
       });
   }
 
