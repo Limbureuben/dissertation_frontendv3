@@ -1,16 +1,10 @@
-// import { loadOpenSpaces } from './../../RGX/open-space.actions';
 import { Component, OnInit, ChangeDetectorRef, ViewChild, Input } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
-import { response } from 'express';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { OpenSpace } from '../../State/open-space.model';
-import * as OpenSpaceActions from '../../State/open-space.actions';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,8 +20,6 @@ import Swal from 'sweetalert2';
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ]),
-
-    // Animate row additions & deletions
     trigger('rowAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10px)' }),

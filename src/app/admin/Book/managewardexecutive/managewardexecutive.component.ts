@@ -2,10 +2,10 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RegisterWardComponent } from '../register-ward/register-ward.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from '../../../service/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { BookingService } from '../../../service/booking.service';
 
 @Component({
   selector: 'app-managewardexecutive',
@@ -40,7 +40,7 @@ export class ManagewardexecutiveComponent implements OnInit{
 
   constructor(
     private dialog: MatDialog,
-    private wardexecutive: AuthService,
+    private wardexecutive: BookingService,
   ) {}
 
   openRegisterForm() {
@@ -58,8 +58,8 @@ export class ManagewardexecutiveComponent implements OnInit{
 
   ngOnInit() {
     this.wardexecutive.getAllExecutives().subscribe((data) =>{
-      this.datasource.data =data;
-      this.datasource.paginator = this.paginator;
+      this.dataSource.data =data;
+      this.dataSource.paginator = this.paginator;
     })
   }
 
