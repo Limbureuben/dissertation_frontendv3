@@ -24,16 +24,41 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  registrationUser(userData: RegisterData): Observable<any> {
-    const sessionId = localStorage.getItem('sessionId');
+  // registrationUser(userData: RegisterData): Observable<any> {
+  //   const sessionId = localStorage.getItem('sessionId');
 
+  //   return this.apollo.mutate({
+  //     mutation: REGISTER_USER,
+  //     variables: {
+  //       password: userData.password,
+  //       passwordConfirm: userData.passwordConfirm,
+  //       username: userData.username,
+  //       sessionId: sessionId ? sessionId : null,
+  //       ...(userData.role ? { role: userData.role } : {})
+  //     }
+  //   });
+  // }
+
+  // signinUser(username: string, password: string): Observable<any> {
+  //   return this.apollo.mutate({
+  //     mutation: LOGIN_USER,
+  //     variables: {
+  //       input: {
+  //         username,
+  //         password
+  //       }
+  //     }
+  //   })
+  // }
+
+
+  registrationUser(userData: RegisterData): Observable<any> {
     return this.apollo.mutate({
       mutation: REGISTER_USER,
       variables: {
         password: userData.password,
         passwordConfirm: userData.passwordConfirm,
         username: userData.username,
-        sessionId: sessionId ? sessionId : null,
         ...(userData.role ? { role: userData.role } : {})
       }
     });
@@ -50,6 +75,8 @@ export class AuthService {
       }
     })
   }
+
+
 
   Logout() {
     const accessToken = localStorage.getItem('success_token');

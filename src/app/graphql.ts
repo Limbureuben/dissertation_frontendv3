@@ -22,6 +22,25 @@ export const REGISTER_USER = gql`
 }
 `;
 
+
+
+const REGISTER_MUTATION = gql`
+  mutation RegisterUser($username: String!, $password: String!, $confirmPassword: String!, $role: String) {
+    registerNewUser(username: $username, password: $password, confirmPassword: $confirmPassword, role: $role) {
+      success
+      message
+      user {
+        id
+        username
+        role
+        isStaff
+        isSuperuser
+      }
+    }
+  }
+`;
+
+
 export const LOGIN_USER = gql`
   mutation LoginUser($input: UserLoginInputObject!) {
     loginUser(input: $input) {
