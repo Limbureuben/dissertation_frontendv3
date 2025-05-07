@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { match } from 'assert';
 import { jwtDecode } from 'jwt-decode';
+import { HttpClient } from '@angular/common/http';
 
   export type { RegisterData, LoginData };
 
@@ -17,7 +18,10 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
 
   constructor(
-    private apollo: Apollo, private router: Router, private toast: ToastrService
+    private apollo: Apollo,
+    private router: Router,
+    private toast: ToastrService,
+    private http: HttpClient
   ) { }
 
   registrationUser(userData: RegisterData): Observable<any> {
@@ -85,12 +89,10 @@ export class AuthService {
     return sessionId;
   }
 
-  getUserProfile(): Observable<any> {
-    return this.apollo.watchQuery({
-      query: GET_USER_PROFILE,
-      fetchPolicy: 'network-only'
-    }).valueChanges.pipe(map((result: any) => result.data.profile))
+  getProfile(): Observable<any> {
+    return this.http.get('http://localhost:8000/api/v1/profile/');
   }
+
 }
 function throwError(arg0: () => Error): any {
   throw new Error('Function not implemented.');

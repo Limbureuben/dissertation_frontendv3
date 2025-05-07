@@ -25,7 +25,7 @@ export class UserHeaderComponent implements OnInit{
     private toastr: ToastrService,
     private router: Router,
     private authService: AuthService,
-    
+
   ) {}
 
   openReportDialog(): void {
@@ -57,10 +57,15 @@ export class UserHeaderComponent implements OnInit{
 
   onProfile() {
     const dialogRef = this.dialog.open(ProfileComponent, {
-      width: '500px',
-      data: {}
+      width: '400px',
+      disableClose: false
     })
   }
+
+  // this.dialog.open(LandloadProfileComponent, {
+  //   width: '400px',
+  //   disableClose: false,
+  // });
 
   onYourReport() {
     console.log('Your Report clicked');

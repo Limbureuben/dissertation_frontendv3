@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { error } from 'console';
 import { AuthService } from '../../service/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,32 +12,33 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit{
- profile: any
- loading = true
- errorMessage: string = '';
+  user: any;
+  houseCount: number = 0;
 
- constructor(
-  private authservice: AuthService,
-  public dialogRef: MatDialogRef<ProfileComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any
- ) {}
+  constructor(
+    private userService: AuthService,
+    private dialogRef: MatDialogRef<ProfileComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
+  ) {}
 
- ngOnInit(): void {
-     this.authservice.getUserProfile().subscribe({
+  ngOnInit(): void {
+    this.userService.getProfile().subscribe({
       next: (data) => {
-        this.profile = data;
-        this.loading = false;
+        this.user = data;
       },
-      error: (error) => {
-        console.error('Error fetching profile:', error);
-        this.errorMessage = 'Failed to load profile. Please try again.';
-        this.loading = false;
+      error: (err) => {
+        console.error('Profile fetch error:', err);
       }
-     });
- }
+    });
+  }
 
- closeProfileDialog() {
-  this.dialogRef.close();
-}
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
 
+  resetPassword() {
+    this.dialogRef.close();
+    this.router.navigate(['/forgot-password']);
+  }
 }
