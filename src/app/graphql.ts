@@ -241,16 +241,6 @@ export const GET_MY_REPORTS = gql`
   }
 `;
 
-// export const GET_USER_PROFILE = gql`
-//   query GetUserprofile {
-//     query {
-//       profile {
-//         id
-//         username
-//       }
-//     }
-//    }
-// `;
 
 export const GET_USER_PROFILE = gql`
   query {
@@ -274,3 +264,14 @@ export const GET_ALL_REPORT_USSD = gql`
   }
 `;
 
+export const GET_ALL_EXECUTIVE = gql`
+  query MyQuery {
+    wardExectives {
+      email
+      isStaff
+      pk
+      role
+      username
+    }
+  }
+`;
