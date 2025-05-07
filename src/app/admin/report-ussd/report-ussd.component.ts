@@ -89,11 +89,9 @@ export class ReportUssdComponent implements OnInit {
               text: "The report has been confirmed and SMS sent.",
               icon: "success"
             });
-
             report.status = 'processed';
 
             this.dataSource.data = [...this.dataSource.data];
-
           },
           error: (err) => {
             Swal.fire({

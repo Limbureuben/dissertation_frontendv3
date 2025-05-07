@@ -16,10 +16,8 @@ export class WardCustomersidebarComponent {
   MenuItems = signal<MenuItem[]>([
     { icon: 'dashboard', label: 'Dashboard', route: 'dash' },
     { icon: 'map', label: 'Map', route: '#' },
-    { icon: 'location_on', label: 'OpenSpace', route: '#' },
-    { icon: 'report', label: 'Report', route: '#' },
-    { icon: 'report', label: 'Report-USSD', route: '#' },
-    { icon: 'history', label: 'History', route: '#' },
+    { icon: 'location_on', label: 'Booking', route: '#' },
+    { icon: 'history', label: 'Processed', route: '#' },
     { icon: 'logout', label: 'Logout' }
   ])
 
