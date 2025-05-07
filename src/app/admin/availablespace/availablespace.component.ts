@@ -58,7 +58,6 @@ export class AvailablespaceComponent implements OnInit{
     private openSpaceService: OpenspaceService,
     private toastr: ToastrService,
     private cdr: ChangeDetectorRef
-    // private store: Store<{ openSpaces: OpenSpace[] }>
   ) {}
 
 
@@ -95,9 +94,6 @@ export class AvailablespaceComponent implements OnInit{
       }
     });
   }
-
-
-
 
   deleteOpenSpace(id: string) {
     this.openSpaceService.deleteOpenSpace(id).subscribe(() => {
