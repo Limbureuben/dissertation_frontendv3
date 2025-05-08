@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { error } from 'console';
 import { AuthService } from '../../service/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,8 +13,10 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit{
   user: any;
-  houseCount: number = 0;
   selectedFile: File | null = null;
+  defaultProfileImage: string = 'assets/images/profileicon.png'; // Place this image in your assets folder
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private userService: AuthService,
@@ -24,6 +26,10 @@ export class ProfileComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile() {
     this.userService.getProfile().subscribe({
       next: (data) => {
         this.user = data;
@@ -34,37 +40,41 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
   }
 
-  resetPassword() {
-    this.dialogRef.close();
-    this.router.navigate(['/forgot-password']);
-  }
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.uploadImage();
     }
   }
 
   uploadImage(): void {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('profile_image', this.selectedFile);
+    if (!this.selectedFile) return;
 
-      this.userService.uploadProfileImage(formData).subscribe({
-        next: (res) => {
-          this.user.profileImageUrl = res.imageUrl; // adjust to your backend response
-          this.selectedFile = null;
-        },
-        error: (err) => {
-          console.error('Image upload failed', err);
-        }
-      });
-    }
+    const formData = new FormData();
+    formData.append('profile_image', this.selectedFile);
+
+    this.userService.uploadProfileImage(formData).subscribe({
+      next: () => {
+        this.loadUserProfile(); // Refresh profile
+        this.selectedFile = null;
+      },
+      error: (err) => {
+        console.error('Image upload failed:', err);
+      }
+    });
   }
 
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+  resetPassword(): void {
+    this.dialogRef.close();
+    this.router.navigate(['/forgot-password']);
+  }
 }

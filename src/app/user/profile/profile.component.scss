@@ -24,3 +24,18 @@
     margin-left: 10px; /* Add spacing between buttons */
   }
 }
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}

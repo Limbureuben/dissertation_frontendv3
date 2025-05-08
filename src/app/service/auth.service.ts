@@ -50,8 +50,9 @@ export class AuthService {
   }
 
   uploadProfileImage(formData: FormData): Observable<any> {
-    return this.http.post<any>('/api/upload-profile-image', formData); // adjust URL to match your backend
+    return this.http.put<any>('http://localhost:8000/api/v1/upload-profile-image/', formData);
   }
+
 
 
 
