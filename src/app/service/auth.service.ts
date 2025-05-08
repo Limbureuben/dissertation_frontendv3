@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { gql } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import { catchError, map, Observable, tap } from 'rxjs';
-import { GET_USER_PROFILE, LOGIN_USER, REGISTER_USER } from '../graphql';
+import { GET_USER_PROFILE, LOGIN_USER, LOGIN_USER_MUTATION, REGISTER_MUTATION, REGISTER_USER } from '../graphql';
 import { LoginData, RegisterData } from '../models/openspace.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -54,7 +54,7 @@ export class AuthService {
 
   registrationUser(userData: RegisterData): Observable<any> {
     return this.apollo.mutate({
-      mutation: REGISTER_USER,
+      mutation: REGISTER_MUTATION,
       variables: {
         password: userData.password,
         passwordConfirm: userData.passwordConfirm,
@@ -66,14 +66,12 @@ export class AuthService {
 
   signinUser(username: string, password: string): Observable<any> {
     return this.apollo.mutate({
-      mutation: LOGIN_USER,
+      mutation: LOGIN_USER_MUTATION,
       variables: {
-        input: {
-          username,
-          password
-        }
+        username,
+        password
       }
-    })
+    });
   }
 
 

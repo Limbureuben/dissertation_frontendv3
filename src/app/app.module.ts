@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AdminModule } from './admin/admin.module';
 import { SharingModule } from './sharing/sharing.module';
 import { UserModule } from './user/user.module';
-import { HttpClientModule, HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, HttpClient, provideHttpClient, withFetch, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GraphQLModule } from './graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
@@ -22,7 +22,6 @@ import { MatSelectModule } from '@angular/material/select';  // Import MatSelect
 import { MatOptionModule } from '@angular/material/core';
 import { StoreModule } from '@ngrx/store';
 
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -31,14 +30,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { OpenspaceService } from './service/openspace.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { BookingModule } from './booking/booking.module';
 import { WardexecutiveModule } from './wardexecutive/wardexecutive.module';
-
+import { AuthInterceptor } from './auth.interceptors';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -91,6 +89,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

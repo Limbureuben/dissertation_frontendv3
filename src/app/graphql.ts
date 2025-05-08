@@ -24,7 +24,7 @@ export const REGISTER_USER = gql`
 
 
 
-const REGISTER_MUTATION = gql`
+export const REGISTER_MUTATION = gql`
   mutation RegisterUser($username: String!, $password: String!, $confirmPassword: String!, $role: String) {
     registerNewUser(username: $username, password: $password, confirmPassword: $confirmPassword, role: $role) {
       success
@@ -35,6 +35,24 @@ const REGISTER_MUTATION = gql`
         role
         isStaff
         isSuperuser
+      }
+    }
+  }
+`;
+
+export const LOGIN_USER_MUTATION = gql`
+  mutation Login($username: String!, $password: String!) {
+    loginNewUser(username: $username, password: $password) {
+      message
+      role
+      success
+      token
+      user {
+        id
+        isStaff
+        isSuperuser
+        role
+        username
       }
     }
   }
