@@ -104,14 +104,14 @@ mat-form-field .mat-input-element {
   padding: 6px; /* Reduced padding */
   font-size: 14px; /* Reduced font size */
   border-radius: 4px;
-  background-color: #3f51b5 !important;
+  background-color: rgb(100, 100, 177) !important;
   color: white !important;
   font-weight: bold;
   margin-top: 0rem; /* Reduced top margin */
 }
 
 .register-btn:hover {
-  background-color: #3f51b5 !important;
+  background-color: rgb(100, 100, 177) !important;
 }
 
 /* Styling for the login link */
@@ -122,7 +122,7 @@ mat-form-field .mat-input-element {
 }
 
 .login-link a {
-  color: lightseagreen;
+  color: rgb(100, 100, 177);
   text-decoration: none;
   font-weight: bold;
   margin-left: 5px;

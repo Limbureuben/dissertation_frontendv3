@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #3f51b5, #2196f3); /* Gradient background */
+  background: linear-gradient(90deg, rgb(100, 100, 177), #47a1eb); /* Gradient background */
   padding: 20px 40px;
   height: 110px; /* Adjust header height */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
@@ -35,7 +35,7 @@
 
 .create-account {
   background-color: #ffffff;
-  color: #3f51b5;
+  color: rgb(100, 100, 177);
   border: none;
   padding: 12px 24px;
   font-size: 16px;
@@ -47,7 +47,7 @@
 }
 
 .create-account:hover {
-  background-color: #3f51b5;
+  background-color: rgb(100, 100, 177);
   color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
@@ -116,7 +116,7 @@ mat-card-title, mat-card-content {
 }
 
 h2 {
-  color: #3f51b5;
+  color: rgb(100, 100, 177);
   top: 0px;
 }
 
@@ -232,7 +232,7 @@ h2 {
   position: relative; /* Ensures proper positioning */
   background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 4px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 90%;
@@ -279,7 +279,7 @@ h2 {
 
 /* Primary Button */
 .create-account {
-  background: #4557bf;
+  background: rgb(100, 100, 177);
   color: white;
 }
 

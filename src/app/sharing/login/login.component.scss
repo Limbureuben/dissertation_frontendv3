@@ -104,13 +104,13 @@ mat-form-field .mat-input-element {
   padding: 10px;
   font-size: 16px;
   border-radius: 4px;
-  background-color: #3f51b5 !important;
+  background-color: rgb(100, 100, 177) !important;
   color: white !important;
   font-weight: bold;
 }
 
 .login-btn:hover {
-  background-color: #3f51b5 !important;
+  background-color: rgb(100, 100, 177) !important;
 }
 
 .register-link {
@@ -120,7 +120,7 @@ mat-form-field .mat-input-element {
 }
 
 .register-link a {
-  color: lightseagreen;
+  color: rgb(100, 100, 177);
   text-decoration: none;
   font-weight: bold;
   margin-left: 5px;
