@@ -33,6 +33,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { ProfileComponent } from './profile/profile.component';
 import { ReviewreportComponent } from './reviewreport/reviewreport.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ReviewreportComponent } from './reviewreport/reviewreport.component';
     AnonymousreportComponent,
     ViewHistoryComponent,
     ProfileComponent,
-    ReviewreportComponent
+    ReviewreportComponent,
+    ResetPasswordComponent
 
   ],
   imports: [
