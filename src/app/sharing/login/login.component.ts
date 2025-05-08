@@ -25,116 +25,6 @@ import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
   ]
 
 })
-export class LoginComponent implements OnInit{
-
-  LoginForm!: FormGroup;
-  registrationError: any;
-
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authservice: AuthService,
-    private toastr: ToastrService,
-    private languageService: LanguageService,
-    private auth: Auth
-  ) {}
-
-  ngOnInit(): void {
-      this.LoginForm = this.fb.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required]
-      })
-  }
-
-
-  async loginWithGoogle() {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(this.auth, provider);
-    } catch (error) {
-      console.error('Google Sign-In Error:', error);
-    }
-  }
-
-  OnSubmit() {
-    if (!this.LoginForm.valid) {
-      this.LoginForm.markAllAsTouched();
-      return;
-    }
-
-    const { username, password }: LoginData = this.LoginForm.value;
-
-    this.authservice.signinUser(username, password).subscribe({
-      next: (result) => {
-        const response = result.data.loginNewUser;
-
-        if (response.success) {
-          this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right'});
-
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('userId', response.user.id);
-          localStorage.setItem('role', response.role);
-
-          console.log('Token stored:', response.token);
-
-          // Redirect based on role
-          if (response.user.isStaff) {
-            this.router.navigate(['/admin']);
-          } else if (response.user.role === 'isWardExecutive') {
-            this.router.navigate(['/executive']);
-          } else {
-            this.router.navigate(['/map-display']);
-          }
-        } else {
-          this.toastr.error(response.message || 'Login failed', 'Error', {
-            positionClass: 'toast-top-right'
-          });
-        }
-      },
-      error: (err) => {
-        this.toastr.error('Something went wrong. Please try again.', 'Error', {
-          positionClass: 'toast-top-right'
-        });
-      }
-    })
-  }
-
-  goBack() {
-    this.router.navigate(['/']);
-  }
-
-  showFailure(message: string) {
-    console.error('Login Error:', message);
-  }
-}
-
-function loginWithGoogle() {
-  throw new Error('Function not implemented.');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // export class LoginComponent implements OnInit{
 
 //   LoginForm!: FormGroup;
@@ -156,10 +46,6 @@ function loginWithGoogle() {
 //       })
 //   }
 
-//   // Method to handle language change
-//   changeLanguage(language: string) {
-//     this.languageService.changeLanguage(language);
-//   }
 
 //   async loginWithGoogle() {
 //     try {
@@ -170,73 +56,186 @@ function loginWithGoogle() {
 //     }
 //   }
 
-// OnSubmit() {
-//   if (!this.LoginForm.valid) {
+//   OnSubmit() {
+//     if (!this.LoginForm.valid) {
 //       this.LoginForm.markAllAsTouched();
 //       return;
+//     }
+
+//     const { username, password }: LoginData = this.LoginForm.value;
+
+//     this.authservice.signinUser(username, password).subscribe({
+//       next: (result) => {
+//         const response = result.data.loginNewUser;
+
+//         if (response.success) {
+//           this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right'});
+
+//           localStorage.setItem('token', response.token);
+//           localStorage.setItem('userId', response.user.id);
+//           localStorage.setItem('role', response.role);
+
+//           console.log('Token stored:', response.token);
+
+//           if (response.user.role === 'isStaff') {
+//             this.router.navigate(['/admin']);
+//           } else if (response.user.role === 'isWardExecutive') {
+//             this.router.navigate(['/executive']);
+//           } else {
+//             this.router.navigate(['/map-display']);
+//           }
+//         } else {
+//           this.toastr.error(response.message || 'Login failed', 'Error', {
+//             positionClass: 'toast-top-right'
+//           });
+//         }
+//       },
+//       error: (err) => {
+//         this.toastr.error('Something went wrong. Please try again.', 'Error', {
+//           positionClass: 'toast-top-right'
+//         });
+//       }
+//     })
 //   }
 
-//   const { username, password }: LoginData = this.LoginForm.value;
-
-//   this.authservice.signinUser(username, password).subscribe(
-//       (result) => {
-//           if (result.data?.loginUser.success) {
-//               const user = result.data.loginUser.user;
-
-//               if (!user || !user.id || !user.accessToken) {
-//                   console.error("Login response missing user details!");
-//                   this.toastr.error("Login failed: Missing user details.");
-//                   return;
-//               }
-
-//               // Store user details in localStorage
-//               localStorage.setItem('user_id', user.id.toString()); // Ensure stored as string
-//               localStorage.setItem('success_token', user.accessToken);
-//               localStorage.setItem('refresh_token', user.refreshToken);
-//               localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
-
-//               // Confirm stored values
-//               console.log("User ID stored:", localStorage.getItem('user_id'));
-//               console.log("Access Token stored:", !!localStorage.getItem('success_token'));
-//               console.log("Refresh Token stored:", !!localStorage.getItem('refresh_token'));
-
-//               this.toastr.success('Login successful!', 'Success', {
-//                   positionClass: 'toast-top-right',
-//               });
-
-//               if (user.isStaff) {
-//                 this.router.navigate(['/admin']);
-//               } else if (user.isWardExecutive) {
-//                 this.router.navigate(['/executive']);
-//               } else {
-//                 this.router.navigate(['/map-display']);
-//               }
-
-//           } else {
-//               const errorMessage = result.data?.loginUser?.message || 'Login failed';
-//               console.error("Login Error:", errorMessage);
-//               this.toastr.error(errorMessage);
-//               this.showFailure(errorMessage);
-//           }
-//       },
-//       (error) => {
-//           console.error("Login Request Error:", error);
-//           this.toastr.error('Login failed. Please check your credentials.');
-//       }
-//   );
-// }
-
-// goBack() {
-//   this.router.navigate(['/']);
-// }
+//   goBack() {
+//     this.router.navigate(['/']);
+//   }
 
 //   showFailure(message: string) {
 //     console.error('Login Error:', message);
 //   }
 // }
+
 // function loginWithGoogle() {
 //   throw new Error('Function not implemented.');
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export class LoginComponent implements OnInit{
+
+  LoginForm!: FormGroup;
+  registrationError: any;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authservice: AuthService,
+    private toastr: ToastrService,
+    private languageService: LanguageService,
+    private auth: Auth
+  ) {}
+
+  ngOnInit(): void {
+      this.LoginForm = this.fb.group({
+        username: ['', Validators.required],
+        password: ['', Validators.required]
+      })
+  }
+
+  // Method to handle language change
+  changeLanguage(language: string) {
+    this.languageService.changeLanguage(language);
+  }
+
+  async loginWithGoogle() {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(this.auth, provider);
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+    }
+  }
+
+OnSubmit() {
+  if (!this.LoginForm.valid) {
+      this.LoginForm.markAllAsTouched();
+      return;
+  }
+
+  const { username, password }: LoginData = this.LoginForm.value;
+
+  this.authservice.signinUser(username, password).subscribe(
+      (result) => {
+          if (result.data?.loginUser.success) {
+              const user = result.data.loginUser.user;
+
+              if (!user || !user.id || !user.accessToken) {
+                  console.error("Login response missing user details!");
+                  this.toastr.error("Login failed: Missing user details.");
+                  return;
+              }
+
+              // Store user details in localStorage
+              localStorage.setItem('user_id', user.id.toString()); // Ensure stored as string
+              localStorage.setItem('success_token', user.accessToken);
+              localStorage.setItem('refresh_token', user.refreshToken);
+              localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
+
+              // Confirm stored values
+              console.log("User ID stored:", localStorage.getItem('user_id'));
+              console.log("Access Token stored:", !!localStorage.getItem('success_token'));
+              console.log("Refresh Token stored:", !!localStorage.getItem('refresh_token'));
+
+              this.toastr.success('Login successful!', 'Success', {
+                  positionClass: 'toast-top-right',
+              });
+
+              if (user.isStaff) {
+                this.router.navigate(['/admin']);
+              } else if (user.isWardExecutive) {
+                this.router.navigate(['/executive']);
+              } else {
+                this.router.navigate(['/map-display']);
+              }
+
+          } else {
+              const errorMessage = result.data?.loginUser?.message || 'Login failed';
+              console.error("Login Error:", errorMessage);
+              this.toastr.error(errorMessage);
+              this.showFailure(errorMessage);
+          }
+      },
+      (error) => {
+          console.error("Login Request Error:", error);
+          this.toastr.error('Login failed. Please check your credentials.');
+      }
+  );
+}
+
+goBack() {
+  this.router.navigate(['/']);
+}
+
+  showFailure(message: string) {
+    console.error('Login Error:', message);
+  }
+}
+function loginWithGoogle() {
+  throw new Error('Function not implemented.');
+}
 
 
 
