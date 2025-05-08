@@ -1,12 +1,22 @@
 <div class="profile-dialog">
   <h2>User Profile</h2>
+
   <div *ngIf="user" class="profile-info">
-    <p><strong>Username:</strong>{{ user.username }}</p>
+    <p><strong>Username: </strong>{{ user.username }}</p>
     <p><strong>Email:</strong>{{ user.email }}</p>
+
+    <!-- Profile Image -->
+    <div class="profile-image">
+      <img *ngIf="user.profileImageUrl" [src]="user.profileImageUrl" alt="Profile Image" width="100" height="100" style="border-radius: 50%;">
+    </div>
+
+    <!-- Upload New Image -->
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    <button mat-button color="primary" (click)="uploadImage()" [disabled]="!selectedFile">Upload Image</button>
   </div>
+
   <div class="dialog-actions">
     <button mat-raised-button style="color: white; background-color: rgb(100, 100, 177);" (click)="closeDialog()">Close</button>
-    <!-- Reset Password Button -->
     <button mat-raised-button color="warn" (click)="resetPassword()">Reset Password</button>
   </div>
 </div>

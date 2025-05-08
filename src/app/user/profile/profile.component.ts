@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit{
   user: any;
   houseCount: number = 0;
+  selectedFile: File | null = null;
 
   constructor(
     private userService: AuthService,
@@ -41,4 +42,29 @@ export class ProfileComponent implements OnInit{
     this.dialogRef.close();
     this.router.navigate(['/forgot-password']);
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadImage(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('profile_image', this.selectedFile);
+
+      this.userService.uploadProfileImage(formData).subscribe({
+        next: (res) => {
+          this.user.profileImageUrl = res.imageUrl; // adjust to your backend response
+          this.selectedFile = null;
+        },
+        error: (err) => {
+          console.error('Image upload failed', err);
+        }
+      });
+    }
+  }
+
 }
