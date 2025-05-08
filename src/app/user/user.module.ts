@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ProfileComponent } from './profile/profile.component';
 import { ReviewreportComponent } from './reviewreport/reviewreport.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ViewHistoryComponent,
     ProfileComponent,
     ReviewreportComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ForgotPasswordComponent
 
   ],
   imports: [
