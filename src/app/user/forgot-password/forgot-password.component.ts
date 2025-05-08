@@ -14,7 +14,7 @@ export class ForgotPasswordComponent {
   ){}
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/map-display']);
   }
 
 }
