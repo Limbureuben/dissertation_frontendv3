@@ -83,6 +83,6 @@ export class ProfileComponent implements OnInit{
 
   resetPassword(): void {
     this.dialogRef.close();
-    this.router.navigate(['/reset-password']);
+    this.router.navigate(['/forgot-password']);
   }
 }

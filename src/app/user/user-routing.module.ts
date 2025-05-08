@@ -11,6 +11,7 @@ import { AnonymousreportComponent } from './anonymousreport/anonymousreport.comp
 import { ViewHistoryComponent } from './view-history/view-history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'anonymousreport', component: AnonymousreportComponent },
   { path: 'viewhistory', component: ViewHistoryComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent }
 ];
 
