@@ -13,11 +13,11 @@
 /* Overlay to dim the background */
 .register-overlay {
   display: flex;
-  align-items: center; /* Vertically center the form */
-  justify-content: center; /* Horizontally center the form */
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.6); /* Dark overlay */
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* Container for the register form */
