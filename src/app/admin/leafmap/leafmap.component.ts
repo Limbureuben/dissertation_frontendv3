@@ -54,6 +54,11 @@ export class LeafmapComponent implements AfterViewInit, OnDestroy {
         const geojson = layer.toGeoJSON();
         console.log('Drawn Polygon:', geojson);
       });
+
+      // ✅ Ensure the map renders correctly
+      setTimeout(() => {
+        this.map.invalidateSize();
+      }, 0);
     }
   }
 
