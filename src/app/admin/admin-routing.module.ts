@@ -12,6 +12,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
+import { LeafmapComponent } from './leafmap/leafmap.component';
 
 // const routes: Routes = [
 //   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
@@ -36,7 +37,7 @@ const routes: Routes = [
       { path: 'history', component: ReportHistoryComponent },
       { path: 'report-ussd', component: ReportUssdComponent },
       { path: 'manage-wardexecutive', component: ManagewardexecutiveComponent },
-      { path: 'test-map', component: TestMapComponent },
+      { path: 'test-map', component: LeafmapComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' }
     ]
   },

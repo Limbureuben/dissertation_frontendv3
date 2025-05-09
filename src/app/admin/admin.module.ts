@@ -45,6 +45,7 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { TestMapComponent } from './test-map/test-map.component';
+import { LeafmapComponent } from './leafmap/leafmap.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { TestMapComponent } from './test-map/test-map.component';
     RegisterWardComponent,
     ManagewardexecutiveComponent,
     TestMapComponent,
+    LeafmapComponent,
   ],
   imports: [
     CommonModule,

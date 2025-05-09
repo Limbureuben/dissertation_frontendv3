@@ -37,6 +37,7 @@ import { environment } from '../environments/environment';
 import { BookingModule } from './booking/booking.module';
 import { WardexecutiveModule } from './wardexecutive/wardexecutive.module';
 import { AuthInterceptor } from './auth.interceptors';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,6 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LeafletModule,
     BrowserAnimationsModule,
     AdminModule,
     SharingModule,
