@@ -19,8 +19,9 @@ export class UserHomeComponent {
   constructor(private router: Router, private authservice: AuthService, private dialog: MatDialog ) {}
 
   OPenBookDasboard() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
+
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -29,7 +30,6 @@ export class UserHomeComponent {
   openPopup() {
     this.showPopup = true;
   }
-
 
   navigateToCreateAccount() {
     this.showPopup = false;
@@ -73,7 +73,6 @@ export class UserHomeComponent {
       }
     }
 
-
     openReportHistoryDialog() {
       this.dialog.open(ViewHistoryComponent, {
         width: '1200px',
@@ -82,18 +81,5 @@ export class UserHomeComponent {
       });
     }
 
-    // openReportHistoryDialog() {
-    //   if (!this.dialogRef || this.dialogRef.getState() === 2) {
-    //     this.dialogRef = this.dialog.open(ViewHistoryComponent, {
-    //       width: '800px',
-    //       height: '600px',
-    //       disableClose: false
-    //     });
-
-    //     this.dialogRef.afterClosed().subscribe(() => {
-    //       this.dialogRef = null; // Reset when dialog is closed
-    //     });
-    //   }
-    // }
 
 }
