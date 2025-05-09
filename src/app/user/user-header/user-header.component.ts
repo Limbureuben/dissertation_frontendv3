@@ -62,11 +62,6 @@ export class UserHeaderComponent implements OnInit{
     })
   }
 
-  // this.dialog.open(LandloadProfileComponent, {
-  //   width: '400px',
-  //   disableClose: false,
-  // });
-
   onYourReport() {
     console.log('Your Report clicked');
     // Navigate to "Your Report" page

@@ -12,6 +12,7 @@ import { CommonHeaderComponent } from './sharing/common-header/common-header.com
 import { MapAdminComponent } from './admin/map-admin/map-admin.component';
 import { CustomerSidebarComponent } from './admin/customer-sidebar/customer-sidebar.component';
 import { WardCustomersidebarComponent } from './wardexecutive/ward-customersidebar/ward-customersidebar.component';
+import { BookingHeaderComponent } from './booking/booking-header/booking-header.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user-home', pathMatch: 'full'},
@@ -92,6 +93,12 @@ const routes: Routes = [
     component: WardCustomersidebarComponent,
     loadChildren: () =>
       import('./wardexecutive/wardexecutive.module').then((m) =>m.WardexecutiveModule)
+  },
+  {
+    path: 'app',
+    component: BookingHeaderComponent,
+    loadChildren: () =>
+      import('./booking/booking.module').then((m) =>m.BookingModule)
   }
 ];
 
