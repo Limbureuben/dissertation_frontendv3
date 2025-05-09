@@ -5,6 +5,9 @@
 
   <!-- Profile Icon (Left) with Dropdown Menu -->
   <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item (click)="NavigateToDashboard()">
+      <mat-icon>dashboard</mat-icon>Dashboard
+    </button>
     <button mat-menu-item>
       <mat-icon>person</mat-icon> Available Openspace
     </button>
@@ -23,6 +26,6 @@
     <mat-icon class="profile-icon">account_circle</mat-icon>
   </button>
 
-  <span class="title">Kinondoni Municipal</span>
+  <span class="title">KINONDONI MUNICIPAL</span>
   <mat-icon class="profile-icon">verified</mat-icon>
 </mat-toolbar>
