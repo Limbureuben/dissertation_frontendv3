@@ -24,13 +24,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { BookingMapComponent } from './booking-map/booking-map.component';
 
 
 
 @NgModule({
   declarations: [
     BookingdashboardComponent,
-    BookingHeaderComponent
+    BookingHeaderComponent,
+    BookingMapComponent
   ],
   imports: [
     CommonModule,
