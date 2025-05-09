@@ -44,6 +44,7 @@ import { RegisterWardComponent } from './Book/register-ward/register-ward.compon
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { TestMapComponent } from './test-map/test-map.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { MatOptionModule } from '@angular/material/core';
     ReportUssdComponent,
     RegisterWardComponent,
     ManagewardexecutiveComponent,
+    TestMapComponent,
   ],
   imports: [
     CommonModule,
