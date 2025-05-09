@@ -1,20 +1,20 @@
 <mat-toolbar class="heading">
-  <button mat-icon-button (click)="toggleTheme()">
+  <button mat-icon-button>
     <mat-icon>brightness_6</mat-icon> <!-- Theme Toggle -->
   </button>
 
   <!-- Profile Icon (Left) with Dropdown Menu -->
   <mat-menu #profileMenu="matMenu">
-    <button mat-menu-item (click)="onProfile()">
+    <button mat-menu-item>
       <mat-icon>person</mat-icon> Profile
     </button>
-    <button mat-menu-item (click)="openReportAnonymous()">
+    <button mat-menu-item>
       <mat-icon>report</mat-icon> My Report
     </button>
-    <button mat-menu-item (click)="onYourReport()">
+    <button mat-menu-item>
       <mat-icon>assignment</mat-icon> Report History
     </button>
-    <button mat-menu-item (click)="onLogout()">
+    <button mat-menu-item>
       <mat-icon>logout</mat-icon> Logout
     </button>
   </mat-menu>
@@ -25,11 +25,6 @@
 
   <!-- Title in Center -->
   <span class="title">Kinondoni Municipal</span>
-
-  <!-- Register Button for Anonymous Users -->
-  <ng-container *ngIf="isAnonymous">
-    <button mat-button class="register-button" (click)="onRegister()">Register</button>
-  </ng-container>
 
   <!-- Emblem Icon on the Right -->
   <mat-icon class="profile-icon">verified</mat-icon>
