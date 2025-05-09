@@ -1,28 +1,40 @@
 <app-booking-header />
 <div class="dashboard-cards-container" @cardStagger>
   <div class="dashboard-cards">
+
+    <!-- Openspace -->
     <mat-card class="dashboard-card borrowed">
-      <div class="card-icon"><mat-icon>group</mat-icon></div>
+      <div class="card-icon">
+        <mat-icon>event_seat</mat-icon> <!-- Better reflects a space/venue -->
+      </div>
       <div class="card-info">
-        <p class="card-title">Openspace</p>
-        <p class="card-footer">10 Available Openspace</p>
+        <p class="card-title">Booking</p>
+        <p class="card-footer">10 My Booking</p>
       </div>
     </mat-card>
 
+    <!-- Booking Sucessed -->
     <mat-card class="dashboard-card profit">
-      <div class="card-icon"><mat-icon>check_circle</mat-icon></div>
+      <div class="card-icon">
+        <mat-icon>done_all</mat-icon>
+      </div>
       <div class="card-info">
-        <p class="card-title">Solved issues</p>
+        <p class="card-title">Booking Success</p>
         <p class="card-footer">10 Solved</p>
       </div>
     </mat-card>
 
+    <!-- Free Openspaces -->
     <mat-card class="dashboard-card conversion">
-      <div class="card-icon"><mat-icon>hourglass_empty</mat-icon></div>
+      <div class="card-icon">
+        <mat-icon>event_available</mat-icon>
+      </div>
       <div class="card-info">
-        <p class="card-title">Pending issues</p>
-        <p class="card-footer"> 10 Pending</p>
+        <p class="card-title">Free Openspaces</p>
+        <p class="card-footer">10 Pending</p>
       </div>
     </mat-card>
+
   </div>
 </div>
+

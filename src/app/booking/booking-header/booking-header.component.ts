@@ -18,4 +18,8 @@ export class BookingHeaderComponent {
     this.router.navigate(['/booking-dashboard']);
   }
 
+  NavigateToOpenspace() {
+    this.router.navigate(['/booking-map']);
+  }
+
 }
