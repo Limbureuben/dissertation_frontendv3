@@ -48,7 +48,7 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.map.on('load', () => {
         this.draw = new MapboxDraw({
-          displayControlsDefault: false,
+          displayControlsDefault: true, // set to true for now
           controls: {
             polygon: true,
             trash: true
@@ -57,11 +57,11 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.map!.addControl(this.draw!);
 
-        // Set draw mode explicitly
-        this.draw!.changeMode('draw_polygon');
-
-        // Change cursor to crosshair
-        this.map!.getCanvas().style.cursor = 'crosshair';
+        // Wait a tick before changing mode
+        setTimeout(() => {
+          this.draw!.changeMode('draw_polygon');
+          console.log('Draw mode activated');
+        }, 100); // small delay ensures it's ready
       });
 
       this.map.on('draw.create', () => this.handleDrawEvent());
