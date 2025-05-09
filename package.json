@@ -26,7 +26,6 @@
     "@angular/router": "^19.1.0",
     "@angular/ssr": "^19.1.8",
     "@apollo/client": "^3.13.1",
-    "@asymmetrik/ngx-leaflet": "^18.0.1",
     "@colsen1991/ngx-translate-extract-marker": "^3.0.1",
     "@mapbox/mapbox-gl-draw": "^1.5.0",
     "@maptiler/sdk": "^3.0.1",

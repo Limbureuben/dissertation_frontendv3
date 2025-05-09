@@ -64,7 +64,6 @@ import { LeafmapComponent } from './leafmap/leafmap.component';
     RegisterWardComponent,
     ManagewardexecutiveComponent,
     TestMapComponent,
-    LeafmapComponent,
   ],
   imports: [
     CommonModule,

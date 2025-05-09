@@ -1,31 +1,25 @@
 import {
   Component,
-  OnInit,
-  OnDestroy,
-  PLATFORM_ID,
   Inject,
+  PLATFORM_ID,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-leafmap',
-  standalone: false,
   templateUrl: './leafmap.component.html',
-  styleUrl: './leafmap.component.scss',
+  styleUrls: ['./leafmap.component.scss'],
 })
-export class LeafmapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LeafmapComponent implements AfterViewInit, OnDestroy {
   map: any;
   drawnItems: any;
-  isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  async ngAfterViewInit(): Promise<void> {
-    if (this.isBrowser) {
-      // Dynamically import leaflet and leaflet-draw
+  async ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
       const L = await import('leaflet');
       await import('leaflet-draw');
 
@@ -56,14 +50,12 @@ export class LeafmapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.map.on('draw:created', (e: any) => {
         const layer = e.layer;
-        this.drawnItems?.addLayer(layer);
+        this.drawnItems.addLayer(layer);
         const geojson = layer.toGeoJSON();
         console.log('Drawn Polygon:', geojson);
       });
     }
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.map) {
