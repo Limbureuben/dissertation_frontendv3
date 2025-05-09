@@ -1,22 +1,14 @@
 // import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 // import { Map, MapStyle, config } from '@maptiler/sdk';
 // import { isPlatformBrowser } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnDestroy,
-  OnInit,
-  AfterViewInit,
-  ViewChild
-} from '@angular/core';
+
+
+import { Component, ElementRef, Inject, OnDestroy, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-
-import { Map } from 'maplibre-gl'; // Assuming you're using maplibre
-import { config, MapStyle } from '@maptiler/sdk'; // Adjust if using something else
-
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import { Map } from 'maplibre-gl';
+import * as MapboxDraw from '@mapbox/mapbox-gl-draw';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 @Component({
   selector: 'app-test-map',
@@ -30,7 +22,7 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
   draw: MapboxDraw | undefined;
   isBrowser: boolean;
 
-  @ViewChild('map')
+  @ViewChild('map', { static: false })
   private mapContainer!: ElementRef<HTMLElement>;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
@@ -39,7 +31,7 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isBrowser) {
-      config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+      // MapTiler API key already handled in style URL
     }
   }
 
@@ -49,7 +41,7 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.map = new Map({
         container: this.mapContainer.nativeElement,
-        style: `https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B`,
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B',
         center: [initialState.lng, initialState.lat],
         zoom: initialState.zoom
       });
@@ -73,8 +65,11 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
   handleDrawEvent() {
     if (this.draw) {
       const geojson = this.draw.getAll();
-      console.log('Drawn Polygon GeoJSON:', geojson);
-      // Here, you could emit the data or send to a backend service
+      if (geojson.features.length > 0) {
+        const polygon = geojson.features[0].geometry;
+        console.log('Drawn Polygon Geometry:', polygon);
+        // TODO: Send this geometry to the backend
+      }
     }
   }
 
