@@ -40,7 +40,8 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
-              "src/theme/custom-theme.scss"
+              "src/theme/custom-theme.scss",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",

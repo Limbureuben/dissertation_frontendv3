@@ -1,20 +1,5 @@
-:host {
-  display: block;
-  height: 80vh; /* full viewport height */
-  width: 80vw;  /* full viewport width */
-  overflow: hidden;
-}
-
-#map {
-  height: 100%;
-  width: 100%;
-}
-
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden; /* prevents scrolling */
+.map-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
 }
