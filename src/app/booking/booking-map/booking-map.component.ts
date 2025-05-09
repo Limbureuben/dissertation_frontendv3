@@ -26,6 +26,19 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // ngAfterViewInit() {
+  //   if (this.isBrowser) {
+  //     const initialState = { lng: 39.230099, lat: -6.774133, zoom: 14 };
+
+  //     this.map = new Map({
+  //       container: this.mapContainer.nativeElement,
+  //       style: MapStyle.STREETS,
+  //       center: [initialState.lng, initialState.lat],
+  //       zoom: initialState.zoom
+  //     });
+  //   }
+  // }
+
   ngAfterViewInit() {
     if (this.isBrowser) {
       const initialState = { lng: 39.230099, lat: -6.774133, zoom: 14 };
@@ -36,8 +49,49 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         center: [initialState.lng, initialState.lat],
         zoom: initialState.zoom
       });
+
+      this.map.on('load', () => {
+        this.map?.addSource('square-shape', {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[
+                [39.229, -6.773],
+                [39.231, -6.773],
+                [39.231, -6.775],
+                [39.229, -6.775],
+                [39.229, -6.773]  // Close the square
+              ]]
+            },
+            properties: {}
+          }
+        });
+
+        this.map?.addLayer({
+          id: 'square-fill',
+          type: 'fill',
+          source: 'square-shape',
+          paint: {
+            'fill-color': '#088',
+            'fill-opacity': 0.4
+          }
+        });
+
+        this.map?.addLayer({
+          id: 'square-outline',
+          type: 'line',
+          source: 'square-shape',
+          paint: {
+            'line-color': '#000',
+            'line-width': 2
+          }
+        });
+      });
     }
   }
+
 
   ngOnDestroy() {
     if (this.isBrowser) {
