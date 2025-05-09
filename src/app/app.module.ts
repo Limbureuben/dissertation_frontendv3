@@ -56,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharingModule,
     UserModule,
     WardexecutiveModule,
+    BookingModule,
     HttpClientModule,
     GraphQLModule,
     ReactiveFormsModule,
