@@ -7,7 +7,7 @@ import { Component, ElementRef, Inject, OnDestroy, OnInit, AfterViewInit, ViewCh
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { Map } from 'maplibre-gl';
-import * as MapboxDraw from '@mapbox/mapbox-gl-draw';
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 @Component({
@@ -51,16 +51,19 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
         controls: {
           polygon: true,
           trash: true
-        },
-        defaultMode: 'draw_polygon'
+        }
       });
 
-      this.map.addControl(this.draw);
+      this.map.on('load', () => {
+        this.map!.addControl(this.draw!);
+        this.draw!.changeMode('draw_polygon');
+      });
 
       this.map.on('draw.create', () => this.handleDrawEvent());
       this.map.on('draw.update', () => this.handleDrawEvent());
     }
   }
+
 
   handleDrawEvent() {
     if (this.draw) {
