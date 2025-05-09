@@ -1,10 +1,10 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-NDVYEBBH.js";
-import {
   MatDividerModule
 } from "./chunk-IREMJBSA.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-NDVYEBBH.js";
 import {
   A,
   CdkObserveContent,
