@@ -28,7 +28,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (this.isBrowser) {
-      const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
+      const initialState = { lng: 39.230099, lat: -6.774133, zoom: 14 };
 
       this.map = new Map({
         container: this.mapContainer.nativeElement,
