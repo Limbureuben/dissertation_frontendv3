@@ -27,6 +27,7 @@
     "@angular/ssr": "^19.1.8",
     "@apollo/client": "^3.13.1",
     "@colsen1991/ngx-translate-extract-marker": "^3.0.1",
+    "@mapbox/mapbox-gl-draw": "^1.5.0",
     "@maptiler/sdk": "^3.0.1",
     "@ngrx/effects": "^19.0.1",
     "@ngrx/store": "^19.0.1",
