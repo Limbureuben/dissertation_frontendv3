@@ -23,6 +23,7 @@ export class CustomerSidebarComponent {
     { icon: 'report', label: 'Report-USSD', route: 'report-ussd' },
     { icon: 'report', label: 'Executive', route: 'manage-wardexecutive' },
     { icon: 'history', label: 'History', route: 'history' },
+    { icon: 'map', label: 'TestMap', route: 'test-map' },
     { icon: 'logout', label: 'Logout' }
   ])
 
