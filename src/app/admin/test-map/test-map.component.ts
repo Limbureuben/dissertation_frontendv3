@@ -46,17 +46,22 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
         zoom: initialState.zoom
       });
 
-      this.draw = new MapboxDraw({
-        displayControlsDefault: false,
-        controls: {
-          polygon: true,
-          trash: true
-        }
-      });
-
       this.map.on('load', () => {
+        this.draw = new MapboxDraw({
+          displayControlsDefault: false,
+          controls: {
+            polygon: true,
+            trash: true
+          }
+        });
+
         this.map!.addControl(this.draw!);
+
+        // Set draw mode explicitly
         this.draw!.changeMode('draw_polygon');
+
+        // Change cursor to crosshair
+        this.map!.getCanvas().style.cursor = 'crosshair';
       });
 
       this.map.on('draw.create', () => this.handleDrawEvent());
@@ -65,13 +70,13 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+
   handleDrawEvent() {
     if (this.draw) {
       const geojson = this.draw.getAll();
       if (geojson.features.length > 0) {
         const polygon = geojson.features[0].geometry;
         console.log('Drawn Polygon Geometry:', polygon);
-        // TODO: Send this geometry to the backend
       }
     }
   }
