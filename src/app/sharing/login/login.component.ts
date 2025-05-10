@@ -201,13 +201,13 @@ OnSubmit() {
         }
       } else {
           this.toastr.error(response.message || 'Login failed', 'Error', {
-            positionClass: 'toast-top-right', progressBar: true
+            positionClass: 'toast-top-right', progressBar: true, timeOut: 1000
           });
         }
     },
     error: (err) => {
         this.toastr.error('Something went wrong. Please try again.', 'Error', {
-          positionClass: 'toast-top-right', progressBar: true
+          positionClass: 'toast-top-right', progressBar: true, timeOut: 1000
         });
       }
   })
