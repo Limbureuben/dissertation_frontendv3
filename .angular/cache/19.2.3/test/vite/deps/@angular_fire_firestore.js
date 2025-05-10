@@ -2,7 +2,6 @@ import {
   AppCheckInstances,
   AuthInstances
 } from "./chunk-4CZCVMSK.js";
-import "./chunk-CKGQ7LDR.js";
 import {
   Component,
   FirebaseApp,
@@ -31,6 +30,7 @@ import {
   ɵzoneWrap
 } from "./chunk-RY64M4N3.js";
 import "./chunk-7ZBGWGIW.js";
+import "./chunk-CKGQ7LDR.js";
 import {
   InjectionToken,
   Injector,

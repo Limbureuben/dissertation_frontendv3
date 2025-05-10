@@ -2,9 +2,7 @@ import { createRequire } from 'module';const require = createRequire(import.meta
 import {
   AppCheckInstances,
   AuthInstances
-} from "./chunk-IWHAC7EF.js";
-import "./chunk-5HFBECCQ.js";
-import "./chunk-EJF4SFNG.js";
+} from "./chunk-CX6LQM7F.js";
 import {
   Component,
   FirebaseApp,
@@ -33,6 +31,8 @@ import {
   ɵzoneWrap
 } from "./chunk-HKUWI46M.js";
 import "./chunk-UWF4CWSN.js";
+import "./chunk-5HFBECCQ.js";
+import "./chunk-EJF4SFNG.js";
 import {
   InjectionToken,
   Injector,
