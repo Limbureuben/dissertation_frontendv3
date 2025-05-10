@@ -182,7 +182,7 @@ OnSubmit() {
       const response = result.data.loginUser;
 
       if (response.success) {
-        this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right'});
+        this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true});
 
 
         localStorage.setItem('token', response.user.token);
@@ -201,13 +201,13 @@ OnSubmit() {
         }
       } else {
           this.toastr.error(response.message || 'Login failed', 'Error', {
-            positionClass: 'toast-top-right'
+            positionClass: 'toast-top-right', progressBar: true
           });
         }
     },
     error: (err) => {
         this.toastr.error('Something went wrong. Please try again.', 'Error', {
-          positionClass: 'toast-top-right'
+          positionClass: 'toast-top-right', progressBar: true
         });
       }
   })

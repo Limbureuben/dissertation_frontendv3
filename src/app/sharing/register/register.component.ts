@@ -238,7 +238,7 @@ export class RegisterComponent implements OnInit {
         console.log("Full GraphQL Response:", JSON.stringify(result, null, 2));
 
         if (!result.data?.registerUser?.output) {
-          this.toastr.error('Unexpected response from server', 'Error');
+          this.toastr.error('Unexpected response from server', 'Error', { positionClass: 'toast-top-right', progressBar: true });
           return;
         }
 
@@ -246,7 +246,7 @@ export class RegisterComponent implements OnInit {
         const user = response?.user;
 
         if (response.success) {
-          this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
+          this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right', progressBar: true });
 
           if (sessionId) {
             console.log("Removing sessionId...");
