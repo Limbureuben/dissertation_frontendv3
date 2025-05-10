@@ -13,7 +13,6 @@ import { MapAdminComponent } from './admin/map-admin/map-admin.component';
 import { CustomerSidebarComponent } from './admin/customer-sidebar/customer-sidebar.component';
 import { WardCustomersidebarComponent } from './wardexecutive/ward-customersidebar/ward-customersidebar.component';
 import { BookingHeaderComponent } from './booking/booking-header/booking-header.component';
-import { Router, NavigationEnd } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: '/user-home', pathMatch: 'full'},
@@ -109,13 +108,5 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
-  constructor(
-    router: Router
-  ) {
-    router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        localStorage.setItem('lastRoute', event.urlAfterRedirects);
-      }
-    });
-  }
+
 }
