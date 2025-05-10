@@ -182,7 +182,7 @@ OnSubmit() {
       const response = result.data.loginUser;
 
       if (response.success) {
-        this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true});
+        this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
 
         localStorage.setItem('token', response.user.token);

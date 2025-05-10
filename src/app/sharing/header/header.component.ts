@@ -32,8 +32,9 @@ export class HeaderComponent {
   localStorage.removeItem('role');
 
   this.toastr.success('Logout success', '', {
-    timeOut: 3000,  // toast stays for 3 seconds
-    progressBar: true
+    timeOut: 2000,  // toast stays for 3 seconds
+    progressBar: true,
+    positionClass: 'toast-top-right'
   });
   setTimeout(() => {
     this.router.navigate(['/user-home']);
