@@ -17,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 
+  private resetUrl = 'http://localhost:8000/api/v1/password-reset/';
+
   constructor(
     private apollo: Apollo,
     private router: Router,
@@ -113,6 +115,10 @@ export class AuthService {
 
   getProfile(): Observable<any> {
     return this.http.get('http://localhost:8000/api/v1/profile/');
+  }
+
+  sendResetLink(email: string): Observable<any> {
+    return this.http.post(this.resetUrl, { email });
   }
 
 }

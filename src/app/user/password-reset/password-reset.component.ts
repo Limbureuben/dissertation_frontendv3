@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-password-reset',
@@ -9,20 +10,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PasswordResetComponent {
   resetForm: FormGroup;
+  isSubmitting = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private resetService: AuthService) {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
-  onSubmit() {
-    if (this.resetForm.valid) {
-      const email = this.resetForm.value.email;
-      // TODO: Call service to send reset email
-      console.log('Reset link sent to:', email);
-      alert('Reset link has been sent to your email!');
-    }
-  }
+  onSubmit(): void {
+    if (this.resetForm.invalid) return;
 
+    this.isSubmitting = true;
+    const email = this.resetForm.value.email;
+
+    this.resetService.sendResetLink(email).subscribe({
+      next: () => {
+        alert('✅ Password reset link sent. Please check your email.');
+        this.resetForm.reset();
+        this.isSubmitting = false;
+      },
+      error: () => {
+        alert('❌ Failed to send reset link. Please try again.');
+        this.isSubmitting = false;
+      }
+    });
+  }
 }
+
