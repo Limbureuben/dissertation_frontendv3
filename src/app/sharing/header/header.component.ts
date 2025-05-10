@@ -24,5 +24,12 @@ export class HeaderComponent {
         disableClose: false
       })
     }
+
+  OnLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+
+    this.router.navigate(['/user-home']);
+  }
 }
 
