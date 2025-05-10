@@ -197,7 +197,7 @@ OnSubmit() {
         } else if (response.user.isWardExecutive) {
           this.router.navigate(['/executive']);
         } else {
-          this.router.navigate(['/map-display']);
+          this.router.navigate(['/homepage']);
         }
       } else {
           this.toastr.error(response.message || 'Login failed', 'Error', {
