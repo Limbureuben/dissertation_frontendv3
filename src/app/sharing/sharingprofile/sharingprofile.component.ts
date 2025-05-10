@@ -1,7 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '../../service/auth.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sharingprofile',
@@ -17,14 +18,74 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ])
   ]
 })
-export class SharingprofileComponent {
+export class SharingprofileComponent implements OnInit {
+
+  user: any;
+  selectedFile: File | null = null;
+  defaultProfileImage: string = 'assets/images/profileicon.png'; // Place this image in your assets folder
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
     private userService: AuthService,
     private dialogRef: MatDialogRef<SharingprofileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
   ) {}
 
-  
+  ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile() {
+    this.userService.getProfile().subscribe({
+      next: (data) => {
+        this.user = data;
+      },
+      error: (err) => {
+        console.error('Profile fetch error:', err);
+      }
+    });
+  }
+
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.uploadImage();
+    }
+  }
+
+  uploadImage(): void {
+    if (!this.selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('profile_image', this.selectedFile);
+
+    this.userService.uploadProfileImage(formData).subscribe({
+      next: () => {
+        this.loadUserProfile(); // Refresh profile
+        this.selectedFile = null;
+      },
+      error: (err) => {
+        console.error('Image upload failed:', err);
+      }
+    });
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
+  resetPassword(): void {
+    this.dialogRef.close();
+    this.router.navigate(['/homepage']);
+  }
+
+
 
 }
