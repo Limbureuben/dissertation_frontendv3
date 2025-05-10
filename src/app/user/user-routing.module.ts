@@ -13,6 +13,7 @@ import { ViewHistoryComponent } from './view-history/view-history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: 'user-home', component: UserHomeComponent, canActivate: [noTokenGuard] },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'viewhistory', component: ViewHistoryComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent }
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'password-reset', component: PasswordResetComponent }
 ];
 
 @NgModule({

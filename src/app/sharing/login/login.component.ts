@@ -260,6 +260,10 @@ goBack() {
   showFailure(message: string) {
     console.error('Login Error:', message);
   }
+
+  NavigateToReset() {
+    this.router.navigate(['/password-reset']);
+  }
 }
 
 function loginWithGoogle() {
