@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { LanguageService } from '../../service/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent {
 
-  
+  constructor(
+    private router: Router
+  ) {}
+
+  OnProfile() {
+    this.router.navigate(['']);
+  }
 }
 

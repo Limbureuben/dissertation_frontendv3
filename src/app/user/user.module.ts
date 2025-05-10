@@ -79,7 +79,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   ],
   exports: [
     MapDisplayComponent,
-    MapComponent
+    MapComponent,
+    ProfileComponent,
   ]
 })
 export class UserModule { }
