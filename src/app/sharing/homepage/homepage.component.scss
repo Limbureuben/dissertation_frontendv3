@@ -1,61 +1,64 @@
-.dashboard-container {
+.container {
   padding: 3rem 2rem;
   text-align: center;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  background: linear-gradient(to right, #f0f4ff, #e8f0fe);
   min-height: 100vh;
 
-  .dashboard-title {
-    margin-bottom: 3rem;
+  .title {
     font-size: 2.5rem;
-    font-weight: bold;
     color: #3f51b5;
+    margin-bottom: 1rem;
   }
 
-  .card-grid {
+  .description {
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    color: #444;
+  }
+
+  .cards-wrapper {
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
 
-  .service-card {
+  .card {
     width: 320px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: #fff;
-    box-shadow: 0 8px 16px rgba(63, 81, 181, 0.1);
-    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
 
     &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 24px rgba(63, 81, 181, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 20px rgba(63, 81, 181, 0.2);
     }
 
-    mat-card-header {
+    .icon-wrapper {
       display: flex;
+      justify-content: center;
       align-items: center;
+      margin-bottom: 1rem;
+    }
 
-      mat-icon {
-        font-size: 36px;
-        margin-right: 12px;
-      }
+    .card-icon {
+      font-size: 60px;
+      height: 60px;
+      width: 60px;
+    }
 
-      mat-card-title {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: #333;
-      }
+    mat-card-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
 
     mat-card-content {
-      padding: 0 16px 16px;
-
-      p {
-        font-size: 1rem;
-        color: #555;
-        margin: 0;
-      }
+      font-size: 1rem;
+      color: #555;
     }
   }
 }

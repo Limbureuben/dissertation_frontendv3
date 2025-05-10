@@ -1,24 +1,28 @@
-<div class="dashboard-container">
-  <h2 class="dashboard-title">Welcome, Reuben!</h2>
+<div class="container">
+  <h2 class="title">Our Services</h2>
+  <p class="description">
+    Choose a service below to proceed. Select <strong>Report</strong> to notify unusual open space activity, or
+    choose <strong>Book</strong> to reserve space for events at Kinondoni Municipal.
+  </p>
 
-  <div class="card-grid">
-    <mat-card class="service-card" (click)="goToReport()" appearance="outlined">
-      <mat-card-header>
-        <mat-icon color="warn">report_problem</mat-icon>
-        <mat-card-title>Report a Problem</mat-card-title>
-      </mat-card-header>
+  <div class="cards-wrapper">
+    <mat-card class="card" (click)="goToReport()">
+      <div class="icon-wrapper">
+        <mat-icon class="card-icon" color="warn">report</mat-icon>
+      </div>
+      <mat-card-title>Report Open Space Issue</mat-card-title>
       <mat-card-content>
-        <p>Quickly report issues related to your area or open spaces.</p>
+        <p>Help us protect our environment by reporting misuse or illegal activity.</p>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="service-card" (click)="goToBook()" appearance="outlined">
-      <mat-card-header>
-        <mat-icon color="primary">event_available</mat-icon>
-        <mat-card-title>Book an Open Space</mat-card-title>
-      </mat-card-header>
+    <mat-card class="card" (click)="goToBook()">
+      <div class="icon-wrapper">
+        <mat-icon class="card-icon" color="primary">event</mat-icon>
+      </div>
+      <mat-card-title>Book Open Space</mat-card-title>
       <mat-card-content>
-        <p>Reserve a space for your next event or activity with ease.</p>
+        <p>Reserve available open spaces for your events quickly and easily.</p>
       </mat-card-content>
     </mat-card>
   </div>
