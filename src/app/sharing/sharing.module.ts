@@ -24,6 +24,7 @@ import {HttpClient, provideHttpClient} from '@angular/common/http';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharingprofileComponent } from './sharingprofile/sharingprofile.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     RegisterComponent,
     OnlineComponent,
     CommonHeaderComponent,
+    SharingprofileComponent,
   ],
   imports: [
     CommonModule,
