@@ -75,9 +75,6 @@ export class UserHeaderComponent implements OnInit{
     this.isAuthenticated = this.authService.isLoggedIn();
   }
 
-
-
-
   onLogout() {
     localStorage.removeItem('anonymousUser');
     this.toastr.success('Logout successfuly', 'Success', {
@@ -92,5 +89,15 @@ export class UserHeaderComponent implements OnInit{
 
   onRegister() {
 
+  }
+
+  goBack() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.router.navigate(['/homepage']);
+    } else {
+      this.router.navigate(['/map-display']);
+    }
   }
 }
