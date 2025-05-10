@@ -1,19 +1,15 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class NoTokenGuard implements CanActivate {
-  constructor(private router: Router) {}
+export const noTokenGuard: CanActivateFn = () => {
+  const router = inject(Router);
 
-  canActivate(): boolean {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // If token exists, redirect to homepage
-      this.router.navigate(['/homepage']);
-      return false;
-    }
-    return true; // Allow access only if token does NOT exist
+  const isBrowser = typeof window !== 'undefined' && !!window.localStorage;
+  const token = isBrowser ? localStorage.getItem('token') : null;
+
+  if (token) {
+    return false;
   }
-}
+
+  return true;
+};
