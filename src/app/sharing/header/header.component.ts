@@ -32,13 +32,13 @@ export class HeaderComponent {
   localStorage.removeItem('role');
 
   this.toastr.success('Logout success', '', {
-    timeOut: 2000,  // toast stays for 3 seconds
+    timeOut: 1500,
     progressBar: true,
     positionClass: 'toast-top-right'
   });
   setTimeout(() => {
     this.router.navigate(['/user-home']);
-  }, 3000);
+  }, 1500);
 }
 
 }
