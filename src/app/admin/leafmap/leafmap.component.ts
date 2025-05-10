@@ -10,31 +10,36 @@ import { MapComponent } from 'ng-leaflet-universal';
 })
 export class LeafmapComponent implements AfterViewInit {
   @ViewChild(MapComponent) mapComponent!: MapComponent;
-
   markers: any[] = [];
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   async ngAfterViewInit(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
-      try {
-        const L = await import('leaflet');
+    // Ensure this runs only in the browser (not during SSR)
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
 
-        this.markers = [
-          {
-            position: L.latLng(-6.774133, 39.230099),
-            popup: 'Example Marker',
-          },
-        ];
+    try {
+      // Dynamically import Leaflet only for browser context
+      const L = await import('leaflet');
 
-        setTimeout(() => {
-          if (this.mapComponent?.updateMarkers) {
-            this.mapComponent.updateMarkers(this.markers);
-          }
-        });
-      } catch (err) {
-        console.error('Leaflet import failed:', err);
-      }
+      // Initialize markers
+      this.markers = [
+        {
+          position: L.latLng(-6.774133, 39.230099),
+          popup: 'Example Marker',
+        },
+      ];
+
+      // Delay to ensure map component is initialized before updating markers
+      setTimeout(() => {
+        if (this.mapComponent?.updateMarkers) {
+          this.mapComponent.updateMarkers(this.markers);
+        }
+      }, 0);
+    } catch (error) {
+      console.error('Leaflet import failed:', error);
     }
   }
 }
