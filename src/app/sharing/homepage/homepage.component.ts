@@ -16,14 +16,10 @@ export class HomepageComponent {
   ) {}
 
   goToBook() {
-
+    this.router.navigate(['/booking-dashboard']);
   }
 
   goToReport() {
-    
-  }
-
-  openSignup() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/map-display']);
   }
 }
