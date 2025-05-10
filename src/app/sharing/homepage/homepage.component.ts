@@ -8,25 +8,19 @@ import { TranslateService } from '@ngx-translate/core';
   standalone: false,
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      state('void', style({ opacity: 0 })),
-      transition(':enter', [animate('1s')])
-    ])
-  ]
 })
-export class HomepageComponent implements OnInit{
+export class HomepageComponent {
   constructor(
     private router: Router,
     private translate: TranslateService
   ) {}
 
-  ngOnInit(): void {
-    // Subscribe to language change if necessary
-    this.translate.onLangChange.subscribe((event: any) => {
-      // Handle logic after language change
-      console.log('Language changed to: ', event.lang);
-    });
+  goToBook() {
+
+  }
+
+  goToReport() {
+    
   }
 
   openSignup() {

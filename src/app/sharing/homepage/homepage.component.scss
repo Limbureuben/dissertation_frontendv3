@@ -1,79 +1,44 @@
-/* homepage.component.css */
-.homepage-container {
-  background-size: cover;
-  background-position: center;
-  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0');
-  // background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/1200px-Coat_of_arms_of_Tanzania.svg.png');
-  min-height: calc(97.5vh - 120px); /* Adjust height according to header and footer height */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: lightseagreen;
-}
-
-.content {
+.dashboard-container {
+  padding: 2rem;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 40px;
-  border-radius: 8px;
-}
 
-mat-toolbar {
-  justify-content: center;
-}
+  .dashboard-title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #3f51b5;
+  }
 
-h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-}
+  .card-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
 
-p {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
+  .service-card {
+    width: 300px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
 
-.actions {
-  margin-top: 20px;
-}
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 
-button {
-  margin: 10px;
-  font-size: 1.2em;
-}
+    mat-icon {
+      font-size: 32px;
+      margin-right: 8px;
+    }
 
+    mat-card-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
 
-button[color="primary"] {
-  background-color: #3f51b5;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-button[color="primary"]:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-button[color="accent"] {
-  background-color: #ff4081; /* Custom accent color */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Padding for better spacing */
-  border: none; /* Remove default border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Change cursor to pointer */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
-}
-
-button[color="accent"]:hover {
-  transform: translateY(-3px); /* Move button up when hovered */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
-}
-
-mat-toolbar {
-  background-color: transparent !important;
-  box-shadow: none !important;
+    mat-card-content p {
+      color: #555;
+    }
+  }
 }

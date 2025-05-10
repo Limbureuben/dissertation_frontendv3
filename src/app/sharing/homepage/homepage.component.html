@@ -1,21 +1,25 @@
-<app-header></app-header>
-<div @fadeIn>
-  <div class="homepage-container">
-    <mat-toolbar>
-      <span>{{ 'welcome_title' | translate }}</span> <!-- Dynamically translated -->
-    </mat-toolbar>
-    <div class="content">
-      <h1>{{ 'welcome_text' | translate }}</h1> <!-- Dynamically translated -->
-      <p>{{ 'explore_text' | translate }}</p> <!-- Dynamically translated -->
-      <div class="actions">
-        <button mat-raised-button color="primary" (click)="openSignup()">
-          {{ 'signin_button' | translate }} <!-- Dynamically translated -->
-        </button>
-        <button mat-raised-button color="accent">
-          {{ 'learn_more_button' | translate }} <!-- Dynamically translated -->
-        </button>
-      </div>
-    </div>
+<div class="dashboard-container">
+  <h2 class="dashboard-title">Welcome, Reuben!</h2>
+
+  <div class="card-grid">
+    <mat-card class="service-card" (click)="goToReport()" appearance="outlined">
+      <mat-card-header>
+        <mat-icon color="warn">report_problem</mat-icon>
+        <mat-card-title>Report a Problem</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Quickly report issues related to your area or open spaces.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="service-card" (click)="goToBook()" appearance="outlined">
+      <mat-card-header>
+        <mat-icon color="primary">event_available</mat-icon>
+        <mat-card-title>Book an Open Space</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Reserve a space for your next event or activity with ease.</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
-<app-footer></app-footer>
