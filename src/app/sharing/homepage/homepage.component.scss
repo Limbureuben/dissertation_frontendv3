@@ -1,44 +1,61 @@
 .dashboard-container {
-  padding: 2rem;
+  padding: 3rem 2rem;
   text-align: center;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
 
   .dashboard-title {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 600;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: bold;
     color: #3f51b5;
   }
 
   .card-grid {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 2.5rem;
     flex-wrap: wrap;
   }
 
   .service-card {
-    width: 300px;
+    width: 320px;
     cursor: pointer;
+    border-radius: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(63, 81, 181, 0.1);
+    border: none;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(63, 81, 181, 0.2);
     }
 
-    mat-icon {
-      font-size: 32px;
-      margin-right: 8px;
+    mat-card-header {
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        font-size: 36px;
+        margin-right: 12px;
+      }
+
+      mat-card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #333;
+      }
     }
 
-    mat-card-title {
-      font-size: 20px;
-      font-weight: 600;
-    }
+    mat-card-content {
+      padding: 0 16px 16px;
 
-    mat-card-content p {
-      color: #555;
+      p {
+        font-size: 1rem;
+        color: #555;
+        margin: 0;
+      }
     }
   }
 }
