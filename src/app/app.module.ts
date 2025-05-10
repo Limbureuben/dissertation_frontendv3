@@ -37,7 +37,6 @@ import { environment } from '../environments/environment';
 import { BookingModule } from './booking/booking.module';
 import { WardexecutiveModule } from './wardexecutive/wardexecutive.module';
 import { AuthInterceptor } from './auth.interceptors';
-import { NgLeafletUniversalModule } from "ng-leaflet-universal";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -54,7 +53,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     BrowserAnimationsModule,
     AdminModule,
-    NgLeafletUniversalModule,
     SharingModule,
     UserModule,
     WardexecutiveModule,

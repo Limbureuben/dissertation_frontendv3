@@ -45,8 +45,6 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { TestMapComponent } from './test-map/test-map.component';
-import { NgLeafletUniversalModule } from 'ng-leaflet-universal';
-import { LeafmapComponent  } from './leafmap/leafmap.component';
 
 
 @NgModule({
@@ -55,7 +53,6 @@ import { LeafmapComponent  } from './leafmap/leafmap.component';
     DoughnutChartComponent,
     MapCommonComponent,
     MapAdminComponent,
-    LeafmapComponent,
     AvailablespaceComponent,
     AvailablereportComponent,
     ViewReportComponent,
@@ -75,7 +72,6 @@ import { LeafmapComponent  } from './leafmap/leafmap.component';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
-    NgLeafletUniversalModule,
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
