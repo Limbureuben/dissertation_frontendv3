@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { OnlineComponent } from './online/online.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
 
 const routes: Routes = [
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'header', component: HeaderComponent },
-  { path: 'online', component: OnlineComponent },
   { path: 'common-header', component: CommonHeaderComponent }
 ];
 
