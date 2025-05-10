@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LanguageService } from '../../service/language.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -145,7 +146,8 @@ export class LoginComponent implements OnInit{
     private authservice: AuthService,
     private toastr: ToastrService,
     private languageService: LanguageService,
-    private auth: Auth
+    private auth: Auth,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -181,9 +183,16 @@ OnSubmit() {
     next: (result) => {
       const response = result.data.loginUser;
 
-      if (response.success) {
-        this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
+      // if (response.success) {
+      //   this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
+      if (response.success) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Login successful',
+        life: 2000 // Show duration in milliseconds
+      });
 
         localStorage.setItem('token', response.user.token);
         localStorage.setItem('userId', response.user.id);
