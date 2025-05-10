@@ -100,4 +100,18 @@ export class UserHeaderComponent implements OnInit{
       this.router.navigate(['/map-display']);
     }
   }
+
+  OnLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    this.toastr.success('Logout success', 'Success', {
+      positionClass: 'toast-top-right',
+      progressBar: true,
+      timeOut: 1500
+    });
+
+    setTimeout(() => {
+    this.router.navigate(['/user-home']);
+  }, 1500);
+  }
 }
