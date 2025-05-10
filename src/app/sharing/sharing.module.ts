@@ -15,7 +15,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import { OnlineComponent } from './online/online.component';
 import { MatSelectModule } from '@angular/material/select';  // Import MatSelectModule
 import { MatOptionModule } from '@angular/material/core';
 import { TranslateModule, TranslateLoader, TranslateModuleConfig } from '@ngx-translate/core';
@@ -33,7 +32,6 @@ import { SharingprofileComponent } from './sharingprofile/sharingprofile.compone
     LoginComponent,
     HomepageComponent,
     RegisterComponent,
-    OnlineComponent,
     CommonHeaderComponent,
     SharingprofileComponent,
   ],

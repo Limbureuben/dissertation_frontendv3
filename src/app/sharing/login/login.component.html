@@ -1,32 +1,38 @@
-<!-- filepath: /home/egovridc/Desktop/test/src/app/sharing/login/login.component.html -->
-
 <div class="login-background">
   <div class="login-overlay">
     <div class="login-container" @rotateFade (click)="$event.stopPropagation()">
       <img src="assets/images/emblem.png" alt="Logo" class="login-logo">
-      <p class="country-name">{{ 'country_name' | translate }}</p> <!-- This will change dynamically -->
+      <p class="country-name">The United Repblic of Tanzania</p>
 
       <form [formGroup]="LoginForm" (ngSubmit)="OnSubmit()">
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'username' | translate }}</mat-label>
-          <input matInput formControlName="username" placeholder="{{ 'username_placeholder' | translate }}" type="text" required>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="Enter your username" type="text" required>
         </mat-form-field>
         <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>{{ 'password' | translate }}</mat-label>
-          <input matInput formControlName="password" placeholder="{{ 'password_placeholder' | translate }}" type="password" required>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
         </mat-form-field>
+
+        <!-- Forgot Password Link -->
+        <div class="forgot-password">
+          <a routerLink="/forgot-password">Forgot Password?</a>
+        </div>
+
         <div class="actions">
-          <button mat-raised-button color="primary" class="login-btn">{{ 'login_button' | translate }}</button>
+          <button mat-raised-button color="primary" class="login-btn">Login</button>
         </div>
         <div class="or-separator">
           <span>or use</span>
         </div>
       </form>
+
       <div class="google-login" (click)="loginWithGoogle()">
-      <img src="assets/images/google.png" alt="Google" class="google-icon">
-       </div>
+        <img src="assets/images/google.png" alt="Google" class="google-icon">
+      </div>
+
       <div class="register-link">
-        <p>{{ 'no_account' | translate }} <a routerLink="/register">{{ 'register' | translate }}</a></p>
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
       </div>
     </div>
   </div>

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './sharing/header/header.component';
 import { FooterComponent } from './sharing/footer/footer.component';
-import { OnlineComponent } from './sharing/online/online.component';
 import { UserHeaderComponent } from './user/user-header/user-header.component';
 import { MapComponent } from './user/map/map.component';
 import { ReportFormComponent } from './user/report-form/report-form.component';
@@ -25,12 +24,6 @@ const routes: Routes = [
   {
     path: 'app',
     component: FooterComponent,
-    loadChildren: () =>
-      import('./sharing/sharing.module').then((m)=>m.SharingModule)
-  },
-  {
-    path: 'app',
-    component: OnlineComponent,
     loadChildren: () =>
       import('./sharing/sharing.module').then((m)=>m.SharingModule)
   },
