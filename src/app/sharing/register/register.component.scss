@@ -7,7 +7,7 @@
   background-size: 35%;
   background-position: center top;
   background-repeat: no-repeat;
-  height: calc(90vh - 15px); /* Adjust based on header & footer height */
+  height: calc(95vh - 15px); /* Adjust based on header & footer height */
 }
 
 /* Overlay to dim the background */
@@ -26,8 +26,8 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  max-width: 350px;
-  width: 80%;
+  max-width: 550px;
+  width: 90%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -36,24 +36,39 @@
   z-index: 1001;
 }
 
+/* Row layout for pairs of fields */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Input width styling */
+.half-width {
+  flex: 1 1 48%;
+  min-width: 140px;
+}
 
 /* Styling for the login logo */
 .login-logo {
-  max-width: 60px; /* Reduced maximum width for the logo */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 0rem; /* Add space between the logo and the form */
-  object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+  max-width: 60px;
+  height: auto;
+  margin-top: 2px;
+  margin-bottom: 0rem;
+  object-fit: contain;
   align-self: center;
 }
 
 /* Close button styles */
 .close-btn {
   position: absolute;
-  top: 5px; /* Reduced top margin */
-  right: 5px; /* Reduced right margin */
+  top: 5px;
+  right: 5px;
   border: none;
   background: none;
-  font-size: 18px; /* Reduced font size */
+  font-size: 18px;
   cursor: pointer;
   color: #555;
 }
@@ -64,17 +79,15 @@
 
 /* Styling for the registration heading */
 .registration-heading {
-  font-size: 16px; /* Reduced font size */
+  font-size: 16px;
   color: #333;
-  margin-bottom: 0.5rem; /* Reduced margin-bottom */
+  margin-bottom: 0.5rem;
   font-weight: bold;
 }
-
 
 mat-form-field {
   display: block;
   margin-bottom: 0rem;
-  max-width: 450px;
   width: 100%;
 }
 
@@ -94,20 +107,20 @@ mat-form-field .mat-input-element {
 .actions {
   display: flex;
   justify-content: center;
-  margin-top: 0.5rem; /* Further reduced margin-top */
+  margin-top: 0.5rem;
 }
 
 /* Register button styling */
 .register-btn {
   max-width: 450px;
   width: 95%;
-  padding: 6px; /* Reduced padding */
-  font-size: 14px; /* Reduced font size */
+  padding: 6px;
+  font-size: 14px;
   border-radius: 4px;
   background-color: rgb(100, 100, 177) !important;
   color: white !important;
   font-weight: bold;
-  margin-top: 0rem; /* Reduced top margin */
+  margin-top: 0rem;
 }
 
 .register-btn:hover {
@@ -117,8 +130,8 @@ mat-form-field .mat-input-element {
 /* Styling for the login link */
 .login-link {
   text-align: center;
-  margin-top: 0rem; /* Reduced margin-top for closer placement */
-  font-size: 12px; /* Reduced font size */
+  margin-top: 0rem;
+  font-size: 12px;
 }
 
 .login-link a {
@@ -134,12 +147,12 @@ mat-form-field .mat-input-element {
 }
 
 .country-name {
-  font-size: 18px; /* Set appropriate font size */
+  font-size: 18px;
   font-weight: bold;
-  color: #333; /* Set text color */
+  color: #333;
   margin-top: 10px;
-  margin-bottom: 20px; /* Adds some space below the text */
-  text-align: center; /* Center the text below the logo */
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 /* Footer styles */
@@ -152,7 +165,7 @@ app-footer {
   text-align: center;
   padding: 0px 0;
   z-index: 999;
-  box-shadow: none; /* Remove any border */
+  box-shadow: none;
 }
 
 /* Responsive styles */
@@ -179,28 +192,21 @@ app-footer {
   .login-link {
     font-size: 10px;
   }
-}
 
-
-@media (max-width: 600px) {
-  .register-btn {
-    width: 80%; /* Slightly wider for small screens */
-  }
-
-  .full-width mat-form-field {
-    width: 80%; /* Adjust for better usability */
+  .half-width {
+    flex: 1 1 100%;
   }
 }
 
 .back-button {
   position: fixed;
-  bottom: 590px;  /* Adjust position to place the button at the bottom of the page */
-  left: 20px;    /* Adjust position to place it towards the left */
-  z-index: 999;  /* Ensure it stays above other elements */
-  background-color: transparent;  /* No background */
-  box-shadow: none;  /* No shadow */
-  border: none;  /* No border */
-  font-size: 34px;  /* Increase the font size for better visibility */
-  font-weight: bold;  /* Make the icon bold */
-  color: #333;  /* Set a color to the icon */
+  bottom: 590px;
+  left: 20px;
+  z-index: 999;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  font-size: 34px;
+  font-weight: bold;
+  color: #333;
 }

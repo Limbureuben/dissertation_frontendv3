@@ -5,24 +5,38 @@
       <p class="country-name">The United Republic of Tanzania</p>
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" placeholder="Enter your username" type="text" required>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
-        </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Confirm Password</mat-label>
-          <input matInput formControlName="passwordConfirm" placeholder="Confirm your password" type="password" required>
-        </mat-form-field>
+        <!-- Username + Email -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" placeholder="Enter your username" type="text" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter your email" type="email" required>
+          </mat-form-field>
+        </div>
+
+        <!-- Password + Confirm Password -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" placeholder="Enter your password" type="password" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="passwordConfirm" placeholder="Confirm your password" type="password" required>
+          </mat-form-field>
+        </div>
 
         <div class="actions">
           <button mat-raised-button color="primary" class="register-btn">Register</button>
         </div>
       </form>
+
 
       <div class="login-link">
         <p>Already have an account? <a routerLink="/login">Login</a></p>
