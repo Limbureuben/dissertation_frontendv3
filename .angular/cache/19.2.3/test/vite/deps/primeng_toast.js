@@ -1,13 +1,4 @@
 import {
-  animate,
-  animateChild,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-3XPHUCT4.js";
-import {
   EventBus,
   FilterMatchMode,
   MessageService,
@@ -29,6 +20,15 @@ import {
   toTokenKey,
   uuid
 } from "./chunk-7FTRXSWU.js";
+import {
+  animate,
+  animateChild,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-3XPHUCT4.js";
 import {
   CommonModule,
   DOCUMENT,
