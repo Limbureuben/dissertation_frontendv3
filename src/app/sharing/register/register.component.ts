@@ -229,6 +229,7 @@ export class RegisterComponent implements OnInit {
       username: this.registerForm.value.username,
       password: this.registerForm.value.password,
       passwordConfirm: this.registerForm.value.passwordConfirm,
+      ...(this.registerForm.value.email ? { email: this.registerForm.value.email } : {}),
       ...(sessionId ? { sessionId } : {})
     };
 
