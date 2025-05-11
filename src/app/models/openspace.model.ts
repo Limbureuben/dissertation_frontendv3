@@ -19,6 +19,7 @@ export interface ToggleOpenSpaceResponse {
 }
 
 export interface RegisterData {
+  email?:  string,
   password: string,
   passwordConfirm: string,
   username: string,
