@@ -32,12 +32,12 @@ export class AuthService {
     return this.apollo.mutate({
       mutation: REGISTER_USER,
       variables: {
-        ...(userData.email ? { email: userData.email } : {}),
         password: userData.password,
         passwordConfirm: userData.passwordConfirm,
         username: userData.username,
         sessionId: sessionId ? sessionId : null,
-        ...(userData.role ? { role: userData.role } : {})
+        ...(userData.role ? { role: userData.role } : {}),
+        ...(userData.email ? { email: userData.email } : {}),
       }
     });
   }
