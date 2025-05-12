@@ -23,6 +23,7 @@ export class MapAdminComponent implements OnInit {
   region: string = '';
   district: string = '';
   marker: Marker | null = null;
+  cornerMarkers: Marker[] = [];
 
   clickedLat: number | null = null;
   clickedLng: number | null = null;
@@ -45,7 +46,7 @@ export class MapAdminComponent implements OnInit {
       latitude: ['', Validators.required],
       longitude: ['', Validators.required],
       district: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -64,26 +65,49 @@ export class MapAdminComponent implements OnInit {
         zoom: 14
       });
 
-      // Listen for click events on the map
       this.map.on('click', (event) => {
         const { lng, lat } = event.lngLat;
         this.clickedLat = lat;
         this.clickedLng = lng;
 
-        // Remove previous marker if it exists
+        // Distance in degrees (~0.001 ≈ 100 meters)
+        const offset = 0.001;
+
+        // Define corners: NW, NE, SE, SW
+        const corners = [
+          { lng: lng - offset, lat: lat + offset }, // NW
+          { lng: lng + offset, lat: lat + offset }, // NE
+          { lng: lng + offset, lat: lat - offset }, // SE
+          { lng: lng - offset, lat: lat - offset }  // SW
+        ];
+
+        // Remove previous central marker
         if (this.marker) {
           this.marker.remove();
         }
 
+        // Remove any previous corner markers
+        this.cornerMarkers.forEach(marker => marker.remove());
+        this.cornerMarkers = [];
+
+        // Add central marker
         this.marker = new Marker({ color: 'black', scale: 0.6 })
           .setLngLat([lng, lat])
           .addTo(this.map!);
+
+        // Add four corner markers
+        corners.forEach(corner => {
+          const cornerMarker = new Marker({ color: 'blue', scale: 0.5 })
+            .setLngLat([corner.lng, corner.lat])
+            .addTo(this.map!);
+          this.cornerMarkers.push(cornerMarker);
+        });
       });
     }
   }
 
   onSubmit() {
-    if(this.addOpenspace.invalid) {
+    if (this.addOpenspace.invalid) {
       this.addOpenspace.markAllAsTouched();
       return;
     }
@@ -102,17 +126,15 @@ export class MapAdminComponent implements OnInit {
         console.log('GraphQL Response:', result);
         const response = result.data.addSpace.output;
 
-        if(response.success) {
+        if (response.success) {
           this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
-
           this.closeForm();
         }
       },
       error: (error) => {
         this.toastr.error('Something went wrong.', 'Error', { positionClass: 'toast-top-right' });
       }
-
-    })
+    });
   }
 
   enableAddingMode() {
@@ -124,7 +146,7 @@ export class MapAdminComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/admindashboard'])
+    this.router.navigate(['/admindashboard']);
   }
 
   changeMapStyle(styleName: string) {
@@ -132,3 +154,132 @@ export class MapAdminComponent implements OnInit {
     this.map?.setStyle(styleUrl);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// export class MapAdminComponent implements OnInit {
+//   map: Map | undefined;
+//   showForm: boolean = false;
+//   lat: string = '';
+//   lng: string = '';
+//   region: string = '';
+//   district: string = '';
+//   marker: Marker | null = null;
+
+//   clickedLat: number | null = null;
+//   clickedLng: number | null = null;
+
+//   addOpenspace: FormGroup;
+
+//   districts: string[] = ['Kinondoni', 'Ilala', 'Ubungo', 'Temeke', 'Kigamboni'];
+
+//   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
+
+//   constructor(
+//     @Inject(PLATFORM_ID) private platformId: Object,
+//     private router: Router,
+//     private fb: FormBuilder,
+//     private toastr: ToastrService,
+//     private openService: OpenspaceService
+//   ) {
+//     this.addOpenspace = this.fb.group({
+//       name: ['', Validators.required],
+//       latitude: ['', Validators.required],
+//       longitude: ['', Validators.required],
+//       district: ['', Validators.required]
+//     })
+//   }
+
+//   ngOnInit(): void {
+//     if (isPlatformBrowser(this.platformId)) {
+//       console.log("Running in the browser. Initializing API key.");
+//       config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+//     }
+//   }
+
+//   ngAfterViewInit() {
+//     if (isPlatformBrowser(this.platformId)) {
+//       this.map = new Map({
+//         container: this.mapContainer.nativeElement,
+//         style: 'https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B',
+//         center: [39.230099, -6.774133],
+//         zoom: 14
+//       });
+
+//       // Listen for click events on the map
+//       this.map.on('click', (event) => {
+//         const { lng, lat } = event.lngLat;
+//         this.clickedLat = lat;
+//         this.clickedLng = lng;
+
+//         // Remove previous marker if it exists
+//         if (this.marker) {
+//           this.marker.remove();
+//         }
+
+//         this.marker = new Marker({ color: 'black', scale: 0.6 })
+//           .setLngLat([lng, lat])
+//           .addTo(this.map!);
+//       });
+//     }
+//   }
+
+//   onSubmit() {
+//     if(this.addOpenspace.invalid) {
+//       this.addOpenspace.markAllAsTouched();
+//       return;
+//     }
+
+//     const openspaceData: OpenSpaceRegisterData = {
+//       name: this.addOpenspace.value.name,
+//       latitude: parseFloat(this.addOpenspace.value.latitude),
+//       longitude: parseFloat(this.addOpenspace.value.longitude),
+//       district: this.addOpenspace.value.district
+//     };
+
+//     console.log("Data being sent to mutation:", openspaceData);
+
+//     this.openService.addSpace(openspaceData).subscribe({
+//       next: (result) => {
+//         console.log('GraphQL Response:', result);
+//         const response = result.data.addSpace.output;
+
+//         if(response.success) {
+//           this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
+
+//           this.closeForm();
+//         }
+//       },
+//       error: (error) => {
+//         this.toastr.error('Something went wrong.', 'Error', { positionClass: 'toast-top-right' });
+//       }
+
+//     })
+//   }
+
+//   enableAddingMode() {
+//     this.showForm = true;
+//   }
+
+//   closeForm() {
+//     this.showForm = false;
+//   }
+
+//   goBack() {
+//     this.router.navigate(['/admindashboard'])
+//   }
+
+//   changeMapStyle(styleName: string) {
+//     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=9rtSKNwbDOYAoeEEeW9B`;
+//     this.map?.setStyle(styleUrl);
+//   }
+// }
