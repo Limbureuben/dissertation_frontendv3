@@ -1,6 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { Map, MapStyle, config } from '@maptiler/sdk';
 import { isPlatformBrowser } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OpenspaceService } from '../../service/openspace.service';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../service/auth.service';
+import Swal from 'sweetalert2';
+import { Marker, Popup } from '@maptiler/sdk';
+import { response } from 'express';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-booking-map',
@@ -11,91 +19,323 @@ import { isPlatformBrowser } from '@angular/common';
 export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   map: Map | undefined;
-  isBrowser: boolean;
+    searchQuery: string = '';
+    suggestions: any[] = [];
+    locationName: string = '';
+    selectedSpace: any = null;
+    openSpaces: any[] = [];
+    emailWarning: boolean = false;
+    showConfirmationModal = false;
 
-  @ViewChild('map')
-  private mapContainer!: ElementRef<HTMLElement>;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
+    message: string = '';
+
+    reportForm: FormGroup;
+    selectedFile: File | null = null;
+    selectedFileName: string = '';
+    submitting = false;
+    success = false;
+    errorMessage = '';
+    reportId: string = '';
+
+    @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
+
+    constructor(
+      @Inject(PLATFORM_ID) private platformId: Object,
+      private openSpaceService: OpenspaceService,
+      private fb: FormBuilder,
+      private toastr: ToastrService,
+      private authservice: AuthService,
+  ) {
+    this.reportForm = this.fb.group({
+      description: ['', [Validators.required, Validators.minLength(20)]],
+      email: ['', [Validators.email]],
+    });
   }
 
-  ngOnInit(): void {
-    if (this.isBrowser) {
+
+    ngOnInit(): void {
       config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+
+      this.reportForm.valueChanges.subscribe(() => {
+        const email = this.reportForm.get('email')?.value;
+        this.emailWarning = !email; // Show warning if email is empty
+      });
     }
-  }
 
-  // ngAfterViewInit() {
-  //   if (this.isBrowser) {
-  //     const initialState = { lng: 39.230099, lat: -6.774133, zoom: 14 };
+    ngAfterViewInit() {
+      if (isPlatformBrowser(this.platformId)) {
+        this.initializeMap();
+        this.fetchOpenSpaces();
 
-  //     this.map = new Map({
-  //       container: this.mapContainer.nativeElement,
-  //       style: MapStyle.STREETS,
-  //       center: [initialState.lng, initialState.lat],
-  //       zoom: initialState.zoom
-  //     });
-  //   }
-  // }
+        // Add event listener to close form button
+        document.getElementById('closeFormBtn')?.addEventListener('click', () => {
+          this.closeForm();
+        });
+      }
+    }
 
-  ngAfterViewInit() {
-    if (this.isBrowser) {
-      const initialState = { lng: 39.230099, lat: -6.774133, zoom: 14 };
-
+    initializeMap(): void {
       this.map = new Map({
         container: this.mapContainer.nativeElement,
-        style: MapStyle.STREETS,
-        center: [initialState.lng, initialState.lat],
-        zoom: initialState.zoom
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B',
+        center: [39.230099, -6.774133],
+        zoom: 14
       });
+    }
 
-      this.map.on('load', () => {
-        this.map?.addSource('square-shape', {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            geometry: {
-              type: 'Polygon',
-              coordinates: [[
-                [39.229, -6.773],
-                [39.231, -6.773],
-                [39.231, -6.775],
-                [39.229, -6.775],
-                [39.229, -6.773]  // Close the square
-              ]]
-            },
-            properties: {}
-          }
+    fetchOpenSpaces(): void {
+      this.openSpaceService.getAllOpenSpacesUser().subscribe(
+        (data) => {
+          this.openSpaces = data;
+          this.addMarkersToMap();
+        },
+        (error) => {
+          console.error('Error fetching open spaces:', error);
+        }
+      );
+    }
+
+    addMarkersToMap(): void {
+      this.openSpaces.forEach(space => {
+        const markerElement = document.createElement('img');
+        markerElement.src = 'assets/images/location.png';
+        markerElement.style.width = '25px';
+        markerElement.style.height = '25px';
+        markerElement.style.cursor = 'pointer'; // Ensure cursor is set
+
+        const marker = new Marker({ element: markerElement })
+          .setLngLat([space.longitude, space.latitude])
+          .addTo(this.map as Map);
+
+        // Create popup with a report button
+        const popupContent = document.createElement('div');
+        popupContent.classList.add('popup-content');
+        popupContent.innerHTML = `
+          <h3>${space.name}</h3>
+          <p>Location: (${space.latitude}, ${space.longitude})</p>
+          <button class="report-problem-btn">Report Problem</button>
+        `;
+
+        const popup = new Popup({ offset: 25 })
+          .setDOMContent(popupContent);
+
+        marker.setPopup(popup);
+
+        // Open form when button inside popup is clicked
+        popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          console.log('Report button clicked for:', space.name);
+          this.openReportForm(space);
         });
 
-        this.map?.addLayer({
-          id: 'square-fill',
-          type: 'fill',
-          source: 'square-shape',
-          paint: {
-            'fill-color': '#088',
-            'fill-opacity': 0.4
-          }
-        });
-
-        this.map?.addLayer({
-          id: 'square-outline',
-          type: 'line',
-          source: 'square-shape',
-          paint: {
-            'line-color': '#000',
-            'line-width': 2
-          }
+        // Open form when marker is clicked
+        marker.getElement().addEventListener('click', () => {
+          console.log('Marker clicked for:', space.name);
+          this.openReportForm(space);
         });
       });
     }
-  }
 
 
-  ngOnDestroy() {
-    if (this.isBrowser) {
+    ngOnDestroy() {
       this.map?.remove();
     }
+
+    openReportForm(space: any) {
+      this.selectedSpace = space;
+      const formContainer = document.getElementById('detailsForm') as HTMLElement;
+      const locationName = document.getElementById('location-name') as HTMLElement;
+
+      if (locationName) {
+        locationName.textContent = space.name; // Bind location name
+      } else {
+        console.error('Location or region element not found');
+      }
+
+      if (formContainer) {
+        console.log('Opening form for:', space.name);
+        formContainer.style.display = 'flex';
+
+        // Small delay before adding "open" for smooth pop-up animation
+        setTimeout(() => {
+          formContainer.classList.add('open');
+        }, 20);
+      } else {
+        console.error('Form container not found');
+      }
+    }
+
+    closeForm() {
+      const formContainer = document.getElementById('detailsForm') as HTMLElement;
+
+      if (formContainer) {
+        formContainer.classList.add('closing');
+
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+          formContainer.classList.remove('open', 'closing');
+          formContainer.style.display = 'none';
+        }, 300); // Matches CSS transition duration
+      }
+    }
+
+  triggerFileInput() {
+    document.getElementById('file-upload')?.click();
   }
+
+
+    fetchSuggestions() {
+      if (!this.searchQuery) {
+        this.suggestions = [];
+        return;
+      }
+
+      fetch(`https://api.maptiler.com/geocoding/${this.searchQuery}.json?key=9rtSKNwbDOYAoeEEeW9B&country=TZ`)
+        .then(res => res.json())
+        .then(data => {
+          this.suggestions = data.features.map((feature: any) => ({
+            name: feature.place_name,
+            center: feature.center
+          }));
+        })
+        .catch(err => console.error("Error fetching suggestions:", err));
+    }
+
+    searchLocation() {
+      if (!this.searchQuery) return;
+
+      fetch(`https://api.maptiler.com/geocoding/${this.searchQuery}.json?key=9rtSKNwbDOYAoeEEeW9B&country=TZ`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.features.length > 0) {
+            const { center } = data.features[0];
+            this.map?.flyTo({ center, zoom: 14 });
+          }
+        })
+        .catch(err => console.error("Error fetching location:", err));
+    }
+
+    selectSuggestion(suggestion: any) {
+      this.searchQuery = suggestion.name;
+      this.map?.flyTo({ center: suggestion.center, zoom: 14 });
+      this.suggestions = [];
+    }
+
+
+    onFileSelected(event: any): void {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+        this.selectedFileName = file.name;
+      } else {
+        this.selectedFile = null;
+        this.selectedFileName = '';
+      }
+    }
+
+  submitReport(): void {
+    const userId = localStorage.getItem('user_id');
+
+    if (this.reportForm.invalid) {
+      Object.keys(this.reportForm.controls).forEach(key => {
+        const control = this.reportForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+
+    this.closeForm();
+    // Show the confirmation modal instead of submitting immediately
+    this.showConfirmationModal = true;
+  }
+
+  confirmSubmission(): void {
+    console.log('Confirm clicked');
+    const startTime = Date.now();
+
+    const userId = localStorage.getItem('user_id');
+    this.submitting = true;
+    this.success = false;
+    this.errorMessage = '';
+
+    console.log('Before file upload');
+
+    this.openSpaceService.uploadFile(this.selectedFile)
+      .pipe(
+        switchMap(response => {
+          console.log('File upload finished in', Date.now() - startTime, 'ms');
+          const reportData = {
+            description: this.reportForm.get('description')?.value,
+            email: this.reportForm.get('email')?.value || null,
+            filePath: response.file_path || null,
+            spaceName: this.selectedSpace.name,
+            latitude: this.selectedSpace.latitude,
+            longitude: this.selectedSpace.longitude,
+            userId: userId || null
+          };
+
+          console.log('Submitting report with data:', reportData);
+          return this.openSpaceService.createReport(
+            reportData.description,
+            reportData.email,
+            reportData.filePath,
+            reportData.spaceName,
+            reportData.latitude,
+            reportData.longitude,
+            reportData.userId
+          );
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Report created successfully in', Date.now() - startTime, 'ms');
+          this.submitting = false;
+          this.success = true;
+          this.reportId = response.createReport.report.reportId;
+
+          Swal.fire({
+            title: `Report of ID ${this.reportId} has been submitted successfully!`,
+            icon: "success",
+            draggable: true,
+            customClass: {
+              title: 'custom-title',
+              popup: 'custom-popup'
+            }
+          });
+          this.showConfirmationModal = false;
+
+          setTimeout(() => {
+            this.closeForm();
+            this.resetForm();
+          }, 1000);
+        },
+        error: (error) => {
+          console.error('Error submitting report:', error);
+          this.submitting = false;
+          this.errorMessage = 'Failed to submit report. Please try again.';
+          this.toastr.error('Error submitting report', 'Error', {
+            positionClass: 'toast-top-right',
+          });
+        }
+      });
+  }
+
+
+  cancelSubmission(): void {
+    this.showConfirmationModal = false; // Close the confirmation modal
+  }
+
+    private resetForm(): void {
+      this.reportForm.reset();
+      this.selectedFile = null;
+      this.selectedFileName = '';
+      this.selectedSpace = null;
+    }
+
+    changeMapStyle(styleName: string) {
+      const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=9rtSKNwbDOYAoeEEeW9B`;
+      this.map?.setStyle(styleUrl);
+    }
+
 }
