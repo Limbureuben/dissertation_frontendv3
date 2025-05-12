@@ -17,23 +17,23 @@ export class AppComponent {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.router.events
-        .pipe(filter(event => event instanceof NavigationEnd))
-        .subscribe((event: NavigationEnd) => {
-          localStorage.setItem('lastRoute', event.urlAfterRedirects);
-        });
+  // ngOnInit() {
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     this.router.events
+  //       .pipe(filter(event => event instanceof NavigationEnd))
+  //       .subscribe((event: NavigationEnd) => {
+  //         localStorage.setItem('lastRoute', event.urlAfterRedirects);
+  //       });
 
-      const token = localStorage.getItem('token');
-      const lastRoute = localStorage.getItem('lastRoute');
+  //     const token = localStorage.getItem('token');
+  //     const lastRoute = localStorage.getItem('lastRoute');
 
-      if (token && lastRoute) {
-        this.router.navigateByUrl(lastRoute);
-      } else {
-        this.router.navigate(['/user-home']);
-      }
-    }
-  }
+  //     if (token && lastRoute) {
+  //       this.router.navigateByUrl(lastRoute);
+  //     } else {
+  //       this.router.navigate(['/user-home']);
+  //     }
+  //   }
+  // }
 
 }

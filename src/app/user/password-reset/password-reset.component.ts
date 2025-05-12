@@ -13,13 +13,17 @@ import { animate, style, transition, trigger } from '@angular/animations';
   templateUrl: './password-reset.component.html',
   styleUrl: './password-reset.component.scss',
   animations: [
-    trigger('fadeSlideIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-20px)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
+  trigger('slideBounce', [
+    transition(':enter', [
+      style({ transform: 'translateY(-100%)', opacity: 0 }),
+      animate('600ms cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+        style({ transform: 'translateY(0)', opacity: 1 }))
+    ]),
+    transition(':leave', [
+      animate('300ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
     ])
-  ]
+  ])
+]
 })
 export class PasswordResetComponent {
   resetForm: FormGroup;

@@ -123,10 +123,18 @@ export class AuthService {
     return this.http.post(`${ this.resetUrl}/api/v1/password-reset/`, { email });
   }
 
+  confirmResetPassword(uid: string, token: string, password: string): Observable<any> {
+    const payload = {
+      uid: uid,
+      token: token,
+      password: password
+    };
+    return this.http.post(`${this.resetUrl}/api/v1/password-reset-confirm/`, payload)
+  }
+
 }
-function throwError(arg0: () => Error): any {
-  throw new Error('Function not implemented.');
-}
+
+
 
 
 

@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'viewhistory', component: ViewHistoryComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'reset-password/:uid/:token', component: ResetPasswordComponent },
   { path: 'password-reset', component: PasswordResetComponent }
 ];
 
