@@ -23,7 +23,6 @@ export class MapAdminComponent implements OnInit {
   region: string = '';
   district: string = '';
   marker: Marker | null = null;
-  cornerMarkers: Marker[] = [];
 
   clickedLat: number | null = null;
   clickedLng: number | null = null;
@@ -51,60 +50,93 @@ export class MapAdminComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      console.log("Running in the browser. Initializing API key.");
       config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
     }
   }
 
   ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.map = new Map({
-        container: this.mapContainer.nativeElement,
-        style: 'https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B',
-        center: [39.230099, -6.774133],
-        zoom: 14
-      });
+  if (isPlatformBrowser(this.platformId)) {
+    this.map = new Map({
+      container: this.mapContainer.nativeElement,
+      style: 'https://api.maptiler.com/maps/streets/style.json?key=9rtSKNwbDOYAoeEEeW9B',
+      center: [39.230099, -6.774133],
+      zoom: 17
+    });
 
-      this.map.on('click', (event) => {
-        const { lng, lat } = event.lngLat;
-        this.clickedLat = lat;
-        this.clickedLng = lng;
+    this.map.on('click', (event) => {
+      const { lng, lat } = event.lngLat;
+      this.clickedLat = lat;
+      this.clickedLng = lng;
 
-        // Distance in degrees (~0.001 ≈ 100 meters)
-        const offset = 0.001;
+      // Approx. 15 meters in degrees
+      const offset = 0.000135;
 
-        // Define corners: NW, NE, SE, SW
-        const corners = [
-          { lng: lng - offset, lat: lat + offset }, // NW
-          { lng: lng + offset, lat: lat + offset }, // NE
-          { lng: lng + offset, lat: lat - offset }, // SE
-          { lng: lng - offset, lat: lat - offset }  // SW
-        ];
+      const squareCoords = [
+        [
+          [lng - offset, lat + offset], // NW
+          [lng + offset, lat + offset], // NE
+          [lng + offset, lat - offset], // SE
+          [lng - offset, lat - offset], // SW
+          [lng - offset, lat + offset]
+        ]
+      ];
 
-        // Remove previous central marker
-        if (this.marker) {
-          this.marker.remove();
+      const polygonData = {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: squareCoords
+            }
+          }
+        ]
+      };
+
+      ['square-layer', 'square-border'].forEach(layerId => {
+        if (this.map!.getLayer(layerId)) {
+          this.map!.removeLayer(layerId);
         }
-
-        // Remove any previous corner markers
-        this.cornerMarkers.forEach(marker => marker.remove());
-        this.cornerMarkers = [];
-
-        // Add central marker
-        this.marker = new Marker({ color: 'black', scale: 0.6 })
-          .setLngLat([lng, lat])
-          .addTo(this.map!);
-
-        // Add four corner markers
-        corners.forEach(corner => {
-          const cornerMarker = new Marker({ color: 'blue', scale: 0.5 })
-            .setLngLat([corner.lng, corner.lat])
-            .addTo(this.map!);
-          this.cornerMarkers.push(cornerMarker);
-        });
       });
-    }
+
+      if (this.map!.getSource('square')) {
+        this.map!.removeSource('square');
+      }
+
+      // Add new GeoJSON source
+      this.map!.addSource('square', {
+        type: 'geojson',
+        data: polygonData as GeoJSON.FeatureCollection<GeoJSON.Geometry>
+      });
+
+      // Add fill layer
+      this.map!.addLayer({
+        id: 'square-layer',
+        type: 'fill',
+        source: 'square',
+        layout: {},
+        paint: {
+          'fill-color': '#62CE5CFF',
+          'fill-opacity': 0.3
+        }
+      });
+
+      // Add border layer
+      this.map!.addLayer({
+        id: 'square-border',
+        type: 'line',
+        source: 'square',
+        layout: {},
+        paint: {
+          'line-color': '#000000',
+          'line-width': 2
+        }
+      });
+    });
   }
+}
+
 
   onSubmit() {
     if (this.addOpenspace.invalid) {
@@ -119,19 +151,15 @@ export class MapAdminComponent implements OnInit {
       district: this.addOpenspace.value.district
     };
 
-    console.log("Data being sent to mutation:", openspaceData);
-
     this.openService.addSpace(openspaceData).subscribe({
       next: (result) => {
-        console.log('GraphQL Response:', result);
         const response = result.data.addSpace.output;
-
         if (response.success) {
           this.toastr.success(response.message, 'Success', { positionClass: 'toast-top-right' });
           this.closeForm();
         }
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error('Something went wrong.', 'Error', { positionClass: 'toast-top-right' });
       }
     });

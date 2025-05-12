@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { Feature, Polygon } from 'geojson';
 
 
 @Component({
@@ -97,46 +98,126 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  // addMarkersToMap(): void {
+  //   this.openSpaces.forEach(space => {
+  //     const markerElement = document.createElement('img');
+  //     markerElement.src = 'assets/images/location.png';
+  //     markerElement.style.width = '25px';
+  //     markerElement.style.height = '25px';
+  //     markerElement.style.cursor = 'pointer'; // Ensure cursor is set
+
+  //     const marker = new Marker({ element: markerElement })
+  //       .setLngLat([space.longitude, space.latitude])
+  //       .addTo(this.map as Map);
+
+  //     // Create popup with a report button
+  //     const popupContent = document.createElement('div');
+  //     popupContent.classList.add('popup-content');
+  //     popupContent.innerHTML = `
+  //       <h3>${space.name}</h3>
+  //       <p>Location: (${space.latitude}, ${space.longitude})</p>
+  //       <button class="report-problem-btn">Report Problem</button>
+  //     `;
+
+  //     const popup = new Popup({ offset: 25 })
+  //       .setDOMContent(popupContent);
+
+  //     marker.setPopup(popup);
+
+  //     // Open form when button inside popup is clicked
+  //     popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
+  //       e.stopPropagation();
+  //       console.log('Report button clicked for:', space.name);
+  //       this.openReportForm(space);
+  //     });
+
+  //     // Open form when marker is clicked
+  //     marker.getElement().addEventListener('click', () => {
+  //       console.log('Marker clicked for:', space.name);
+  //       this.openReportForm(space);
+  //     });
+  //   });
+  // }
+
   addMarkersToMap(): void {
+  this.map?.on('load', () => {
     this.openSpaces.forEach(space => {
-      const markerElement = document.createElement('img');
-      markerElement.src = 'assets/images/location.png';
-      markerElement.style.width = '25px';
-      markerElement.style.height = '25px';
-      markerElement.style.cursor = 'pointer'; // Ensure cursor is set
+      const size = 0.001; // Approx 100m square – adjust as needed
 
-      const marker = new Marker({ element: markerElement })
-        .setLngLat([space.longitude, space.latitude])
-        .addTo(this.map as Map);
+      const coordinates = [
+        [
+          [space.longitude - size, space.latitude - size],
+          [space.longitude + size, space.latitude - size],
+          [space.longitude + size, space.latitude + size],
+          [space.longitude - size, space.latitude + size],
+          [space.longitude - size, space.latitude - size] // close the polygon
+        ]
+      ];
 
-      // Create popup with a report button
-      const popupContent = document.createElement('div');
-      popupContent.classList.add('popup-content');
-      popupContent.innerHTML = `
-        <h3>${space.name}</h3>
-        <p>Location: (${space.latitude}, ${space.longitude})</p>
-        <button class="report-problem-btn">Report Problem</button>
-      `;
+      const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: coordinates
+        },
+        properties: {
+          name: space.name,
+          latitude: space.latitude,
+          longitude: space.longitude
+        }
+      };
 
-      const popup = new Popup({ offset: 25 })
-        .setDOMContent(popupContent);
 
-      marker.setPopup(popup);
+      const sourceId = `space-${space.name}-${space.latitude}`;
 
-      // Open form when button inside popup is clicked
-      popupContent.querySelector('.report-problem-btn')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        console.log('Report button clicked for:', space.name);
-        this.openReportForm(space);
-      });
+      if (!this.map?.getSource(sourceId)) {
+        // Add the GeoJSON source
+        this.map?.addSource(sourceId, {
+          type: 'geojson',
+          data: polygonGeoJSON
+        });
 
-      // Open form when marker is clicked
-      marker.getElement().addEventListener('click', () => {
-        console.log('Marker clicked for:', space.name);
-        this.openReportForm(space);
-      });
+        // Add the fill layer (square shape)
+        this.map?.addLayer({
+          id: sourceId,
+          type: 'fill',
+          source: sourceId,
+          paint: {
+            'fill-color': '#008000',
+            'fill-opacity': 0.5
+          }
+        });
+
+        // Add a border to the square
+        this.map?.addLayer({
+          id: `${sourceId}-border`,
+          type: 'line',
+          source: sourceId,
+          paint: {
+            'line-color': '#000000',
+            'line-width': 2
+          }
+        });
+
+        // Event: open report form when square is clicked
+        this.map?.on('click', sourceId, () => {
+          console.log('Square clicked for:', space.name);
+          this.openReportForm(space);
+        });
+
+        // Change cursor to pointer on hover
+        this.map?.on('mouseenter', sourceId, () => {
+          this.map!.getCanvas().style.cursor = 'pointer';
+        });
+
+        this.map?.on('mouseleave', sourceId, () => {
+          this.map!.getCanvas().style.cursor = '';
+        });
+      }
     });
-  }
+  });
+}
+
 
 
   ngOnDestroy() {
@@ -338,7 +419,6 @@ cancelSubmission(): void {
     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=9rtSKNwbDOYAoeEEeW9B`;
     this.map?.setStyle(styleUrl);
   }
-
 
 }
 
