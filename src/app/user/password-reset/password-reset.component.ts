@@ -28,7 +28,7 @@ export class PasswordResetComponent {
     console.log('Form value:', this.resetForm.value);
     console.log('Form valid?', this.resetForm.valid);
 
-    if (this.resetForm.invalid) {
+    if (this.resetForm.valid) {
       const email = this.resetForm.get('email')?.value;
 
       this.resetService.sendResetLink(email).subscribe({
