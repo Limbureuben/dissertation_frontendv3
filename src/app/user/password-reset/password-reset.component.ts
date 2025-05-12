@@ -25,8 +25,6 @@ export class PasswordResetComponent {
   }
 
   onSubmit(): void {
-    console.log('Form value:', this.resetForm.value);
-    console.log('Form valid?', this.resetForm.valid);
 
     if (this.resetForm.valid) {
       const email = this.resetForm.get('email')?.value;
