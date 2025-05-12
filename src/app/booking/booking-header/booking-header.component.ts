@@ -22,4 +22,14 @@ export class BookingHeaderComponent {
     this.router.navigate(['/booking-map']);
   }
 
+  NavigateBack() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.router.navigate(['/homepage']);
+    } else {
+      this.router.navigate(['/user-home']);
+    }
+  }
+
 }

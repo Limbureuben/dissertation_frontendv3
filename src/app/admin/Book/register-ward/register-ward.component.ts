@@ -26,7 +26,8 @@ export class RegisterWardComponent {
       username: ['', Validators.required],
       password: ['', [Validators.required, this.passwordStrengthValidator]],
       passwordConfirm: ['', [Validators.required]],
-      role: ['']
+      role: [''],
+      email: ['']
     });
   }
 
@@ -68,6 +69,7 @@ export class RegisterWardComponent {
       username: this.form.value.username,
       password: this.form.value.password,
       passwordConfirm: this.form.value.passwordConfirm,
+      email: this.form.value.email,
       ...(this.form.value.role ? { role: this.form.value.role } : {})
     };
 
