@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-password-reset',
@@ -18,6 +20,7 @@ export class PasswordResetComponent {
     private fb: FormBuilder,
     private resetService: AuthService,
     private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
@@ -39,6 +42,7 @@ export class PasswordResetComponent {
             timer: 1500
           });
           this.resetForm.reset();
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           this.snackBar.open('Failed to send reset link. Please try again.', 'Close', { duration: 3000 });
