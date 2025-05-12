@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { OpenSpaceRegisterData, OpenspaceService } from '../../service/openspace.service';
 import { error } from 'console';
 
+
 @Component({
   selector: 'app-map-admin',
   standalone: false,
