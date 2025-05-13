@@ -72,14 +72,29 @@ export class TestMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   handleDrawEvent() {
-    if (this.draw) {
-      const geojson = this.draw.getAll();
-      if (geojson.features.length > 0) {
-        const polygon = geojson.features[0].geometry;
-        console.log('Drawn Polygon Geometry:', polygon);
-      }
+  if (this.draw) {
+    const allFeatures = this.draw.getAll();
+
+    // If there's more than 1 shape, remove all and keep only the latest
+    if (allFeatures.features.length > 1) {
+      // Remove all shapes
+      allFeatures.features.forEach(feature => {
+        this.draw!.delete(feature.id as string);
+      });
+
+      // Optionally reset to draw mode again
+      this.draw.changeMode('draw_polygon');
+    }
+
+    // Log the current shape (the one just drawn)
+    const currentFeatures = this.draw.getAll();
+    if (currentFeatures.features.length > 0) {
+      const polygon = currentFeatures.features[0].geometry;
+      console.log('Drawn Polygon Geometry:', polygon);
     }
   }
+}
+
 
   ngOnDestroy() {
     if (this.isBrowser) {
