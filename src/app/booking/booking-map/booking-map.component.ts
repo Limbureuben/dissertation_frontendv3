@@ -48,9 +48,13 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       private authservice: AuthService,
   ) {
     this.reportForm = this.fb.group({
-      description: ['', [Validators.required, Validators.minLength(20)]],
-      email: ['', [Validators.email]],
-    });
+    username: ['', Validators.required],
+    contact: ['', Validators.required],
+    datetime: ['', Validators.required],
+    duration: ['', Validators.required],
+    purpose: ['', Validators.required],
+    file: [null]
+});
   }
 
 
