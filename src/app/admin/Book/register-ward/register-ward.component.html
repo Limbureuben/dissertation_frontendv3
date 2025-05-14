@@ -36,7 +36,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="form-field" *ngIf="form.get('role')?.value === 'ward_executive'">
+      <mat-form-field appearance="fill" class="form-field">
         <mat-label>Ward</mat-label>
         <mat-select formControlName="ward">
           <mat-option *ngFor="let ward of wardOptions" [value]="ward">{{ ward }}</mat-option>
