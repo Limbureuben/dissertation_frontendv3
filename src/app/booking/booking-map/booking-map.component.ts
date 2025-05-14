@@ -248,7 +248,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    submitReport() {
+    submitBook() {
       if (this.reportForm.invalid) return;
 
       const formData = new FormData();
