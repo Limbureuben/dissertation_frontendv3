@@ -34,7 +34,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="half-width custom-input">
             <mat-label>Username</mat-label>
-            <input matInput  placeholder="Enter your username" required />
+            <input matInput formControlName="username" placeholder="Enter your username" required />
             <mat-error *ngIf="reportForm.get('username')?.invalid && reportForm.get('username')?.touched">
               Username is required
             </mat-error>
@@ -42,7 +42,7 @@
 
           <mat-form-field appearance="outline" class="half-width custom-input">
             <mat-label>Contact</mat-label>
-            <input matInput  placeholder="Enter your contact number" required />
+            <input matInput formControlName="contact" placeholder="Enter your contact number" required />
             <mat-error *ngIf="reportForm.get('contact')?.invalid && reportForm.get('contact')?.touched">
               Contact is required
             </mat-error>
@@ -53,7 +53,7 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="half-width custom-input">
             <mat-label>Date and Time</mat-label>
-            <input matInput  [matDatepicker]="picker" placeholder="Select date and time" required />
+            <input matInput formControlName="datetime" [matDatepicker]="picker" placeholder="Select date and time" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="reportForm.get('datetime')?.invalid && reportForm.get('datetime')?.touched">
@@ -63,7 +63,7 @@
 
           <mat-form-field appearance="outline" class="half-width custom-input">
             <mat-label>Duration</mat-label>
-            <input matInput  placeholder="Enter duration (e.g., 2 hours)" required />
+            <input matInput formControlName="duration" placeholder="Enter duration (e.g., 2 hours)" required />
             <mat-error *ngIf="reportForm.get('duration')?.invalid && reportForm.get('duration')?.touched">
               Duration is required
             </mat-error>
@@ -73,7 +73,7 @@
         <!-- Purpose -->
         <mat-form-field appearance="outline" class="full-width custom-input">
           <mat-label>Purpose</mat-label>
-          <textarea matInput  placeholder="Enter the purpose" required></textarea>
+          <textarea matInput formControlName="purpose" placeholder="Enter the purpose" required></textarea>
           <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
             Purpose is required
           </mat-error>
