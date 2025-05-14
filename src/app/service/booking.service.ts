@@ -3,14 +3,18 @@ import { GET_ALL_EXECUTIVE, REGISTER_USER } from '../graphql';
 import { map, Observable } from 'rxjs';
 import { RegisterData } from '../models/openspace.model';
 import { Apollo } from 'apollo-angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Token } from 'graphql';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
+  private resetUrl = 'http://localhost:8000';
 
   constructor(
-    private apollo: Apollo
+    private apollo: Apollo,
+    private http: HttpClient
   ) { }
 
   registrationUser(userData: RegisterData): Observable<any> {
@@ -32,4 +36,13 @@ export class BookingService {
         query: GET_ALL_EXECUTIVE
       }).valueChanges.pipe(map(result => result.data.wardExectives))
     }
+
+    bookOpenSpace(data: FormData): Observable<any> {
+      const token = localStorage.getItem('token'); // or however you store it
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      return this.http.post(`${this.resetUrl}/api/openspace/book/`, data, { headers });
+    }
+
+
 }

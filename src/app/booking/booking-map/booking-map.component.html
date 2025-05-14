@@ -29,7 +29,7 @@
     <div class="report-container" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeForm()">×</button>
       <h2 class="form-heading">Book Open Space</h2>
-      <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+      <form [formGroup]="reportForm" (ngSubmit)="submitBook()">
         <!-- Username & Contact -->
         <div class="form-row">
           <mat-form-field appearance="outline" class="half-width custom-input">

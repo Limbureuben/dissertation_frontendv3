@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Marker, Popup } from '@maptiler/sdk';
 import { response } from 'express';
 import { switchMap } from 'rxjs/operators';
+import { BookingService } from '../../service/booking.service';
 
 @Component({
   selector: 'app-booking-map',
@@ -46,6 +47,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       private fb: FormBuilder,
       private toastr: ToastrService,
       private authservice: AuthService,
+      private bookingService: BookingService
   ) {
     this.reportForm = this.fb.group({
     username: ['', Validators.required],
@@ -227,32 +229,67 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
 
-    onFileSelected(event: any): void {
-      const file = event.target.files[0];
+    // onFileSelected(event: any): void {
+    //   const file = event.target.files[0];
+    //   if (file) {
+    //     this.selectedFile = file;
+    //     this.selectedFileName = file.name;
+    //   } else {
+    //     this.selectedFile = null;
+    //     this.selectedFileName = '';
+    //   }
+    // }
+
+    onFileSelected(event: any) {
+      const file: File = event.target.files[0];
       if (file) {
         this.selectedFile = file;
         this.selectedFileName = file.name;
-      } else {
-        this.selectedFile = null;
-        this.selectedFileName = '';
       }
     }
 
-  submitReport(): void {
-    const userId = localStorage.getItem('user_id');
+    submitReport() {
+      if (this.reportForm.invalid) return;
 
-    if (this.reportForm.invalid) {
-      Object.keys(this.reportForm.controls).forEach(key => {
-        const control = this.reportForm.get(key);
-        control?.markAsTouched();
+      const formData = new FormData();
+      formData.append('username', this.reportForm.value.username);
+      formData.append('contact', this.reportForm.value.contact);
+      formData.append('datetime', this.reportForm.value.datetime);
+      formData.append('duration', this.reportForm.value.duration);
+      formData.append('purpose', this.reportForm.value.purpose);
+
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
+      this.bookingService.bookOpenSpace(formData).subscribe({
+        next: (res) => {
+          alert('Booking successful!');
+          this.reportForm.reset();
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Failed to book the space.');
+        }
       });
-      return;
     }
 
-    this.closeForm();
-    // Show the confirmation modal instead of submitting immediately
-    this.showConfirmationModal = true;
-  }
+
+  // submitReport(): void {
+  //   const userId = localStorage.getItem('user_id');
+
+  //   if (this.reportForm.invalid) {
+  //     Object.keys(this.reportForm.controls).forEach(key => {
+  //       const control = this.reportForm.get(key);
+  //       control?.markAsTouched();
+  //     });
+  //     return;
+  //   }
+
+  //   this.closeForm();
+  //   // Show the confirmation modal instead of submitting immediately
+  //   this.showConfirmationModal = true;
+  // }
 
   confirmSubmission(): void {
     console.log('Confirm clicked');
