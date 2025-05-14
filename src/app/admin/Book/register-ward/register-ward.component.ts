@@ -14,6 +14,13 @@ import { Router } from '@angular/router';
 export class RegisterWardComponent {
 
   form: FormGroup;
+  wardOptions: string[] = [
+  'Ward 1',
+  'Ward 2',
+  'Ward 3',
+  'Ward 4'
+];
+
 
   constructor(
     private fb: FormBuilder,
