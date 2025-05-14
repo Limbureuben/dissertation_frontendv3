@@ -71,7 +71,8 @@ export class RegisterWardComponent {
       password: this.form.value.password,
       passwordConfirm: this.form.value.passwordConfirm,
       email: this.form.value.email,
-      ...(this.form.value.role ? { role: this.form.value.role } : {})
+      ...(this.form.value.role ? { role: this.form.value.role } : {}),
+      ...(this.form.value.ward ? { ward: this.form.value.ward } : {})
     };
 
     this.authservice.registrationUser(registrationData).subscribe({
@@ -124,11 +125,5 @@ export class RegisterWardComponent {
   onCancel(): void {
     this.dialogRef.close();
   }
-
-  // onSubmit(): void {
-  //   if (this.form.valid) {
-  //     this.dialogRef.close(this.form.value); // send data to parent
-  //   }
-  // }
 
 }

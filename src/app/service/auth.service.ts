@@ -38,6 +38,7 @@ export class AuthService {
         sessionId: sessionId ? sessionId : null,
         ...(userData.role ? { role: userData.role } : {}),
         email: userData.email || null,
+        ...(userData.ward ? { ward: userData.ward } : {})
         // ...(userData.email ? { email: userData.email } : {}),
       }
     });

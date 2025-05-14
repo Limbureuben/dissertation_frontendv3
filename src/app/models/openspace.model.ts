@@ -25,6 +25,7 @@ export interface RegisterData {
   username: string,
   sessionId?: string | null;
   role?: string;
+  ward?: string;
 }
 
 export interface LoginData {
