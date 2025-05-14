@@ -15,10 +15,26 @@ export class RegisterWardComponent {
 
   form: FormGroup;
   wardOptions: string[] = [
-  'Ward 1',
-  'Ward 2',
-  'Ward 3',
-  'Ward 4'
+  'Bunju',
+  'Hananasif',
+  'Kawe',
+  'Kigogo',
+  'Kijitonyama',
+  'Kinondoni',
+  'Kunduchi',
+  'Mabwepande',
+  'Magomeni',
+  'Makongo',
+  'Makumbusho',
+  'Mbezi Juu',
+  'Mbweni',
+  'Mikocheni',
+  'Msasani',
+  'Mwananyamala',
+  'Mzimuni',
+  'Ndugumbi',
+  'Tandale',
+  'Wazo'
 ];
 
 
