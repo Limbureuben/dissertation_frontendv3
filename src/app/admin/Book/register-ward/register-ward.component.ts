@@ -27,7 +27,8 @@ export class RegisterWardComponent {
       password: ['', [Validators.required, this.passwordStrengthValidator]],
       passwordConfirm: ['', [Validators.required]],
       role: [''],
-      email: ['']
+      email: [''],
+      ward: ['']
     });
   }
 
