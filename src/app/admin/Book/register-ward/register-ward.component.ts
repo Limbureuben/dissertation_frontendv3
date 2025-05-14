@@ -20,7 +20,6 @@ export class RegisterWardComponent {
   'Mbweni','Mikocheni','Msasani','Mwananyamala','Mzimuni','Ndugumbi','Tandale','Wazo'
 ];
 
-
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
