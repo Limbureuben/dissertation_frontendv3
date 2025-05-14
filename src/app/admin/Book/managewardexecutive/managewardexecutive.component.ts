@@ -46,7 +46,7 @@ export class ManagewardexecutiveComponent implements OnInit{
   openRegisterForm() {
 
     const dialogRef = this.dialog.open(RegisterWardComponent, {
-      width: '400px'
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
