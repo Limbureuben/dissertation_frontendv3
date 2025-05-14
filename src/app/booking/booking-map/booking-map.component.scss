@@ -48,6 +48,22 @@ body {
   color: #007bff;
 }
 
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.half-width {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 250px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
 .map-style-toggle {
   position: absolute;
   top: 80px;

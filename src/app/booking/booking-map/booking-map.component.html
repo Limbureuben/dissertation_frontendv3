@@ -21,3 +21,96 @@
     </ul>
   </div>
   <div class="map" #map></div>
+
+
+  <!-- report-form.component.html -->
+<div class="report-background" id="detailsForm">
+  <div id="closeFormBtn" (click)="closeForm()">
+    <div class="report-container" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeForm()">×</button>
+
+      <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
+        <!-- Username & Contact -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Username</mat-label>
+            <input matInput  placeholder="Enter your username" required />
+            <mat-error *ngIf="reportForm.get('username')?.invalid && reportForm.get('username')?.touched">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Contact</mat-label>
+            <input matInput  placeholder="Enter your contact number" required />
+            <mat-error *ngIf="reportForm.get('contact')?.invalid && reportForm.get('contact')?.touched">
+              Contact is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Date and Time & Duration -->
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Date and Time</mat-label>
+            <input matInput  [matDatepicker]="picker" placeholder="Select date and time" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="reportForm.get('datetime')?.invalid && reportForm.get('datetime')?.touched">
+              Date and time is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width custom-input">
+            <mat-label>Duration</mat-label>
+            <input matInput  placeholder="Enter duration (e.g., 2 hours)" required />
+            <mat-error *ngIf="reportForm.get('duration')?.invalid && reportForm.get('duration')?.touched">
+              Duration is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Purpose -->
+        <mat-form-field appearance="outline" class="full-width custom-input">
+          <mat-label>Purpose</mat-label>
+          <textarea matInput  placeholder="Enter the purpose" required></textarea>
+          <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
+            Purpose is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- File Upload -->
+        <div class="file-upload-container">
+          <label class="file-upload-label">Upload File (from Ward Executive)</label>
+          <div class="file-input-wrapper">
+            <input type="file" id="file-upload" (change)="onFileSelected($event)" />
+            <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="submitting">
+            {{ submitting ? 'Submitting...' : 'Submit Request' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Confirmation Modal -->
+  <div *ngIf="showConfirmationModal" class="confirmation-modal">
+    <div class="modal-content">
+      <h3>Confirm Your Report</h3>
+      <p><strong>Description:</strong> {{ reportForm.value.description }}</p>
+      <p><strong>Email:</strong> {{ reportForm.value.email || 'Not Provided' }}</p>
+      <p><strong>File:</strong> {{ selectedFileName || 'No file selected' }}</p>
+
+      <div class="modal-actions">
+        <button mat-raised-button color="primary" (click)="confirmSubmission()">Confirm</button>
+        <button mat-raised-button color="warn" (click)="cancelSubmission()">Cancel</button>
+      </div>
+    </div>
+  </div>
