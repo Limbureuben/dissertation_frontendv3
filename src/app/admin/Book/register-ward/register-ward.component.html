@@ -1,5 +1,7 @@
-<mat-dialog-content>
+<mat-dialog-content class="custom-form-container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2 class="form-title">Register Account</h2>
+
     <div class="form-row">
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Username</mat-label>
@@ -42,8 +44,8 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button color="warn" (click)="onCancel()">Cancel</button>
   <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
     Register
   </button>
