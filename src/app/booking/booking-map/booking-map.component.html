@@ -28,7 +28,7 @@
   <div id="closeFormBtn" (click)="closeForm()">
     <div class="report-container" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeForm()">×</button>
-
+      <h2 class="form-heading">Book Open Space</h2>
       <form [formGroup]="reportForm" (ngSubmit)="submitReport()">
         <!-- Username & Contact -->
         <div class="form-row">
