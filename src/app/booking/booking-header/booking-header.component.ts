@@ -32,4 +32,9 @@ export class BookingHeaderComponent {
     }
   }
 
+  NavigateToLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/user-home']);
+  }
+
 }
