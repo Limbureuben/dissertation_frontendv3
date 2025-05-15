@@ -52,7 +52,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reportForm = this.fb.group({
     username: ['', Validators.required],
     contact: ['', Validators.required],
-    datetime: ['', Validators.required],
+    date: ['', Validators.required],
     duration: ['', Validators.required],
     purpose: ['', Validators.required],
     file: [null]
@@ -248,35 +248,35 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    submitBook() {
-  if (this.reportForm.invalid) return;
+   submitBook() {
+      if (this.reportForm.invalid) return;
 
-  const formData = new FormData();
-  formData.append('username', this.reportForm.value.username);
-  formData.append('contact', this.reportForm.value.contact);
+      const formData = new FormData();
+      formData.append('username', this.reportForm.value.username);
+      formData.append('contact', this.reportForm.value.contact);
 
-  // ✅ Convert datetime to ISO string
-  const datetime = new Date(this.reportForm.value.datetime).toISOString();
-  formData.append('datetime', datetime);
+      const dateObj = new Date(this.reportForm.value.date);
+      const date = dateObj.toISOString().split('T')[0]; // 'YYYY-MM-DD'
+      formData.append('date', date);
 
-  formData.append('duration', this.reportForm.value.duration);
-  formData.append('purpose', this.reportForm.value.purpose);
+      formData.append('duration', this.reportForm.value.duration);
+      formData.append('purpose', this.reportForm.value.purpose);
 
-  if (this.selectedFile) {
-    formData.append('file', this.selectedFile);
-  }
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
 
-  this.bookingService.bookOpenSpace(formData).subscribe({
-    next: (res) => {
-      this.toastr.success('Booking success', 'Success');
-      this.reportForm.reset();
-    },
-    error: (err) => {
-      console.error(err);
-      this.toastr.error('Failed to book');
+      this.bookingService.bookOpenSpace(formData).subscribe({
+        next: (res) => {
+          this.toastr.success('Booking success', 'Success');
+          this.reportForm.reset();
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastr.error('Failed to book');
+        }
+      });
     }
-  });
-}
 
 
 
