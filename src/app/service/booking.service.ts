@@ -38,11 +38,9 @@ export class BookingService {
     }
 
     bookOpenSpace(data: FormData): Observable<any> {
-      const token = localStorage.getItem('token'); // or however you store it
+      const token = localStorage.getItem('token'); // or wherever you store it
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-      return this.http.post(`${this.resetUrl}/api/openspace/book/`, data, { headers });
+      return this.http.post(`${this.resetUrl}/api/v1/book-open-space/`, data, { headers });
     }
-
 
 }

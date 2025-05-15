@@ -249,30 +249,35 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     submitBook() {
-      if (this.reportForm.invalid) return;
+  if (this.reportForm.invalid) return;
 
-      const formData = new FormData();
-      formData.append('username', this.reportForm.value.username);
-      formData.append('contact', this.reportForm.value.contact);
-      formData.append('datetime', this.reportForm.value.datetime);
-      formData.append('duration', this.reportForm.value.duration);
-      formData.append('purpose', this.reportForm.value.purpose);
+  const formData = new FormData();
+  formData.append('username', this.reportForm.value.username);
+  formData.append('contact', this.reportForm.value.contact);
 
-      if (this.selectedFile) {
-        formData.append('file', this.selectedFile);
-      }
+  // ✅ Convert datetime to ISO string
+  const datetime = new Date(this.reportForm.value.datetime).toISOString();
+  formData.append('datetime', datetime);
 
-      this.bookingService.bookOpenSpace(formData).subscribe({
-        next: (res) => {
-          this.toastr.success('Booking success', 'Success');
-          this.reportForm.reset();
-        },
-        error: (err) => {
-          console.error(err);
-          this.toastr.error('Failed to book');
-        }
-      });
+  formData.append('duration', this.reportForm.value.duration);
+  formData.append('purpose', this.reportForm.value.purpose);
+
+  if (this.selectedFile) {
+    formData.append('file', this.selectedFile);
+  }
+
+  this.bookingService.bookOpenSpace(formData).subscribe({
+    next: (res) => {
+      this.toastr.success('Booking success', 'Success');
+      this.reportForm.reset();
+    },
+    error: (err) => {
+      console.error(err);
+      this.toastr.error('Failed to book');
     }
+  });
+}
+
 
 
   // submitReport(): void {
