@@ -25,6 +25,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedSpace: any = null;
   openSpaces: any[] = [];
   selectedFile: File | null = null;
+  submitting = false;
   selectedFileName: string = '';
 
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
