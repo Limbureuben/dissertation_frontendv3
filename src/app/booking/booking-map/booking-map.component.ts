@@ -155,6 +155,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.reportForm.invalid) return;
 
     const formData = new FormData();
+    formData.append('space_id', this.selectedSpace.id.toString());
     formData.append('username', this.reportForm.value.username);
     formData.append('contact', this.reportForm.value.contact);
     const dateObj = new Date(this.reportForm.value.date);
