@@ -98,19 +98,21 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         .setLngLat([space.longitude, space.latitude])
         .addTo(this.map as Map);
 
+      const isAvailable = space.status === 'available';
+
       const popupContent = document.createElement('div');
       popupContent.classList.add('popup-content');
       popupContent.innerHTML = `
         <h3>${space.name}</h3>
         <p>Location: (${space.latitude}, ${space.longitude})</p>
-        <p>Status: ${space.is_available ? 'Available' : 'Booked'}</p>
+        <p>Status: ${isAvailable ? 'Available' : 'Booked'}</p>
       `;
 
       const popup = new Popup({ offset: 25 }).setDOMContent(popupContent);
       marker.setPopup(popup);
 
       marker.getElement().addEventListener('click', () => {
-        if (space.is_available) {
+        if (isAvailable) {
           this.openBookingForm(space);
         } else {
           this.toastr.warning('This space is currently booked.', 'Not Available');
@@ -118,6 +120,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
   }
+
 
   openBookingForm(space: any) {
     this.selectedSpace = space;

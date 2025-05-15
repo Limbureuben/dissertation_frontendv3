@@ -193,7 +193,8 @@ export const GET_ALL_OPENSPACES_USER = gql`
       name
       longitude
       latitude
-      district
+      district,
+      status
     }
   }
 `;
