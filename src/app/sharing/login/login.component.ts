@@ -196,7 +196,7 @@ OnSubmit() {
         } else if (response.user.isWardExecutive) {
           this.router.navigate(['/executive']);
         } else {
-          this.router.navigate(['/homepage']);
+          this.router.navigate(['/admin']);
         }
       } else {
           this.toastr.error(response.message || 'Login failed', 'Error', {
