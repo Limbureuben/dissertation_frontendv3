@@ -186,20 +186,20 @@ h2 {
   }
 
   .cards-wrapper {
-    gap: 10px; /* Even smaller gap between cards */
+    gap: 10px;
   }
 
   .card {
-    width: 100%; /* Ensure cards take up full width */
-    height: auto; /* Allow card height to adjust with content */
+    width: 100%;
+    height: auto;
   }
 
   h2 {
-    font-size: 20px; /* Make heading even smaller for phones */
+    font-size: 20px;
   }
 
   .description {
-    font-size: 12px; /* Make description text smaller for phones */
+    font-size: 12px;
   }
 }
 
@@ -232,7 +232,7 @@ h2 {
   position: relative; /* Ensures proper positioning */
   background: white;
   padding: 20px;
-  border-radius: 4px;
+  border-radius: 2px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   width: 90%;
