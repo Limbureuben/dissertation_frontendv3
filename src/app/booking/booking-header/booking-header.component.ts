@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-booking-header',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 export class BookingHeaderComponent {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
 
@@ -32,9 +34,19 @@ export class BookingHeaderComponent {
     }
   }
 
+
   NavigateToLogout() {
-    localStorage.removeItem('token');
+  localStorage.removeItem('token');
+  localStorage.removeItem('role');
+
+  this.toastr.success('Logout success', '', {
+    timeOut: 1500,
+    progressBar: true,
+    positionClass: 'toast-top-right'
+  });
+  setTimeout(() => {
     this.router.navigate(['/user-home']);
-  }
+  }, 1500);
+}
 
 }
