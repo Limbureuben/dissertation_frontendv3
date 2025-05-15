@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: SidebarComponent,
-    canActivate: [authGuard],
+    canActivate: [],
     children: [
       { path: 'dash', component: DashComponent },
       { path: 'map-common', component: MapCommonComponent },
