@@ -68,13 +68,29 @@
         </div>
 
         <!-- Purpose -->
-        <mat-form-field appearance="outline" class="full-width custom-input">
-          <mat-label>Purpose</mat-label>
-          <textarea matInput formControlName="purpose" placeholder="Enter the purpose" required></textarea>
-          <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
-            Purpose is required
-          </mat-error>
-        </mat-form-field>
+       <!-- Purpose and District (side by side) -->
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width custom-input">
+        <mat-label>Purpose</mat-label>
+        <textarea matInput formControlName="purpose" placeholder="Enter the purpose" required></textarea>
+        <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
+          Purpose is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width custom-input">
+        <mat-label>District</mat-label>
+        <mat-select formControlName="district" required>
+          <mat-option *ngFor="let district of districts" [value]="district">
+            {{ district }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reportForm.get('district')?.invalid && reportForm.get('district')?.touched">
+          District is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
 
         <!-- File Upload -->
         <div class="file-upload-container">

@@ -28,6 +28,14 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedFileName = '';
   submitting = false;
 
+  districts: string[] = [
+  'Ilala', 'Kinondoni', 'Temeke', 'Ubungo', 'Kigamboni',
+  'Kibaha', 'Bagamoyo', 'Mkuranga', 'Kisarawe', 'Rufiji',
+  'Morogoro', 'Dodoma', 'Iringa', 'Mbeya', 'Mtwara',
+  'Lindi', 'Tanga', 'Arusha', 'Moshi', 'Singida'
+];
+
+
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
   reportForm: FormGroup;
