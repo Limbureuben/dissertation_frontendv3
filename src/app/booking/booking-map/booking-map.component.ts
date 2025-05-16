@@ -14,6 +14,7 @@ import { BookingService } from '../../service/booking.service';
 import jsPDF from 'jspdf';
 
 
+
 @Component({
   selector: 'app-booking-map',
   standalone: false,
@@ -199,7 +200,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     formData.append('purpose', this.reportForm.value.purpose);
     formData.append('district', this.reportForm.value.district);
 
-    // 🟡 Always prioritize auto-generated PDF over manually uploaded file
     const fileToAttach = this.pdfBlob || this.selectedFile;
     if (fileToAttach) {
       const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
@@ -282,22 +282,26 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     doc.setFontSize(12);
     doc.text(`Username: ${username}`, 20, 40);
     doc.text(`Contact: ${contact}`, 20, 50);
-    doc.text(`Date: ${date}`, 20, 60);
-    doc.text(`District: ${district}`, 20, 70);
+    doc.text(`Date: ${new Date(date).toLocaleDateString()}`, 20, 60);
+    doc.text(`Ward: ${district}`, 20, 70);
     doc.text(`Duration: ${duration}`, 20, 80);
     doc.text(`Purpose: ${purpose}`, 20, 90);
 
-    // Convert PDF to Blob
+    // Convert to Blob
     const pdfOutput = doc.output('blob');
+
+    // Assign blob to a class-level variable
     this.pdfBlob = pdfOutput;
 
-    // ✅ Attach PDF blob to form control
-    this.reportForm.patchValue({ pdfFile: pdfOutput });
+    // Attach blob to form as a File for upload
+    const file = new File([pdfOutput], 'booking-details.pdf', { type: 'application/pdf' });
+    this.reportForm.patchValue({ pdfFile: file });
 
-    // Create a URL for the PDF preview iframe
+    // Create preview URL for iframe
     this.pdfUrl = URL.createObjectURL(pdfOutput);
     this.showPreview = true;
   }
+
 
 
   downloadPDF() {
