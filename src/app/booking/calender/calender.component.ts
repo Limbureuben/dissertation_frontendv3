@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
-import { BookingService } from '../../service/booking.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { BookingService } from '../../service/booking.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-calender',
@@ -11,46 +12,52 @@ import interactionPlugin from '@fullcalendar/interaction';
   styleUrl: './calender.component.scss'
 })
 export class CalenderComponent implements OnInit {
+  calendarReady = false;
+
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
+    // statically assign plugins here, since dynamic import causes viewType errors
     plugins: [dayGridPlugin, interactionPlugin],
+    initialView: 'dayGridMonth',
     events: [],
     eventClick: this.handleEventClick.bind(this),
-    height: 500
-    // eventDidMount will be conditionally assigned
+    eventDidMount: this.handleEventTooltip.bind(this),
+    height: 500,
   };
 
-  constructor(private bookingService: BookingService) {}
+  constructor(
+    private bookingService: BookingService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    // Only assign tooltip logic if in the browser
-    if (typeof document !== 'undefined') {
-      this.calendarOptions.eventDidMount = this.handleEventTooltip.bind(this);
-    }
+    if (isPlatformBrowser(this.platformId)) {
+      this.bookingService.getBookedSpaces().subscribe(bookings => {
+        const groupedByDate: { [key: string]: any[] } = {};
 
-    this.bookingService.getBookedSpaces().subscribe(bookings => {
-      const groupedByDate: { [key: string]: any[] } = {};
+        bookings.forEach(b => {
+          if (!groupedByDate[b.date]) {
+            groupedByDate[b.date] = [];
+          }
+          groupedByDate[b.date].push(b);
+        });
 
-      // Group bookings by date
-      bookings.forEach(b => {
-        if (!groupedByDate[b.date]) {
-          groupedByDate[b.date] = [];
-        }
-        groupedByDate[b.date].push(b);
+        const events = Object.entries(groupedByDate).map(([date, bookingsOnDate]) => ({
+          title: '',
+          date,
+          color: '#4CAF50',
+          extendedProps: {
+            bookings: bookingsOnDate
+          }
+        }));
+
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          events,
+        };
+
+        this.calendarReady = true; // show calendar only after events load
       });
-
-      // Map to FullCalendar event format
-      const events = Object.entries(groupedByDate).map(([date, bookingsOnDate]) => ({
-        title: '', // No text shown on calendar cell
-        date,
-        color: '#4CAF50', // Always green (or use getColorByStatus if needed)
-        extendedProps: {
-          bookings: bookingsOnDate
-        }
-      }));
-
-      this.calendarOptions.events = events;
-    });
+    }
   }
 
   handleEventClick(info: any) {
@@ -67,21 +74,11 @@ export class CalenderComponent implements OnInit {
   }
 
   handleEventTooltip(info: any) {
-    // Avoid SSR issues: make sure this only runs in browser
-    if (typeof document !== 'undefined') {
+    if (isPlatformBrowser(this.platformId)) {
       const tooltip = document.createElement('div');
-      tooltip.innerHTML = 'Booked'; // You can customize this
+      tooltip.innerHTML = 'Booked';
       tooltip.className = 'fc-tooltip';
       info.el.setAttribute('title', tooltip.textContent || '');
-    }
-  }
-
-  getColorByStatus(status: string): string {
-    switch (status) {
-      case 'approved': return '#4CAF50'; // green
-      case 'pending': return '#FFC107';  // amber
-      case 'rejected': return '#F44336'; // red
-      default: return '#607D8B';         // grey
     }
   }
 }
