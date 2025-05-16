@@ -27,13 +27,17 @@ import { MatTableModule } from '@angular/material/table';
 import { BookingMapComponent } from './booking-map/booking-map.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import { CalenderComponent } from './calender/calender.component';
+
 
 
 @NgModule({
   declarations: [
     BookingdashboardComponent,
     BookingHeaderComponent,
-    BookingMapComponent
+    BookingMapComponent,
+    CalenderComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +62,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatGridListModule,
     MatPaginatorModule,
     MatTableModule,
+    FullCalendarModule
   ]
 })
 export class BookingModule { }

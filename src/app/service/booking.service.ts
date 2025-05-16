@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GET_ALL_EXECUTIVE, REGISTER_USER } from '../graphql';
+import { GET_ALL_EXECUTIVE, GET_BOOKED_SPACES, REGISTER_USER } from '../graphql';
 import { map, Observable } from 'rxjs';
 import { RegisterData } from '../models/openspace.model';
 import { Apollo } from 'apollo-angular';
@@ -42,5 +42,20 @@ export class BookingService {
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       return this.http.post(`${this.resetUrl}/api/v1/book-open-space/`, data, { headers });
     }
+
+    getAllBookings() {
+
+    }
+
+    getBookedSpaces() {
+    return this.apollo
+      .watchQuery<any>({
+        query: GET_BOOKED_SPACES
+      })
+      .valueChanges.pipe(
+        map(result => result.data.bookedOpenspace)
+      );
+  }
+
 
 }

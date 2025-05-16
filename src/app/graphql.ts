@@ -332,3 +332,14 @@ export const GET_ALL_EXECUTIVE = gql`
     }
   }
 `;
+
+export const GET_BOOKED_SPACES = gql`
+  query MyQuery {
+    bookedOpenspace {
+      date
+      district
+      duration
+      username
+    }
+  }
+`;
