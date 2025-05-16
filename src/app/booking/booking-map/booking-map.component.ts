@@ -29,10 +29,10 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   submitting = false;
 
   districts: string[] = [
-  'Ilala', 'Kinondoni', 'Temeke', 'Ubungo', 'Kigamboni',
-  'Kibaha', 'Bagamoyo', 'Mkuranga', 'Kisarawe', 'Rufiji',
-  'Morogoro', 'Dodoma', 'Iringa', 'Mbeya', 'Mtwara',
-  'Lindi', 'Tanga', 'Arusha', 'Moshi', 'Singida'
+  'Bunju', 'Hananasif', 'Kawe','Kigogo', 'Kijitonyama', 'Kinondoni',
+  'Kunduchi', 'Mabwepande', 'Magomeni', 'Makongo', 'Makumbusho',
+  'Mbezi juu', 'Mbweni', 'Mikocheni', 'Msasani', 'Mwananyamala',
+  'Mzimuni', 'Ndugumbi', 'Tandale', 'Wazo'
 ];
 
 

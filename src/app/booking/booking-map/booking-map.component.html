@@ -79,7 +79,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="half-width custom-input">
-        <mat-label>District</mat-label>
+        <mat-label>Ward</mat-label>
         <mat-select formControlName="district" required>
           <mat-option *ngFor="let district of districts" [value]="district">
             {{ district }}
@@ -94,7 +94,7 @@
 
         <!-- File Upload -->
         <div class="file-upload-container">
-          <label class="file-upload-label">Upload File (from Ward Executive)</label>
+          <label class="file-upload-label">Upload File (from Chair person)</label>
           <div class="file-input-wrapper">
             <input type="file" id="file-upload" (change)="onFileSelected($event)" />
             <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
