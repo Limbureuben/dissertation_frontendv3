@@ -261,87 +261,87 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // --- PDF preview methods ---
 
-  previewPDF() {
-    if (this.reportForm.invalid) {
-      this.toastr.warning('Please fill all form fields before previewing the PDF.');
-      return;
-    }
+  // previewPDF() {
+  //   if (this.reportForm.invalid) {
+  //     this.toastr.warning('Please fill all form fields before previewing the PDF.');
+  //     return;
+  //   }
 
-    const doc = new jsPDF();
+  //   const doc = new jsPDF();
 
-    const username = this.reportForm.get('username')?.value;
-    const contact = this.reportForm.get('contact')?.value;
-    const date = this.reportForm.get('date')?.value;
-    const district = this.reportForm.get('district')?.value;
-    const duration = this.reportForm.get('duration')?.value;
-    const purpose = this.reportForm.get('purpose')?.value;
+  //   const username = this.reportForm.get('username')?.value;
+  //   const contact = this.reportForm.get('contact')?.value;
+  //   const date = this.reportForm.get('date')?.value;
+  //   const district = this.reportForm.get('district')?.value;
+  //   const duration = this.reportForm.get('duration')?.value;
+  //   const purpose = this.reportForm.get('purpose')?.value;
 
-    const formattedDate = new Date(date).toLocaleDateString();
+  //   const formattedDate = new Date(date).toLocaleDateString();
 
-    // Header
-    doc.setFontSize(16);
-    doc.setTextColor(63, 81, 181);
-    doc.setFont("helvetica", "bold");
-    doc.text("KINONDONI MUNICIPAL PUBLIC OPENSPACE MANAGEMENT", 105, 20, { align: "center" });
+  //   // Header
+  //   doc.setFontSize(16);
+  //   doc.setTextColor(63, 81, 181);
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("KINONDONI MUNICIPAL PUBLIC OPENSPACE MANAGEMENT", 105, 20, { align: "center" });
 
-    doc.setTextColor(0, 0, 0);
+  //   doc.setTextColor(0, 0, 0);
 
-    // Divider line
-    doc.setDrawColor(0);
-    doc.line(20, 25, 190, 25);
+  //   // Divider line
+  //   doc.setDrawColor(0);
+  //   doc.line(20, 25, 190, 25);
 
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "normal");
-    doc.text(`From: ${username}`, 20, 35);
-    doc.text("Through: Ward Executive Officer", 20, 42);
-    doc.text("To: Kinondoni Municipal Staff", 20, 49);
+  //   doc.setFontSize(12);
+  //   doc.setFont("helvetica", "normal");
+  //   doc.text(`From: ${username}`, 20, 35);
+  //   doc.text("Through: Ward Executive Officer", 20, 42);
+  //   doc.text("To: Kinondoni Municipal Staff", 20, 49);
 
-    // Section: Booking Information
-    doc.setFont("helvetica", "bold");
-    doc.text("Booking Information:", 20, 60);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Username: ${username}`, 20, 68);
-    doc.text(`Contact: ${contact}`, 20, 75);
-    doc.text(`Ward: ${district}`, 20, 82);
-    doc.text(`Booking Date: ${formattedDate}`, 20, 89);
-    doc.text(`Duration: ${duration}`, 20, 96);
-    doc.text(`Purpose: ${purpose}`, 20, 103);
+  //   // Section: Booking Information
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("Booking Information:", 20, 60);
+  //   doc.setFont("helvetica", "normal");
+  //   doc.text(`Username: ${username}`, 20, 68);
+  //   doc.text(`Contact: ${contact}`, 20, 75);
+  //   doc.text(`Ward: ${district}`, 20, 82);
+  //   doc.text(`Booking Date: ${formattedDate}`, 20, 89);
+  //   doc.text(`Duration: ${duration}`, 20, 96);
+  //   doc.text(`Purpose: ${purpose}`, 20, 103);
 
-    // Section: Sending Details
-    doc.setFont("helvetica", "bold");
-    doc.text("Submission Details:", 20, 115);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Date of Sending: ${new Date().toLocaleDateString()}`, 20, 123);
+  //   // Section: Sending Details
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("Submission Details:", 20, 115);
+  //   doc.setFont("helvetica", "normal");
+  //   doc.text(`Date of Sending: ${new Date().toLocaleDateString()}`, 20, 123);
 
-    // Section: Digital Signature
-    doc.setFont("helvetica", "bold");
-    doc.text("User Signature:", 20, 135);
-    doc.setFont("helvetica", "italic");
-    doc.text(`${username}`, 60, 135);
+  //   // Section: Digital Signature
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("User Signature:", 20, 135);
+  //   doc.setFont("helvetica", "italic");
+  //   doc.text(`${username}`, 60, 135);
 
-    // Decorative Footer Line
-    doc.setDrawColor(150);
-    doc.line(20, 280, 190, 280);
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
+  //   // Decorative Footer Line
+  //   doc.setDrawColor(150);
+  //   doc.line(20, 280, 190, 280);
+  //   doc.setFontSize(10);
+  //   doc.setTextColor(100);
+  //   doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
 
-    // Convert to blob and preview
-    setTimeout(() => {
-      const pdfBlob = doc.output('blob');
-      const file = new File([pdfBlob], 'booking-details.pdf', { type: 'application/pdf' });
+  //   // Convert to blob and preview
+  //   setTimeout(() => {
+  //     const pdfBlob = doc.output('blob');
+  //     const file = new File([pdfBlob], 'booking-details.pdf', { type: 'application/pdf' });
 
-      this.pdfBlob = pdfBlob;
-      this.reportForm.patchValue({ pdfFile: file });
+  //     this.pdfBlob = pdfBlob;
+  //     this.reportForm.patchValue({ pdfFile: file });
 
-      if (this.pdfUrl) {
-        URL.revokeObjectURL(this.pdfUrl);
-      }
+  //     if (this.pdfUrl) {
+  //       URL.revokeObjectURL(this.pdfUrl);
+  //     }
 
-      this.pdfUrl = URL.createObjectURL(pdfBlob);
-      this.showPreview = true;
-    }, 0);
-  }
+  //     this.pdfUrl = URL.createObjectURL(pdfBlob);
+  //     this.showPreview = true;
+  //   }, 0);
+  // }
 
 
 
@@ -380,7 +380,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     doc.setFont("helvetica", "bold");
     doc.text("FROM:", leftColX, currentY);
     doc.setFont("helvetica", "normal");
-    doc.text("User", rightColX, currentY);
+    doc.text(`${username }`, rightColX, currentY);
     currentY += 8;
 
     doc.setFont("helvetica", "bold");

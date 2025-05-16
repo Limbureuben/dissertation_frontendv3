@@ -411,3 +411,23 @@ mat-form-field.custom-input textarea {
   gap: 1rem;
   margin-top: 1rem;
 }
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+  color: #3f51b5;
+}
+
+.report-background {
+  position: relative; /* Needed for the absolute spinner overlay to work */
+}

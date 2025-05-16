@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { BookingMapComponent } from './booking-map/booking-map.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -51,6 +52,7 @@ import { BookingMapComponent } from './booking-map/booking-map.component';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatListModule,
     MatDialogModule,
     MatGridListModule,

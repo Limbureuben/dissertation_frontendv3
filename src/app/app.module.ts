@@ -37,6 +37,7 @@ import { environment } from '../environments/environment';
 import { BookingModule } from './booking/booking.module';
 import { WardexecutiveModule } from './wardexecutive/wardexecutive.module';
 import { AuthInterceptor } from './auth.interceptors';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ToastModule } from 'primeng/toast';
 
@@ -63,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     GraphQLModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
