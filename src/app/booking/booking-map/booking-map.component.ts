@@ -289,11 +289,10 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     // Divider line
     doc.setDrawColor(0);
     doc.line(20, 25, 190, 25);
-
-    // Section: Booking Flow Info
+    
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("From: User", 20, 35);
+    doc.text(`From: ${username}`, 20, 35);
     doc.text("Through: Ward Executive Officer", 20, 42);
     doc.text("To: Kinondoni Municipal Staff", 20, 49);
 
