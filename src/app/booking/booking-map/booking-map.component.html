@@ -1,6 +1,6 @@
 <app-booking-header />
 <div class="map-wrap">
-
+  <!-- Map Style Toggle -->
   <div class="map-style-toggle">
     <select #styleSelect (change)="changeMapStyle(styleSelect.value)">
       <option value="streets">Street</option>
@@ -8,8 +8,8 @@
       <option value="topo">Topographic</option>
       <option value="basic">Basic</option>
     </select>
-
   </div>
+
   <!-- Search Box -->
   <div class="search-box">
     <input #searchInput type="text" placeholder="Search location..." [(ngModel)]="searchQuery" (input)="fetchSuggestions()">
@@ -20,85 +20,101 @@
       </li>
     </ul>
   </div>
+
+  <!-- Map Container -->
   <div class="map" #map></div>
 
+  <!-- Booking Form -->
+  <div class="report-background" id="detailsForm">
+    <div id="closeFormBtn" (click)="closeForm()">
+      <div class="report-container" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeForm()">×</button>
+        <h2 class="form-heading">Book Open Space</h2>
+        <form [formGroup]="reportForm" (ngSubmit)="submitBook()">
+          <!-- Username & Contact -->
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" placeholder="Enter your username" required />
+              <mat-error *ngIf="reportForm.get('username')?.invalid && reportForm.get('username')?.touched">
+                Username is required
+              </mat-error>
+            </mat-form-field>
 
-  <!-- report-form.component.html -->
-<div class="report-background" id="detailsForm">
-  <div id="closeFormBtn" (click)="closeForm()">
-    <div class="report-container" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="closeForm()">×</button>
-      <h2 class="form-heading">Book Open Space</h2>
-      <form [formGroup]="reportForm" (ngSubmit)="submitBook()">
-        <!-- Username & Contact -->
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="half-width custom-input">
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" placeholder="Enter your username" required />
-            <mat-error *ngIf="reportForm.get('username')?.invalid && reportForm.get('username')?.touched">
-              Username is required
-            </mat-error>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Contact</mat-label>
+              <input matInput formControlName="contact" placeholder="Enter your contact number" required />
+              <mat-error *ngIf="reportForm.get('contact')?.invalid && reportForm.get('contact')?.touched">
+                Contact is required
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline" class="half-width custom-input">
-            <mat-label>Contact</mat-label>
-            <input matInput formControlName="contact" placeholder="Enter your contact number" required />
-            <mat-error *ngIf="reportForm.get('contact')?.invalid && reportForm.get('contact')?.touched">
-              Contact is required
-            </mat-error>
-          </mat-form-field>
-        </div>
+          <!-- Date & Duration -->
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Date</mat-label>
+              <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Select date" required />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-        <!-- Date and Time & Duration -->
-        <div class="form-row">
-          <mat-form-field appearance="outline" class="half-width custom-input">
-            <mat-label>Date</mat-label>
-            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Select date" required />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Duration</mat-label>
+              <input matInput formControlName="duration" placeholder="Enter duration (e.g., 2 hours)" required />
+              <mat-error *ngIf="reportForm.get('duration')?.invalid && reportForm.get('duration')?.touched">
+                Duration is required
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field appearance="outline" class="half-width custom-input">
-            <mat-label>Duration</mat-label>
-            <input matInput formControlName="duration" placeholder="Enter duration (e.g., 2 hours)" required />
-            <mat-error *ngIf="reportForm.get('duration')?.invalid && reportForm.get('duration')?.touched">
-              Duration is required
-            </mat-error>
-          </mat-form-field>
-        </div>
+          <!-- Purpose & Ward -->
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Purpose</mat-label>
+              <textarea matInput formControlName="purpose" placeholder="Enter the purpose" required></textarea>
+              <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
+                Purpose is required
+              </mat-error>
+            </mat-form-field>
 
-        <!-- Purpose -->
-       <!-- Purpose and District (side by side) -->
-    <div class="form-row">
-      <mat-form-field appearance="outline" class="half-width custom-input">
-        <mat-label>Purpose</mat-label>
-        <textarea matInput formControlName="purpose" placeholder="Enter the purpose" required></textarea>
-        <mat-error *ngIf="reportForm.get('purpose')?.invalid && reportForm.get('purpose')?.touched">
-          Purpose is required
-        </mat-error>
-      </mat-form-field>
+            <mat-form-field appearance="outline" class="half-width custom-input">
+              <mat-label>Ward</mat-label>
+              <mat-select formControlName="district" required>
+                <mat-option *ngFor="let district of districts" [value]="district">{{ district }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="reportForm.get('district')?.invalid && reportForm.get('district')?.touched">
+                District is required
+              </mat-error>
+            </mat-form-field>
+          </div>
 
-      <mat-form-field appearance="outline" class="half-width custom-input">
-        <mat-label>Ward</mat-label>
-        <mat-select formControlName="district" required>
-          <mat-option *ngFor="let district of districts" [value]="district">
-            {{ district }}
-          </mat-option>
-        </mat-select>
-            <mat-error *ngIf="reportForm.get('district')?.invalid && reportForm.get('district')?.touched">
-              District is required
-            </mat-error>
-          </mat-form-field>
-        </div>
+          <!-- Action Buttons -->
+          <div class="actions">
+            <button mat-raised-button color="primary" type="button"
+              (click)="previewPDF()" [disabled]="!reportForm.valid || !selectedSpace">
+              Preview PDF
+            </button>
 
-        <!-- Submit Button -->
-        <div class="actions">
-          <button mat-raised-button color="primary" type="submit" [disabled]="submitting">
-            {{ submitting ? 'Submitting...' : 'Submit Request' }}
-          </button>
-        </div>
-      </form>
+            <button mat-raised-button color="accent" type="submit"
+              [disabled]="submitting || !pdfBlob">
+              {{ submitting ? 'Submitting...' : 'Submit Request' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Preview Modal -->
+  <div *ngIf="showPreview" class="pdf-preview-modal">
+    <div class="modal-content">
+      <h3>Booking PDF Preview</h3>
+      <iframe [src]="pdfUrl" width="100%" height="500px" style="border: none;"></iframe>
+      <div class="modal-actions">
+        <button mat-button (click)="downloadPDF()">Download</button>
+        <button mat-button color="warn" (click)="closePreview()">Close</button>
+      </div>
     </div>
   </div>
 </div>
-
