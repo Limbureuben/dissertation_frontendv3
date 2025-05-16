@@ -46,6 +46,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   pdfUrl: any = null;
   showPreview: boolean = false;
 
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private openSpaceService: OpenspaceService,
@@ -291,10 +292,14 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const pdfOutput = doc.output('blob');
     this.pdfBlob = pdfOutput;
 
+    // ✅ Attach PDF blob to form control
+    this.reportForm.patchValue({ pdfFile: pdfOutput });
+
     // Create a URL for the PDF preview iframe
     this.pdfUrl = URL.createObjectURL(pdfOutput);
     this.showPreview = true;
   }
+
 
   downloadPDF() {
     if (!this.pdfBlob) {
