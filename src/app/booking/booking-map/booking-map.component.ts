@@ -40,8 +40,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectedFile: File | null = null;
   selectedFileName: string = '';
-
-  // --- New properties for PDF preview ---
   pdfBlob: Blob | null = null;
   pdfUrl: any = null;
   showPreview: boolean = false;
@@ -195,17 +193,17 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     formData.append('contact', this.reportForm.value.contact);
 
     const dateObj = new Date(this.reportForm.value.date);
-    const formattedDate = dateObj.toISOString().split('T')[0];
+    const formattedDate = dateObj.toISOString().split('T')[0]; // Format: yyyy-mm-dd
     formData.append('date', formattedDate);
     formData.append('duration', this.reportForm.value.duration);
     formData.append('purpose', this.reportForm.value.purpose);
     formData.append('district', this.reportForm.value.district);
 
-    // Append the PDF Blob as a file
-    if (this.pdfBlob) {
-      formData.append('file', this.pdfBlob, 'booking-details.pdf');
-    } else if (this.selectedFile) {
-      formData.append('file', this.selectedFile);
+    // 🟡 Always prioritize auto-generated PDF over manually uploaded file
+    const fileToAttach = this.pdfBlob || this.selectedFile;
+    if (fileToAttach) {
+      const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
+      formData.append('file', fileToAttach, fileName);
     }
 
     this.bookingService.bookOpenSpace(formData).subscribe({
@@ -228,6 +226,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
 
   fetchSuggestions() {
     if (!this.searchQuery) {
