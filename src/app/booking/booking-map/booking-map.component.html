@@ -85,21 +85,12 @@
             {{ district }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="reportForm.get('district')?.invalid && reportForm.get('district')?.touched">
-          District is required
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-
-        <!-- File Upload -->
-        <div class="file-upload-container">
-          <label class="file-upload-label">Upload File (from Chair person)</label>
-          <div class="file-input-wrapper">
-            <input type="file" id="file-upload" (change)="onFileSelected($event)" />
-            <span class="file-name">{{ selectedFileName || 'No file chosen' }}</span>
-          </div>
+            <mat-error *ngIf="reportForm.get('district')?.invalid && reportForm.get('district')?.touched">
+              District is required
+            </mat-error>
+          </mat-form-field>
         </div>
+
         <!-- Submit Button -->
         <div class="actions">
           <button mat-raised-button color="primary" type="submit" [disabled]="submitting">

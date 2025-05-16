@@ -24,8 +24,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   suggestions: any[] = [];
   selectedSpace: any = null;
   openSpaces: any[] = [];
-  selectedFile: File | null = null;
-  selectedFileName = '';
   submitting = false;
 
   districts: string[] = [
@@ -160,13 +158,13 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     document.getElementById('file-upload')?.click();
   }
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-      this.selectedFileName = file.name;
-    }
-  }
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     this.selectedFile = file;
+  //     this.selectedFileName = file.name;
+  //   }
+  // }
 
   submitBook() {
     if (this.reportForm.invalid || !this.selectedSpace) {
@@ -186,14 +184,14 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     formData.append('date', formattedDate);
     formData.append('duration', this.reportForm.value.duration);
     formData.append('purpose', this.reportForm.value.purpose);
-    if (this.selectedFile) formData.append('file', this.selectedFile);
+    // if (this.selectedFile) formData.append('file', this.selectedFile);
 
     this.bookingService.bookOpenSpace(formData).subscribe({
       next: () => {
         this.toastr.success('Booking successful!', 'Success');
         this.reportForm.reset();
-        this.selectedFile = null;
-        this.selectedFileName = '';
+        // this.selectedFile = null;
+        // this.selectedFileName = '';
         this.closeForm();
         this.submitting = false;
         this.fetchOpenSpaces(); // Refresh markers
