@@ -282,14 +282,14 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     doc.setFontSize(16);
     doc.setTextColor(63, 81, 181);
     doc.setFont("helvetica", "bold");
-    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 20, { align: "center" });
+    doc.text("KINONDONI MUNICIPAL PUBLIC OPENSPACE MANAGEMENT", 105, 20, { align: "center" });
 
     doc.setTextColor(0, 0, 0);
 
     // Divider line
     doc.setDrawColor(0);
     doc.line(20, 25, 190, 25);
-    
+
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     doc.text(`From: ${username}`, 20, 35);
