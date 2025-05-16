@@ -61,7 +61,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       district: ['', Validators.required],
       duration: ['', Validators.required],
       purpose: ['', Validators.required],
-      file: [null]
+      pdfFile: [null]
     });
   }
 
@@ -333,7 +333,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=${config.apiKey}`;
     this.map?.setStyle(styleUrl);
   }
-  
+
 }
 
 
