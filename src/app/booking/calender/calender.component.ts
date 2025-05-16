@@ -11,49 +11,69 @@ import interactionPlugin from '@fullcalendar/interaction';
   styleUrl: './calender.component.scss'
 })
 export class CalenderComponent implements OnInit {
-
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, interactionPlugin],
     events: [],
     eventClick: this.handleEventClick.bind(this),
-    eventDidMount: this.handleEventTooltip.bind(this),
-    height: 'auto'
+    height: 500
+    // eventDidMount will be conditionally assigned
   };
 
   constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
+    // Only assign tooltip logic if in the browser
+    if (typeof document !== 'undefined') {
+      this.calendarOptions.eventDidMount = this.handleEventTooltip.bind(this);
+    }
+
     this.bookingService.getBookedSpaces().subscribe(bookings => {
-      this.calendarOptions.events = bookings.map(b => ({
-        title: `Booked by ${b.username}`,
-        date: b.date,
-        color: this.getColorByStatus(b.status),
+      const groupedByDate: { [key: string]: any[] } = {};
+
+      // Group bookings by date
+      bookings.forEach(b => {
+        if (!groupedByDate[b.date]) {
+          groupedByDate[b.date] = [];
+        }
+        groupedByDate[b.date].push(b);
+      });
+
+      // Map to FullCalendar event format
+      const events = Object.entries(groupedByDate).map(([date, bookingsOnDate]) => ({
+        title: '', // No text shown on calendar cell
+        date,
+        color: '#4CAF50', // Always green (or use getColorByStatus if needed)
         extendedProps: {
-          username: b.username,
-          contact: b.contact,
-          purpose: b.purpose
+          bookings: bookingsOnDate
         }
       }));
+
+      this.calendarOptions.events = events;
     });
   }
 
   handleEventClick(info: any) {
-    const { title, start, extendedProps } = info.event;
+    const { start, extendedProps } = info.event;
+    const bookings = extendedProps.bookings || [];
+
+    const message = bookings.map((b: any, i: number) => (
+      `${i + 1}. ${b.username} (Contact: ${b.contact}, Purpose: ${b.purpose})`
+    )).join('\n');
+
     alert(
-      `Booking Details:\n\n` +
-      `Title: ${title}\n` +
-      `Date: ${start.toDateString()}\n` +
-      `Purpose: ${extendedProps.purpose}\n` +
-      `Contact: ${extendedProps.contact}`
+      `Bookings on ${start.toDateString()}:\n\n${message || 'No details available.'}`
     );
   }
 
   handleEventTooltip(info: any) {
-    const tooltip = document.createElement('div');
-    tooltip.innerHTML = info.event.title;
-    tooltip.className = 'fc-tooltip';
-    info.el.setAttribute('title', tooltip.textContent || '');
+    // Avoid SSR issues: make sure this only runs in browser
+    if (typeof document !== 'undefined') {
+      const tooltip = document.createElement('div');
+      tooltip.innerHTML = 'Booked'; // You can customize this
+      tooltip.className = 'fc-tooltip';
+      info.el.setAttribute('title', tooltip.textContent || '');
+    }
   }
 
   getColorByStatus(status: string): string {
