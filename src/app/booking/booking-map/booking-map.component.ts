@@ -11,23 +11,22 @@ import { response } from 'express';
 import { switchMap } from 'rxjs/operators';
 import { BookingService } from '../../service/booking.service';
 
+import jsPDF from 'jspdf';
+
+
 @Component({
   selector: 'app-booking-map',
   standalone: false,
   templateUrl: './booking-map.component.html',
   styleUrl: './booking-map.component.scss'
 })
-export class BookingMapComponent implements OnInit, OnDestroy {
+export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
   searchQuery = '';
   suggestions: any[] = [];
   selectedSpace: any = null;
   openSpaces: any[] = [];
   submitting = false;
-
-  selectedFile: File | null = null;
-  selectedFileName: string = '';
-
   districts: string[] = [
     'Bunju', 'Hananasif', 'Kawe','Kigogo', 'Kijitonyama', 'Kinondoni',
     'Kunduchi', 'Mabwepande', 'Magomeni', 'Makongo', 'Makumbusho',
@@ -38,6 +37,14 @@ export class BookingMapComponent implements OnInit, OnDestroy {
   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
   reportForm: FormGroup;
+
+  selectedFile: File | null = null;
+  selectedFileName: string = '';
+
+  // --- New properties for PDF preview ---
+  pdfBlob: Blob | null = null;
+  pdfUrl: any = null;
+  showPreview: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -60,6 +67,9 @@ export class BookingMapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     config.apiKey = '9rtSKNwbDOYAoeEEeW9B';
+  }
+
+  ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.initializeMap();
       this.fetchOpenSpaces();
@@ -80,15 +90,15 @@ export class BookingMapComponent implements OnInit, OnDestroy {
   }
 
   fetchOpenSpaces(): void {
-    this.openSpaceService.getAllOpenSpacesUser().subscribe({
-      next: (data) => {
+    this.openSpaceService.getAllOpenSpacesUser().subscribe(
+      (data) => {
         this.openSpaces = data;
         this.addMarkersToMap();
       },
-      error: (error) => {
+      (error) => {
         console.error('Error fetching open spaces:', error);
       }
-    });
+    );
   }
 
   addMarkersToMap(): void {
@@ -126,7 +136,7 @@ export class BookingMapComponent implements OnInit, OnDestroy {
     });
   }
 
-  openBookingForm(space: any): void {
+  openBookingForm(space: any) {
     this.selectedSpace = space;
 
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
@@ -140,7 +150,7 @@ export class BookingMapComponent implements OnInit, OnDestroy {
     }
   }
 
-  closeForm(): void {
+  closeForm() {
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
     if (formContainer) {
       formContainer.classList.add('closing');
@@ -149,13 +159,15 @@ export class BookingMapComponent implements OnInit, OnDestroy {
         formContainer.style.display = 'none';
       }, 300);
     }
+    // Also reset preview state when closing form
+    this.closePreview();
   }
 
-  triggerFileInput(): void {
+  triggerFileInput() {
     document.getElementById('file-upload')?.click();
   }
 
-  onFileSelected(event: any): void {
+  onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
@@ -163,9 +175,14 @@ export class BookingMapComponent implements OnInit, OnDestroy {
     }
   }
 
-  submitBook(): void {
+  submitBook() {
     if (this.reportForm.invalid || !this.selectedSpace) {
       this.toastr.warning('Please fill all fields and select a space.');
+      return;
+    }
+
+    if (!this.pdfBlob) {
+      this.toastr.warning('Please preview the PDF before submitting.');
       return;
     }
 
@@ -181,8 +198,12 @@ export class BookingMapComponent implements OnInit, OnDestroy {
     formData.append('date', formattedDate);
     formData.append('duration', this.reportForm.value.duration);
     formData.append('purpose', this.reportForm.value.purpose);
+    formData.append('district', this.reportForm.value.district);
 
-    if (this.selectedFile) {
+    // Append the PDF Blob as a file
+    if (this.pdfBlob) {
+      formData.append('file', this.pdfBlob, 'booking-details.pdf');
+    } else if (this.selectedFile) {
       formData.append('file', this.selectedFile);
     }
 
@@ -192,6 +213,9 @@ export class BookingMapComponent implements OnInit, OnDestroy {
         this.reportForm.reset();
         this.selectedFile = null;
         this.selectedFileName = '';
+        this.pdfBlob = null;
+        this.pdfUrl = null;
+        this.showPreview = false;
         this.closeForm();
         this.submitting = false;
         this.fetchOpenSpaces(); // Refresh markers
@@ -204,7 +228,7 @@ export class BookingMapComponent implements OnInit, OnDestroy {
     });
   }
 
-  fetchSuggestions(): void {
+  fetchSuggestions() {
     if (!this.searchQuery) {
       this.suggestions = [];
       return;
@@ -221,7 +245,7 @@ export class BookingMapComponent implements OnInit, OnDestroy {
       .catch(err => console.error("Suggestion fetch error:", err));
   }
 
-  searchLocation(): void {
+  searchLocation() {
     if (!this.searchQuery) return;
 
     fetch(`https://api.maptiler.com/geocoding/${this.searchQuery}.json?key=${config.apiKey}&country=TZ`)
@@ -232,22 +256,71 @@ export class BookingMapComponent implements OnInit, OnDestroy {
           this.map?.flyTo({ center, zoom: 14 });
         }
       })
-      .catch(err => console.error("Search location error:", err));
+      .catch(err => console.error("Search error:", err));
   }
 
-  selectSuggestion(suggestion: any): void {
-    this.searchQuery = suggestion.name;
-    this.map?.flyTo({ center: suggestion.center, zoom: 14 });
-    this.suggestions = [];
+  // --- PDF preview methods ---
+
+  previewPDF() {
+    if (this.reportForm.invalid) {
+      this.toastr.warning('Please fill all form fields before previewing the PDF.');
+      return;
+    }
+
+    const doc = new jsPDF();
+
+    const username = this.reportForm.get('username')?.value;
+    const contact = this.reportForm.get('contact')?.value;
+    const date = this.reportForm.get('date')?.value;
+    const district = this.reportForm.get('district')?.value;
+    const duration = this.reportForm.get('duration')?.value;
+    const purpose = this.reportForm.get('purpose')?.value;
+
+    doc.setFontSize(18);
+    doc.text('Booking Details', 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Username: ${username}`, 20, 40);
+    doc.text(`Contact: ${contact}`, 20, 50);
+    doc.text(`Date: ${date}`, 20, 60);
+    doc.text(`District: ${district}`, 20, 70);
+    doc.text(`Duration: ${duration}`, 20, 80);
+    doc.text(`Purpose: ${purpose}`, 20, 90);
+
+    // Convert PDF to Blob
+    const pdfOutput = doc.output('blob');
+    this.pdfBlob = pdfOutput;
+
+    // Create a URL for the PDF preview iframe
+    this.pdfUrl = URL.createObjectURL(pdfOutput);
+    this.showPreview = true;
   }
 
-  changeMapStyle(styleName: string): void {
-    const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=${config.apiKey}`;
-    this.map?.setStyle(styleUrl);
+  downloadPDF() {
+    if (!this.pdfBlob) {
+      this.toastr.warning('Please preview the PDF first.');
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.href = this.pdfUrl;
+    link.download = 'booking-details.pdf';
+    link.click();
   }
 
-  ngOnDestroy(): void {
-    this.map?.remove();
+  closePreview() {
+    this.showPreview = false;
+    if (this.pdfUrl) {
+      URL.revokeObjectURL(this.pdfUrl);
+      this.pdfUrl = null;
+    }
+    this.pdfBlob = null;
+  }
+
+  ngOnDestroy() {
+    if (this.pdfUrl) {
+      URL.revokeObjectURL(this.pdfUrl);
+    }
   }
 }
 
