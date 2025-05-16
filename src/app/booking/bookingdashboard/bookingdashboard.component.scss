@@ -2,6 +2,7 @@
   height: 80vh;
   overflow-y: auto;
   padding: 20px;
+  background: linear-gradient(to right, #f0f4ff, #e8f0fe);
 }
 
 .dashboard-cards {
@@ -17,7 +18,6 @@
   max-width: 300px;
   height: 150px;
   max-height: 200px;
-  background-color: #ffffff;
   border-radius: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
@@ -70,4 +70,27 @@
 
 .card-footer {
   font-size: 14px;
+}
+
+
+.pdf-generate-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background-color: #1e88e5;
+  color: white;
+  margin-top: 200px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.pdf-generate-button:hover {
+  background-color: #1565c0;
+}
+
+.pdf-generate-button mat-icon {
+  font-size: 24px;
 }

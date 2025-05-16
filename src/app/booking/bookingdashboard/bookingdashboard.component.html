@@ -1,11 +1,19 @@
 <app-booking-header />
-<div class="dashboard-cards-container" @cardStagger>
-  <div class="dashboard-cards">
 
-    <!-- Openspace -->
+<div class="dashboard-cards-container" @cardStagger>
+
+  <!-- PDF Generate Button -->
+  <button mat-raised-button color="primary" class="pdf-generate-button" (click)="generatePDF()">
+    <mat-icon>picture_as_pdf</mat-icon>
+    Generate PDF
+  </button>
+
+
+  <div class="dashboard-cards">
+    <!-- Booking Card -->
     <mat-card class="dashboard-card borrowed">
       <div class="card-icon">
-        <mat-icon>event_seat</mat-icon> <!-- Better reflects a space/venue -->
+        <mat-icon>event_seat</mat-icon>
       </div>
       <div class="card-info">
         <p class="card-title">Booking</p>
@@ -13,7 +21,7 @@
       </div>
     </mat-card>
 
-    <!-- Booking Sucessed -->
+    <!-- Booking Success Card -->
     <mat-card class="dashboard-card profit">
       <div class="card-icon">
         <mat-icon>done_all</mat-icon>
@@ -24,7 +32,7 @@
       </div>
     </mat-card>
 
-    <!-- Free Openspaces -->
+    <!-- Free Openspaces Card -->
     <mat-card class="dashboard-card conversion">
       <div class="card-icon">
         <mat-icon>event_available</mat-icon>
@@ -37,4 +45,3 @@
 
   </div>
 </div>
-

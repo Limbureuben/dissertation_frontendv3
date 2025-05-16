@@ -21,4 +21,11 @@ import { Component } from '@angular/core';
 })
 export class BookingdashboardComponent {
 
+  generatePDF() {
+  // Replace with your actual PDF generation logic
+  console.log("Generating booking PDF...");
+  // Example: this.bookingService.generatePDF();
+}
+
+
 }
