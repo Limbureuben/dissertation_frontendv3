@@ -276,18 +276,56 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const duration = this.reportForm.get('duration')?.value;
     const purpose = this.reportForm.get('purpose')?.value;
 
-    doc.setFontSize(18);
-    doc.text('Booking Details', 20, 20);
+    const formattedDate = new Date(date).toLocaleDateString();
 
+    // Header
+    doc.setFontSize(16);
+    doc.setTextColor(40, 40, 40);
+    doc.setFont("helvetica", "bold");
+    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 20, { align: "center" });
+
+    // Divider line
+    doc.setDrawColor(0);
+    doc.line(20, 25, 190, 25);
+
+    // Section: Booking Flow Info
     doc.setFontSize(12);
-    doc.text(`Username: ${username}`, 20, 40);
-    doc.text(`Contact: ${contact}`, 20, 50);
-    doc.text(`Date: ${new Date(date).toLocaleDateString()}`, 20, 60);
-    doc.text(`Ward: ${district}`, 20, 70);
-    doc.text(`Duration: ${duration}`, 20, 80);
-    doc.text(`Purpose: ${purpose}`, 20, 90);
+    doc.setFont("helvetica", "normal");
+    doc.text("From: User", 20, 35);
+    doc.text("Through: Ward Executive Officer", 20, 42);
+    doc.text("To: Kinondoni Municipal Staff", 20, 49);
 
-    // Give time for rendering
+    // Section: Booking Information
+    doc.setFont("helvetica", "bold");
+    doc.text("Booking Information:", 20, 60);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Username: ${username}`, 20, 68);
+    doc.text(`Contact: ${contact}`, 20, 75);
+    doc.text(`Ward: ${district}`, 20, 82);
+    doc.text(`Booking Date: ${formattedDate}`, 20, 89);
+    doc.text(`Duration: ${duration}`, 20, 96);
+    doc.text(`Purpose: ${purpose}`, 20, 103);
+
+    // Section: Sending Details
+    doc.setFont("helvetica", "bold");
+    doc.text("Submission Details:", 20, 115);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date of Sending: ${new Date().toLocaleDateString()}`, 20, 123);
+
+    // Section: Digital Signature
+    doc.setFont("helvetica", "bold");
+    doc.text("User Signature:", 20, 135);
+    doc.setFont("helvetica", "italic");
+    doc.text(`${username}`, 60, 135);
+
+    // Decorative Footer Line
+    doc.setDrawColor(150);
+    doc.line(20, 280, 190, 280);
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
+
+    // Convert to blob and preview
     setTimeout(() => {
       const pdfBlob = doc.output('blob');
       const file = new File([pdfBlob], 'booking-details.pdf', { type: 'application/pdf' });
@@ -295,15 +333,15 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.pdfBlob = pdfBlob;
       this.reportForm.patchValue({ pdfFile: file });
 
-      // Create a secure object URL for iframe preview
       if (this.pdfUrl) {
-        URL.revokeObjectURL(this.pdfUrl); // Clean previous blob
+        URL.revokeObjectURL(this.pdfUrl);
       }
 
       this.pdfUrl = URL.createObjectURL(pdfBlob);
       this.showPreview = true;
     }, 0);
   }
+
 
 
   downloadPDF() {
@@ -321,21 +359,61 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     const duration = this.reportForm.get('duration')?.value;
     const purpose = this.reportForm.get('purpose')?.value;
 
-    doc.setFontSize(18);
-    doc.text('Booking Details', 20, 20);
+    const formattedDate = new Date(date).toLocaleDateString();
+    const sendingDate = new Date().toLocaleDateString();
 
+    // Header
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(40, 40, 40);
+    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 20, { align: "center" });
+
+    // Divider line
+    doc.setDrawColor(0);
+    doc.line(20, 25, 190, 25);
+
+    // Booking flow
     doc.setFontSize(12);
-    doc.text(`Username: ${username}`, 20, 40);
-    doc.text(`Contact: ${contact}`, 20, 50);
-    doc.text(`Date: ${new Date(date).toLocaleDateString()}`, 20, 60);
-    doc.text(`Ward: ${district}`, 20, 70);
-    doc.text(`Duration: ${duration}`, 20, 80);
-    doc.text(`Purpose: ${purpose}`, 20, 90);
+    doc.setFont("helvetica", "normal");
+    doc.text("From: User", 20, 35);
+    doc.text("Through: Ward Executive Officer", 20, 42);
+    doc.text("To: Kinondoni Municipal Staff", 20, 49);
+
+    // Booking Details
+    doc.setFont("helvetica", "bold");
+    doc.text("Booking Details:", 20, 60);
+
+    doc.setFont("helvetica", "normal");
+    doc.text(`Username: ${username}`, 20, 70);
+    doc.text(`Contact: ${contact}`, 20, 77);
+    doc.text(`Ward: ${district}`, 20, 84);
+    doc.text(`Booking Date: ${formattedDate}`, 20, 91);
+    doc.text(`Duration: ${duration}`, 20, 98);
+    doc.text(`Purpose: ${purpose}`, 20, 105);
+
+    // Sending date
+    doc.setFont("helvetica", "bold");
+    doc.text("Submission Details:", 20, 120);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date of Sending: ${sendingDate}`, 20, 128);
+
+    // Digital Signature
+    doc.setFont("helvetica", "bold");
+    doc.text("User Signature:", 20, 145);
+    doc.setFont("helvetica", "italic");
+    doc.text(`${username}`, 60, 145);
+
+    // Footer
+    doc.setDrawColor(150);
+    doc.line(20, 280, 190, 280);
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
 
     // Create PDF Blob for submission
     this.pdfBlob = doc.output('blob');
 
-    // Download immediately
+    // Trigger download
     doc.save('booking-details.pdf');
 
     this.toastr.success('PDF downloaded successfully.');
