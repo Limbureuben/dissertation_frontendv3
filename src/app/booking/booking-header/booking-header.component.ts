@@ -49,4 +49,8 @@ export class BookingHeaderComponent {
   }, 1500);
 }
 
+  NavigateToCalender() {
+    this.router.navigate(['/calender']);
+  }
+
 }
