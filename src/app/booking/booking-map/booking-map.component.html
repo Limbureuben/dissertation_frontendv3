@@ -27,9 +27,9 @@
   <!-- Booking Form -->
   <div class="report-background" id="detailsForm">
     <div class="loading-overlay" *ngIf="submitting">
-      <mat-spinner diameter="50"></mat-spinner>
-      <p>Submitting your booking...</p>
-    </div>
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Submitting your booking...</p>
+  </div>
     <div id="closeFormBtn" (click)="closeForm()">
       <div class="report-container" (click)="$event.stopPropagation()">
         <button class="close-btn" (click)="closeForm()">×</button>

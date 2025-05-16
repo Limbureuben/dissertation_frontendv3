@@ -13,10 +13,10 @@ import {
   ɵɵdefineInjectable,
   ɵɵinject
 } from "./chunk-3LKO5WQ4.js";
-import "./chunk-SGMLAKGD.js";
 import {
   queueScheduler
 } from "./chunk-XS73CW5H.js";
+import "./chunk-SGMLAKGD.js";
 import {
   Observable,
   from,

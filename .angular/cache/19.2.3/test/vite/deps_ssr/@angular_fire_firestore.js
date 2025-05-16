@@ -4,7 +4,6 @@ import {
   AuthInstances
 } from "./chunk-IWHAC7EF.js";
 import "./chunk-5HFBECCQ.js";
-import "./chunk-EJF4SFNG.js";
 import {
   Component,
   FirebaseApp,
@@ -33,6 +32,7 @@ import {
   ɵzoneWrap
 } from "./chunk-HKUWI46M.js";
 import "./chunk-UWF4CWSN.js";
+import "./chunk-EJF4SFNG.js";
 import {
   InjectionToken,
   Injector,

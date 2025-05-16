@@ -1,14 +1,14 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  DomSanitizer
-} from "./chunk-PIFVK6HZ.js";
-import {
   animate,
   state,
   style,
   transition,
   trigger
 } from "./chunk-KOVJ7OFN.js";
+import {
+  DomSanitizer
+} from "./chunk-PIFVK6HZ.js";
 import "./chunk-LDSGMV6U.js";
 import {
   DOCUMENT,
