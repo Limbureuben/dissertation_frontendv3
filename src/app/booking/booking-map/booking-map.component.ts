@@ -287,34 +287,60 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     doc.text(`Duration: ${duration}`, 20, 80);
     doc.text(`Purpose: ${purpose}`, 20, 90);
 
-    // Convert to Blob
-    const pdfOutput = doc.output('blob');
+    // Give time for rendering
+    setTimeout(() => {
+      const pdfBlob = doc.output('blob');
+      const file = new File([pdfBlob], 'booking-details.pdf', { type: 'application/pdf' });
 
-    // Assign blob to a class-level variable
-    this.pdfBlob = pdfOutput;
+      this.pdfBlob = pdfBlob;
+      this.reportForm.patchValue({ pdfFile: file });
 
-    // Attach blob to form as a File for upload
-    const file = new File([pdfOutput], 'booking-details.pdf', { type: 'application/pdf' });
-    this.reportForm.patchValue({ pdfFile: file });
+      // Create a secure object URL for iframe preview
+      if (this.pdfUrl) {
+        URL.revokeObjectURL(this.pdfUrl); // Clean previous blob
+      }
 
-    // Create preview URL for iframe
-    this.pdfUrl = URL.createObjectURL(pdfOutput);
-    this.showPreview = true;
+      this.pdfUrl = URL.createObjectURL(pdfBlob);
+      this.showPreview = true;
+    }, 0);
   }
-
 
 
   downloadPDF() {
-    if (!this.pdfBlob) {
-      this.toastr.warning('Please preview the PDF first.');
+    if (this.reportForm.invalid) {
+      this.toastr.warning('Please fill all form fields before downloading the PDF.');
       return;
     }
 
-    const link = document.createElement('a');
-    link.href = this.pdfUrl;
-    link.download = 'booking-details.pdf';
-    link.click();
+    const doc = new jsPDF();
+
+    const username = this.reportForm.get('username')?.value;
+    const contact = this.reportForm.get('contact')?.value;
+    const date = this.reportForm.get('date')?.value;
+    const district = this.reportForm.get('district')?.value;
+    const duration = this.reportForm.get('duration')?.value;
+    const purpose = this.reportForm.get('purpose')?.value;
+
+    doc.setFontSize(18);
+    doc.text('Booking Details', 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Username: ${username}`, 20, 40);
+    doc.text(`Contact: ${contact}`, 20, 50);
+    doc.text(`Date: ${new Date(date).toLocaleDateString()}`, 20, 60);
+    doc.text(`Ward: ${district}`, 20, 70);
+    doc.text(`Duration: ${duration}`, 20, 80);
+    doc.text(`Purpose: ${purpose}`, 20, 90);
+
+    // Create PDF Blob for submission
+    this.pdfBlob = doc.output('blob');
+
+    // Download immediately
+    doc.save('booking-details.pdf');
+
+    this.toastr.success('PDF downloaded successfully.');
   }
+
 
   closePreview() {
     this.showPreview = false;

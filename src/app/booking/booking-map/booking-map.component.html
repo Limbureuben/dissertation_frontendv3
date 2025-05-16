@@ -92,8 +92,8 @@
           <!-- Action Buttons -->
           <div class="actions">
             <button mat-raised-button color="primary" type="button"
-              (click)="previewPDF()" [disabled]="!reportForm.valid || !selectedSpace">
-              Preview PDF
+              (click)="downloadPDF()" [disabled]="!reportForm.valid || !selectedSpace">
+              Download PDF
             </button>
 
             <button mat-raised-button color="accent" type="submit"
@@ -110,7 +110,7 @@
   <div *ngIf="showPreview" class="pdf-preview-modal">
     <div class="modal-content">
       <h3>Booking PDF Preview</h3>
-      <iframe [src]="pdfUrl" width="100%" height="500px" style="border: none;"></iframe>
+      <iframe [src]="pdfUrl" width="100%" height="400px" style="border: none;"></iframe>
       <div class="modal-actions">
         <button mat-button (click)="downloadPDF()">Download</button>
         <button mat-button color="warn" (click)="closePreview()">Close</button>
