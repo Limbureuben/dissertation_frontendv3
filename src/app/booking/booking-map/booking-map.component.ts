@@ -322,6 +322,18 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       URL.revokeObjectURL(this.pdfUrl);
     }
   }
+
+    selectSuggestion(suggestion: any) {
+    this.searchQuery = suggestion.name;
+    this.map?.flyTo({ center: suggestion.center, zoom: 14 });
+    this.suggestions = [];
+  }
+
+    changeMapStyle(styleName: string) {
+    const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=${config.apiKey}`;
+    this.map?.setStyle(styleUrl);
+  }
+  
 }
 
 
