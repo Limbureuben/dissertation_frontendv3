@@ -185,12 +185,12 @@ OnSubmit() {
         this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
         localStorage.setItem('token', response.user.token);
-        localStorage.setItem('userId', response.user.UserId);
+        localStorage.setItem('userId', response.user.id);
         localStorage.setItem('isStaff', response.user.isStaff);
         localStorage.setItem('isWardExecutive', response.user.isWardExecutive);
 
         console.log('Token stored:', response.user.token);
-        console.log('Id stored', response.user.UserId);
+        console.log('Id stored', response.user.id);
 
         if (response.user.isStaff) {
           this.router.navigate(['/admin']);
