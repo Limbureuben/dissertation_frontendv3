@@ -185,7 +185,7 @@ OnSubmit() {
         this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
         localStorage.setItem('token', response.user.token);
-        localStorage.setItem('userId', response.user.id);
+        localStorage.setItem('userId', response.user.UserId);
         localStorage.setItem('isStaff', response.user.isStaff);
         localStorage.setItem('isWardExecutive', response.user.isWardExecutive);
 
