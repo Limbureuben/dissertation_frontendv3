@@ -68,25 +68,6 @@ export class AvailablereportComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // confirmReport(reportId: string): void {
-  //   this.openSpaceService.confirmReport(reportId).subscribe(response => {
-  //     if (response.data.confirmReport.success) {
-  //       this.toastr.success(response.data.confirmReport.message, 'Success', {
-  //         positionClass: 'toast-top-right',
-  //       });
-
-  //       this.loadReport();
-  //     } else {
-  //       this.toastr.error('Failed to confirm report', 'Error', {
-  //         positionClass: 'toast-top-right',
-  //       });
-  //     }
-  //   }, error => {
-  //     this.toastr.error('Error confirming report', 'Error');
-  //   }
-  // )
-  // }
-
   confirmReport(reportId: string): void {
     // Create the SweetAlert with Bootstrap buttons
     const swalWithBootstrapButtons = Swal.mixin({
