@@ -62,20 +62,20 @@ export const LOGIN_USER_MUTATION = gql`
 
 
 export const LOGIN_USER_AGAIN = gql`
-mutation LoginUser($username: String!, $password: String!) {
-  loginUser(username: $username, password: $password) {
-    message
-    success
-    user {
-      id
-      isStaff
-      isWardExecutive
-      token
-      username
+  mutation LoginUser($username: String!, $password: String!) {
+    loginUser(username: $username, password: $password) {
+      message
+      success
+      user {
+        id
+        isStaff
+        isWardExecutive
+        token
+        username
+      }
     }
   }
-}
-`;
+  `;
 
 
 export const LOGIN_USER = gql`
