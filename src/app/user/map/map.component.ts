@@ -336,7 +336,7 @@ confirmSubmission(): void {
   console.log('Confirm clicked');
   const startTime = Date.now();
 
-  const userId = localStorage.getItem('UserId');
+  const userId = localStorage.getItem('userId');
   this.submitting = true;
   this.success = false;
   this.errorMessage = '';
