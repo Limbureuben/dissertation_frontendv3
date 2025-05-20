@@ -190,6 +190,7 @@ OnSubmit() {
         localStorage.setItem('isWardExecutive', response.user.isWardExecutive);
 
         console.log('Token stored:', response.user.token);
+        console.log('Id stored', response.user.UserId);
 
         if (response.user.isStaff) {
           this.router.navigate(['/admin']);
