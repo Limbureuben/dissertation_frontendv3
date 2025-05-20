@@ -38,7 +38,7 @@ export class BookingService {
     }
 
     bookOpenSpace(data: FormData): Observable<any> {
-      const token = localStorage.getItem('token'); // or wherever you store it
+      const token = localStorage.getItem('token');
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       return this.http.post(`${this.resetUrl}/api/v1/book-open-space/`, data, { headers });
     }
@@ -57,5 +57,10 @@ export class BookingService {
       );
   }
 
+  getBookingsByDistrict(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.resetUrl}/api/v1/district-bookings/`, { headers });
+  }
 
 }
