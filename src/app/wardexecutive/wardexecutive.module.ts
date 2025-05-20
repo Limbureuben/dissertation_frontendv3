@@ -27,12 +27,14 @@ import { MatOptionModule } from '@angular/material/core';
 import { UserModule } from '../user/user.module';
 import { SharingModule } from '../sharing/sharing.module';
 import { RouterModule } from '@angular/router';
+import { WardBookingComponent } from './ward-booking/ward-booking.component';
 
 @NgModule({
   declarations: [
     WarddashboardComponent,
     WardCustomersidebarComponent,
     WardSidebarComponent,
+    WardBookingComponent,
   ],
   imports: [
     CommonModule,
