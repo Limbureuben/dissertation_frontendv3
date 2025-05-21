@@ -25,11 +25,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   ],
 })
 export class AvailableBookingComponent {
+  selectedReport: any;
 
   constructor(
     public dialogRef: MatDialogRef<AvailableBookingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+     this.selectedReport = data;
+  }
 
   closePopup() {
     this.dialogRef.close();

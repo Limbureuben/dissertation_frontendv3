@@ -1,4 +1,4 @@
-<div class="report-background" *ngIf="showPopup" @fadeInOut>
+<div class="report-background" @fadeInOut>
   <div class="report-overlay" (click)="closePopup()">
     <div class="report-container" (click)="$event.stopPropagation()" @fadeScale>
       <button class="close-btn" (click)="closePopup()">×</button>
