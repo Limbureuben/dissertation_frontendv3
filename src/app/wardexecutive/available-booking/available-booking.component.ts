@@ -26,6 +26,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AvailableBookingComponent {
   selectedReport: any;
+  backendUrl = 'http://localhost:8000';
 
   constructor(
     public dialogRef: MatDialogRef<AvailableBookingComponent>,
@@ -33,6 +34,11 @@ export class AvailableBookingComponent {
   ) {
      this.selectedReport = data;
   }
+
+  getFullFileUrl(filePath: string): string {
+    if (!filePath) return '';
+    return `${this.backendUrl}${filePath}`;
+ }
 
   closePopup() {
     this.dialogRef.close();
