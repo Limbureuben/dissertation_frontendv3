@@ -36,10 +36,14 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class WardBookingComponent implements OnInit{
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['space', 'username', 'contact', 'date', 'duration', 'purpose', 'district', 'file', 'actions'];
+  displayedColumns: string[] = ['username', 'date', 'duration', 'file', 'actions'];
+  // displayedColumns: string[] = ['space', 'username', 'contact', 'date', 'duration', 'purpose', 'district', 'file', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  selectedReport: any = null;
+  showPopup: boolean = false;
 
   constructor(
     private bookingService: BookingService,
@@ -71,8 +75,14 @@ loadBookings() {
     });
   }
 
+  closePopup(): void {
+  this.showPopup = false;
+  this.selectedReport = null;
+}
+
+
   confirmReport(reportId: number): void {
-    // Optional: Implement if you want ward executives to confirm bookings
+
     console.log('Confirming booking:', reportId);
   }
 
