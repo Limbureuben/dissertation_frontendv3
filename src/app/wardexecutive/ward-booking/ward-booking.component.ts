@@ -44,6 +44,7 @@ export class WardBookingComponent implements OnInit{
 
   selectedReport: any = null;
   showPopup: boolean = false;
+  backendUrl = 'http://localhost:8000';
 
   constructor(
     private bookingService: BookingService,
@@ -79,6 +80,11 @@ loadBookings() {
   this.showPopup = false;
   this.selectedReport = null;
 }
+
+  getFullFileUrl(filePath: string): string {
+      if (!filePath) return '';
+      return `${this.backendUrl}${filePath}`;
+  }
 
 
   confirmReport(reportId: number): void {
