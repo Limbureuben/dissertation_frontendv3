@@ -25,115 +25,6 @@ import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
   ]
 
 })
-// export class LoginComponent implements OnInit{
-
-//   LoginForm!: FormGroup;
-//   registrationError: any;
-
-//   constructor(
-//     private fb: FormBuilder,
-//     private router: Router,
-//     private authservice: AuthService,
-//     private toastr: ToastrService,
-//     private languageService: LanguageService,
-//     private auth: Auth
-//   ) {}
-
-//   ngOnInit(): void {
-//       this.LoginForm = this.fb.group({
-//         username: ['', Validators.required],
-//         password: ['', Validators.required]
-//       })
-//   }
-
-
-//   async loginWithGoogle() {
-//     try {
-//       const provider = new GoogleAuthProvider();
-//       const result = await signInWithPopup(this.auth, provider);
-//     } catch (error) {
-//       console.error('Google Sign-In Error:', error);
-//     }
-//   }
-
-//   OnSubmit() {
-//     if (!this.LoginForm.valid) {
-//       this.LoginForm.markAllAsTouched();
-//       return;
-//     }
-
-//     const { username, password }: LoginData = this.LoginForm.value;
-
-//     this.authservice.signinUser(username, password).subscribe({
-//       next: (result) => {
-//         const response = result.data.loginNewUser;
-
-//         if (response.success) {
-//           this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right'});
-
-//           localStorage.setItem('token', response.token);
-//           localStorage.setItem('userId', response.user.id);
-//           localStorage.setItem('role', response.role);
-
-//           console.log('Token stored:', response.token);
-
-//           if (response.user.role === 'isStaff') {
-//             this.router.navigate(['/admin']);
-//           } else if (response.user.role === 'isWardExecutive') {
-//             this.router.navigate(['/executive']);
-//           } else {
-//             this.router.navigate(['/map-display']);
-//           }
-//         } else {
-//           this.toastr.error(response.message || 'Login failed', 'Error', {
-//             positionClass: 'toast-top-right'
-//           });
-//         }
-//       },
-//       error: (err) => {
-//         this.toastr.error('Something went wrong. Please try again.', 'Error', {
-//           positionClass: 'toast-top-right'
-//         });
-//       }
-//     })
-//   }
-
-//   goBack() {
-//     this.router.navigate(['/']);
-//   }
-
-//   showFailure(message: string) {
-//     console.error('Login Error:', message);
-//   }
-// }
-
-// function loginWithGoogle() {
-//   throw new Error('Function not implemented.');
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export class LoginComponent implements OnInit{
 
   LoginForm!: FormGroup;
@@ -169,6 +60,7 @@ export class LoginComponent implements OnInit{
     }
   }
 
+
 OnSubmit() {
   if (!this.LoginForm.valid) {
       this.LoginForm.markAllAsTouched();
@@ -184,6 +76,7 @@ OnSubmit() {
       if (response.success) {
         this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
+        
         localStorage.setItem('token', response.user.token);
         localStorage.setItem('userId', response.user.id);
         localStorage.setItem('isStaff', response.user.isStaff);

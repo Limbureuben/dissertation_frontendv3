@@ -279,15 +279,6 @@ export const GET_ANONYMOUS_REPORTS = gql`
   }
 `;
 
-// export const GET_REPORTS = gql`
-//   query GetReports($sessionId: String, $userId: ID) {
-//     reports(sessionId: $sessionId, userId: $userId) {
-//       createdAt
-//       description
-//     }
-//   }
-// `;
-
 export const GET_MY_REPORTS = gql`
   query GetMyReports {
     myReports {
