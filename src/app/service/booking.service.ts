@@ -65,7 +65,7 @@ export class BookingService {
 
   acceptBooking(bookingId: number, description: string): Observable<any> {
   const payload = { description };
-  const url = `http://localhost:8000/api/accept-and-forward-booking/${bookingId}/`;
+  const url = `http://localhost:8000/api/v1/accept-and-forward-booking/${bookingId}/`;
   return this.http.post(url, payload);
 }
 
