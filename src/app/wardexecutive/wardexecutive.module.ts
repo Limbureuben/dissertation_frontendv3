@@ -29,6 +29,7 @@ import { SharingModule } from '../sharing/sharing.module';
 import { RouterModule } from '@angular/router';
 import { WardBookingComponent } from './ward-booking/ward-booking.component';
 import { AvailableBookingComponent } from './available-booking/available-booking.component';
+import { WardDiscriptionComponent } from './ward-discription/ward-discription.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AvailableBookingComponent } from './available-booking/available-booking
     WardSidebarComponent,
     WardBookingComponent,
     AvailableBookingComponent,
+    WardDiscriptionComponent,
   ],
   imports: [
     CommonModule,
