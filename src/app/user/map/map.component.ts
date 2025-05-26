@@ -239,7 +239,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('Opening form for:', space.name);
       formContainer.style.display = 'flex';
 
-      // Small delay before adding "open" for smooth pop-up animation
       setTimeout(() => {
         formContainer.classList.add('open');
       }, 20);
@@ -328,7 +327,6 @@ submitReport(): void {
   }
 
   this.closeForm();
-  // Show the confirmation modal instead of submitting immediately
   this.showConfirmationModal = true;
 }
 
@@ -405,7 +403,7 @@ confirmSubmission(): void {
 
 
 cancelSubmission(): void {
-  this.showConfirmationModal = false; // Close the confirmation modal
+  this.showConfirmationModal = false;
 }
 
   private resetForm(): void {
@@ -419,7 +417,6 @@ cancelSubmission(): void {
     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=9rtSKNwbDOYAoeEEeW9B`;
     this.map?.setStyle(styleUrl);
   }
-
 }
 
 
