@@ -11,9 +11,9 @@ const routes: Routes = [
       component: WardSidebarComponent,
       canActivate: [authGuard],
       children: [
-        { path: 'ward-dashboard', component: WarddashboardComponent },
         { path: 'ward-bookings', component: WardBookingComponent },
-        { path: '', redirectTo: 'ward-dashboard', pathMatch: 'full' }
+        { path: 'ward-dashboard', component: WarddashboardComponent },
+        { path: '', redirectTo: 'ward-bookings', pathMatch: 'full' }
       ]
     },
 ];

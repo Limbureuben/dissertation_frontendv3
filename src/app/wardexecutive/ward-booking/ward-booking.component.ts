@@ -92,4 +92,9 @@ loadBookings() {
     console.log('Confirming booking:', reportId);
   }
 
+
+  acceptBooking(row: any) {
+    console.log('Report accespted');
+  }
+
 }
