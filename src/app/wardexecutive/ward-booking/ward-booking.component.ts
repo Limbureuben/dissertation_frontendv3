@@ -88,7 +88,6 @@ loadBookings() {
 
 
   confirmReport(reportId: number): void {
-
     console.log('Confirming booking:', reportId);
   }
 
