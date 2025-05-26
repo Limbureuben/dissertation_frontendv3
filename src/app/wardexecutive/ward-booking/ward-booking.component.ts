@@ -9,6 +9,7 @@ import { AvailableBookingComponent } from '../available-booking/available-bookin
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WardDiscriptionComponent } from '../ward-discription/ward-discription.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ward-booking',
@@ -96,25 +97,38 @@ loadBookings() {
 
 
   acceptBooking(row: any) {
-  const dialogRef = this.dialog.open(WardDiscriptionComponent, {
-    width: '400px',
-    data: { booking: row }
-  });
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, accept it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Open dialog for description
+      const dialogRef = this.dialog.open(WardDiscriptionComponent, {
+        width: '400px',
+        data: { booking: row }
+      });
 
-  dialogRef.afterClosed().subscribe(description => {
-    if (description) {
-      this.bookingService.acceptBooking(row.id, description).subscribe(
-        response => {
-          this.snackBar.open('Booking accepted and forwarded.', 'Close', { duration: 3000 });
+      dialogRef.afterClosed().subscribe(description => {
+        if (description) {
+          this.bookingService.acceptBooking(row.id, description).subscribe(
+            response => {
+              this.toastr.success('Booking accepted and forwarded.', 'Success');
 
-          // Remove the accepted booking from the dataSource
-          this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
-        },
-        error => {
-          console.error('Error accepting booking:', error);
-          this.snackBar.open('Failed to accept booking.', 'Close', { duration: 3000 });
+              // Remove accepted booking from dataSource
+              this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
+            },
+            error => {
+              console.error('Error accepting booking:', error);
+              this.toastr.error('Failed to accept booking.', 'Error');
+            }
+          );
         }
-      );
+      });
     }
   });
 }
