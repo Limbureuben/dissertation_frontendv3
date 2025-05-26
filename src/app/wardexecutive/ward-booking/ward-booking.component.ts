@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AvailableBookingComponent } from '../available-booking/available-booking.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { WardDiscriptionComponent } from '../ward-discription/ward-discription.component';
 
 @Component({
   selector: 'app-ward-booking',
@@ -49,7 +51,8 @@ export class WardBookingComponent implements OnInit{
   constructor(
     private bookingService: BookingService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private snackBar: MatSnackBar
   ) {}
 
 
@@ -93,7 +96,26 @@ loadBookings() {
 
 
   acceptBooking(row: any) {
-    console.log('Report accespted');
-  }
+  const dialogRef = this.dialog.open(WardDiscriptionComponent, {
+    width: '400px',
+    data: { booking: row }
+  });
 
+  dialogRef.afterClosed().subscribe(description => {
+    if (description) {
+      this.bookingService.acceptBooking(row.id, description).subscribe(
+        response => {
+          this.snackBar.open('Booking accepted and forwarded.', 'Close', { duration: 3000 });
+
+          // Remove the accepted booking from the dataSource
+          this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
+        },
+        error => {
+          console.error('Error accepting booking:', error);
+          this.snackBar.open('Failed to accept booking.', 'Close', { duration: 3000 });
+        }
+      );
+    }
+  });
+}
 }

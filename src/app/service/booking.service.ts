@@ -63,4 +63,11 @@ export class BookingService {
     return this.http.get(`${this.resetUrl}/api/v1/district-bookings/`, { headers });
   }
 
+  acceptBooking(bookingId: number, description: string): Observable<any> {
+  const payload = { description };
+  const url = `http://localhost:8000/api/accept-and-forward-booking/${bookingId}/`;
+  return this.http.post(url, payload);
+}
+
+
 }
