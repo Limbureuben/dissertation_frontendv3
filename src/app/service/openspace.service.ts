@@ -208,25 +208,6 @@ export class OpenspaceService {
     }).valueChanges;
   }
 
-
-//   getMyReports(userId: number): Observable<any> {
-//     return this.apollo.watchQuery({
-//       query: GET_MY_REPORTS,
-//       variables: { userId },
-//       fetchPolicy: 'network-only',
-//       context: {
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem('success_token')}`
-//         }
-//       }
-//     }).valueChanges.pipe(
-//       map(result => {
-//         console.log("Fetched Reports:", result.data); // Debugging
-//         return result.data;
-//       })
-//     );
-// }
-
 getMyReports(): Observable<any> {
   const token = localStorage.getItem('success_token'); // Get token from storage
 
@@ -263,5 +244,9 @@ getMyReports(): Observable<any> {
   ConfirmReportUssd(id: number): Observable<any> {
     return this.http.post(`${this.confirmReportUrl}${id}/`, {});
 }
+
+  getRecentReports() {
+    
+  }
 
 }
