@@ -63,15 +63,15 @@ export class DashComponent implements OnInit{
 }
 
 OpenAvailableSpaces() {
-  this.router.navigate(['/openspace']);
+  this.router.navigate(['/admin/openspace']);
 }
 
 OpenSolvedIssues() {
-  this.router.navigate(['/history']);
+  this.router.navigate(['/admin/history']);
 }
 
 OpenPendingIssues() {
-  this.router.navigate(['/reports']);
+  this.router.navigate(['/admin/reports']);
 }
 
 }
