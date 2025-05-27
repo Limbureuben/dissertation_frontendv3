@@ -22,6 +22,8 @@ import { Router } from '@angular/router';
   ]
 })
 export class DashComponent implements OnInit{
+  recentReports: any[] = [];
+  displayedColumns: string[] = ['id', 'title', 'status', 'date'];
 
   totalOpenspaces: number = 0;
   totalHistorys: number = 0;
@@ -61,6 +63,21 @@ export class DashComponent implements OnInit{
       }
     });
 }
+
+//   fetchRecentReports() {
+//   this.opespace.getRecentReports().subscribe({
+//     next: (result) => {
+//       this.recentReports = result.data.recentReports;
+//     },
+//     error: (err) => {
+//       console.error('Error fetching recent reports');
+//     }
+//   });
+// }
+
+  fetchRecentReports() {
+    
+  }
 
 OpenAvailableSpaces() {
   this.router.navigate(['/admin/openspace']);
