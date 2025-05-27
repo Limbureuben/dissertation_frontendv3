@@ -8,6 +8,11 @@
 
 .dashboard-cards {
   display: flex;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-2px); // slight lift on hover
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
   flex-wrap: wrap;
   gap: 20px;
   justify-content: space-around;
