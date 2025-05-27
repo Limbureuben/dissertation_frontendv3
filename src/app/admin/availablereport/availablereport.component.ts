@@ -15,15 +15,12 @@ import Swal from 'sweetalert2';
   templateUrl: './availablereport.component.html',
   styleUrl: './availablereport.component.scss',
   animations: [
-    // Slide table from right when opening
     trigger('tableEnterAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(50px)' }),
         animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
       ])
     ]),
-
-    // Animate row additions & deletions
     trigger('rowAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(-10px)' }),
@@ -48,7 +45,7 @@ export class AvailablereportComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-      this.loadReport()
+      this.loadReport();
   }
 
   loadReport() {

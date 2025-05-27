@@ -2,7 +2,6 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-dash',
@@ -24,7 +23,6 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class DashComponent implements OnInit{
   recentReports: any[] = [];
-  dataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['id', 'title', 'status', 'date'];
 
   totalOpenspaces: number = 0;
@@ -64,16 +62,27 @@ export class DashComponent implements OnInit{
         console.error('Error fetching report pending')
       }
     });
-
     this.fetchRecentReports();
-  }
+}
 
   fetchRecentReports() {
-    this.opespace.getAllReports().subscribe((data) => {
-      this.recentReports = data.slice(-5).reverse();
-      this.dataSource.data = data;
+    this.opespace.getAllReports().subscribe({
+      next: (reports) => {
+        // Sort by date descending
+        const sortedReports = reports.sort((a: any, b: any) => {
+          return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+
+        // Get the first 5 recent reports
+        this.recentReports = sortedReports.slice(0, 5);
+      },
+      error: (error) => {
+        console.error('Error fetching recent reports', error);
+      }
     });
   }
+
+
 
 OpenAvailableSpaces() {
   this.router.navigate(['/admin/openspace']);

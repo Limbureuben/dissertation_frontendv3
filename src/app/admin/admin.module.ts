@@ -61,7 +61,6 @@ import { AvailableBookingComponent } from './Book/available-booking/available-bo
     SidebarComponent,
     CustomerSidebarComponent,
     DashComponent,
-    MatTableModule,
     ReportUssdComponent,
     RegisterWardComponent,
     ManagewardexecutiveComponent,
