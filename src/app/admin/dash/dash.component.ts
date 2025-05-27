@@ -64,14 +64,12 @@ export class DashComponent implements OnInit{
         console.error('Error fetching report pending')
       }
     });
-}
 
-  fetchRecentReports() {
     this.opespace.getAllReports().subscribe((data) => {
       this.recentReports = data.slice(-5).reverse();
       this.dataSource.data = data;
-    })
-  }
+    });
+}
 
 
 OpenAvailableSpaces() {
