@@ -5,26 +5,26 @@ import {
   InteractivityChecker,
   MatCommonModule,
   hasModifierKey
-} from "./chunk-K5DJA3U7.js";
-import "./chunk-TLJA5KBZ.js";
+} from "./chunk-FHNPDAFS.js";
 import {
   CdkScrollable,
   CdkScrollableModule,
   ScrollDispatcher,
   ViewportRuler
-} from "./chunk-JZDEXCSM.js";
-import "./chunk-YYPORO2T.js";
+} from "./chunk-4V4ZXIQT.js";
+import "./chunk-OCJVQKYM.js";
+import {
+  Directionality
+} from "./chunk-NB3GWOWA.js";
+import "./chunk-YE4TGNEC.js";
 import {
   Platform,
   coerceBooleanProperty,
   coerceNumberProperty
-} from "./chunk-BXW6YHCF.js";
-import {
-  Directionality
-} from "./chunk-D3P2LJZM.js";
+} from "./chunk-SUK46SJT.js";
 import {
   DOCUMENT
-} from "./chunk-CKGQ7LDR.js";
+} from "./chunk-ZPHFRFDG.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -72,7 +72,7 @@ import {
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-3LKO5WQ4.js";
+} from "./chunk-A4ZVG34I.js";
 import {
   fromEvent,
   merge
@@ -89,7 +89,7 @@ import {
   takeUntil
 } from "./chunk-XT6ZCHFH.js";
 import "./chunk-ZYKX7RMX.js";
-import "./chunk-KTESVR3Q.js";
+import "./chunk-TWWAJFRB.js";
 
 // node_modules/@angular/material/fesm2022/sidenav.mjs
 var _c0 = ["*"];

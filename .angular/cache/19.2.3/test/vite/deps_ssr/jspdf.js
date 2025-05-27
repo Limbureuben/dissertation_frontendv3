@@ -1,10 +1,10 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   require_typeof
-} from "./chunk-37L2UZVF.js";
+} from "./chunk-LCXSURUN.js";
 import {
   __toESM
-} from "./chunk-ANGF2IQY.js";
+} from "./chunk-YHCV7DAQ.js";
 
 // node_modules/jspdf/dist/jspdf.es.min.js
 var import_typeof = __toESM(require_typeof());
@@ -7000,14 +7000,14 @@ function(t3) {
   }, t3.loadImageFile = t3.loadFile;
 }(E.API), function(e) {
   function r() {
-    return (n.html2canvas ? Promise.resolve(n.html2canvas) : import("./html2canvas.esm-JEG3MCSL.js")).catch(function(t3) {
+    return (n.html2canvas ? Promise.resolve(n.html2canvas) : import("./html2canvas.esm-KZ3MZAWF.js")).catch(function(t3) {
       return Promise.reject(new Error("Could not load html2canvas: " + t3));
     }).then(function(t3) {
       return t3.default ? t3.default : t3;
     });
   }
   function i2() {
-    return (n.DOMPurify ? Promise.resolve(n.DOMPurify) : import("./purify.es-BUNVW6QP.js")).catch(function(t3) {
+    return (n.DOMPurify ? Promise.resolve(n.DOMPurify) : import("./purify.es-BUXTWLCM.js")).catch(function(t3) {
       return Promise.reject(new Error("Could not load dompurify: " + t3));
     }).then(function(t3) {
       return t3.default ? t3.default : t3;
@@ -10531,7 +10531,7 @@ function(t3) {
  */
 function(t3) {
   function e() {
-    return (n.canvg ? Promise.resolve(n.canvg) : import("./index.es-DGC3JLOI.js")).catch(function(t4) {
+    return (n.canvg ? Promise.resolve(n.canvg) : import("./index.es-7WJIKOG3.js")).catch(function(t4) {
       return Promise.reject(new Error("Could not load canvg: " + t4));
     }).then(function(t4) {
       return t4.default ? t4.default : t4;
