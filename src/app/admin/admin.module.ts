@@ -44,8 +44,8 @@ import { RegisterWardComponent } from './Book/register-ward/register-ward.compon
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { TestMapComponent } from './test-map/test-map.component';
 import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
+import { AvailablebookingComponent } from './availablebooking/availablebooking.component';
 
 
 @NgModule({
@@ -64,8 +64,8 @@ import { AvailableBookingComponent } from './Book/available-booking/available-bo
     ReportUssdComponent,
     RegisterWardComponent,
     ManagewardexecutiveComponent,
-    TestMapComponent,
     AvailableBookingComponent,
+    AvailablebookingComponent,
   ],
   imports: [
     CommonModule,

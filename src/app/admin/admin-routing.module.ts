@@ -1,4 +1,3 @@
-import { TestMapComponent } from './test-map/test-map.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MapCommonComponent } from './map-common/map-common.component';
@@ -36,7 +35,6 @@ const routes: Routes = [
       { path: 'history', component: ReportHistoryComponent },
       { path: 'report-ussd', component: ReportUssdComponent },
       { path: 'manage-wardexecutive', component: ManagewardexecutiveComponent },
-      { path: 'test-map', component: TestMapComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' }
     ]
   },
