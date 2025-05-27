@@ -28,35 +28,34 @@
 
   <!-- Table for Recent Reports -->
   <div class="recent-reports">
-    <h2>Recent Reports</h2>
-    <table mat-table [dataSource]="recentReports" class="mat-elevation-z8">
+  <h2>Recent Reports</h2>
+  <table mat-table [dataSource]="recentReports" class="mat-elevation-z8">
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let report"> {{report.id}} </td>
-      </ng-container>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let report"> {{report.id}} </td>
+    </ng-container>
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef> Title </th>
-        <td mat-cell *matCellDef="let report"> {{report.title}} </td>
-      </ng-container>
+    <!-- Space Name (as Title) -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let report"> {{report.spaceName}} </td>
+    </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let report"> {{report.status}} </td>
-      </ng-container>
+    <!-- Status Column (if you want to show a default) -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let report"> Pending </td>
+    </ng-container>
 
-      <!-- Date Column -->
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let report"> {{report.date | date:'short'}} </td>
-      </ng-container>
+    <!-- Created At Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let report"> {{report.createdAt | date:'short'}} </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
 </div>

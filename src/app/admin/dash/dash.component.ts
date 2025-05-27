@@ -66,22 +66,18 @@ export class DashComponent implements OnInit{
 }
 
   fetchRecentReports() {
-    this.opespace.getAllReports().subscribe({
-      next: (reports) => {
-        // Sort by date descending
-        const sortedReports = reports.sort((a: any, b: any) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
-
-        // Get the first 5 recent reports
-        this.recentReports = sortedReports.slice(0, 5);
-      },
-      error: (error) => {
-        console.error('Error fetching recent reports', error);
-      }
-    });
-  }
-
+  this.opespace.getAllReports().subscribe({
+    next: (reports: any[]) => {   // reports is array of reports already
+      const sortedReports = reports.sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+      this.recentReports = sortedReports.slice(0, 5);
+    },
+    error: (error) => {
+      console.error('Error fetching recent reports', error);
+    }
+  });
+}
 
 
 OpenAvailableSpaces() {
