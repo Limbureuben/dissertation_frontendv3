@@ -76,7 +76,7 @@ OnSubmit() {
       if (response.success) {
         this.toastr.success('Login successful', 'Success', {positionClass: 'toast-top-right', progressBar: true, timeOut: 2000});
 
-        
+
         localStorage.setItem('token', response.user.token);
         localStorage.setItem('userId', response.user.id);
         localStorage.setItem('isStaff', response.user.isStaff);
@@ -105,47 +105,6 @@ OnSubmit() {
       }
   })
 }
-//       (result) => {
-//           if (result.data?.loginUser.success) {
-//               const user = result.data.loginUser.user;
-
-//               if (!user || !user.id || !user.accessToken) {
-//                   console.error("Login response missing user details!");
-//                   this.toastr.error("Login failed: Missing user details.");
-//                   return;
-//               }
-
-//               localStorage.setItem('user_id', user.id.toString());
-//               localStorage.setItem('success_token', user.accessToken);
-//               localStorage.setItem('refresh_token', user.refreshToken);
-//               localStorage.setItem('is_staff', user.isStaff ? 'true' : 'false');
-
-
-//               this.toastr.success('Login successful!', 'Success', {
-//                   positionClass: 'toast-top-right',
-//               });
-
-//               if (user.isStaff) {
-//                 this.router.navigate(['/admin']);
-//               } else if (user.isWardExecutive) {
-//                 this.router.navigate(['/executive']);
-//               } else {
-//                 this.router.navigate(['/map-display']);
-//               }
-
-//           } else {
-//               const errorMessage = result.data?.loginUser?.message || 'Login failed';
-//               console.error("Login Error:", errorMessage);
-//               this.toastr.error(errorMessage);
-//               this.showFailure(errorMessage);
-//           }
-//       },
-//       (error) => {
-//           console.error("Login Request Error:", error);
-//           this.toastr.error('Login failed. Please check your credentials.');
-//       }
-//   );
-// }
 
 goBack() {
   this.router.navigate(['/']);

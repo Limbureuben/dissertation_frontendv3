@@ -4,12 +4,24 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService, RegisterData } from '../../../service/auth.service';
 import { Router } from '@angular/router';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-register-ward',
   standalone: false,
   templateUrl: './register-ward.component.html',
-  styleUrl: './register-ward.component.scss'
+  styleUrl: './register-ward.component.scss',
+    animations: [
+    trigger('rotateFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'rotateY(90deg)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'rotateY(0deg)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'rotateY(90deg)' }))
+      ])
+    ])
+  ]
 })
 export class RegisterWardComponent {
 
