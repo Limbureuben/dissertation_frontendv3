@@ -1,6 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { OpenspaceService } from '../../service/openspace.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dash',
@@ -27,7 +28,8 @@ export class DashComponent implements OnInit{
   totalReport: number = 0;
 
   constructor(
-    private opespace: OpenspaceService
+    private opespace: OpenspaceService,
+    private router: Router
   ) {}
 
 
@@ -60,5 +62,16 @@ export class DashComponent implements OnInit{
     });
 }
 
+OpenAvailableSpaces() {
+  this.router.navigate(['/openspace']);
+}
+
+OpenSolvedIssues() {
+  this.router.navigate(['/history']);
+}
+
+OpenPendingIssues() {
+  this.router.navigate(['/reports']);
+}
 
 }

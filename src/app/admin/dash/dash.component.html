@@ -1,6 +1,6 @@
 <div class="dashboard-cards-container" @cardStagger>
   <div class="dashboard-cards">
-    <mat-card class="dashboard-card borrowed">
+    <mat-card class="dashboard-card borrowed" (click)="OpenAvailableSpaces()">
       <div class="card-icon"><mat-icon>group</mat-icon></div>
       <div class="card-info">
         <p class="card-title">Openspace</p>
@@ -8,7 +8,7 @@
       </div>
     </mat-card>
 
-    <mat-card class="dashboard-card profit">
+    <mat-card class="dashboard-card profit" (click)="OpenSolvedIssues()">
       <div class="card-icon"><mat-icon>check_circle</mat-icon></div>
       <div class="card-info">
         <p class="card-title">Solved issues</p>
@@ -16,7 +16,7 @@
       </div>
     </mat-card>
 
-    <mat-card class="dashboard-card conversion">
+    <mat-card class="dashboard-card conversion" (click)="OpenPendingIssues()">
       <div class="card-icon"><mat-icon>hourglass_empty</mat-icon></div>
       <div class="card-info">
         <p class="card-title">Pending issues</p>
