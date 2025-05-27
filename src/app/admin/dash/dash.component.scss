@@ -35,7 +35,7 @@
 }
 
 .dashboard-card.borrowed {
-  background-color: #1e88e5; /* Blue */
+  background-color: #3f51b5; /* Blue */
 }
 
 .dashboard-card.profit {
@@ -77,4 +77,19 @@
 
 .card-footer {
   font-size: 14px;
+}
+
+.recent-reports {
+  margin-top: 40px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.recent-reports h2 {
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
 }
