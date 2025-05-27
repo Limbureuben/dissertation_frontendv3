@@ -157,6 +157,12 @@ export class OpenspaceService {
     }).valueChanges.pipe(map(result => result.data.allReports));
   }
 
+  getRecentReports(): Observable<any> {
+    return this.apollo.watchQuery<any>({
+      query: GET_ALL_REPORTS,
+    }).valueChanges.pipe(map(result => result.data.allReports));
+  }
+
 
   getAllHistory(): Observable<any> {
     return this.apollo.watchQuery<any>({
@@ -244,9 +250,5 @@ getMyReports(): Observable<any> {
   ConfirmReportUssd(id: number): Observable<any> {
     return this.http.post(`${this.confirmReportUrl}${id}/`, {});
 }
-
-  getRecentReports() {
-    
-  }
 
 }

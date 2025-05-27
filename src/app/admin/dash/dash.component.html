@@ -26,36 +26,34 @@
     </mat-card>
   </div>
 
-  <!-- Table for Recent Reports -->
   <div class="recent-reports">
-  <h2>Recent Reports</h2>
-  <table mat-table [dataSource]="recentReports" class="mat-elevation-z8">
+  <h2 class="title">Recent Reports</h2>
+  <table mat-table [dataSource]="recentReports" class="custom-table mat-elevation-z8">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let report"> {{report.id}} </td>
     </ng-container>
 
-    <!-- Space Name (as Title) -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
       <td mat-cell *matCellDef="let report"> {{report.spaceName}} </td>
     </ng-container>
 
-    <!-- Status Column (if you want to show a default) -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let report"> Pending </td>
+      <td mat-cell *matCellDef="let report">
+        <span class="status pending">Pending</span>
+      </td>
     </ng-container>
 
-    <!-- Created At Date Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef> Date </th>
       <td mat-cell *matCellDef="let report"> {{report.createdAt | date:'short'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="fade-in-row"></tr>
   </table>
 </div>
 </div>
