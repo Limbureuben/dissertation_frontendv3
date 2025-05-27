@@ -119,7 +119,6 @@ loadBookings() {
             response => {
               this.toastr.success('Booking accepted and forwarded.', 'Success');
 
-              // Remove accepted booking from dataSource
               this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
             },
             error => {

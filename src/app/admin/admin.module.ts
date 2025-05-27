@@ -45,6 +45,7 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { TestMapComponent } from './test-map/test-map.component';
+import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { TestMapComponent } from './test-map/test-map.component';
     RegisterWardComponent,
     ManagewardexecutiveComponent,
     TestMapComponent,
+    AvailableBookingComponent,
   ],
   imports: [
     CommonModule,
