@@ -11,7 +11,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
-import { DoughnutChartComponent } from './doughnut-chart/doughnut-chart.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MapCommonComponent } from './map-common/map-common.component';
 import { MapComponent } from '../user/map/map.component';
@@ -45,13 +44,11 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
-import { AvailablebookingComponent } from './availablebooking/availablebooking.component';
 
 
 @NgModule({
   declarations: [
     AdminFooterComponent,
-    DoughnutChartComponent,
     MapCommonComponent,
     MapAdminComponent,
     AvailablespaceComponent,
@@ -65,7 +62,6 @@ import { AvailablebookingComponent } from './availablebooking/availablebooking.c
     RegisterWardComponent,
     ManagewardexecutiveComponent,
     AvailableBookingComponent,
-    AvailablebookingComponent,
   ],
   imports: [
     CommonModule,

@@ -22,7 +22,7 @@ export class CustomerSidebarComponent {
     { icon: 'sms', label: 'Report-USSD', route: 'report-ussd' },
     { icon: 'supervisor_account', label: 'Executive', route: 'manage-wardexecutive' },
     { icon: 'history', label: 'History', route: 'history' },
-    { icon: 'explore', label: 'TestMap', route: 'test-map' },
+    { icon: 'booking', label: 'Booking', route: 'booking' },
     { icon: 'logout', label: 'Logout' }
   ])
 

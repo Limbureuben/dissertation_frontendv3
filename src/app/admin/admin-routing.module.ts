@@ -11,16 +11,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashComponent } from './dash/dash.component';
 import { ReportUssdComponent } from './report-ussd/report-ussd.component';
 import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managewardexecutive.component';
-
-// const routes: Routes = [
-//   { path: 'admindashboard', component: AdminDashboardComponent, canActivate: [authGuard, adminGuard] },
-//   { path: 'map-common', component: MapCommonComponent },
-//   { path: 'openspace', component: AvailablespaceComponent },
-//   { path: 'reports', component: AvailablereportComponent },
-//   { path: 'history', component: ReportHistoryComponent },
-//   { path: 'sidebar', component: SidebarComponent },
-//   { path: 'sidebartwo', component: SidebartwoComponent }
-// ];
+import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
 
 const routes: Routes = [
   {
@@ -35,6 +26,7 @@ const routes: Routes = [
       { path: 'history', component: ReportHistoryComponent },
       { path: 'report-ussd', component: ReportUssdComponent },
       { path: 'manage-wardexecutive', component: ManagewardexecutiveComponent },
+      { path: 'booking', component: AvailableBookingComponent },
       { path: '', redirectTo: 'dash', pathMatch: 'full' }
     ]
   },
