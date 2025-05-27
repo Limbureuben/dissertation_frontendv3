@@ -65,12 +65,15 @@ export class DashComponent implements OnInit{
       }
     });
 
+    this.fetchRecentReports();
+  }
+
+  fetchRecentReports() {
     this.opespace.getAllReports().subscribe((data) => {
       this.recentReports = data.slice(-5).reverse();
       this.dataSource.data = data;
     });
-}
-
+  }
 
 OpenAvailableSpaces() {
   this.router.navigate(['/admin/openspace']);
