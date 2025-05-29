@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { OpenspaceService } from '../../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBookingComponent } from '../confirm-booking/confirm-booking.component';
+import { BookingService } from '../../../service/booking.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-available-booking',
@@ -34,101 +37,97 @@ import { MatDialog } from '@angular/material/dialog';
 export class AvailableBookingComponent implements OnInit{
 
   dataSource = new MatTableDataSource<any>([]);
+  displayedColumns: string[] = ['username', 'date', 'duration', 'file', 'actions'];
+  // displayedColumns: string[] = ['space', 'username', 'contact', 'date', 'duration', 'purpose', 'district', 'file', 'actions'];
 
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-    constructor(
-      private openSpaceService: OpenspaceService,
-      private toastr: ToastrService,
-      private dialog: MatDialog
-    ) {}
+  selectedReport: any = null;
+  showPopup: boolean = false;
+  backendUrl = 'http://localhost:8000';
 
-    ngOnInit(): void {
-        this.loadReport();
-    }
+  constructor(
+    private bookingService: BookingService,
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private snackBar: MatSnackBar
+  ) {}
 
-    loadReport() {
-      this.openSpaceService.getAllReports().subscribe((data) => {
-        this.dataSource.data = data;
-        this.dataSource.paginator = this.paginator;
-      });
-    }
 
-    ngAfterViewInit() {
+  ngOnInit(): void {
+  this.loadBookings();
+  }
+
+loadBookings() {
+    this.bookingService.getBookingsByDistrict().subscribe((data) => {
+      this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    }
+    });
+  }
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-    confirmReport(reportId: string): void {
-      // Create the SweetAlert with Bootstrap buttons
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger"
-        },
-        buttonsStyling: false
+  viewReport(report: any): void {
+    this.dialog.open(AvailableBookingComponent, {
+      data: report,
+    });
+  }
+
+  closePopup(): void {
+  this.showPopup = false;
+  this.selectedReport = null;
+}
+
+  getFullFileUrl(filePath: string): string {
+      if (!filePath) return '';
+      return `${this.backendUrl}${filePath}`;
+  }
+
+
+  confirmReport(reportId: number): void {
+    console.log('Confirming booking:', reportId);
+  }
+
+
+  acceptBooking(row: any) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, accept it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Open dialog for description
+      const dialogRef = this.dialog.open(ConfirmBookingComponent, {
+        width: '400px',
+        data: { booking: row }
       });
 
-      // Show SweetAlert with confirmation buttons
-      swalWithBootstrapButtons.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, confirm it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Proceed with the mutation to confirm the report
-          this.openSpaceService.confirmReport(reportId).subscribe(response => {
-            if (response.data.confirmReport.success) {
-              // Show success message with SweetAlert
-              swalWithBootstrapButtons.fire({
-                title: "Confirmed!",
-                text: "The report has been confirmed.",
-                icon: "success"
-              });
-              // Optionally, reload the report list or update the UI
-              this.loadReport();
-            } else {
-              // Show failure message with SweetAlert
-              swalWithBootstrapButtons.fire({
-                title: "Failed!",
-                text: "The report could not be confirmed.",
-                icon: "error"
-              });
+      dialogRef.afterClosed().subscribe(description => {
+        if (description) {
+          this.bookingService.acceptBooking(row.id, description).subscribe(
+            response => {
+              this.toastr.success('Booking accepted and forwarded.', 'Success');
+
+              this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
+            },
+            error => {
+              console.error('Error accepting booking:', error);
+              this.toastr.error('Failed to accept booking.', 'Error');
             }
-          }, error => {
-            // Show error message with SweetAlert in case of backend error
-            swalWithBootstrapButtons.fire({
-              title: "Error!",
-              text: "There was an error confirming the report.",
-              icon: "error"
-            });
-          });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          // Show cancellation message with SweetAlert
-          swalWithBootstrapButtons.fire({
-            title: "Cancelled",
-            text: "The report has not been confirmed.",
-            icon: "error"
-          });
+          );
         }
       });
     }
-
-    markAsPending(reportId: string): void {
-      console.log('Deleting Report:', reportId);
-    }
-
-    viewReport(report: any): void {
-  }
+  });
+}
 
 }
