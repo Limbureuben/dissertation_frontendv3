@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmBookingComponent } from '../confirm-booking/confirm-booking.component';
 import { BookingService } from '../../../service/booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewbookigComponent } from '../viewbookig/viewbookig.component';
 
 @Component({
   selector: 'app-available-booking',
@@ -73,7 +74,7 @@ loadBookings() {
   }
 
   viewReport(report: any): void {
-    this.dialog.open(AvailableBookingComponent, {
+    this.dialog.open(ViewbookigComponent, {
       data: report,
     });
   }
