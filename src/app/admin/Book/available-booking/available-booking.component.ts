@@ -133,19 +133,38 @@ loadBookings() {
 }
 
 rejectBooking(row: any): void {
-    if (confirm('Are you sure you want to reject this booking?')) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, reject it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Call the API to reject booking
       this.bookingService.rejectBooking(row.id).subscribe({
         next: (response) => {
-          alert('Booking rejected successfully!');
+          Swal.fire({
+            title: 'Rejected!',
+            text: 'The booking has been rejected and the space is now available.',
+            icon: 'success'
+          });
           // Refresh the table
           this.loadBookings();
         },
         error: (error) => {
           console.error('Error rejecting booking:', error);
-          alert('Failed to reject booking.');
+          Swal.fire({
+            title: 'Error!',
+            text: 'Failed to reject booking. Please try again.',
+            icon: 'error'
+          });
         }
       });
     }
-  }
+  });
+}
 
 }
