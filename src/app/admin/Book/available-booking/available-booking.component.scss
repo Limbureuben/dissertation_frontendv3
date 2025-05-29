@@ -33,6 +33,22 @@
   margin-top: 10px;
 }
 
+.status-pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.status-accepted {
+  color: green;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: red;
+  font-weight: bold;
+}
+
+
 .mat-header-cell {
   background-color: #3f51b5; /* Blue color for the header */
   color: white;
@@ -62,3 +78,5 @@
 .mat-paginator {
   margin-top: 20px;
 }
+
+
