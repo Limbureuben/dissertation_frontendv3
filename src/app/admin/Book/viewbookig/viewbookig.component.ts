@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-viewbookig',
@@ -7,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrl: './viewbookig.component.scss'
 })
 export class ViewbookigComponent {
+
+  selectedReport: any;
+  backendUrl = 'http://localhost:8000';
+
+  constructor(
+    public dialogRef: MatDialogRef<ViewbookigComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+     this.selectedReport = data;
+  }
+
+  getFullFileUrl(filePath: string): string {
+    if (!filePath) return '';
+    return `${this.backendUrl}${filePath}`;
+ }
+
+  closePopup() {
+    this.dialogRef.close();
+  }
 
 }
