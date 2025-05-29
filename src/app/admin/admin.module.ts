@@ -45,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
 import { ConfirmBookingComponent } from './Book/confirm-booking/confirm-booking.component';
+import { ViewbookigComponent } from './Book/viewbookig/viewbookig.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { ConfirmBookingComponent } from './Book/confirm-booking/confirm-booking.
     ManagewardexecutiveComponent,
     AvailableBookingComponent,
     ConfirmBookingComponent,
+    ViewbookigComponent,
   ],
   imports: [
     CommonModule,
