@@ -131,4 +131,8 @@ loadBookings() {
   });
 }
 
+rejectBooking(row: any) {
+  console.log('booking accepted');
+}
+
 }
