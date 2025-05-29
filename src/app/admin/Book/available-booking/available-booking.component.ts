@@ -132,8 +132,20 @@ loadBookings() {
   });
 }
 
-rejectBooking(row: any) {
-  console.log('booking accepted');
-}
+rejectBooking(row: any): void {
+    if (confirm('Are you sure you want to reject this booking?')) {
+      this.bookingService.rejectBooking(row.id).subscribe({
+        next: (response) => {
+          alert('Booking rejected successfully!');
+          // Refresh the table
+          this.loadBookings();
+        },
+        error: (error) => {
+          console.error('Error rejecting booking:', error);
+          alert('Failed to reject booking.');
+        }
+      });
+    }
+  }
 
 }
