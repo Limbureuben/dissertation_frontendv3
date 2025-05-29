@@ -43,7 +43,4 @@ export class AvailableBookingComponent {
   closePopup() {
     this.dialogRef.close();
   }
-
-
-
 }
