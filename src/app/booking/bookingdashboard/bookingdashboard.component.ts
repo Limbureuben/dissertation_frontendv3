@@ -2,6 +2,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { BookingService } from '../../service/booking.service';
 
 @Component({
   selector: 'app-bookingdashboard',
@@ -33,7 +34,8 @@ export class BookingdashboardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private mybooking: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +43,11 @@ export class BookingdashboardComponent implements OnInit {
   }
 
   loadmyBooking() {
-    
+    this.mybooking.getAllMyBookings().subscribe({
+
+      
+
+    })
   }
 
 
