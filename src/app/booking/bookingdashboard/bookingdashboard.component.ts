@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BookingService } from '../../service/booking.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-bookingdashboard',
@@ -24,12 +25,7 @@ import { BookingService } from '../../service/booking.service';
 })
 export class BookingdashboardComponent implements OnInit {
 
-  recentBookings = [
-    { username: 'Alice', date: new Date(), purpose: 'Meeting', status: 'Confirmed' },
-    { username: 'Bob', date: new Date(), purpose: 'Event', status: 'Pending' },
-    { username: 'Charlie', date: new Date(), purpose: 'Workshop', status: 'Cancelled' }
-  ];
-
+  bookings: any[] = [];
   displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
 
   constructor(
@@ -43,11 +39,16 @@ export class BookingdashboardComponent implements OnInit {
   }
 
   loadmyBooking() {
-    this.mybooking.getAllMyBookings().subscribe({
+    this.mybooking.getAllMyBookings().subscribe( (data) => {
+      this.bookings = data;
+    },
 
-      
+    (error) => {
+      this.toastr.error('Failed to load bookings', 'Error');
+      console.error('Error loading bookings:', error);
+    }
 
-    })
+    )
   }
 
 
