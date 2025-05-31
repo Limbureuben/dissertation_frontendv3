@@ -79,14 +79,7 @@ getAdminBookingsByDistrict(): Observable<any> {
       const url = `${this.resetUrl}/api/v1/bookings/${bookingId}/reject/`;
       return this.http.post(url, {}); // POST with empty body
     }
-
-// getAllMyBookings(): Observable<any> {
-//   const token = localStorage.getItem('token');
-//   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-//   return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers });
-// }
-
-
+    
   getAllMyBookings(): Observable<any> {
     return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`);
   }
