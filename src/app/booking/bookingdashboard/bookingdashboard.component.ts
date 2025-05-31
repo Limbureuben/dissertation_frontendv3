@@ -1,5 +1,5 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
     ])
   ]
 })
-export class BookingdashboardComponent {
+export class BookingdashboardComponent implements OnInit {
 
   recentBookings = [
     { username: 'Alice', date: new Date(), purpose: 'Meeting', status: 'Confirmed' },
@@ -35,6 +35,14 @@ export class BookingdashboardComponent {
     private router: Router,
     private toastr: ToastrService
   ) {}
+
+  ngOnInit(): void {
+    this.loadmyBooking();
+  }
+
+  loadmyBooking() {
+    
+  }
 
 
 }
