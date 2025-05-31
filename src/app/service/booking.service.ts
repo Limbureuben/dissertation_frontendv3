@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GET_ALL_EXECUTIVE, GET_BOOKED_SPACES, REGISTER_USER } from '../graphql';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { RegisterData } from '../models/openspace.model';
 import { Apollo } from 'apollo-angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -93,10 +93,17 @@ getAllMyBookings(): Observable<any> {
     token = localStorage.getItem('token');
   }
 
-  const headers = new HttpHeaders();
+  let headers = new HttpHeaders();
   if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
+    headers = headers.set('Authorization', `Bearer ${token}`);
   }
-  return this.http.get(`${this.resetUrl}/api/v1/my-bookings`, { headers });
+
+  return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers })
+    .pipe(
+      catchError((error) => {
+        console.error('Error fetching bookings:', error);
+        return throwError(() => new Error('Failed to fetch bookings. Please try again.'));
+      })
+    );
 }
 }
