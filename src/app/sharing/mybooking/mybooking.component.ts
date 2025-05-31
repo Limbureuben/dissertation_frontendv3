@@ -42,7 +42,7 @@ export class MybookingComponent implements OnInit{
   loadmyBooking() {
     this.mybooking.getAllMyBookings().subscribe({
       next: (data) => {
-        
+        this.bookings = data;
       }
     })
   }
