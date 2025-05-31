@@ -43,6 +43,10 @@ export class MybookingComponent implements OnInit{
     this.mybooking.getAllMyBookings().subscribe({
       next: (data) => {
         this.bookings = data;
+      },
+      error: (error) => {
+        this.toastr.error('Failed to load bookings', 'Error');
+        console.error('Error loading bookings:', error);
       }
     })
   }
