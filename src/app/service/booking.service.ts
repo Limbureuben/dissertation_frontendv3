@@ -86,24 +86,8 @@ getAdminBookingsByDistrict(): Observable<any> {
 //   return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers });
 // }
 
-getAllMyBookings(): Observable<any> {
-  let token: string | null = null;
 
-  if (typeof window !== 'undefined' && window.localStorage) {
-    token = localStorage.getItem('token');
+  getAllMyBookings(): Observable<any> {
+    return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`);
   }
-
-  let headers = new HttpHeaders();
-  if (token) {
-    headers = headers.set('Authorization', `Bearer ${token}`);
-  }
-
-  return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers })
-    .pipe(
-      catchError((error) => {
-        console.error('Error fetching bookings:', error);
-        return throwError(() => new Error('Failed to fetch bookings. Please try again.'));
-      })
-    );
-}
 }
