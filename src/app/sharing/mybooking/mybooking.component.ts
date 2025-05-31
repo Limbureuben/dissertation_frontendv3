@@ -45,7 +45,6 @@ export class MybookingComponent implements OnInit{
         this.bookings = data;
       },
       error: (error) => {
-        this.toastr.error('Failed to load bookings', 'Error');
         console.error('Error loading bookings:', error);
       }
     })
