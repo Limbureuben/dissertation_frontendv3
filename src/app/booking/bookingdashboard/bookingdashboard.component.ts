@@ -39,9 +39,10 @@ export class BookingdashboardComponent implements OnInit {
   }
 
   loadmyBooking() {
-    this.mybooking.getAllMyBookings().subscribe( (data) => {
-      this.bookings = data;
-      console.log('Booking', data)
+    this.mybooking.getAllMyBookings().subscribe((data) => {
+      next: (data) => {
+        this.bookings = data;
+      }
     },
 
     (error) => {
