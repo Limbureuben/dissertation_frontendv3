@@ -87,8 +87,16 @@ getAdminBookingsByDistrict(): Observable<any> {
 // }
 
 getAllMyBookings(): Observable<any> {
-   const token = localStorage.getItem('token');
-   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-     return this.http.get(`${this.resetUrl}/api/v1/my-bookings`, { headers });
+  let token: string | null = null;
+
+  if (typeof window !== 'undefined' && window.localStorage) {
+    token = localStorage.getItem('token');
+  }
+
+  const headers = new HttpHeaders();
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+  return this.http.get(`${this.resetUrl}/api/v1/my-bookings`, { headers });
 }
 }
