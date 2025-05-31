@@ -27,6 +27,10 @@ export class HeaderComponent {
       })
     }
 
+    ViewBooking() {
+      this.router.navigate(['/view-booking']);
+    }
+
   OnLogout() {
   localStorage.removeItem('token');
   localStorage.removeItem('role');

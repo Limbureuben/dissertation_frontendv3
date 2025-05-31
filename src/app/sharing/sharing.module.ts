@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharingprofileComponent } from './sharingprofile/sharingprofile.component';
+import { MybookingComponent } from './mybooking/mybooking.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SharingprofileComponent } from './sharingprofile/sharingprofile.compone
     RegisterComponent,
     CommonHeaderComponent,
     SharingprofileComponent,
+    MybookingComponent,
   ],
   imports: [
     CommonModule,
