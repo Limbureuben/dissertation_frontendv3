@@ -21,11 +21,13 @@ import { Component } from '@angular/core';
 })
 export class BookingdashboardComponent {
 
-  generatePDF() {
-  // Replace with your actual PDF generation logic
-  console.log("Generating booking PDF...");
-  // Example: this.bookingService.generatePDF();
-}
+  recentBookings = [
+    { username: 'Alice', date: new Date(), purpose: 'Meeting', status: 'Confirmed' },
+    { username: 'Bob', date: new Date(), purpose: 'Event', status: 'Pending' },
+    { username: 'Charlie', date: new Date(), purpose: 'Workshop', status: 'Cancelled' }
+  ];
+
+  displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
 
 
 }
