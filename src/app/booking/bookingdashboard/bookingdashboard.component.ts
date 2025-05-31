@@ -1,5 +1,7 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bookingdashboard',
@@ -28,6 +30,11 @@ export class BookingdashboardComponent {
   ];
 
   displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
+
+  constructor(
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
 
 }
