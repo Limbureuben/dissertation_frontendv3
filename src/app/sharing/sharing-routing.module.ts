@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
+import { MybookingComponent } from './mybooking/mybooking.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'footer', component: FooterComponent },
   { path: 'header', component: HeaderComponent },
-  { path: 'common-header', component: CommonHeaderComponent }
+  { path: 'common-header', component: CommonHeaderComponent },
+  { path: 'booking', component: MybookingComponent }
 ];
 
 @NgModule({

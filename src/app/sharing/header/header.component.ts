@@ -28,7 +28,7 @@ export class HeaderComponent {
     }
 
     ViewBooking() {
-      this.router.navigate(['/view-booking']);
+      this.router.navigate(['/booking']);
     }
 
   OnLogout() {
