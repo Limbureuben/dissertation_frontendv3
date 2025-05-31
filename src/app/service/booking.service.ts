@@ -80,10 +80,26 @@ getAdminBookingsByDistrict(): Observable<any> {
       return this.http.post(url, {}); // POST with empty body
     }
 
+  // getAllMyBookings(): Observable<any> {
+  //   const token = localStorage.getItem('token');
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers });
+  // }
+
   getAllMyBookings(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers });
+  let token: string | null = null;
+
+  // Check if we're in the browser
+  if (typeof localStorage !== 'undefined') {
+    token = localStorage.getItem('token');
   }
 
+  // Prepare headers only if the token is available
+  let headers = new HttpHeaders();
+  if (token) {
+    headers = headers.set('Authorization', `Bearer ${token}`);
+  }
+
+  return this.http.get(`${this.resetUrl}/api/v1/my-bookings/`, { headers });
+}
 }

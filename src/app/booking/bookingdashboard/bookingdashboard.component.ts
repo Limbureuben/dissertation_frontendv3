@@ -51,6 +51,4 @@ export class BookingdashboardComponent implements OnInit {
 
     )
   }
-
-
 }
