@@ -24,21 +24,6 @@ export class MybookingComponent implements OnInit{
     this.loadmyBooking();
   }
 
-  // loadmyBooking() {
-  //   this.mybooking.getAllMyBookings().subscribe((data) => {
-  //     next: (data) => {
-  //       this.bookings = data;
-  //     }
-  //   },
-
-  //   (error) => {
-  //     this.toastr.error('Failed to load bookings', 'Error');
-  //     console.error('Error loading bookings:', error);
-  //   }
-
-  //   )
-  // }
-
   loadmyBooking() {
     this.mybooking.getAllMyBookings().subscribe({
       next: (data) => {

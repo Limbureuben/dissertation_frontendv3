@@ -25,31 +25,29 @@ import { error } from 'console';
 })
 export class BookingdashboardComponent implements OnInit {
 
-  bookings: any[] = [];
-  displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
 
-  constructor(
-    private router: Router,
-    private toastr: ToastrService,
-    private mybooking: BookingService
-  ) {}
+    bookings: any[] = [];
+    displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
 
-  ngOnInit(): void {
-    this.loadmyBooking();
-  }
+    constructor(
+      private router: Router,
+      private toastr: ToastrService,
+      private mybooking: BookingService
+    ) {}
 
-  loadmyBooking() {
-    this.mybooking.getAllMyBookings().subscribe((data) => {
-      next: (data) => {
-        this.bookings = data;
-      }
-    },
-
-    (error) => {
-      this.toastr.error('Failed to load bookings', 'Error');
-      console.error('Error loading bookings:', error);
+    ngOnInit(): void {
+      this.loadmyBooking();
     }
 
-    )
-  }
+    loadmyBooking() {
+      this.mybooking.getAllMyBookings().subscribe({
+        next: (data) => {
+          this.bookings = data;
+        },
+        error: (error) => {
+          console.error('Error loading bookings:', error);
+        }
+      })
+    }
+
 }
