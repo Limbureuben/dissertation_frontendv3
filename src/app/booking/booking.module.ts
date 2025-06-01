@@ -29,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import { CalenderComponent } from './calender/calender.component';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
 
 
 
@@ -37,7 +38,8 @@ import { CalenderComponent } from './calender/calender.component';
     BookingdashboardComponent,
     BookingHeaderComponent,
     BookingMapComponent,
-    CalenderComponent
+    CalenderComponent,
+    BookingHistoryComponent
   ],
   imports: [
     CommonModule,
