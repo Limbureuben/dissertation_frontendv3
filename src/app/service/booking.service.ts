@@ -85,6 +85,6 @@ getAdminBookingsByDistrict(): Observable<any> {
   }
 
   getAllMyHistoryBooking(): Observable<any> {
-    return this.http.get(`${this.resetUrl}/api/v1/my-booking`);
+    return this.http.get(`${this.resetUrl}/api/v1/my-bookings`);
   }
 }

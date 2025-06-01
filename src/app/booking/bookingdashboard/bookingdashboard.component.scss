@@ -176,9 +176,10 @@
 .recent-bookings-table-container {
   width: 83%;
   background-color: #fff;
+  height: 260px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .recent-bookings-table-container h3 {

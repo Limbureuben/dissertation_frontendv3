@@ -54,13 +54,6 @@ export class BookingHistoryComponent {
       this.loadbooking()
   }
 
-  // loadbooking() {
-  //   this.bookingservice.getAllMyHistoryBooking().subscribe((data) => {
-  //     this.dataSource.data = data;
-  //     this.dataSource.paginator = this.paginator;
-  //   });
-  // }
-
   loadbooking() {
     this.bookingservice.getAllMyHistoryBooking().subscribe({
       next: (data) => {
