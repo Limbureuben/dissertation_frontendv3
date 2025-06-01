@@ -39,15 +39,31 @@ export class BookingdashboardComponent implements OnInit {
       this.loadmyBooking();
     }
 
+    // loadmyBooking() {
+    //   this.mybooking.getAllMyBookings().subscribe({
+    //     next: (data) => {
+    //       this.bookings = data;
+    //     },
+    //     error: (error) => {
+    //       console.error('Error loading bookings:', error);
+    //     }
+    //   })
+    // }
+
     loadmyBooking() {
       this.mybooking.getAllMyBookings().subscribe({
         next: (data) => {
-          this.bookings = data;
+
+          const bookings = data.results ? data.results : data;
+          this.bookings = bookings.slice(0, 5);
+
+          console.log('5 most recent bookings:', this.bookings);
         },
         error: (error) => {
           console.error('Error loading bookings:', error);
         }
-      })
+      });
     }
+
 
 }
