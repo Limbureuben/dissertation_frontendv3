@@ -54,10 +54,22 @@ export class BookingHistoryComponent {
       this.loadbooking()
   }
 
+  // loadbooking() {
+  //   this.bookingservice.getAllMyHistoryBooking().subscribe((data) => {
+  //     this.dataSource.data = data;
+  //     this.dataSource.paginator = this.paginator;
+  //   });
+  // }
+
   loadbooking() {
-    this.bookingservice.getAllMyHistoryBooking().subscribe((data) => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
+    this.bookingservice.getAllMyHistoryBooking().subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: (error) => {
+        console.error('Error loading booking history:', error);
+      }
     });
   }
 
