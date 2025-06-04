@@ -101,40 +101,99 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  addMarkersToMap(): void {
-    this.openSpaces.forEach(space => {
-      const markerElement = document.createElement('img');
-      markerElement.src = 'assets/images/location.png';
-      markerElement.style.width = '25px';
-      markerElement.style.height = '25px';
-      markerElement.style.cursor = 'pointer';
+ addMarkersToMap(): void {
+  this.openSpaces.forEach(space => {
+    const size = 0.00025; // Approx. 50m square
 
-      const marker = new Marker({ element: markerElement })
-        .setLngLat([space.longitude, space.latitude])
-        .addTo(this.map as Map);
+    const coordinates = [
+      [
+        [space.longitude - size, space.latitude - size],
+        [space.longitude + size, space.latitude - size],
+        [space.longitude + size, space.latitude + size],
+        [space.longitude - size, space.latitude + size],
+        [space.longitude - size, space.latitude - size] // close polygon
+      ]
+    ];
 
-      const isAvailable = space.status === 'available';
+    const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: coordinates
+      },
+      properties: {
+        name: space.name,
+        latitude: space.latitude,
+        longitude: space.longitude,
+        status: space.status
+      }
+    };
 
-      const popupContent = document.createElement('div');
-      popupContent.classList.add('popup-content');
-      popupContent.innerHTML = `
-        <h3>${space.name}</h3>
-        <p>Location: (${space.latitude}, ${space.longitude})</p>
-        <p>Status: ${isAvailable ? 'Available' : 'Booked'}</p>
-      `;
+    const sourceId = `space-${space.name}-${space.latitude}`;
 
-      const popup = new Popup({ offset: 25 }).setDOMContent(popupContent);
-      marker.setPopup(popup);
+    if (!this.map?.getSource(sourceId)) {
+      // Add polygon source
+      this.map?.addSource(sourceId, {
+        type: 'geojson',
+        data: polygonGeoJSON
+      });
 
-      marker.getElement().addEventListener('click', () => {
+      // Add fill layer: green = available, red = unavailable
+      this.map?.addLayer({
+        id: sourceId,
+        type: 'fill',
+        source: sourceId,
+        paint: {
+          'fill-color': space.status === 'available' ? '#00cc00' : '#cc0000',
+          'fill-opacity': 0.5
+        }
+      });
+
+      // Border line
+      this.map?.addLayer({
+        id: `${sourceId}-border`,
+        type: 'line',
+        source: sourceId,
+        paint: {
+          'line-color': '#000000',
+          'line-width': 1
+        }
+      });
+
+      // Click interaction
+      this.map?.on('click', sourceId, (e) => {
+        const isAvailable = space.status === 'available';
+
+        // Show popup
+        const popup = new Popup({ offset: 10 })
+          .setLngLat([space.longitude, space.latitude])
+          .setHTML(`
+            <div>
+              <h3>${space.name}</h3>
+              <p>Location: (${space.latitude}, ${space.longitude})</p>
+              <p>Status: ${isAvailable ? '✅ Available' : '❌ Booked'}</p>
+            </div>
+          `)
+          .addTo(this.map as Map);
+
+        // Handle click
         if (isAvailable) {
           this.openBookingForm(space);
         } else {
           this.toastr.warning('This space is currently booked.', 'Not Available');
         }
       });
-    });
-  }
+
+      // Cursor change
+      this.map?.on('mouseenter', sourceId, () => {
+        this.map!.getCanvas().style.cursor = 'pointer';
+      });
+      this.map?.on('mouseleave', sourceId, () => {
+        this.map!.getCanvas().style.cursor = '';
+      });
+    }
+  });
+}
 
   openBookingForm(space: any) {
     this.selectedSpace = space;

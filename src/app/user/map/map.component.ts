@@ -220,82 +220,122 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
 addMarkersToMap(): void {
   this.map?.on('load', () => {
-    this.openSpaces.forEach(space => {
-      const size = 0.00025; // Approx 50m square
-
-      const coordinates = [
-        [
-          [space.longitude - size, space.latitude - size],
-          [space.longitude + size, space.latitude - size],
-          [space.longitude + size, space.latitude + size],
-          [space.longitude - size, space.latitude + size],
-          [space.longitude - size, space.latitude - size] // close the polygon
-        ]
-      ];
-
-      const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
-        type: 'Feature',
-        geometry: {
-          type: 'Polygon',
-          coordinates: coordinates
-        },
-        properties: {
-          name: space.name,
-          latitude: space.latitude,
-          longitude: space.longitude
+    // Load the icon image first
+    (this.map as any).loadImage('assets/images/location.png')
+      .then((image: any) => {
+        if (!this.map?.hasImage('space-icon')) {
+          this.map?.addImage('space-icon', image);
         }
-      };
 
+        // Now loop through open spaces and render each
+        this.openSpaces.forEach(space => {
+          const size = 0.00025; // Approx 50m square
+          const coordinates = [
+            [
+              [space.longitude - size, space.latitude - size],
+              [space.longitude + size, space.latitude - size],
+              [space.longitude + size, space.latitude + size],
+              [space.longitude - size, space.latitude + size],
+              [space.longitude - size, space.latitude - size]
+            ]
+          ];
 
-      const sourceId = `space-${space.name}-${space.latitude}`;
+          const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: coordinates
+            },
+            properties: {
+              name: space.name,
+              latitude: space.latitude,
+              longitude: space.longitude
+            }
+          };
 
-      if (!this.map?.getSource(sourceId)) {
-        // Add the GeoJSON source
-        this.map?.addSource(sourceId, {
-          type: 'geojson',
-          data: polygonGeoJSON
-        });
+          const sourceId = `space-${space.name}-${space.latitude}`;
+          const iconSourceId = `${sourceId}-icon`;
 
-        // Add the fill layer (square shape)
-        this.map?.addLayer({
-          id: sourceId,
-          type: 'fill',
-          source: sourceId,
-          paint: {
-            'fill-color': '#008000',
-            'fill-opacity': 0.5
+          // Add polygon source/layers
+          if (!this.map?.getSource(sourceId)) {
+            this.map?.addSource(sourceId, {
+              type: 'geojson',
+              data: polygonGeoJSON
+            });
+
+            this.map?.addLayer({
+              id: sourceId,
+              type: 'fill',
+              source: sourceId,
+              paint: {
+                'fill-color': '#008000',
+                'fill-opacity': 0.5
+              }
+            });
+
+            this.map?.addLayer({
+              id: `${sourceId}-border`,
+              type: 'line',
+              source: sourceId,
+              paint: {
+                'line-color': '#000000',
+                'line-width': 1
+              }
+            });
           }
-        });
 
-        // Add a border to the square
-        this.map?.addLayer({
-          id: `${sourceId}-border`,
-          type: 'line',
-          source: sourceId,
-          paint: {
-            'line-color': '#000000',
-            'line-width': 1
+          // Add icon marker (as symbol layer)
+          const pointGeoJSON: GeoJSON.Feature<GeoJSON.Point> = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [space.longitude, space.latitude]
+            },
+            properties: {
+              title: space.name
+            }
+          };
+
+          if (!this.map?.getSource(iconSourceId)) {
+            this.map?.addSource(iconSourceId, {
+              type: 'geojson',
+              data: pointGeoJSON
+            });
+
+            this.map?.addLayer({
+              id: `${iconSourceId}-layer`,
+              type: 'symbol',
+              source: iconSourceId,
+              layout: {
+                'icon-image': 'space-icon',
+                'icon-size': 0.5, // adjust this if original image is not 50px
+                'icon-anchor': 'center',
+                'icon-allow-overlap': true
+              }
+            });
           }
-        });
 
-        // Event: open report form when square is clicked
-        this.map?.on('click', sourceId, () => {
-          console.log('Square clicked for:', space.name);
-          this.openReportForm(space);
-        });
+          // Events
+          this.map?.on('click', sourceId, () => {
+            console.log('Square clicked for:', space.name);
+            this.openReportForm(space);
+          });
 
-        // Change cursor to pointer on hover
-        this.map?.on('mouseenter', sourceId, () => {
-          this.map!.getCanvas().style.cursor = 'pointer';
-        });
+          this.map?.on('mouseenter', sourceId, () => {
+            this.map!.getCanvas().style.cursor = 'pointer';
+          });
 
-        this.map?.on('mouseleave', sourceId, () => {
-          this.map!.getCanvas().style.cursor = '';
+          this.map?.on('mouseleave', sourceId, () => {
+            this.map!.getCanvas().style.cursor = '';
+          });
         });
-      }
-    });
+      })
+      .catch((error: any) => {
+        throw error;
+      });
   });
 }
+
 
 
 
