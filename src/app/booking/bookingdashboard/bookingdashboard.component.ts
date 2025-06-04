@@ -53,7 +53,6 @@ export class BookingdashboardComponent implements OnInit {
     loadmyBooking() {
       this.mybooking.getAllMyBookings().subscribe({
         next: (data) => {
-
           const bookings = data.results ? data.results : data;
           this.bookings = bookings.slice(0, 5);
 

@@ -25,6 +25,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class RegisterComponent implements OnInit {
 
   showForm = true;
+  hide = true;
 
   toggleForm() {
     this.showForm = !this.showForm;

@@ -139,10 +139,89 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   //   });
   // }
 
-  addMarkersToMap(): void {
+//   addMarkersToMap(): void {
+//   this.map?.on('load', () => {
+//     this.openSpaces.forEach(space => {
+//       const size = 0.00025; // Approx 50m square
+
+//       const coordinates = [
+//         [
+//           [space.longitude - size, space.latitude - size],
+//           [space.longitude + size, space.latitude - size],
+//           [space.longitude + size, space.latitude + size],
+//           [space.longitude - size, space.latitude + size],
+//           [space.longitude - size, space.latitude - size] // close the polygon
+//         ]
+//       ];
+
+//       const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+//         type: 'Feature',
+//         geometry: {
+//           type: 'Polygon',
+//           coordinates: coordinates
+//         },
+//         properties: {
+//           name: space.name,
+//           latitude: space.latitude,
+//           longitude: space.longitude
+//         }
+//       };
+
+
+//       const sourceId = `space-${space.name}-${space.latitude}`;
+
+//       if (!this.map?.getSource(sourceId)) {
+//         // Add the GeoJSON source
+//         this.map?.addSource(sourceId, {
+//           type: 'geojson',
+//           data: polygonGeoJSON
+//         });
+
+//         // Add the fill layer (square shape)
+//         this.map?.addLayer({
+//           id: sourceId,
+//           type: 'fill',
+//           source: sourceId,
+//           paint: {
+//             'fill-color': '#008000',
+//             'fill-opacity': 0.5
+//           }
+//         });
+
+//         // Add a border to the square
+//         this.map?.addLayer({
+//           id: `${sourceId}-border`,
+//           type: 'line',
+//           source: sourceId,
+//           paint: {
+//             'line-color': '#000000',
+//             'line-width': 1
+//           }
+//         });
+
+//         // Event: open report form when square is clicked
+//         this.map?.on('click', sourceId, () => {
+//           console.log('Square clicked for:', space.name);
+//           this.openReportForm(space);
+//         });
+
+//         // Change cursor to pointer on hover
+//         this.map?.on('mouseenter', sourceId, () => {
+//           this.map!.getCanvas().style.cursor = 'pointer';
+//         });
+
+//         this.map?.on('mouseleave', sourceId, () => {
+//           this.map!.getCanvas().style.cursor = '';
+//         });
+//       }
+//     });
+//   });
+// }
+
+addMarkersToMap(): void {
   this.map?.on('load', () => {
     this.openSpaces.forEach(space => {
-      const size = 0.001; // Approx 100m square – adjust as needed
+      const size = 0.00025; // Approx 50m square
 
       const coordinates = [
         [
@@ -195,7 +274,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
           source: sourceId,
           paint: {
             'line-color': '#000000',
-            'line-width': 2
+            'line-width': 1
           }
         });
 

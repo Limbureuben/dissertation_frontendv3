@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit{
 
   LoginForm!: FormGroup;
   registrationError: any;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,
