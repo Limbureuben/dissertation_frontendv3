@@ -105,8 +105,4 @@ export class ReportUssdComponent implements OnInit {
       }
     });
   }
-
-
-
-
 }
