@@ -101,42 +101,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  // addMarkersToMap(): void {
-  //   this.openSpaces.forEach(space => {
-  //     const markerElement = document.createElement('img');
-  //     markerElement.src = 'assets/images/location.png';
-  //     markerElement.style.width = '25px';
-  //     markerElement.style.height = '25px';
-  //     markerElement.style.cursor = 'pointer';
-
-  //     const marker = new Marker({ element: markerElement })
-  //       .setLngLat([space.longitude, space.latitude])
-  //       .addTo(this.map as Map);
-
-  //     const isAvailable = space.status === 'available';
-
-  //     const popupContent = document.createElement('div');
-  //     popupContent.classList.add('popup-content');
-  //     popupContent.innerHTML = `
-  //       <h3>${space.name}</h3>
-  //       <p>Location: (${space.latitude}, ${space.longitude})</p>
-  //       <p>Status: ${isAvailable ? 'Available' : 'Booked'}</p>
-  //     `;
-
-  //     const popup = new Popup({ offset: 25 }).setDOMContent(popupContent);
-  //     marker.setPopup(popup);
-
-  //     marker.getElement().addEventListener('click', () => {
-  //       if (isAvailable) {
-  //         this.openBookingForm(space);
-  //       } else {
-  //         this.toastr.warning('This space is currently booked.', 'Not Available');
-  //       }
-  //     });
-  //   });
-  // }
-
-
+  
 
   addMarkersToMap(): void {
   if (!this.map) return;
