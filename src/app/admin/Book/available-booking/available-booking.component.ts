@@ -75,7 +75,7 @@ loadBookings() {
 
   viewReport(report: any): void {
     this.dialog.open(ViewbookigComponent, {
-      width: '800px',
+      width: '600px',
       data: report
     });
   }
