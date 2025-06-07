@@ -41,7 +41,7 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> STATUS </th>
           <td mat-cell *matCellDef="let report">
-            <span [ngClass]="{'confirmed-status': report.status === 'confirmed'}">
+            <span [ngClass]="{'confirmed-status': report.status === 'processed'}">
               {{ report.status }}
             </span>
           </td>
@@ -49,13 +49,25 @@
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> ACTIONS</th>
-          <td mat-cell *matCellDef="let report">
-            <button mat-button color="primary" (click)="confirmReport(report)" *ngIf="report.status !== 'confirmed'">
-              Confirm
-            </button>
-          </td>
-        </ng-container>
+        <th mat-header-cell *matHeaderCellDef> ACTIONS </th>
+        <td mat-cell *matCellDef="let report">
+          <!-- Confirm Button -->
+          <button mat-button color="primary" (click)="confirmReport(report)" *ngIf="report.status !== 'confirmed'">
+            Confirm
+          </button>
+
+          <!-- Reply Button -->
+          <button mat-button color="accent" (click)="replyToReport(report)">
+            Reply
+          </button>
+
+          <!-- Delete Button -->
+          <button mat-button color="warn" (click)="deleteReport(report)">
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
 
         <tr mat-row *matRowDef="let row; columns: ['referenceNumber', 'openSpace', 'description', 'status', 'actions'];" @rowAnimation></tr>
       </tbody>

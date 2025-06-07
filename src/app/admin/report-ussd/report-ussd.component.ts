@@ -105,4 +105,14 @@ export class ReportUssdComponent implements OnInit {
       }
     });
   }
+
+  replyToReport(report: any) {
+
+  }
+
+  deleteReport(report: any) {
+    
+  }
+
+
 }
