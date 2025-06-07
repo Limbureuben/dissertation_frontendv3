@@ -7,6 +7,7 @@ import { OpenspaceService } from '../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { BookingService } from '../../service/booking.service';
 
 @Component({
   selector: 'app-report-ussd',
@@ -45,7 +46,8 @@ export class ReportUssdComponent implements OnInit {
   constructor(
     private openspace: OpenspaceService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private bookingservice: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +109,13 @@ export class ReportUssdComponent implements OnInit {
   }
 
   replyToReport(report: any) {
-
+    const message = prompt('Enter your reply message:');
+    if (message) {
+      this.bookingservice.replyToReport(report.id, message).subscribe({
+        next: () => this.toastr.success('Reply sent successfully!'),
+        error: () => this.toastr.error('Failed to send reply.')
+      });
+    }
   }
 
   deleteReport(report: any) {
