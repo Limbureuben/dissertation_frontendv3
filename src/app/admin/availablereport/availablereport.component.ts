@@ -122,63 +122,9 @@ export class AvailablereportComponent implements OnInit{
     });
   }
 
+  replyToReport(report: any) {
 
-
-//   confirmReport(reportId: string): void {
-//   const swalWithBootstrapButtons = Swal.mixin({
-//     buttonsStyling: true
-//   });
-
-//   swalWithBootstrapButtons.fire({
-//     title: "Are you sure?",
-//     text: "You won't be able to revert this!",
-//     icon: "warning",
-//     showCancelButton: true,
-//     confirmButtonText: "Yes, confirm it!",
-//     cancelButtonText: "No, cancel!",
-//     confirmButtonColor: "rgb(100, 100, 177)",
-//     cancelButtonColor: "#d33",
-//     reverseButtons: true
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       this.openSpaceService.confirmReport(reportId).subscribe({
-//         next: (response) => {
-//           console.log('Confirm Report Response:', response);
-
-//           if (response?.status === 'success') {
-//             swalWithBootstrapButtons.fire({
-//               title: "Confirmed!",
-//               text: "The report has been confirmed.",
-//               icon: "success"
-//             });
-//             this.loadReport();
-//           } else {
-//             swalWithBootstrapButtons.fire({
-//               title: "Failed!",
-//               text: "The report could not be confirmed.",
-//               icon: "error"
-//             });
-//           }
-//         },
-//         error: () => {
-//           swalWithBootstrapButtons.fire({
-//             title: "Error!",
-//             text: "There was an error confirming the report.",
-//             icon: "error"
-//           });
-//         }
-//       });
-//     } else if (result.dismiss === Swal.DismissReason.cancel) {
-//       swalWithBootstrapButtons.fire({
-//         title: "Cancelled",
-//         text: "The report has not been confirmed.",
-//         icon: "info"
-//       });
-//     }
-//   });
-// }
-
-
+  }
 
   markAsPending(reportId: string): void {
     console.log('Deleting Report:', reportId);
