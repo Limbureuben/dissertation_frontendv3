@@ -124,13 +124,11 @@ export class AvailablereportComponent implements OnInit{
   //   });
   // }
 
+
+
   confirmReport(reportId: string): void {
   const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger"
-    },
-    buttonsStyling: false
+    buttonsStyling: true
   });
 
   swalWithBootstrapButtons.fire({
@@ -140,6 +138,8 @@ export class AvailablereportComponent implements OnInit{
     showCancelButton: true,
     confirmButtonText: "Yes, confirm it!",
     cancelButtonText: "No, cancel!",
+    confirmButtonColor: "rgb(100, 100, 177)",
+    cancelButtonColor: "#d33",
     reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
