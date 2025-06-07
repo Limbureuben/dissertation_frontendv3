@@ -95,4 +95,12 @@ getAdminBookingsByDistrict(): Observable<any> {
   deleteReport(reportId: number) {
     return this.http.delete(`${this.resetUrl}/api/v1/delete-report/${reportId}/`);
   }
+
+    sendReply(reportId: string, message: string) {
+    return this.http.post(`${this.resetUrl}/Api/reports/reply/`, {
+      report_id: reportId,
+      message: message
+    });
+  }
+
 }
