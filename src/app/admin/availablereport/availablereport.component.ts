@@ -123,7 +123,7 @@ export class AvailablereportComponent implements OnInit{
   }
 
   replyToReport(report: any) {
-
+    
   }
 
   markAsPending(reportId: string): void {
