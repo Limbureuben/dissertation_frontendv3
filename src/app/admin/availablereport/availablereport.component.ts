@@ -8,6 +8,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewReportComponent } from '../view-report/view-report.component';
 import Swal from 'sweetalert2';
+import { ReplyComponent } from '../reply/reply.component';
 
 @Component({
   selector: 'app-availablereport',
@@ -122,9 +123,6 @@ export class AvailablereportComponent implements OnInit{
     });
   }
 
-  replyToReport(report: any) {
-    
-  }
 
   markAsPending(reportId: string): void {
     console.log('Deleting Report:', reportId);
@@ -135,4 +133,18 @@ export class AvailablereportComponent implements OnInit{
       data: report,
     });
 }
+
+    replyToReport(report: any) {
+    const dialogRef = this.dialog.open(ReplyComponent, {
+      width: '400px',
+      data: { reportId: report.reportId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toastr.success("Message sent to user");
+      }
+    });
+  }
+
 }
