@@ -1,11 +1,21 @@
-<h2 mat-dialog-title>Reply to Reporter</h2>
-<mat-dialog-content>
-  <mat-form-field appearance="fill" class="w-full">
-    <mat-label>Message</mat-label>
-    <textarea matInput [(ngModel)]="message" rows="4"></textarea>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="sendReply()">Send</button>
-</mat-dialog-actions>
+<div class="p-4 max-w-md mx-auto">
+  <h2 mat-dialog-title class="text-xl font-semibold text-center text-gray-800">Reply to Reporter</h2>
+
+  <mat-dialog-content class="mt-4">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Message</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="message"
+        rows="4"
+        placeholder="Write your reply to the reporter here..."
+        class="resize-none"
+      ></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="mt-4">
+    <button mat-stroked-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="sendReply()">Send</button>
+  </mat-dialog-actions>
+</div>
