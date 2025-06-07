@@ -79,7 +79,7 @@ export class ReportUssdComponent implements OnInit {
       text: "You are about to confirm this report.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "rgb(100, 100, 177)",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, confirm it!"
     }).then((result) => {
@@ -124,7 +124,7 @@ export class ReportUssdComponent implements OnInit {
     text: "You won't be able to revert this!",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
+    confirmButtonColor: 'rgb(100, 100, 177)',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
   }).then((result) => {
