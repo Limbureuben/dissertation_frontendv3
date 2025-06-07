@@ -125,27 +125,37 @@ export class AvailablereportComponent implements OnInit{
   // }
 
   confirmReport(reportId: string): void {
-  Swal.fire({
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger"
+    },
+    buttonsStyling: false
+  });
+
+  swalWithBootstrapButtons.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "rgb(100, 100, 177)",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, confirm it!"
+    confirmButtonText: "Yes, confirm it!",
+    cancelButtonText: "No, cancel!",
+    reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
       this.openSpaceService.confirmReport(reportId).subscribe({
         next: (response) => {
+          console.log('Confirm Report Response:', response);
+
           if (response?.status === 'success') {
-            Swal.fire({
+            swalWithBootstrapButtons.fire({
               title: "Confirmed!",
               text: "The report has been confirmed.",
               icon: "success"
             });
-            this.loadReport(); // refresh the list
+            this.loadReport();
           } else {
-            Swal.fire({
+            swalWithBootstrapButtons.fire({
               title: "Failed!",
               text: "The report could not be confirmed.",
               icon: "error"
@@ -153,22 +163,23 @@ export class AvailablereportComponent implements OnInit{
           }
         },
         error: () => {
-          Swal.fire({
+          swalWithBootstrapButtons.fire({
             title: "Error!",
             text: "There was an error confirming the report.",
             icon: "error"
           });
         }
       });
-    } else {
-      Swal.fire({
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      swalWithBootstrapButtons.fire({
         title: "Cancelled",
-        text: "The report was not confirmed.",
+        text: "The report has not been confirmed.",
         icon: "info"
       });
     }
   });
 }
+
 
 
   markAsPending(reportId: string): void {
