@@ -119,8 +119,30 @@ export class ReportUssdComponent implements OnInit {
   }
 
   deleteReport(report: any) {
-    
-  }
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.bookingservice.deleteReport(report.id).subscribe({
+        next: () => {
+          this.dataSource.data = this.dataSource.data.filter(r => r.id !== report.id);
+          this.toastr.success('Report deleted successfully!');
+          Swal.fire('Deleted!', 'The report has been deleted.', 'success');
+        },
+        error: () => {
+          this.toastr.error('Failed to delete report.');
+        }
+      });
+    }
+  });
+}
+
 
 
 }
