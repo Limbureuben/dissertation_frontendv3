@@ -65,120 +65,118 @@ export class AvailablereportComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // confirmReport(reportId: string): void {
-  //   // Create the SweetAlert with Bootstrap buttons
-  //   const swalWithBootstrapButtons = Swal.mixin({
-  //     customClass: {
-  //       confirmButton: "btn btn-success",
-  //       cancelButton: "btn btn-danger"
-  //     },
-  //     buttonsStyling: false
-  //   });
-
-  //   // Show SweetAlert with confirmation buttons
-  //   swalWithBootstrapButtons.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: "Yes, confirm it!",
-  //     cancelButtonText: "No, cancel!",
-  //     reverseButtons: true
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       // Proceed with the mutation to confirm the report
-  //       this.openSpaceService.confirmReport(reportId).subscribe(response => {
-  //         if (response.data.confirmReport.success) {
-  //           // Show success message with SweetAlert
-  //           swalWithBootstrapButtons.fire({
-  //             title: "Confirmed!",
-  //             text: "The report has been confirmed.",
-  //             icon: "success"
-  //           });
-  //           // Optionally, reload the report list or update the UI
-  //           this.loadReport();
-  //         } else {
-  //           // Show failure message with SweetAlert
-  //           swalWithBootstrapButtons.fire({
-  //             title: "Failed!",
-  //             text: "The report could not be confirmed.",
-  //             icon: "error"
-  //           });
-  //         }
-  //       }, error => {
-  //         // Show error message with SweetAlert in case of backend error
-  //         swalWithBootstrapButtons.fire({
-  //           title: "Error!",
-  //           text: "There was an error confirming the report.",
-  //           icon: "error"
-  //         });
-  //       });
-  //     } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //       // Show cancellation message with SweetAlert
-  //       swalWithBootstrapButtons.fire({
-  //         title: "Cancelled",
-  //         text: "The report has not been confirmed.",
-  //         icon: "error"
-  //       });
-  //     }
-  //   });
-  // }
-
-
-
   confirmReport(reportId: string): void {
-  const swalWithBootstrapButtons = Swal.mixin({
-    buttonsStyling: true
-  });
+    // Create the SweetAlert with Bootstrap buttons
+    const swalWithBootstrapButtons = Swal.mixin({
+      buttonsStyling: true
+    });
 
-  swalWithBootstrapButtons.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Yes, confirm it!",
-    cancelButtonText: "No, cancel!",
-    confirmButtonColor: "rgb(100, 100, 177)",
-    cancelButtonColor: "#d33",
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.openSpaceService.confirmReport(reportId).subscribe({
-        next: (response) => {
-          console.log('Confirm Report Response:', response);
-
-          if (response?.status === 'success') {
+    // Show SweetAlert with confirmation buttons
+    swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, confirm it!",
+      confirmButtonColor: "rgb(100, 100, 177)",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the mutation to confirm the report
+        this.openSpaceService.confirmReport(reportId).subscribe(response => {
+          if (response.data.confirmReport.success) {
+            // Show success message with SweetAlert
             swalWithBootstrapButtons.fire({
               title: "Confirmed!",
               text: "The report has been confirmed.",
               icon: "success"
             });
+            // Optionally, reload the report list or update the UI
             this.loadReport();
           } else {
+            // Show failure message with SweetAlert
             swalWithBootstrapButtons.fire({
               title: "Failed!",
               text: "The report could not be confirmed.",
               icon: "error"
             });
           }
-        },
-        error: () => {
+        }, error => {
+          // Show error message with SweetAlert in case of backend error
           swalWithBootstrapButtons.fire({
             title: "Error!",
             text: "There was an error confirming the report.",
             icon: "error"
           });
-        }
-      });
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      swalWithBootstrapButtons.fire({
-        title: "Cancelled",
-        text: "The report has not been confirmed.",
-        icon: "info"
-      });
-    }
-  });
-}
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // Show cancellation message with SweetAlert
+        swalWithBootstrapButtons.fire({
+          title: "Cancelled",
+          text: "The report has not been confirmed.",
+          icon: "error"
+        });
+      }
+    });
+  }
+
+
+
+//   confirmReport(reportId: string): void {
+//   const swalWithBootstrapButtons = Swal.mixin({
+//     buttonsStyling: true
+//   });
+
+//   swalWithBootstrapButtons.fire({
+//     title: "Are you sure?",
+//     text: "You won't be able to revert this!",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: "Yes, confirm it!",
+//     cancelButtonText: "No, cancel!",
+//     confirmButtonColor: "rgb(100, 100, 177)",
+//     cancelButtonColor: "#d33",
+//     reverseButtons: true
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       this.openSpaceService.confirmReport(reportId).subscribe({
+//         next: (response) => {
+//           console.log('Confirm Report Response:', response);
+
+//           if (response?.status === 'success') {
+//             swalWithBootstrapButtons.fire({
+//               title: "Confirmed!",
+//               text: "The report has been confirmed.",
+//               icon: "success"
+//             });
+//             this.loadReport();
+//           } else {
+//             swalWithBootstrapButtons.fire({
+//               title: "Failed!",
+//               text: "The report could not be confirmed.",
+//               icon: "error"
+//             });
+//           }
+//         },
+//         error: () => {
+//           swalWithBootstrapButtons.fire({
+//             title: "Error!",
+//             text: "There was an error confirming the report.",
+//             icon: "error"
+//           });
+//         }
+//       });
+//     } else if (result.dismiss === Swal.DismissReason.cancel) {
+//       swalWithBootstrapButtons.fire({
+//         title: "Cancelled",
+//         text: "The report has not been confirmed.",
+//         icon: "info"
+//       });
+//     }
+//   });
+// }
 
 
 
