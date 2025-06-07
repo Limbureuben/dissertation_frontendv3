@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +14,7 @@ import { BookingService } from '../../service/booking.service';
   standalone: false,
   templateUrl: './report-ussd.component.html',
   styleUrl: './report-ussd.component.scss',
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('tableEnterAnimation', [
       transition(':enter', [
@@ -108,14 +109,55 @@ export class ReportUssdComponent implements OnInit {
     });
   }
 
+  // replyToReport(report: any) {
+  //   const message = prompt('Enter your reply message:');
+  //   if (message) {
+  //     this.bookingservice.replyToReport(report.id, message).subscribe({
+  //       next: () => this.toastr.success('Reply sent successfully!'),
+  //       error: () => this.toastr.error('Failed to send reply.')
+  //     });
+  //   }
+  // }
+
   replyToReport(report: any) {
-    const message = prompt('Enter your reply message:');
-    if (message) {
-      this.bookingservice.replyToReport(report.id, message).subscribe({
-        next: () => this.toastr.success('Reply sent successfully!'),
-        error: () => this.toastr.error('Failed to send reply.')
-      });
-    }
+    Swal.fire({
+      title: 'Reply to Reporter',
+      input: 'text',
+      customClass: {
+      input: 'no-border'
+      },
+      inputLabel: 'Enter your reply message',
+      inputPlaceholder: 'Type your message here...',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Send Reply',
+      showLoaderOnConfirm: true,
+      preConfirm: (message) => {
+        if (!message) {
+          Swal.showValidationMessage('Message is required');
+          return;
+        }
+
+        // Send reply to backend
+        return this.bookingservice.replyToReport(report.id, message).toPromise()
+          .then(() => {
+            return true;
+          })
+          .catch(() => {
+            Swal.showValidationMessage('Failed to send reply. Please try again.');
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reply sent successfully!'
+        });
+      }
+    });
   }
 
   deleteReport(report: any) {

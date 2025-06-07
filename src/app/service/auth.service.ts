@@ -93,12 +93,12 @@ export class AuthService {
 
     this.toast.success('Logout successful!', 'Success', {
       positionClass: 'toast-top-right',
-      timeOut: 3000,
+      timeOut: 1500,
       progressBar: true
     });
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 3000);
+    }, 1500);
   }
 
   isLoggedIn(): boolean {

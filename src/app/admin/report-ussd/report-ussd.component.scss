@@ -54,3 +54,10 @@
   font-weight: bold;
   text-transform: capitalize;
 }
+
+
+.swal2-input.no-border {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
