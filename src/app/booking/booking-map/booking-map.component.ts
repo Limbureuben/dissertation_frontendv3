@@ -192,106 +192,149 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // submitBook() {
+  //   if (this.reportForm.invalid || !this.selectedSpace) {
+  //     this.toastr.warning('Please fill all fields and select a space.');
+  //     return;
+  //   }
+
+  //   const start = new Date(this.reportForm.value.startdate);
+  //   const end = new Date(this.reportForm.value.enddate);
+  //   if (end <= start) {
+  //     this.toastr.warning('End date must be after start date.');
+  //     return;
+  //   }
+
+  //   if (!this.pdfBlob && !this.selectedFile) {
+  //     this.toastr.warning('Please preview the PDF or upload a file before submitting.');
+  //     return;
+  //   }
+
+  //   this.submitting = true;
+  //   const formData = new FormData();
+  //   formData.append('space_id', this.selectedSpace.id.toString());
+  //   formData.append('username', this.reportForm.value.username);
+  //   formData.append('contact', this.reportForm.value.contact);
+  //   formData.append('startdate', this.reportForm.value.startdate);
+  //   formData.append('enddate', this.reportForm.value.enddate);
+  //   formData.append('duration', this.reportForm.value.duration);
+  //   formData.append('purpose', this.reportForm.value.purpose);
+  //   formData.append('district', this.reportForm.value.district);
+
+  //   const fileToAttach = this.pdfBlob || this.selectedFile!;
+  //   const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
+  //   formData.append('file', fileToAttach, fileName);
+
+  //   this.bookingService.bookOpenSpace(formData).subscribe({
+  //     next: () => {
+  //       this.toastr.success('Booking successful!', 'Success');
+  //       this.reportForm.reset();
+  //       this.selectedFile = null;
+  //       this.selectedFileName = '';
+  //       this.pdfBlob = null;
+  //       this.pdfUrl = null;
+  //       this.showPreview = false;
+  //       this.closeForm();
+  //       this.submitting = false;
+  //       this.fetchOpenSpaces();
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //       this.toastr.error('Booking failed', 'Error');
+  //       this.submitting = false;
+  //     }
+  //   });
+  // }
+
   submitBook() {
-    if (this.reportForm.invalid || !this.selectedSpace) {
-      this.toastr.warning('Please fill all fields and select a space.');
-      return;
-    }
-
-    const start = new Date(this.reportForm.value.startdate);
-    const end = new Date(this.reportForm.value.enddate);
-    if (end <= start) {
-      this.toastr.warning('End date must be after start date.');
-      return;
-    }
-
-    if (!this.pdfBlob && !this.selectedFile) {
-      this.toastr.warning('Please preview the PDF or upload a file before submitting.');
-      return;
-    }
-
-    this.submitting = true;
-    const formData = new FormData();
-    formData.append('space_id', this.selectedSpace.id.toString());
-    formData.append('username', this.reportForm.value.username);
-    formData.append('contact', this.reportForm.value.contact);
-    formData.append('startdate', this.reportForm.value.startdate);
-    formData.append('enddate', this.reportForm.value.enddate);
-    formData.append('duration', this.reportForm.value.duration);
-    formData.append('purpose', this.reportForm.value.purpose);
-    formData.append('district', this.reportForm.value.district);
-
-    const fileToAttach = this.pdfBlob || this.selectedFile!;
-    const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
-    formData.append('file', fileToAttach, fileName);
-
-    this.bookingService.bookOpenSpace(formData).subscribe({
-      next: () => {
-        this.toastr.success('Booking successful!', 'Success');
-        this.reportForm.reset();
-        this.selectedFile = null;
-        this.selectedFileName = '';
-        this.pdfBlob = null;
-        this.pdfUrl = null;
-        this.showPreview = false;
-        this.closeForm();
-        this.submitting = false;
-        this.fetchOpenSpaces();
-      },
-      error: (err) => {
-        console.error(err);
-        this.toastr.error('Booking failed', 'Error');
-        this.submitting = false;
-      }
-    });
+  if (!this.reportForm.valid || !this.selectedSpace) {
+    return;
   }
 
-  downloadPDF() {
-    if (this.reportForm.invalid) {
-      this.toastr.warning('Please fill all form fields before downloading the PDF.');
-      return;
-    }
+  this.submitting = true;
 
-    const doc = new jsPDF();
-    const leftColX = 20;
-    const rightColX = 80;
-    let currentY = 30;
+  const {
+    username,
+    contact,
+    startdate,
+    enddate,
+    district,
+    purpose
+  } = this.reportForm.value;
 
-    const { username, contact, startdate, enddate, district, duration, purpose } = this.reportForm.value;
-    const formattedDate = new Date(startdate).toLocaleDateString();
-    const sendingDate = new Date().toLocaleDateString();
+  const space = this.selectedSpace;
 
-    doc.setFontSize(16).setFont("helvetica", "bold");
-    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 15, { align: "center" });
-    doc.line(20, 20, 190, 20);
+  const doc = new jsPDF();
+  let currentY = 20;
+  const leftColX = 20;
+  const rightColX = 80;
 
-    doc.setFontSize(12).setFont("helvetica", "bold");
-    doc.text("FROM:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(username, rightColX, currentY); currentY += 8;
-    doc.text("Ward Executive Officer", rightColX, currentY); currentY += 8;
-    doc.text("Kinondoni Municipal Staff", rightColX, currentY); currentY += 15;
+  // Header
+  doc.setFontSize(16);
+  doc.setFont("helvetica", "bold");
+  doc.text("Booking Confirmation", 70, currentY);
+  currentY += 10;
 
-    doc.text("USERNAME:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 8;
-    doc.text("CONTACT:", leftColX, currentY); doc.text(contact, rightColX, currentY); currentY += 8;
-    doc.text("WARD:", leftColX, currentY); doc.text(district, rightColX, currentY); currentY += 8;
-    doc.text("BOOKING DATE:", leftColX, currentY); doc.text(formattedDate, rightColX, currentY); currentY += 8;
-    doc.text("DURATION:", leftColX, currentY); doc.text(duration, rightColX, currentY); currentY += 8;
-    doc.text("PURPOSE:", leftColX, currentY); doc.text(purpose, rightColX, currentY); currentY += 15;
+  // General Info
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
 
-    doc.text("SENDING DATE:", leftColX, currentY); doc.text(sendingDate, rightColX, currentY); currentY += 15;
-    doc.text("USER SIGNATURE:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 15;
+  doc.text("USERNAME:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 8;
+  doc.text("CONTACT:", leftColX, currentY); doc.text(contact, rightColX, currentY); currentY += 8;
+  doc.text("DISTRICT:", leftColX, currentY); doc.text(district, rightColX, currentY); currentY += 8;
+  doc.text("PURPOSE:", leftColX, currentY); doc.text(purpose, rightColX, currentY); currentY += 8;
 
-    doc.line(20, 280, 190, 280);
-    doc.setFontSize(10).setTextColor(100);
-    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
+  const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
+  doc.text("DURATION:", leftColX, currentY); doc.text(`${durationDays} day(s)`, rightColX, currentY); currentY += 8;
+  doc.text("START DATE:", leftColX, currentY); doc.text(new Date(startdate).toLocaleDateString(), rightColX, currentY); currentY += 8;
+  doc.text("END DATE:", leftColX, currentY); doc.text(new Date(enddate).toLocaleDateString(), rightColX, currentY); currentY += 8;
 
-    this.pdfBlob = doc.output('blob');
-    this.pdfUrl = URL.createObjectURL(this.pdfBlob);
-    this.showPreview = true;
-    doc.save('booking-details.pdf');
-    this.toastr.success('PDF downloaded successfully.');
+  // Location Info
+  doc.text("LOCATION:", leftColX, currentY); doc.text(space.name || space.address || '', rightColX, currentY); currentY += 8;
+  if (space.latitude && space.longitude) {
+    doc.text("LAT:", leftColX, currentY); doc.text(space.latitude.toString(), rightColX, currentY); currentY += 8;
+    doc.text("LNG:", leftColX, currentY); doc.text(space.longitude.toString(), rightColX, currentY); currentY += 8;
   }
+
+  // Output PDF
+  const pdfBlob = doc.output("blob");
+
+  // Trigger download
+  const pdfURL = URL.createObjectURL(pdfBlob);
+  const a = document.createElement('a');
+  a.href = pdfURL;
+  a.download = `booking_${new Date().getTime()}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Prepare backend submission
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('contact', contact);
+  formData.append('startdate', startdate);
+  formData.append('enddate', enddate);
+  formData.append('district', district);
+  formData.append('purpose', purpose);
+  formData.append('location', space.name || space.address || '');
+  if (space.latitude) formData.append('latitude', space.latitude.toString());
+  if (space.longitude) formData.append('longitude', space.longitude.toString());
+  formData.append('duration', durationDays.toString());
+  formData.append('pdfFile', pdfBlob, `booking_${new Date().getTime()}.pdf`);
+
+  this.bookingService.bookOpenSpace(formData).subscribe({
+    next: () => {
+      this.submitting = false;
+      alert('Booking submitted successfully!');
+      this.reportForm.reset();
+    },
+    error: (err) => {
+      console.error('Booking error:', err);
+      this.submitting = false;
+      alert('Failed to submit booking');
+    }
+  });
+}
 
   closePreview() {
     this.showPreview = false;
@@ -347,6 +390,8 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.map?.setStyle(styleUrl);
   }
 }
+
+
 
 
 

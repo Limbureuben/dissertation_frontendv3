@@ -95,11 +95,6 @@
 
           <!-- Action Buttons -->
           <div class="actions">
-            <button mat-raised-button color="primary" type="button"
-              (click)="downloadPDF()" [disabled]="!reportForm.valid || !selectedSpace">
-              Download PDF
-            </button>
-
             <button mat-raised-button color="accent" type="submit"
               [disabled]="submitting || !pdfBlob">
               {{ submitting ? 'Submitting...' : 'Submit Request' }}
