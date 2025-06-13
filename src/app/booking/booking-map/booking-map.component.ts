@@ -57,7 +57,8 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reportForm = this.fb.group({
       username: ['', Validators.required],
       contact: ['', Validators.required],
-      date: ['', Validators.required],
+      startdate: ['', Validators.required],
+      enddate: ['', Validators.required],
       district: ['', Validators.required],
       duration: ['', Validators.required],
       purpose: ['', Validators.required],
@@ -101,7 +102,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  
+
 
   addMarkersToMap(): void {
   if (!this.map) return;
@@ -170,7 +171,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
               <div>
                 <h3>${space.name}</h3>
                 <p>Location: (${space.latitude}, ${space.longitude})</p>
-                <p>Status: ${space.status === 'available' ? '✅ Available' : '❌ Booked'}</p>
+                <p>Status: ${space.status === 'available' ? ' Available' : ' Booked'}</p>
               </div>
             `)
             .addTo(this.map!);

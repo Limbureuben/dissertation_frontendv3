@@ -58,17 +58,16 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="half-width custom-input">
               <mat-label>Start Date</mat-label>
-              <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Select date" required />
+              <input matInput formControlName="startdate" [matDatepicker]="picker" placeholder="Select date" required />
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="half-width custom-input">
               <mat-label>End Date</mat-label>
-              <input matInput formControlName="duration" placeholder="Enter duration (e.g., 2 hours)" required />
-              <mat-error *ngIf="reportForm.get('duration')?.invalid && reportForm.get('duration')?.touched">
-                Duration is required
-              </mat-error>
+              <input matInput formControlName="enddate" [matDatepicker]="picker" placeholder="Select date" required />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
 
