@@ -278,7 +278,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.showPreview = false;
         this.closeForm();
         this.submitting = false;
-        this.fetchOpenSpaces(); // Refresh markers
+        this.fetchOpenSpaces();
       },
       error: (err) => {
         console.error(err);
