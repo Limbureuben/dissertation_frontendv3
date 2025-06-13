@@ -13,6 +13,7 @@ import { BookingService } from '../../service/booking.service';
 
 import jsPDF from 'jspdf';
 const config: any = {}; // Store map API key config
+import 'jspdf-qrcode';
 
 @Component({
   selector: 'app-booking-map',
@@ -191,6 +192,98 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  // submitBook() {
+  //   if (!this.reportForm.valid || !this.selectedSpace) {
+  //     return;
+  //   }
+
+  //   this.submitting = true;
+
+  //   const {
+  //     username,
+  //     contact,
+  //     startdate,
+  //     enddate,
+  //     district,
+  //     purpose
+  //   } = this.reportForm.value;
+
+  //   const space = this.selectedSpace;
+
+  //   const doc = new jsPDF();
+  //   let currentY = 20;
+  //   const leftColX = 20;
+  //   const rightColX = 80;
+
+  //   // Header
+  //   doc.setFontSize(16);
+  //   doc.setFont("helvetica", "bold");
+  //   doc.text("Booking Confirmation", 70, currentY);
+  //   currentY += 10;
+
+  //   // General Info
+  //   doc.setFontSize(12);
+  //   doc.setFont("helvetica", "normal");
+
+  //   doc.text("USERNAME:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 8;
+  //   doc.text("CONTACT:", leftColX, currentY); doc.text(contact, rightColX, currentY); currentY += 8;
+  //   doc.text("DISTRICT:", leftColX, currentY); doc.text(district, rightColX, currentY); currentY += 8;
+  //   doc.text("PURPOSE:", leftColX, currentY); doc.text(purpose, rightColX, currentY); currentY += 8;
+
+  //   const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
+  //   doc.text("DURATION:", leftColX, currentY); doc.text(`${durationDays} day(s)`, rightColX, currentY); currentY += 8;
+  //   doc.text("START DATE:", leftColX, currentY); doc.text(new Date(startdate).toLocaleDateString(), rightColX, currentY); currentY += 8;
+  //   doc.text("END DATE:", leftColX, currentY); doc.text(new Date(enddate).toLocaleDateString(), rightColX, currentY); currentY += 8;
+
+  //   // Location Info
+  //   doc.text("LOCATION:", leftColX, currentY); doc.text(space.name || space.address || '', rightColX, currentY); currentY += 8;
+  //   if (space.latitude && space.longitude) {
+  //     doc.text("LAT:", leftColX, currentY); doc.text(space.latitude.toString(), rightColX, currentY); currentY += 8;
+  //     doc.text("LNG:", leftColX, currentY); doc.text(space.longitude.toString(), rightColX, currentY); currentY += 8;
+  //   }
+
+  //   // Output PDF
+  //   const pdfBlob = doc.output("blob");
+
+  //   // Trigger download
+  //   const pdfURL = URL.createObjectURL(pdfBlob);
+  //   const a = document.createElement('a');
+  //   a.href = pdfURL;
+  //   a.download = `booking_${new Date().getTime()}.pdf`;
+  //   document.body.appendChild(a);
+  //   a.click();
+  //   document.body.removeChild(a);
+
+  //   // Prepare backend submission
+  //   const formData = new FormData();
+  //   formData.append('username', username);
+  //   formData.append('contact', contact);
+  //   formData.append('startdate', new Date(startdate).toISOString().split('T')[0]);
+  //   formData.append('enddate', new Date(enddate).toISOString().split('T')[0]);
+  //   formData.append('district', district);
+  //   formData.append('purpose', purpose);
+  //   formData.append('location', space.name || space.address || '');
+  //   if (space.latitude) formData.append('latitude', space.latitude.toString());
+  //   if (space.longitude) formData.append('longitude', space.longitude.toString());
+  //   formData.append('file', pdfBlob, `booking_${new Date().getTime()}.pdf`);
+  //   formData.append('space_id', space.id.toString());
+
+  //   this.bookingService.bookOpenSpace(formData).subscribe({
+  //     next: () => {
+  //       this.submitting = false;
+  //       this.toastr.success('Booking Successfully');
+  //       this.reportForm.reset();
+  //     },
+  //     error: (err) => {
+  //       console.error('Booking error:', err);
+  //       this.submitting = false;
+  //       this.toastr.error('Failed to book an openspace');
+  //     }
+  //   });
+  // }
+
+
+
   submitBook() {
   if (!this.reportForm.valid || !this.selectedSpace) {
     return;
@@ -210,38 +303,79 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   const space = this.selectedSpace;
 
   const doc = new jsPDF();
-  let currentY = 20;
+  let currentY = 25; // Starting Y position after header and logo
   const leftColX = 20;
   const rightColX = 80;
 
-  // Header
-  doc.setFontSize(16);
+  // Add municipal logo (assuming you have a base64 or url)
+  // You need to have a base64 image string or load image as URL then add it:
+  // doc.addImage(imageData, format, x, y, width, height);
+  const logoImgData = '../../../assets/images/emblem.png'; // Replace with actual base64 or import
+  doc.addImage(logoImgData, 'PNG', 15, 10, 30, 30);  // Logo top-left
+
+  // Title at top center
+  doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
-  doc.text("Booking Confirmation", 70, currentY);
-  currentY += 10;
+  doc.text("KINONDONI MUNICIPAL", doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
 
-  // General Info
-  doc.setFontSize(12);
+  // Subtitle
+  doc.setFontSize(16);
   doc.setFont("helvetica", "normal");
+  doc.text("Booking Confirmation", doc.internal.pageSize.getWidth() / 2, 35, { align: "center" });
 
-  doc.text("USERNAME:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 8;
-  doc.text("CONTACT:", leftColX, currentY); doc.text(contact, rightColX, currentY); currentY += 8;
-  doc.text("DISTRICT:", leftColX, currentY); doc.text(district, rightColX, currentY); currentY += 8;
-  doc.text("PURPOSE:", leftColX, currentY); doc.text(purpose, rightColX, currentY); currentY += 8;
+  // Draw line below header
+  doc.setLineWidth(0.5);
+  doc.line(15, 40, doc.internal.pageSize.getWidth() - 15, 40);
 
-  const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
-  doc.text("DURATION:", leftColX, currentY); doc.text(`${durationDays} day(s)`, rightColX, currentY); currentY += 8;
-  doc.text("START DATE:", leftColX, currentY); doc.text(new Date(startdate).toLocaleDateString(), rightColX, currentY); currentY += 8;
-  doc.text("END DATE:", leftColX, currentY); doc.text(new Date(enddate).toLocaleDateString(), rightColX, currentY); currentY += 8;
+  currentY = 50;
 
-  // Location Info
-  doc.text("LOCATION:", leftColX, currentY); doc.text(space.name || space.address || '', rightColX, currentY); currentY += 8;
-  if (space.latitude && space.longitude) {
-    doc.text("LAT:", leftColX, currentY); doc.text(space.latitude.toString(), rightColX, currentY); currentY += 8;
-    doc.text("LNG:", leftColX, currentY); doc.text(space.longitude.toString(), rightColX, currentY); currentY += 8;
+  // Style labels bold
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "bold");
+
+  const addField = (label: string, value: string | number) => {
+    doc.text(label, leftColX, currentY);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(value), rightColX, currentY);
+    doc.setFont("helvetica", "bold");
+    currentY += 10;
   }
 
-  // Output PDF
+  addField("Username:", username);
+  addField("Contact:", contact);
+  addField("District:", district);
+  addField("Purpose:", purpose);
+
+  const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
+  addField("Duration:", `${durationDays} day(s)`);
+  addField("Start Date:", new Date(startdate).toLocaleDateString());
+  addField("End Date:", new Date(enddate).toLocaleDateString());
+
+  addField("Location:", space.name || space.address || '');
+  if (space.latitude && space.longitude) {
+    addField("Latitude:", space.latitude.toString());
+    addField("Longitude:", space.longitude.toString());
+  }
+
+  // Add QR Code bottom right corner
+  const qrX = doc.internal.pageSize.getWidth() - 60;
+  const qrY = currentY + 20;
+
+  // QR code content can be booking info or a URL
+  const qrData = `Booking for ${username} at ${space.name}, from ${new Date(startdate).toLocaleDateString()} to ${new Date(enddate).toLocaleDateString()}`;
+
+  // Using jsPDF QR plugin
+  (doc as any).qrcode(qrX, qrY, {
+    content: qrData,
+    padding: 0,
+    width: 50,
+    height: 50,
+    color: "#000000",
+    background: "#ffffff",
+    eccLevel: "M"
+  });
+
+  // Output PDF blob
   const pdfBlob = doc.output("blob");
 
   // Trigger download
@@ -253,7 +387,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   a.click();
   document.body.removeChild(a);
 
-  // Prepare backend submission
+  // Prepare backend submission (same as your original code)
   const formData = new FormData();
   formData.append('username', username);
   formData.append('contact', contact);
