@@ -192,60 +192,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // submitBook() {
-  //   if (this.reportForm.invalid || !this.selectedSpace) {
-  //     this.toastr.warning('Please fill all fields and select a space.');
-  //     return;
-  //   }
-
-  //   const start = new Date(this.reportForm.value.startdate);
-  //   const end = new Date(this.reportForm.value.enddate);
-  //   if (end <= start) {
-  //     this.toastr.warning('End date must be after start date.');
-  //     return;
-  //   }
-
-  //   if (!this.pdfBlob && !this.selectedFile) {
-  //     this.toastr.warning('Please preview the PDF or upload a file before submitting.');
-  //     return;
-  //   }
-
-  //   this.submitting = true;
-  //   const formData = new FormData();
-  //   formData.append('space_id', this.selectedSpace.id.toString());
-  //   formData.append('username', this.reportForm.value.username);
-  //   formData.append('contact', this.reportForm.value.contact);
-  //   formData.append('startdate', this.reportForm.value.startdate);
-  //   formData.append('enddate', this.reportForm.value.enddate);
-  //   formData.append('duration', this.reportForm.value.duration);
-  //   formData.append('purpose', this.reportForm.value.purpose);
-  //   formData.append('district', this.reportForm.value.district);
-
-  //   const fileToAttach = this.pdfBlob || this.selectedFile!;
-  //   const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
-  //   formData.append('file', fileToAttach, fileName);
-
-  //   this.bookingService.bookOpenSpace(formData).subscribe({
-  //     next: () => {
-  //       this.toastr.success('Booking successful!', 'Success');
-  //       this.reportForm.reset();
-  //       this.selectedFile = null;
-  //       this.selectedFileName = '';
-  //       this.pdfBlob = null;
-  //       this.pdfUrl = null;
-  //       this.showPreview = false;
-  //       this.closeForm();
-  //       this.submitting = false;
-  //       this.fetchOpenSpaces();
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       this.toastr.error('Booking failed', 'Error');
-  //       this.submitting = false;
-  //     }
-  //   });
-  // }
-
   submitBook() {
   if (!this.reportForm.valid || !this.selectedSpace) {
     return;

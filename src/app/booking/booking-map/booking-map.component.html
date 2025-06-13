@@ -95,8 +95,9 @@
 
           <!-- Action Buttons -->
           <div class="actions">
-            <button mat-raised-button color="accent" type="submit">
-            </button>
+           <button mat-raised-button color="accent" type="submit" [disabled]="submitting || !reportForm.valid || !selectedSpace">
+            {{ submitting ? 'Submitting...' : 'Submit Booking' }}
+          </button>
           </div>
         </form>
       </div>
