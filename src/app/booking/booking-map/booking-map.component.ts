@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
-import { Map, MapStyle, config } from '@maptiler/sdk';
+import { Map, MapStyle } from '@maptiler/sdk';
 import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OpenspaceService } from '../../service/openspace.service';
@@ -12,14 +12,12 @@ import { switchMap } from 'rxjs/operators';
 import { BookingService } from '../../service/booking.service';
 
 import jsPDF from 'jspdf';
-
-
+const config: any = {}; // Store map API key config
 
 @Component({
   selector: 'app-booking-map',
-  standalone: false,
   templateUrl: './booking-map.component.html',
-  styleUrl: './booking-map.component.scss'
+  styleUrls: ['./booking-map.component.css']
 })
 export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
@@ -28,8 +26,9 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedSpace: any = null;
   openSpaces: any[] = [];
   submitting = false;
+
   districts: string[] = [
-    'Bunju', 'Hananasif', 'Kawe','Kigogo', 'Kijitonyama', 'Kinondoni',
+    'Bunju', 'Hananasif', 'Kawe', 'Kigogo', 'Kijitonyama', 'Kinondoni',
     'Kunduchi', 'Mabwepande', 'Magomeni', 'Makongo', 'Makumbusho',
     'Mbezi juu', 'Mbweni', 'Mikocheni', 'Msasani', 'Mwananyamala',
     'Mzimuni', 'Ndugumbi', 'Tandale', 'Wazo'
@@ -44,7 +43,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   pdfBlob: Blob | null = null;
   pdfUrl: any = null;
   showPreview: boolean = false;
-
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -74,10 +72,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.initializeMap();
       this.fetchOpenSpaces();
-
-      document.getElementById('closeFormBtn')?.addEventListener('click', () => {
-        this.closeForm();
-      });
+      document.getElementById('closeFormBtn')?.addEventListener('click', () => this.closeForm());
     }
   }
 
@@ -96,114 +91,76 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.openSpaces = data;
         this.addMarkersToMap();
       },
-      (error) => {
-        console.error('Error fetching open spaces:', error);
-      }
+      (error) => console.error('Error fetching open spaces:', error)
     );
   }
 
-
-
   addMarkersToMap(): void {
-  if (!this.map) return;
+    if (!this.map) return;
 
-  this.map.on('load', () => {
-    this.openSpaces.forEach(space => {
-      const size = 0.00025;
-
-      const coordinates = [
-        [
+    this.map.on('load', () => {
+      this.openSpaces.forEach(space => {
+        const size = 0.00025;
+        const coordinates = [[
           [space.longitude - size, space.latitude - size],
           [space.longitude + size, space.latitude - size],
           [space.longitude + size, space.latitude + size],
           [space.longitude - size, space.latitude + size],
           [space.longitude - size, space.latitude - size]
-        ]
-      ];
+        ]];
 
-      const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
-        type: 'Feature',
-        geometry: {
-          type: 'Polygon',
-          coordinates: coordinates
-        },
-        properties: {
-          name: space.name,
-          latitude: space.latitude,
-          longitude: space.longitude,
-          status: space.status
+        const sourceId = `space-${space.name}-${space.latitude}`;
+        const polygonGeoJSON = {
+          type: "Feature" as const,
+          geometry: { type: "Polygon" as const, coordinates },
+          properties: { name: space.name, latitude: space.latitude, longitude: space.longitude, status: space.status }
+        };
+
+        if (!this.map!.getSource(sourceId)) {
+          this.map!.addSource(sourceId, { type: 'geojson', data: polygonGeoJSON });
+          this.map!.addLayer({
+            id: sourceId,
+            type: 'fill',
+            source: sourceId,
+            paint: {
+              'fill-color': space.status === 'available' ? '#00cc00' : '#cc0000',
+              'fill-opacity': 0.5
+            }
+          });
+
+          this.map!.addLayer({
+            id: `${sourceId}-border`,
+            type: 'line',
+            source: sourceId,
+            paint: {
+              'line-color': '#000',
+              'line-width': 1
+            }
+          });
+
+          this.map!.on('click', sourceId, () => {
+            new Popup({ offset: 10 })
+              .setLngLat([space.longitude, space.latitude])
+              .setHTML(`<div><h3>${space.name}</h3><p>Status: ${space.status}</p></div>`)
+              .addTo(this.map!);
+
+            space.status === 'available'
+              ? this.openBookingForm(space)
+              : this.toastr.warning('This space is currently booked.', 'Not Available');
+          });
+
+          this.map!.on('mouseenter', sourceId, () => this.map!.getCanvas().style.cursor = 'pointer');
+          this.map!.on('mouseleave', sourceId, () => this.map!.getCanvas().style.cursor = '');
         }
-      };
-
-      const sourceId = `space-${space.name}-${space.latitude}`;
-
-      if (!this.map!.getSource(sourceId)) {
-        this.map!.addSource(sourceId, {
-          type: 'geojson',
-          data: polygonGeoJSON
-        });
-
-        this.map!.addLayer({
-          id: sourceId,
-          type: 'fill',
-          source: sourceId,
-          paint: {
-            'fill-color': space.status === 'available' ? '#00cc00' : '#cc0000',
-            'fill-opacity': 0.5
-          }
-        });
-
-        this.map!.addLayer({
-          id: `${sourceId}-border`,
-          type: 'line',
-          source: sourceId,
-          paint: {
-            'line-color': '#000',
-            'line-width': 1
-          }
-        });
-
-        // Popup on click
-        this.map!.on('click', sourceId, () => {
-          new Popup({ offset: 10 })
-            .setLngLat([space.longitude, space.latitude])
-            .setHTML(`
-              <div>
-                <h3>${space.name}</h3>
-                <p>Location: (${space.latitude}, ${space.longitude})</p>
-                <p>Status: ${space.status === 'available' ? ' Available' : ' Booked'}</p>
-              </div>
-            `)
-            .addTo(this.map!);
-
-          if (space.status === 'available') {
-            this.openBookingForm(space);
-          } else {
-            this.toastr.warning('This space is currently booked.', 'Not Available');
-          }
-        });
-
-        // Cursor change
-        this.map!.on('mouseenter', sourceId, () => {
-          this.map!.getCanvas().style.cursor = 'pointer';
-        });
-
-        this.map!.on('mouseleave', sourceId, () => {
-          this.map!.getCanvas().style.cursor = '';
-        });
-      }
+      });
     });
-  });
-}
+  }
 
   openBookingForm(space: any) {
     this.selectedSpace = space;
-
     const formContainer = document.getElementById('detailsForm') as HTMLElement;
     const locationName = document.getElementById('location-name') as HTMLElement;
-
     if (locationName) locationName.textContent = space.name;
-
     if (formContainer) {
       formContainer.style.display = 'flex';
       setTimeout(() => formContainer.classList.add('open'), 20);
@@ -219,7 +176,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         formContainer.style.display = 'none';
       }, 300);
     }
-    // Also reset preview state when closing form
     this.closePreview();
   }
 
@@ -241,31 +197,32 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    if (!this.pdfBlob) {
-      this.toastr.warning('Please preview the PDF before submitting.');
+    const start = new Date(this.reportForm.value.startdate);
+    const end = new Date(this.reportForm.value.enddate);
+    if (end <= start) {
+      this.toastr.warning('End date must be after start date.');
+      return;
+    }
+
+    if (!this.pdfBlob && !this.selectedFile) {
+      this.toastr.warning('Please preview the PDF or upload a file before submitting.');
       return;
     }
 
     this.submitting = true;
-
     const formData = new FormData();
     formData.append('space_id', this.selectedSpace.id.toString());
     formData.append('username', this.reportForm.value.username);
     formData.append('contact', this.reportForm.value.contact);
-
-    const dateObj = new Date(this.reportForm.value.date);
-    const formattedDate = dateObj.toISOString().split('T')[0]; // Format: yyyy-mm-dd
-    formData.append('startdate', formattedDate);
-    formData.append('enddate', formattedDate);
+    formData.append('startdate', this.reportForm.value.startdate);
+    formData.append('enddate', this.reportForm.value.enddate);
     formData.append('duration', this.reportForm.value.duration);
     formData.append('purpose', this.reportForm.value.purpose);
     formData.append('district', this.reportForm.value.district);
 
-    const fileToAttach = this.pdfBlob || this.selectedFile;
-    if (fileToAttach) {
-      const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
-      formData.append('file', fileToAttach, fileName);
-    }
+    const fileToAttach = this.pdfBlob || this.selectedFile!;
+    const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
+    formData.append('file', fileToAttach, fileName);
 
     this.bookingService.bookOpenSpace(formData).subscribe({
       next: () => {
@@ -288,6 +245,65 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  downloadPDF() {
+    if (this.reportForm.invalid) {
+      this.toastr.warning('Please fill all form fields before downloading the PDF.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    const leftColX = 20;
+    const rightColX = 80;
+    let currentY = 30;
+
+    const { username, contact, startdate, enddate, district, duration, purpose } = this.reportForm.value;
+    const formattedDate = new Date(startdate).toLocaleDateString();
+    const sendingDate = new Date().toLocaleDateString();
+
+    doc.setFontSize(16).setFont("helvetica", "bold");
+    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 15, { align: "center" });
+    doc.line(20, 20, 190, 20);
+
+    doc.setFontSize(12).setFont("helvetica", "bold");
+    doc.text("FROM:", leftColX, currentY);
+    doc.setFont("helvetica", "normal");
+    doc.text(username, rightColX, currentY); currentY += 8;
+    doc.text("Ward Executive Officer", rightColX, currentY); currentY += 8;
+    doc.text("Kinondoni Municipal Staff", rightColX, currentY); currentY += 15;
+
+    doc.text("USERNAME:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 8;
+    doc.text("CONTACT:", leftColX, currentY); doc.text(contact, rightColX, currentY); currentY += 8;
+    doc.text("WARD:", leftColX, currentY); doc.text(district, rightColX, currentY); currentY += 8;
+    doc.text("BOOKING DATE:", leftColX, currentY); doc.text(formattedDate, rightColX, currentY); currentY += 8;
+    doc.text("DURATION:", leftColX, currentY); doc.text(duration, rightColX, currentY); currentY += 8;
+    doc.text("PURPOSE:", leftColX, currentY); doc.text(purpose, rightColX, currentY); currentY += 15;
+
+    doc.text("SENDING DATE:", leftColX, currentY); doc.text(sendingDate, rightColX, currentY); currentY += 15;
+    doc.text("USER SIGNATURE:", leftColX, currentY); doc.text(username, rightColX, currentY); currentY += 15;
+
+    doc.line(20, 280, 190, 280);
+    doc.setFontSize(10).setTextColor(100);
+    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
+
+    this.pdfBlob = doc.output('blob');
+    this.pdfUrl = URL.createObjectURL(this.pdfBlob);
+    this.showPreview = true;
+    doc.save('booking-details.pdf');
+    this.toastr.success('PDF downloaded successfully.');
+  }
+
+  closePreview() {
+    this.showPreview = false;
+    if (this.pdfUrl) {
+      URL.revokeObjectURL(this.pdfUrl);
+      this.pdfUrl = null;
+    }
+    this.pdfBlob = null;
+  }
+
+  ngOnDestroy() {
+    if (this.pdfUrl) URL.revokeObjectURL(this.pdfUrl);
+  }
 
   fetchSuggestions() {
     if (!this.searchQuery) {
@@ -308,7 +324,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   searchLocation() {
     if (!this.searchQuery) return;
-
     fetch(`https://api.maptiler.com/geocoding/${this.searchQuery}.json?key=${config.apiKey}&country=TZ`)
       .then(res => res.json())
       .then(data => {
@@ -320,238 +335,16 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       .catch(err => console.error("Search error:", err));
   }
 
-  // --- PDF preview methods ---
-
-  // previewPDF() {
-  //   if (this.reportForm.invalid) {
-  //     this.toastr.warning('Please fill all form fields before previewing the PDF.');
-  //     return;
-  //   }
-
-  //   const doc = new jsPDF();
-
-  //   const username = this.reportForm.get('username')?.value;
-  //   const contact = this.reportForm.get('contact')?.value;
-  //   const date = this.reportForm.get('date')?.value;
-  //   const district = this.reportForm.get('district')?.value;
-  //   const duration = this.reportForm.get('duration')?.value;
-  //   const purpose = this.reportForm.get('purpose')?.value;
-
-  //   const formattedDate = new Date(date).toLocaleDateString();
-
-  //   // Header
-  //   doc.setFontSize(16);
-  //   doc.setTextColor(63, 81, 181);
-  //   doc.setFont("helvetica", "bold");
-  //   doc.text("KINONDONI MUNICIPAL PUBLIC OPENSPACE MANAGEMENT", 105, 20, { align: "center" });
-
-  //   doc.setTextColor(0, 0, 0);
-
-  //   // Divider line
-  //   doc.setDrawColor(0);
-  //   doc.line(20, 25, 190, 25);
-
-  //   doc.setFontSize(12);
-  //   doc.setFont("helvetica", "normal");
-  //   doc.text(`From: ${username}`, 20, 35);
-  //   doc.text("Through: Ward Executive Officer", 20, 42);
-  //   doc.text("To: Kinondoni Municipal Staff", 20, 49);
-
-  //   // Section: Booking Information
-  //   doc.setFont("helvetica", "bold");
-  //   doc.text("Booking Information:", 20, 60);
-  //   doc.setFont("helvetica", "normal");
-  //   doc.text(`Username: ${username}`, 20, 68);
-  //   doc.text(`Contact: ${contact}`, 20, 75);
-  //   doc.text(`Ward: ${district}`, 20, 82);
-  //   doc.text(`Booking Date: ${formattedDate}`, 20, 89);
-  //   doc.text(`Duration: ${duration}`, 20, 96);
-  //   doc.text(`Purpose: ${purpose}`, 20, 103);
-
-  //   // Section: Sending Details
-  //   doc.setFont("helvetica", "bold");
-  //   doc.text("Submission Details:", 20, 115);
-  //   doc.setFont("helvetica", "normal");
-  //   doc.text(`Date of Sending: ${new Date().toLocaleDateString()}`, 20, 123);
-
-  //   // Section: Digital Signature
-  //   doc.setFont("helvetica", "bold");
-  //   doc.text("User Signature:", 20, 135);
-  //   doc.setFont("helvetica", "italic");
-  //   doc.text(`${username}`, 60, 135);
-
-  //   // Decorative Footer Line
-  //   doc.setDrawColor(150);
-  //   doc.line(20, 280, 190, 280);
-  //   doc.setFontSize(10);
-  //   doc.setTextColor(100);
-  //   doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
-
-  //   // Convert to blob and preview
-  //   setTimeout(() => {
-  //     const pdfBlob = doc.output('blob');
-  //     const file = new File([pdfBlob], 'booking-details.pdf', { type: 'application/pdf' });
-
-  //     this.pdfBlob = pdfBlob;
-  //     this.reportForm.patchValue({ pdfFile: file });
-
-  //     if (this.pdfUrl) {
-  //       URL.revokeObjectURL(this.pdfUrl);
-  //     }
-
-  //     this.pdfUrl = URL.createObjectURL(pdfBlob);
-  //     this.showPreview = true;
-  //   }, 0);
-  // }
-
-
-
-  downloadPDF() {
-    if (this.reportForm.invalid) {
-      this.toastr.warning('Please fill all form fields before downloading the PDF.');
-      return;
-    }
-
-    const doc = new jsPDF();
-    const leftColX = 20;
-    const rightColX = 80;
-    let currentY = 30;
-
-    const username = this.reportForm.get('username')?.value;
-    const contact = this.reportForm.get('contact')?.value;
-    const date = this.reportForm.get('date')?.value;
-    const district = this.reportForm.get('district')?.value;
-    const duration = this.reportForm.get('duration')?.value;
-    const purpose = this.reportForm.get('purpose')?.value;
-
-    const formattedDate = new Date(date).toLocaleDateString();
-    const sendingDate = new Date().toLocaleDateString();
-
-    // Title
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 15, { align: "center" });
-
-    // Divider
-    doc.setDrawColor(0);
-    doc.line(20, 20, 190, 20);
-
-    // Booking Flow (Two-sided)
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("FROM:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(`${username }`, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("THROUGH:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text("Ward Executive Officer", rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("TO:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text("Kinondoni Municipal Staff", rightColX, currentY);
-    currentY += 15;
-
-    // Booking Details
-    doc.setFont("helvetica", "bold");
-    doc.text("USERNAME:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(username, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("CONTACT:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(contact, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("WARD:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(district, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("BOOKING DATE:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(formattedDate, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("DURATION:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(duration, rightColX, currentY);
-    currentY += 8;
-
-    doc.setFont("helvetica", "bold");
-    doc.text("PURPOSE:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(purpose, rightColX, currentY);
-    currentY += 15;
-
-    // Sending Date
-    doc.setFont("helvetica", "bold");
-    doc.text("SENDING DATE:", leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(sendingDate, rightColX, currentY);
-    currentY += 15;
-
-    // Signature
-    doc.setFont("helvetica", "bold");
-    doc.text("USER SIGNATURE:", leftColX, currentY);
-    doc.setFont("helvetica", "italic");
-    doc.text(username, rightColX, currentY);
-    currentY += 15;
-
-    // Footer
-    doc.setDrawColor(150);
-    doc.line(20, 280, 190, 280);
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.setFont("helvetica", "normal");
-    doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
-
-    // Create PDF Blob for uploading
-    this.pdfBlob = doc.output('blob');
-
-    // Trigger download
-    doc.save('booking-details.pdf');
-
-    this.toastr.success('PDF downloaded successfully.');
-  }
-
-
-
-  closePreview() {
-    this.showPreview = false;
-    if (this.pdfUrl) {
-      URL.revokeObjectURL(this.pdfUrl);
-      this.pdfUrl = null;
-    }
-    this.pdfBlob = null;
-  }
-
-  ngOnDestroy() {
-    if (this.pdfUrl) {
-      URL.revokeObjectURL(this.pdfUrl);
-    }
-  }
-
-    selectSuggestion(suggestion: any) {
+  selectSuggestion(suggestion: any) {
     this.searchQuery = suggestion.name;
     this.map?.flyTo({ center: suggestion.center, zoom: 14 });
     this.suggestions = [];
   }
 
-    changeMapStyle(styleName: string) {
+  changeMapStyle(styleName: string) {
     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=${config.apiKey}`;
     this.map?.setStyle(styleUrl);
   }
-
 }
 
 
@@ -568,8 +361,25 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-// export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //   map: Map | undefined;
 //   searchQuery = '';
 //   suggestions: any[] = [];
@@ -577,16 +387,22 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //   openSpaces: any[] = [];
 //   submitting = false;
 //   districts: string[] = [
-//   'Bunju', 'Hananasif', 'Kawe','Kigogo', 'Kijitonyama', 'Kinondoni',
-//   'Kunduchi', 'Mabwepande', 'Magomeni', 'Makongo', 'Makumbusho',
-//   'Mbezi juu', 'Mbweni', 'Mikocheni', 'Msasani', 'Mwananyamala',
-//   'Mzimuni', 'Ndugumbi', 'Tandale', 'Wazo'
-// ];
-
+//     'Bunju', 'Hananasif', 'Kawe','Kigogo', 'Kijitonyama', 'Kinondoni',
+//     'Kunduchi', 'Mabwepande', 'Magomeni', 'Makongo', 'Makumbusho',
+//     'Mbezi juu', 'Mbweni', 'Mikocheni', 'Msasani', 'Mwananyamala',
+//     'Mzimuni', 'Ndugumbi', 'Tandale', 'Wazo'
+//   ];
 
 //   @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
 
 //   reportForm: FormGroup;
+
+//   selectedFile: File | null = null;
+//   selectedFileName: string = '';
+//   pdfBlob: Blob | null = null;
+//   pdfUrl: any = null;
+//   showPreview: boolean = false;
+
 
 //   constructor(
 //     @Inject(PLATFORM_ID) private platformId: Object,
@@ -599,11 +415,12 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //     this.reportForm = this.fb.group({
 //       username: ['', Validators.required],
 //       contact: ['', Validators.required],
-//       date: ['', Validators.required],
+//       startdate: ['', Validators.required],
+//       enddate: ['', Validators.required],
 //       district: ['', Validators.required],
 //       duration: ['', Validators.required],
 //       purpose: ['', Validators.required],
-//       file: [null]
+//       pdfFile: [null]
 //     });
 //   }
 
@@ -643,41 +460,99 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //     );
 //   }
 
+
+
 //   addMarkersToMap(): void {
+//   if (!this.map) return;
+
+//   this.map.on('load', () => {
 //     this.openSpaces.forEach(space => {
-//       const markerElement = document.createElement('img');
-//       markerElement.src = 'assets/images/location.png';
-//       markerElement.style.width = '25px';
-//       markerElement.style.height = '25px';
-//       markerElement.style.cursor = 'pointer';
+//       const size = 0.00025;
 
-//       const marker = new Marker({ element: markerElement })
-//         .setLngLat([space.longitude, space.latitude])
-//         .addTo(this.map as Map);
+//       const coordinates = [
+//         [
+//           [space.longitude - size, space.latitude - size],
+//           [space.longitude + size, space.latitude - size],
+//           [space.longitude + size, space.latitude + size],
+//           [space.longitude - size, space.latitude + size],
+//           [space.longitude - size, space.latitude - size]
+//         ]
+//       ];
 
-//       const isAvailable = space.status === 'available';
-
-//       const popupContent = document.createElement('div');
-//       popupContent.classList.add('popup-content');
-//       popupContent.innerHTML = `
-//         <h3>${space.name}</h3>
-//         <p>Location: (${space.latitude}, ${space.longitude})</p>
-//         <p>Status: ${isAvailable ? 'Available' : 'Booked'}</p>
-//       `;
-
-//       const popup = new Popup({ offset: 25 }).setDOMContent(popupContent);
-//       marker.setPopup(popup);
-
-//       marker.getElement().addEventListener('click', () => {
-//         if (isAvailable) {
-//           this.openBookingForm(space);
-//         } else {
-//           this.toastr.warning('This space is currently booked.', 'Not Available');
+//       const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+//         type: 'Feature',
+//         geometry: {
+//           type: 'Polygon',
+//           coordinates: coordinates
+//         },
+//         properties: {
+//           name: space.name,
+//           latitude: space.latitude,
+//           longitude: space.longitude,
+//           status: space.status
 //         }
-//       });
-//     });
-//   }
+//       };
 
+//       const sourceId = `space-${space.name}-${space.latitude}`;
+
+//       if (!this.map!.getSource(sourceId)) {
+//         this.map!.addSource(sourceId, {
+//           type: 'geojson',
+//           data: polygonGeoJSON
+//         });
+
+//         this.map!.addLayer({
+//           id: sourceId,
+//           type: 'fill',
+//           source: sourceId,
+//           paint: {
+//             'fill-color': space.status === 'available' ? '#00cc00' : '#cc0000',
+//             'fill-opacity': 0.5
+//           }
+//         });
+
+//         this.map!.addLayer({
+//           id: `${sourceId}-border`,
+//           type: 'line',
+//           source: sourceId,
+//           paint: {
+//             'line-color': '#000',
+//             'line-width': 1
+//           }
+//         });
+
+//         // Popup on click
+//         this.map!.on('click', sourceId, () => {
+//           new Popup({ offset: 10 })
+//             .setLngLat([space.longitude, space.latitude])
+//             .setHTML(`
+//               <div>
+//                 <h3>${space.name}</h3>
+//                 <p>Location: (${space.latitude}, ${space.longitude})</p>
+//                 <p>Status: ${space.status === 'available' ? ' Available' : ' Booked'}</p>
+//               </div>
+//             `)
+//             .addTo(this.map!);
+
+//           if (space.status === 'available') {
+//             this.openBookingForm(space);
+//           } else {
+//             this.toastr.warning('This space is currently booked.', 'Not Available');
+//           }
+//         });
+
+//         // Cursor change
+//         this.map!.on('mouseenter', sourceId, () => {
+//           this.map!.getCanvas().style.cursor = 'pointer';
+//         });
+
+//         this.map!.on('mouseleave', sourceId, () => {
+//           this.map!.getCanvas().style.cursor = '';
+//         });
+//       }
+//     });
+//   });
+// }
 
 //   openBookingForm(space: any) {
 //     this.selectedSpace = space;
@@ -702,6 +577,8 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //         formContainer.style.display = 'none';
 //       }, 300);
 //     }
+//     // Also reset preview state when closing form
+//     this.closePreview();
 //   }
 
 //   triggerFileInput() {
@@ -722,6 +599,11 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //       return;
 //     }
 
+//     if (!this.pdfBlob) {
+//       this.toastr.warning('Please preview the PDF before submitting.');
+//       return;
+//     }
+
 //     this.submitting = true;
 
 //     const formData = new FormData();
@@ -730,11 +612,18 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //     formData.append('contact', this.reportForm.value.contact);
 
 //     const dateObj = new Date(this.reportForm.value.date);
-//     const formattedDate = dateObj.toISOString().split('T')[0];
-//     formData.append('date', formattedDate);
+//     const formattedDate = dateObj.toISOString().split('T')[0]; // Format: yyyy-mm-dd
+//     formData.append('startdate', formattedDate);
+//     formData.append('enddate', formattedDate);
 //     formData.append('duration', this.reportForm.value.duration);
 //     formData.append('purpose', this.reportForm.value.purpose);
-//     if (this.selectedFile) formData.append('file', this.selectedFile);
+//     formData.append('district', this.reportForm.value.district);
+
+//     const fileToAttach = this.pdfBlob || this.selectedFile;
+//     if (fileToAttach) {
+//       const fileName = this.pdfBlob ? 'booking-details.pdf' : this.selectedFileName || 'uploaded-file.pdf';
+//       formData.append('file', fileToAttach, fileName);
+//     }
 
 //     this.bookingService.bookOpenSpace(formData).subscribe({
 //       next: () => {
@@ -742,9 +631,12 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //         this.reportForm.reset();
 //         this.selectedFile = null;
 //         this.selectedFileName = '';
+//         this.pdfBlob = null;
+//         this.pdfUrl = null;
+//         this.showPreview = false;
 //         this.closeForm();
 //         this.submitting = false;
-//         this.fetchOpenSpaces(); // Refresh markers
+//         this.fetchOpenSpaces();
 //       },
 //       error: (err) => {
 //         console.error(err);
@@ -753,6 +645,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //       }
 //     });
 //   }
+
 
 //   fetchSuggestions() {
 //     if (!this.searchQuery) {
@@ -782,22 +675,153 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 //           this.map?.flyTo({ center, zoom: 14 });
 //         }
 //       })
-//       .catch(err => console.error("Search location error:", err));
+//       .catch(err => console.error("Search error:", err));
 //   }
 
-//   selectSuggestion(suggestion: any) {
+//   downloadPDF() {
+//     if (this.reportForm.invalid) {
+//       this.toastr.warning('Please fill all form fields before downloading the PDF.');
+//       return;
+//     }
+
+//     const doc = new jsPDF();
+//     const leftColX = 20;
+//     const rightColX = 80;
+//     let currentY = 30;
+
+//     const username = this.reportForm.get('username')?.value;
+//     const contact = this.reportForm.get('contact')?.value;
+//     const startdate = this.reportForm.get('date')?.value;
+//     const district = this.reportForm.get('district')?.value;
+//     const enddate = this.reportForm.get('duration')?.value;
+//     const purpose = this.reportForm.get('purpose')?.value;
+
+//     const formattedDate = new Date(startdate).toLocaleDateString();
+//     const sendingDate = new Date().toLocaleDateString();
+
+//     // Title
+//     doc.setFontSize(16);
+//     doc.setFont("helvetica", "bold");
+//     doc.text("KINONDONI OPENSPACE MANAGEMENT MUNICIPAL", 105, 15, { align: "center" });
+
+//     // Divider
+//     doc.setDrawColor(0);
+//     doc.line(20, 20, 190, 20);
+
+//     // Booking Flow (Two-sided)
+//     doc.setFontSize(12);
+//     doc.setFont("helvetica", "bold");
+//     doc.text("FROM:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(`${username }`, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("THROUGH:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text("Ward Executive Officer", rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("TO:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text("Kinondoni Municipal Staff", rightColX, currentY);
+//     currentY += 15;
+
+//     // Booking Details
+//     doc.setFont("helvetica", "bold");
+//     doc.text("USERNAME:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(username, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("CONTACT:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(contact, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("WARD:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(district, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("BOOKING DATE:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(formattedDate, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("DURATION:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(enddate, rightColX, currentY);
+//     currentY += 8;
+
+//     doc.setFont("helvetica", "bold");
+//     doc.text("PURPOSE:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(purpose, rightColX, currentY);
+//     currentY += 15;
+
+//     // Sending Date
+//     doc.setFont("helvetica", "bold");
+//     doc.text("SENDING DATE:", leftColX, currentY);
+//     doc.setFont("helvetica", "normal");
+//     doc.text(sendingDate, rightColX, currentY);
+//     currentY += 15;
+
+//     // Signature
+//     doc.setFont("helvetica", "bold");
+//     doc.text("USER SIGNATURE:", leftColX, currentY);
+//     doc.setFont("helvetica", "italic");
+//     doc.text(username, rightColX, currentY);
+//     currentY += 15;
+
+//     // Footer
+//     doc.setDrawColor(150);
+//     doc.line(20, 280, 190, 280);
+//     doc.setFontSize(10);
+//     doc.setTextColor(100);
+//     doc.setFont("helvetica", "normal");
+//     doc.text("Managed by Kinondoni Municipal Council – Digital Booking System", 105, 285, { align: "center" });
+
+//     // Create PDF Blob for uploading
+//     this.pdfBlob = doc.output('blob');
+
+//     // Trigger download
+//     doc.save('booking-details.pdf');
+
+//     this.toastr.success('PDF downloaded successfully.');
+//   }
+
+
+
+//   closePreview() {
+//     this.showPreview = false;
+//     if (this.pdfUrl) {
+//       URL.revokeObjectURL(this.pdfUrl);
+//       this.pdfUrl = null;
+//     }
+//     this.pdfBlob = null;
+//   }
+
+//   ngOnDestroy() {
+//     if (this.pdfUrl) {
+//       URL.revokeObjectURL(this.pdfUrl);
+//     }
+//   }
+
+//     selectSuggestion(suggestion: any) {
 //     this.searchQuery = suggestion.name;
 //     this.map?.flyTo({ center: suggestion.center, zoom: 14 });
 //     this.suggestions = [];
 //   }
 
-//   changeMapStyle(styleName: string) {
+//     changeMapStyle(styleName: string) {
 //     const styleUrl = `https://api.maptiler.com/maps/${styleName}/style.json?key=${config.apiKey}`;
 //     this.map?.setStyle(styleUrl);
 //   }
 
-//   ngOnDestroy() {
-//     this.map?.remove();
-//   }
 // }
-
