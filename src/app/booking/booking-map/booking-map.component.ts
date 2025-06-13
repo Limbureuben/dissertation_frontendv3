@@ -361,6 +361,41 @@ submitBook() {
       addField("Longitude:", space.longitude.toString());
     }
 
+
+    // Draw agreement section title
+    currentY += 10;
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(100, 100, 177);
+    doc.text("Conditions & Agreement with Kinondoni Municipal", leftColX, currentY);
+
+    currentY += 5;
+    doc.setDrawColor(150);
+    doc.line(leftColX, currentY, doc.internal.pageSize.getWidth() - leftColX, currentY);
+
+    currentY += 10;
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(0, 0, 0);
+
+    // Agreement text
+    const agreementText = `
+    1. The open space must be used only for the stated purpose and within the approved time.
+    2. The applicant shall ensure cleanliness and is liable for any damage caused to public property.
+    3. No unauthorized construction or permanent installations are allowed.
+    4. Sound levels must comply with municipal noise regulations.
+    5. The municipal authority reserves the right to revoke the booking without prior notice in case of violations.
+    6. By proceeding, the applicant agrees to abide by all applicable municipal regulations and accept full responsibility for the space during the booked period.
+    `;
+
+    // Wrap the agreement text
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const textWidth = pageWidth - 2 * leftColX;
+    const wrappedText = doc.splitTextToSize(agreementText, textWidth);
+    doc.text(wrappedText, leftColX, currentY);
+    currentY += wrappedText.length * 6;
+
+
     // Generate blob
     const pdfBlob = doc.output("blob");
 
