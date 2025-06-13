@@ -301,7 +301,7 @@ submitBook() {
   const space = this.selectedSpace;
 
   const doc = new jsPDF();
-  let currentY = 25;
+  let currentY = 60; // Header ends at ~60
   const leftColX = 20;
   const rightColX = 80;
 
@@ -310,24 +310,30 @@ submitBook() {
   // Load QR Code + Logo before continuing
   Promise.all([
     QRCode.toDataURL(qrData),
-    this.loadImageAsBase64('/assets/images/emblem.png')  // Adjust as needed
+    this.loadImageAsBase64('/assets/images/emblem.png')
   ]).then(([qrCodeDataUrl, logoBase64]) => {
-    // Add logo
-    doc.addImage(logoBase64, 'PNG', 15, 10, 30, 30);
 
-    // Title
-    doc.setFontSize(22);
-    doc.setFont("helvetica", "bold");
-    doc.text("KINONDONI MUNICIPAL", doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
+    // Set custom color
+    const r = 100, g = 100, b = 177;
 
+    // Logo (smaller)
+    doc.addImage(logoBase64, 'PNG', 15, 15, 20, 20);
+
+    // QR Code (smaller)
+    doc.addImage(qrCodeDataUrl, 'PNG', doc.internal.pageSize.getWidth() - 35, 15, 20, 20);
+
+    // Title (centered between logo and QR)
     doc.setFontSize(16);
-    doc.setFont("helvetica", "normal");
-    doc.text("Booking Confirmation", doc.internal.pageSize.getWidth() / 2, 35, { align: "center" });
+    doc.setTextColor(r, g, b);
+    doc.setFont("helvetica", "bold");
+    doc.text("Kinondoni Municipal Open Space Booking", doc.internal.pageSize.getWidth() / 2, 25, { align: "center" });
 
+    // Line under header
+    doc.setDrawColor(0);
     doc.setLineWidth(0.5);
     doc.line(15, 40, doc.internal.pageSize.getWidth() - 15, 40);
-    currentY = 50;
 
+    doc.setTextColor(0, 0, 0); // Reset to black for body
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
 
@@ -354,11 +360,6 @@ submitBook() {
       addField("Latitude:", space.latitude.toString());
       addField("Longitude:", space.longitude.toString());
     }
-
-    // QR Code
-    const qrX = doc.internal.pageSize.getWidth() - 60;
-    const qrY = currentY + 20;
-    doc.addImage(qrCodeDataUrl, 'PNG', qrX, qrY, 50, 50);
 
     // Generate blob
     const pdfBlob = doc.output("blob");
@@ -407,7 +408,7 @@ submitBook() {
 }
 
 
-  loadImageAsBase64(url: string): Promise<string> {
+loadImageAsBase64(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = 'Anonymous';
@@ -424,6 +425,7 @@ submitBook() {
     img.src = url;
   });
 }
+
 
 
 

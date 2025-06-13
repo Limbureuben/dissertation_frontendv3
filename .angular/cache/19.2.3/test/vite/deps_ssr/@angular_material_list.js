@@ -1,5 +1,8 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-ZT3VHJQ3.js";
+import {
   MatDividerModule
 } from "./chunk-H7NX5OJI.js";
 import {
@@ -30,9 +33,6 @@ import {
   coerceBooleanProperty,
   coerceNumberProperty
 } from "./chunk-V2UKY3KY.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-ZT3VHJQ3.js";
 import {
   NgTemplateOutlet
 } from "./chunk-P447DJIG.js";
