@@ -103,4 +103,8 @@ getAdminBookingsByDistrict(): Observable<any> {
     });
   }
 
+  deleteBooking(bookingId: number) {
+    return this.http.delete(`${this.resetUrl}/api/v1/bookings/${bookingId}/delete/`);
+  }
+
 }

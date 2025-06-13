@@ -167,8 +167,19 @@ rejectBooking(row: any): void {
   });
 }
 
-deleteBooking(booking: any) {
-  
-}
+deleteBooking(row: any) {
+    if (confirm('Are you sure you want to delete this booking?')) {
+      this.bookingService.deleteBooking(row.id).subscribe({
+        next: () => {
+          this.toastr.success('Booking deleted');
+          this.loadBookings(); // Refresh table
+        },
+        error: (err) => {
+          console.error('Delete error:', err);
+          this.toastr.error('Failed to delete booking');
+        }
+      });
+    }
+  }
 
 }
