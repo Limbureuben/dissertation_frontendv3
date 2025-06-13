@@ -257,17 +257,15 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   const formData = new FormData();
   formData.append('username', username);
   formData.append('contact', contact);
-  formData.append('startdate', startdate);
-  formData.append('enddate', enddate);
+  formData.append('startdate', new Date(startdate).toISOString().split('T')[0]);
+  formData.append('enddate', new Date(enddate).toISOString().split('T')[0]);
   formData.append('district', district);
   formData.append('purpose', purpose);
   formData.append('location', space.name || space.address || '');
   if (space.latitude) formData.append('latitude', space.latitude.toString());
   if (space.longitude) formData.append('longitude', space.longitude.toString());
-  formData.append('duration', durationDays.toString());
   formData.append('file', pdfBlob, `booking_${new Date().getTime()}.pdf`);
   formData.append('space_id', space.id.toString());
-  // formData.append('pdfFile', pdfBlob, `booking_${new Date().getTime()}.pdf`);
 
   this.bookingService.bookOpenSpace(formData).subscribe({
     next: () => {
