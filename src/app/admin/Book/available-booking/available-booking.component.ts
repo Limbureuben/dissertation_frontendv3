@@ -38,7 +38,7 @@ import { ViewbookigComponent } from '../viewbookig/viewbookig.component';
 export class AvailableBookingComponent implements OnInit{
 
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['username', 'date', 'duration', 'status', 'file', 'actions'];
+  displayedColumns: string[] = ['username', 'status', 'file', 'actions'];
   // displayedColumns: string[] = ['space', 'username', 'contact', 'date', 'duration', 'purpose', 'district', 'file', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
