@@ -59,7 +59,6 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
       startdate: ['', Validators.required],
       enddate: ['', Validators.required],
       district: ['', Validators.required],
-      duration: ['', Validators.required],
       purpose: ['', Validators.required],
       pdfFile: [null]
     });
