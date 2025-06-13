@@ -168,18 +168,35 @@ rejectBooking(row: any): void {
 }
 
 deleteBooking(row: any) {
-    if (confirm('Are you sure you want to delete this booking?')) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
       this.bookingService.deleteBooking(row.id).subscribe({
         next: () => {
-          this.toastr.success('Booking deleted');
+          Swal.fire({
+            title: "Deleted!",
+            text: "Booking has been deleted.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false
+          });
           this.loadBookings(); // Refresh table
         },
         error: (err) => {
           console.error('Delete error:', err);
-          this.toastr.error('Failed to delete booking');
+          Swal.fire("Error", "Failed to delete booking", "error");
         }
       });
     }
-  }
+  });
+}
+
 
 }
