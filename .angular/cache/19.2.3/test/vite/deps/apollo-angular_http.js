@@ -14,8 +14,8 @@ import {
   ɵɵdefineInjectable,
   ɵɵinject
 } from "./chunk-A4ZVG34I.js";
-import "./chunk-XS73CW5H.js";
 import "./chunk-SGMLAKGD.js";
+import "./chunk-XS73CW5H.js";
 import {
   Observable
 } from "./chunk-XT6ZCHFH.js";

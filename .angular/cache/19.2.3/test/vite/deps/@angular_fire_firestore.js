@@ -2,7 +2,6 @@ import {
   AppCheckInstances,
   AuthInstances
 } from "./chunk-DWV2S7LS.js";
-import "./chunk-ZPHFRFDG.js";
 import {
   Component,
   FirebaseApp,
@@ -31,6 +30,7 @@ import {
   ɵzoneWrap
 } from "./chunk-VWLQXMPO.js";
 import "./chunk-AV4E6GTW.js";
+import "./chunk-ZPHFRFDG.js";
 import {
   InjectionToken,
   Injector,
@@ -42,8 +42,8 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule
 } from "./chunk-A4ZVG34I.js";
-import "./chunk-XS73CW5H.js";
 import "./chunk-SGMLAKGD.js";
+import "./chunk-XS73CW5H.js";
 import {
   Observable,
   concatMap,

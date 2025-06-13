@@ -13,7 +13,7 @@ import { BookingService } from '../../service/booking.service';
 
 import jsPDF from 'jspdf';
 const config: any = {}; // Store map API key config
-import 'jspdf-qrcode';
+import QRCode from 'qrcode';
 
 @Component({
   selector: 'app-booking-map',
@@ -282,9 +282,7 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   //   });
   // }
 
-
-
-  submitBook() {
+submitBook() {
   if (!this.reportForm.valid || !this.selectedSpace) {
     return;
   }
@@ -303,117 +301,133 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   const space = this.selectedSpace;
 
   const doc = new jsPDF();
-  let currentY = 25; // Starting Y position after header and logo
+  let currentY = 25;
   const leftColX = 20;
   const rightColX = 80;
 
-  // Add municipal logo (assuming you have a base64 or url)
-  // You need to have a base64 image string or load image as URL then add it:
-  // doc.addImage(imageData, format, x, y, width, height);
-  const logoImgData = '../../../assets/images/emblem.png'; // Replace with actual base64 or import
-  doc.addImage(logoImgData, 'PNG', 15, 10, 30, 30);  // Logo top-left
-
-  // Title at top center
-  doc.setFontSize(22);
-  doc.setFont("helvetica", "bold");
-  doc.text("KINONDONI MUNICIPAL", doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
-
-  // Subtitle
-  doc.setFontSize(16);
-  doc.setFont("helvetica", "normal");
-  doc.text("Booking Confirmation", doc.internal.pageSize.getWidth() / 2, 35, { align: "center" });
-
-  // Draw line below header
-  doc.setLineWidth(0.5);
-  doc.line(15, 40, doc.internal.pageSize.getWidth() - 15, 40);
-
-  currentY = 50;
-
-  // Style labels bold
-  doc.setFontSize(12);
-  doc.setFont("helvetica", "bold");
-
-  const addField = (label: string, value: string | number) => {
-    doc.text(label, leftColX, currentY);
-    doc.setFont("helvetica", "normal");
-    doc.text(String(value), rightColX, currentY);
-    doc.setFont("helvetica", "bold");
-    currentY += 10;
-  }
-
-  addField("Username:", username);
-  addField("Contact:", contact);
-  addField("District:", district);
-  addField("Purpose:", purpose);
-
-  const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
-  addField("Duration:", `${durationDays} day(s)`);
-  addField("Start Date:", new Date(startdate).toLocaleDateString());
-  addField("End Date:", new Date(enddate).toLocaleDateString());
-
-  addField("Location:", space.name || space.address || '');
-  if (space.latitude && space.longitude) {
-    addField("Latitude:", space.latitude.toString());
-    addField("Longitude:", space.longitude.toString());
-  }
-
-  // Add QR Code bottom right corner
-  const qrX = doc.internal.pageSize.getWidth() - 60;
-  const qrY = currentY + 20;
-
-  // QR code content can be booking info or a URL
   const qrData = `Booking for ${username} at ${space.name}, from ${new Date(startdate).toLocaleDateString()} to ${new Date(enddate).toLocaleDateString()}`;
 
-  // Using jsPDF QR plugin
-  (doc as any).qrcode(qrX, qrY, {
-    content: qrData,
-    padding: 0,
-    width: 50,
-    height: 50,
-    color: "#000000",
-    background: "#ffffff",
-    eccLevel: "M"
-  });
+  // Load QR Code + Logo before continuing
+  Promise.all([
+    QRCode.toDataURL(qrData),
+    this.loadImageAsBase64('/assets/images/emblem.png')  // Adjust as needed
+  ]).then(([qrCodeDataUrl, logoBase64]) => {
+    // Add logo
+    doc.addImage(logoBase64, 'PNG', 15, 10, 30, 30);
 
-  // Output PDF blob
-  const pdfBlob = doc.output("blob");
+    // Title
+    doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
+    doc.text("KINONDONI MUNICIPAL", doc.internal.pageSize.getWidth() / 2, 20, { align: "center" });
 
-  // Trigger download
-  const pdfURL = URL.createObjectURL(pdfBlob);
-  const a = document.createElement('a');
-  a.href = pdfURL;
-  a.download = `booking_${new Date().getTime()}.pdf`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
+    doc.text("Booking Confirmation", doc.internal.pageSize.getWidth() / 2, 35, { align: "center" });
 
-  // Prepare backend submission (same as your original code)
-  const formData = new FormData();
-  formData.append('username', username);
-  formData.append('contact', contact);
-  formData.append('startdate', new Date(startdate).toISOString().split('T')[0]);
-  formData.append('enddate', new Date(enddate).toISOString().split('T')[0]);
-  formData.append('district', district);
-  formData.append('purpose', purpose);
-  formData.append('location', space.name || space.address || '');
-  if (space.latitude) formData.append('latitude', space.latitude.toString());
-  if (space.longitude) formData.append('longitude', space.longitude.toString());
-  formData.append('file', pdfBlob, `booking_${new Date().getTime()}.pdf`);
-  formData.append('space_id', space.id.toString());
+    doc.setLineWidth(0.5);
+    doc.line(15, 40, doc.internal.pageSize.getWidth() - 15, 40);
+    currentY = 50;
 
-  this.bookingService.bookOpenSpace(formData).subscribe({
-    next: () => {
-      this.submitting = false;
-      this.toastr.success('Booking Successfully');
-      this.reportForm.reset();
-    },
-    error: (err) => {
-      console.error('Booking error:', err);
-      this.submitting = false;
-      this.toastr.error('Failed to book an openspace');
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+
+    const addField = (label: string, value: string | number) => {
+      doc.text(label, leftColX, currentY);
+      doc.setFont("helvetica", "normal");
+      doc.text(String(value), rightColX, currentY);
+      doc.setFont("helvetica", "bold");
+      currentY += 10;
+    };
+
+    addField("Username:", username);
+    addField("Contact:", contact);
+    addField("District:", district);
+    addField("Purpose:", purpose);
+
+    const durationDays = Math.ceil((new Date(enddate).getTime() - new Date(startdate).getTime()) / (1000 * 60 * 60 * 24));
+    addField("Duration:", `${durationDays} day(s)`);
+    addField("Start Date:", new Date(startdate).toLocaleDateString());
+    addField("End Date:", new Date(enddate).toLocaleDateString());
+
+    addField("Location:", space.name || space.address || '');
+    if (space.latitude && space.longitude) {
+      addField("Latitude:", space.latitude.toString());
+      addField("Longitude:", space.longitude.toString());
     }
+
+    // QR Code
+    const qrX = doc.internal.pageSize.getWidth() - 60;
+    const qrY = currentY + 20;
+    doc.addImage(qrCodeDataUrl, 'PNG', qrX, qrY, 50, 50);
+
+    // Generate blob
+    const pdfBlob = doc.output("blob");
+
+    // Trigger download
+    const pdfURL = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = pdfURL;
+    a.download = `booking_${new Date().getTime()}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Submit to backend
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('contact', contact);
+    formData.append('startdate', new Date(startdate).toISOString().split('T')[0]);
+    formData.append('enddate', new Date(enddate).toISOString().split('T')[0]);
+    formData.append('district', district);
+    formData.append('purpose', purpose);
+    formData.append('location', space.name || space.address || '');
+    if (space.latitude) formData.append('latitude', space.latitude.toString());
+    if (space.longitude) formData.append('longitude', space.longitude.toString());
+    formData.append('file', pdfBlob, `booking_${new Date().getTime()}.pdf`);
+    formData.append('space_id', space.id.toString());
+
+    this.bookingService.bookOpenSpace(formData).subscribe({
+      next: () => {
+        this.submitting = false;
+        this.toastr.success('Booking Successfully');
+        this.reportForm.reset();
+      },
+      error: (err) => {
+        console.error('Booking error:', err);
+        this.submitting = false;
+        this.toastr.error('Failed to book an openspace');
+      }
+    });
+
+  }).catch(err => {
+    console.error('Error generating QR or logo:', err);
+    this.toastr.error('Failed to generate booking PDF');
+    this.submitting = false;
   });
 }
+
+
+  loadImageAsBase64(url: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return reject("Failed to create canvas");
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL('../../../assets/images/emblem.png'));
+    };
+    img.onerror = () => reject('Failed to load image');
+    img.src = url;
+  });
+}
+
+
+
+
 
   closePreview() {
     this.showPreview = false;
