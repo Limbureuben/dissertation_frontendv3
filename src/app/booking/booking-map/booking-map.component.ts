@@ -265,7 +265,9 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   if (space.latitude) formData.append('latitude', space.latitude.toString());
   if (space.longitude) formData.append('longitude', space.longitude.toString());
   formData.append('duration', durationDays.toString());
-  formData.append('pdfFile', pdfBlob, `booking_${new Date().getTime()}.pdf`);
+  formData.append('file', pdfBlob, `booking_${new Date().getTime()}.pdf`);
+  formData.append('space_id', space.id.toString());
+  // formData.append('pdfFile', pdfBlob, `booking_${new Date().getTime()}.pdf`);
 
   this.bookingService.bookOpenSpace(formData).subscribe({
     next: () => {
