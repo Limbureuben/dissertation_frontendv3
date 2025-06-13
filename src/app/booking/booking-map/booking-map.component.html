@@ -58,18 +58,19 @@
           <div class="form-row">
             <mat-form-field appearance="outline" class="half-width custom-input">
               <mat-label>Start Date</mat-label>
-              <input matInput formControlName="startdate" [matDatepicker]="picker" placeholder="Select date" required />
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput formControlName="startdate" [matDatepicker]="picker1" placeholder="Select date" required />
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="half-width custom-input">
               <mat-label>End Date</mat-label>
-              <input matInput formControlName="enddate" [matDatepicker]="picker" placeholder="Select date" required />
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput formControlName="enddate" [matDatepicker]="picker2" placeholder="Select date" required />
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
           </div>
+
 
           <!-- Purpose & Ward -->
           <div class="form-row">
