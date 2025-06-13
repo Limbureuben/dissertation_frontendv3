@@ -16,8 +16,9 @@ const config: any = {}; // Store map API key config
 
 @Component({
   selector: 'app-booking-map',
+  standalone: false,
   templateUrl: './booking-map.component.html',
-  styleUrls: ['./booking-map.component.css']
+  styleUrls: ['./booking-map.component.scss']
 })
 export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
@@ -110,9 +111,9 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
         ]];
 
         const sourceId = `space-${space.name}-${space.latitude}`;
-        const polygonGeoJSON = {
-          type: "Feature" as const,
-          geometry: { type: "Polygon" as const, coordinates },
+        const polygonGeoJSON: GeoJSON.Feature<GeoJSON.Polygon> = {
+          type: "Feature",
+          geometry: { type: "Polygon", coordinates },
           properties: { name: space.name, latitude: space.latitude, longitude: space.longitude, status: space.status }
         };
 
