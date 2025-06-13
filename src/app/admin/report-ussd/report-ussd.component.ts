@@ -109,16 +109,6 @@ export class ReportUssdComponent implements OnInit {
     });
   }
 
-  // replyToReport(report: any) {
-  //   const message = prompt('Enter your reply message:');
-  //   if (message) {
-  //     this.bookingservice.replyToReport(report.id, message).subscribe({
-  //       next: () => this.toastr.success('Reply sent successfully!'),
-  //       error: () => this.toastr.error('Failed to send reply.')
-  //     });
-  //   }
-  // }
-
   replyToReport(report: any) {
     Swal.fire({
       title: 'Reply to Reporter',
