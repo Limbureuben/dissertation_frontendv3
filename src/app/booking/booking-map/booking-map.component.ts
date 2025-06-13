@@ -255,7 +255,8 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const dateObj = new Date(this.reportForm.value.date);
     const formattedDate = dateObj.toISOString().split('T')[0]; // Format: yyyy-mm-dd
-    formData.append('date', formattedDate);
+    formData.append('startdate', formattedDate);
+    formData.append('enddate', formattedDate);
     formData.append('duration', this.reportForm.value.duration);
     formData.append('purpose', this.reportForm.value.purpose);
     formData.append('district', this.reportForm.value.district);
