@@ -270,13 +270,13 @@ export class BookingMapComponent implements OnInit, AfterViewInit, OnDestroy {
   this.bookingService.bookOpenSpace(formData).subscribe({
     next: () => {
       this.submitting = false;
-      alert('Booking submitted successfully!');
+      this.toastr.success('Booking Successfully');
       this.reportForm.reset();
     },
     error: (err) => {
       console.error('Booking error:', err);
       this.submitting = false;
-      alert('Failed to submit booking');
+      this.toastr.error('Failed to book an openspace');
     }
   });
 }
