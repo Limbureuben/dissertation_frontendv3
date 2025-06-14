@@ -3,7 +3,7 @@
     <h2 class="table-title">Ward Executives</h2>
     <div>
       <!-- Send Notification to All Admins -->
-      <button mat-icon-button color="accent" (click)="sendNotificationToAllAdmins()" matTooltip="Notify All Admins">
+      <button mat-icon-button color="accent" (click)="sendNotificationToAllAdmins(user.email)" matTooltip="Notify All Admins">
         <mat-icon>notifications_active</mat-icon>
       </button>
 

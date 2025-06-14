@@ -35,11 +35,11 @@ export class NotificationComponent {
     const message = this.notificationForm.value.message;
     this.notificationService.sendNotificationToAllWardExecutives(this.data.email, message).subscribe({
       next: () => {
-        this.snackBar.open('Notification sent!', 'Close', { duration: 3000 });
+        this.toastr.success('Notification successful send to ward executive')
         this.dialogRef.close();
       },
       error: () => {
-        this.snackBar.open('Failed to send notification.', 'Close', { duration: 3000 });
+        this.toastr.error('Failed to send notification.');
       }
     });
   }
