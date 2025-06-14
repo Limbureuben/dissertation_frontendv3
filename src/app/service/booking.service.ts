@@ -107,4 +107,9 @@ getAdminBookingsByDistrict(): Observable<any> {
     return this.http.delete(`${this.resetUrl}/api/v1/bookings/${bookingId}/delete/`);
   }
 
+  acceptNewBooking(bookingId: number): Observable<any> {
+    const url = `${this.resetUrl}/api/v1/bookings/${bookingId}/accept/`;
+    return this.http.post(url, {});
+  }
+
 }

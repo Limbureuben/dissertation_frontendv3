@@ -96,41 +96,34 @@ loadBookings() {
   }
 
 
-  acceptBooking(row: any) {
+acceptBooking(row: any): void {
   Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
+    title: "Are you sure?",
+    text: "You are about to accept this booking and notify the user via SMS.",
+    icon: "question",
     showCancelButton: true,
-    confirmButtonColor: 'rgb(100, 100, 177)',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, accept it!'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, accept it!"
   }).then((result) => {
     if (result.isConfirmed) {
-      // Open dialog for description
-      const dialogRef = this.dialog.open(ConfirmBookingComponent, {
-        width: '400px',
-        data: { booking: row }
-      });
-
-      dialogRef.afterClosed().subscribe(description => {
-        if (description) {
-          this.bookingService.acceptBooking(row.id, description).subscribe(
-            response => {
-              this.toastr.success('Booking accepted and forwarded.', 'Success');
-
-              this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
-            },
-            error => {
-              console.error('Error accepting booking:', error);
-              this.toastr.error('Failed to accept booking.', 'Error');
-            }
-          );
+      this.bookingService.acceptNewBooking(row.id).subscribe({
+        next: () => {
+          Swal.fire("Accepted!", "Booking has been accepted and user notified.", "success");
+          this.loadBookings();  // Refresh booking table
+        },
+        error: (error) => {
+          console.error('Accept error:', error);
+          Swal.fire("Error", "Failed to accept booking.", "error");
         }
       });
     }
   });
 }
+
+
+
+
 
 rejectBooking(row: any): void {
   Swal.fire({
