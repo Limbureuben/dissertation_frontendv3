@@ -27,7 +27,7 @@ export class BookingdashboardComponent implements OnInit {
 
 
     bookings: any[] = [];
-    displayedColumns: string[] = ['username', 'date', 'purpose', 'status'];
+    displayedColumns: string[] = ['username', 'startdate', 'enddate', 'purpose', 'status'];
 
     constructor(
       private router: Router,

@@ -48,9 +48,14 @@
         <td mat-cell *matCellDef="let booking"> {{ booking.username }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Date </th>
-        <td mat-cell *matCellDef="let booking"> {{ booking.date | date }} </td>
+       <ng-container matColumnDef="startdate">
+        <th mat-header-cell *matHeaderCellDef> START DATE</th>
+        <td mat-cell *matCellDef="let booking"> {{ booking.startdate | date }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enddate">
+        <th mat-header-cell *matHeaderCellDef> END DATE</th>
+        <td mat-cell *matCellDef="let booking"> {{ booking.enddate | date }} </td>
       </ng-container>
 
       <ng-container matColumnDef="purpose">
