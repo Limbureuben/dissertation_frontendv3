@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from '../../../theme/theme.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ReportFormComponent } from '../report-form/report-form.component';
-import { AnonymousreportComponent } from '../anonymousreport/anonymousreport.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { ProfileComponent } from '../profile/profile.component';
+import { MyReportComponent } from '../my-report/my-report.component';
 
 @Component({
   selector: 'app-user-header',
@@ -38,9 +38,10 @@ export class UserHeaderComponent implements OnInit{
     });
   }
 
-  openReportAnonymous(): void {
-    const dialogRef = this.dialog.open(AnonymousreportComponent, {
-      width: '600px',
+  openReport(): void {
+    const dialogRef = this.dialog.open(MyReportComponent, {
+      width: '1200px',
+      height: '500px',
       panelClass: 'animated-dialog',
       data: {}
     });
