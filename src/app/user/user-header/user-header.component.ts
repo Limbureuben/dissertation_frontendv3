@@ -40,7 +40,7 @@ export class UserHeaderComponent implements OnInit{
 
   openReport(): void {
     const dialogRef = this.dialog.open(MyReportComponent, {
-      width: '1200px',
+      width: '900px',
       height: '500px',
       panelClass: 'animated-dialog',
       data: {}
