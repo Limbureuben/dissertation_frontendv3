@@ -120,4 +120,8 @@ sendNotificationToAllWardExecutives(message: string) {
   return this.http.post(`${this.resetUrl}/api/v1/notify-ward-executives/`, { message})
 }
 
+sendNotificationToWardExecutive(email: string, message: string) {
+  return this.http.post(`${this.resetUrl}/api/v1/notify-single-ward-executive/`, { email, message });
+}
+
 }

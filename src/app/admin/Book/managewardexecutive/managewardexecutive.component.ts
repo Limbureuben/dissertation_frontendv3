@@ -9,6 +9,7 @@ import { BookingService } from '../../../service/booking.service';
 import { NotificationComponent } from '../notification/notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder } from '@angular/forms';
+import { NotificationSingleComponent } from '../notification-single/notification-single.component';
 
 @Component({
   selector: 'app-managewardexecutive',
@@ -92,8 +93,11 @@ export class ManagewardexecutiveComponent implements OnInit{
   }
 
   sendNotificationToUser(user: any) {
-
-  }
+  this.dialog.open(NotificationSingleComponent, {
+    width: '400px',
+    data: { email: user.email } // Pass the email to the notification component
+  });
+}
 
   toggleStatus(user: any) {
 

@@ -47,6 +47,7 @@ import { AvailableBookingComponent } from './Book/available-booking/available-bo
 import { ViewbookigComponent } from './Book/viewbookig/viewbookig.component';
 import { ReplyComponent } from './reply/reply.component';
 import { NotificationComponent } from './Book/notification/notification.component';
+import { NotificationSingleComponent } from './Book/notification-single/notification-single.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NotificationComponent } from './Book/notification/notification.componen
     ViewbookigComponent,
     ReplyComponent,
     NotificationComponent,
+    NotificationSingleComponent,
   ],
   imports: [
     CommonModule,
