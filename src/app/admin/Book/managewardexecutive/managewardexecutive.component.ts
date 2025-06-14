@@ -72,4 +72,12 @@ export class ManagewardexecutiveComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  sendNotificationToAllAdmins() {
+
+  }
+
+  sendNotificationToUser(user: any) {
+
+  }
+
 }
