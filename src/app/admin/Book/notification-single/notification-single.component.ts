@@ -47,5 +47,9 @@ export class NotificationSingleComponent {
       this.toastr.error('No recipient email found.');
     }
   }
+
+    close() {
+    this.dialogRef.close();
+  }
 }
 
