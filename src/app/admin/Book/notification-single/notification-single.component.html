@@ -14,5 +14,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary" (click)="submit()">Send</button>
+  <button mat-flat-button (click)="submit()" [ngStyle]="{ 'background-color': 'rgb(100, 100, 177)', 'color': '#fff' }">Send</button>
 </mat-dialog-actions>

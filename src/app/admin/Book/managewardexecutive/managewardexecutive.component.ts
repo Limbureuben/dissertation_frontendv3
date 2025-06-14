@@ -81,15 +81,6 @@ export class ManagewardexecutiveComponent implements OnInit{
     const dialogRef = this.dialog.open(NotificationComponent, {
     width: '400px',
   });
-
-  // dialogRef.afterClosed().subscribe(message => {
-  //   if (message) {
-  //     this.wardexecutive.sendNotificationToAllWardExecutives(message).subscribe({
-  //       next: () => this.snackBar.open('Notification sent successfully', 'Close', { duration: 3000 }),
-  //       error: () => this.snackBar.open('Failed to send notification', 'Close', { duration: 3000 })
-  //     });
-  //   }
-  // });
   }
 
   sendNotificationToUser(user: any) {

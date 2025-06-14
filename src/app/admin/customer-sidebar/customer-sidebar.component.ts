@@ -5,6 +5,7 @@ export type MenuItem = {
   icon: string;
   label: string;
   route?: string;
+  color?: string;
 }
 
 @Component({
@@ -15,15 +16,15 @@ export type MenuItem = {
 })
 export class CustomerSidebarComponent {
   MenuItems = signal<MenuItem[]>([
-    { icon: 'dashboard', label: 'Dashboard', route: 'dash' },
-    { icon: 'public', label: 'Map', route: 'map-common' },
-    { icon: 'place', label: 'OpenSpace', route: 'openspace' },
-    { icon: 'feedback', label: 'Report', route: 'reports' },
-    { icon: 'sms', label: 'Report-USSD', route: 'report-ussd' },
-    { icon: 'supervisor_account', label: 'Executive', route: 'manage-wardexecutive' },
-    { icon: 'history', label: 'History', route: 'history' },
-    { icon: 'booking', label: 'Booking', route: 'booking' },
-    { icon: 'logout', label: 'Logout' }
+    { icon: 'dashboard', label: 'Dashboard', route: 'dash', color: 'rgb(100, 100, 177)' },
+    { icon: 'public', label: 'Map', route: 'map-common', color: 'rgb(100, 100, 177)' },
+    { icon: 'place', label: 'OpenSpace', route: 'openspace', color: 'rgb(100, 100, 177)' },
+    { icon: 'feedback', label: 'Report', route: 'reports', color: 'rgb(100, 100, 177)' },
+    { icon: 'sms', label: 'Report-USSD', route: 'report-ussd', color: 'rgb(100, 100, 177)' },
+    { icon: 'supervisor_account', label: 'Executive', route: 'manage-wardexecutive', color: 'rgb(100, 100, 177)' },
+    { icon: 'history', label: 'History', route: 'history', color: 'rgb(100, 100, 177)' },
+    { icon: 'booking', label: 'Booking', route: 'booking', color: 'rgb(100, 100, 177)' },
+    { icon: 'logout', label: 'Logout', color: 'rgb(100, 100, 177)' }
   ])
 
   constructor(

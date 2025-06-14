@@ -15,6 +15,8 @@
 
   <mat-dialog-actions align="end" class="mt-4">
     <button mat-stroked-button color="warn" (click)="onCancel()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="sendReply()">Send</button>
+    <button mat-raised-button
+        (click)="sendReply()"
+        [ngStyle]="{ 'background-color': 'rgb(100, 100, 177)', 'color': '#fff' }">Send</button>
   </mat-dialog-actions>
 </div>
