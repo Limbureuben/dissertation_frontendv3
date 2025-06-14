@@ -13,7 +13,6 @@ import { BookingService } from '../../service/booking.service';
   templateUrl: './my-report.component.html',
   styleUrl: './my-report.component.scss',
     animations: [
-      // Table Pop-up Animation
       trigger('popupAnimation', [
         transition(':enter', [
           style({ transform: 'scale(0.5)', opacity: 0 }),
@@ -24,7 +23,6 @@ import { BookingService } from '../../service/booking.service';
         ])
       ]),
 
-      // Table Row Animation
       trigger('rowAnimation', [
         transition(':enter', [
           style({ opacity: 0, transform: 'translateY(-10px)' }),
@@ -60,7 +58,7 @@ export class MyReportComponent {
         this.dataSource.paginator = this.paginator;
       },
       error: (error) => {
-        console.error('Error loading booking history:', error);
+        console.error('Error loading reporting history:', error);
       }
     });
   }
