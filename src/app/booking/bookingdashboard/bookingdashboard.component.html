@@ -10,7 +10,7 @@
       </div>
       <div class="card-info">
         <p class="card-title">Booking</p>
-        <p class="card-footer">10 My Booking</p>
+        <p class="card-footer">{{ bookingStats.total }}</p>
       </div>
     </mat-card>
 
@@ -21,7 +21,7 @@
       </div>
       <div class="card-info">
         <p class="card-title">Booking Success</p>
-        <p class="card-footer">10 Solved</p>
+        <p class="card-footer">{{ bookingStats.accepted }}</p>
       </div>
     </mat-card>
 
@@ -32,7 +32,7 @@
       </div>
       <div class="card-info">
         <p class="card-title">Free Openspaces</p>
-        <p class="card-footer">10 Pending</p>
+        <p class="card-footer">{{ bookingStats.pending}}</p>
       </div>
     </mat-card>
   </div>

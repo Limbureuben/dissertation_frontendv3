@@ -25,7 +25,7 @@ import { error } from 'console';
 })
 export class BookingdashboardComponent implements OnInit {
 
-
+    bookingStats = { total: 0, accepted: 0, pending: 0 };
     bookings: any[] = [];
     displayedColumns: string[] = ['username', 'startdate', 'enddate', 'purpose', 'status'];
 
@@ -37,6 +37,7 @@ export class BookingdashboardComponent implements OnInit {
 
     ngOnInit(): void {
       this.loadmyBooking();
+      this.loadBookingNumber();
     }
 
     loadmyBooking() {
@@ -53,5 +54,9 @@ export class BookingdashboardComponent implements OnInit {
       });
     }
 
-
+    loadBookingNumber() {
+      this.mybooking.getUserBookingStats().subscribe(data => {
+        this.bookingStats = data;
+      });
+    }
 }

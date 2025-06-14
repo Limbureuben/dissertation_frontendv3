@@ -112,4 +112,9 @@ getAdminBookingsByDistrict(): Observable<any> {
     return this.http.post(url, {});
   }
 
+  getUserBookingStats(): Observable<any> {
+  return this.http.get(`${this.resetUrl}/api/v1/user-booking-stats/`);
+}
+
+
 }
