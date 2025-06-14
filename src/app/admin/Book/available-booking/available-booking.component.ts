@@ -96,7 +96,7 @@ loadBookings() {
   }
 
 
-acceptBooking(row: any): void {
+acceptNewBooking(row: any): void {
   Swal.fire({
     title: "Are you sure?",
     text: "You are about to accept this booking and notify the user via SMS.",
@@ -120,9 +120,6 @@ acceptBooking(row: any): void {
     }
   });
 }
-
-
-
 
 
 rejectBooking(row: any): void {
