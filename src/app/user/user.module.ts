@@ -27,7 +27,6 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SharingModule } from '../sharing/sharing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
 import { ViewHistoryComponent } from './view-history/view-history.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
@@ -46,7 +45,6 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     MapComponent,
     ReportFormComponent,
     UserHomeComponent,
-    AnonymousreportComponent,
     ViewHistoryComponent,
     ProfileComponent,
     ReviewreportComponent,
