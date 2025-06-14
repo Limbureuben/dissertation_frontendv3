@@ -1,15 +1,24 @@
 <div class="table-container">
   <div class="header-container">
     <h2 class="table-title">Ward Executives</h2>
-    <button mat-icon-button color="primary" (click)="openRegisterForm()">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div>
+      <!-- Send Notification to All Admins -->
+      <button mat-icon-button color="accent" (click)="sendNotificationToAllAdmins()" matTooltip="Notify All Admins">
+        <mat-icon>notifications_active</mat-icon>
+      </button>
+
+      <!-- Register New Ward Executive -->
+      <button mat-icon-button color="primary" (click)="openRegisterForm()" matTooltip="Add Ward Executive">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table" @tableEnterAnimation>
       <tbody>
 
+        <!-- Ward Column -->
         <ng-container matColumnDef="ward">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>WARD</th>
           <td mat-cell *matCellDef="let user">{{ user.ward }}</td>
@@ -21,21 +30,30 @@
           <td mat-cell *matCellDef="let user">{{ user.username }}</td>
         </ng-container>
 
-        <!-- District Column -->
+        <!-- Email Column -->
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>EMAIL</th>
           <td mat-cell *matCellDef="let user">{{ user.email }}</td>
         </ng-container>
 
+        <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> ACTIONS</th>
-          <td mat-cell *matCellDef="let space">
+          <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+          <td mat-cell *matCellDef="let user">
             <div class="action-buttons">
-              <button mat-icon-button color="warn">
+              <!-- Delete -->
+              <button mat-icon-button color="warn" (click)="deleteUser(user)">
                 <mat-icon>delete</mat-icon>
               </button>
-              <button mat-button class="status-btn" [ngStyle]="{'color': space.isActive ? 'red' : 'green'}">
-                {{ space.isActive ? 'Inactive' : 'Active' }}
+
+              <!-- Toggle Active/Inactive -->
+              <button mat-button class="status-btn" [ngStyle]="{'color': user.isActive ? 'red' : 'green'}" (click)="toggleStatus(user)">
+                {{ user.isActive ? 'Inactive' : 'Active' }}
+              </button>
+
+              <!-- Notify Single Ward Executive -->
+              <button mat-icon-button color="primary" (click)="sendNotificationToUser(user)" matTooltip="Send Notification">
+                <mat-icon>notifications</mat-icon>
               </button>
             </div>
           </td>
