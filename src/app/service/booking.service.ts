@@ -124,4 +124,8 @@ sendNotificationToWardExecutive(email: string, message: string) {
   return this.http.post(`${this.resetUrl}/api/v1/notify-single-ward-executive/`, { email, message });
 }
 
+  getAllMyHistoryReporting(): Observable<any> {
+    return this.http.get(`${this.resetUrl}/api/v1/user-reports/`);
+  }
+
 }

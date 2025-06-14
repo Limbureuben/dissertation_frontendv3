@@ -35,6 +35,7 @@ import { ReviewreportComponent } from './reviewreport/reviewreport.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { MyReportComponent } from './my-report/my-report.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
     ReviewreportComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    MyReportComponent
 
   ],
   imports: [
