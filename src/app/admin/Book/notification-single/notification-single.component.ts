@@ -17,36 +17,35 @@ export class NotificationSingleComponent {
 
   constructor(
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { email: string },
     private toastr: ToastrService,
     private fb: FormBuilder,
     private notificationService: BookingService,
     private dialogRef: MatDialogRef<NotificationSingleComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { email: string }
   ) {
     this.notificationForm = this.fb.group({
       message: ['', Validators.required],
     });
   }
 
-  submit() {
-  if (this.notificationForm.invalid) return;
+  submit(): void {
+    if (this.notificationForm.invalid) return;
 
-  const message = this.notificationForm.value.message;
+    const message = this.notificationForm.value.message;
 
-  if (this.data?.email) {
-    // Send to specific user
-    this.notificationService.sendNotificationToWardExecutive(this.data.email, message).subscribe({
-      next: () => {
-        this.toastr.success(`Notification sent to ${this.data.email}`);
-        this.dialogRef.close();
-      },
-      error: () => {
-        this.toastr.error('Failed to send notification.');
-      }
-    });
-  } else {
-    this.toastr.error('No recipient email found.');
+    if (this.data?.email) {
+      this.notificationService.sendNotificationToWardExecutive(this.data.email, message).subscribe({
+        next: () => {
+          this.toastr.success(`Notification sent to ${this.data.email}`);
+          this.dialogRef.close();
+        },
+        error: () => {
+          this.toastr.error('Failed to send notification.');
+        }
+      });
+    } else {
+      this.toastr.error('No recipient email found.');
+    }
   }
 }
-}
+
