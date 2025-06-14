@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { OpenspaceService } from '../../../service/openspace.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmBookingComponent } from '../confirm-booking/confirm-booking.component';
 import { BookingService } from '../../../service/booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewbookigComponent } from '../viewbookig/viewbookig.component';

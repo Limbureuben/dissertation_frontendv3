@@ -44,7 +44,6 @@ import { ManagewardexecutiveComponent } from './Book/managewardexecutive/managew
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
-import { ConfirmBookingComponent } from './Book/confirm-booking/confirm-booking.component';
 import { ViewbookigComponent } from './Book/viewbookig/viewbookig.component';
 import { ReplyComponent } from './reply/reply.component';
 
@@ -65,7 +64,6 @@ import { ReplyComponent } from './reply/reply.component';
     RegisterWardComponent,
     ManagewardexecutiveComponent,
     AvailableBookingComponent,
-    ConfirmBookingComponent,
     ViewbookigComponent,
     ReplyComponent,
   ],
