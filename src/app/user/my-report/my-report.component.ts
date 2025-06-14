@@ -48,7 +48,7 @@ export class MyReportComponent {
   ) {}
 
    ngOnInit(): void {
-      this.loadbooking()
+      this.loadbooking();
   }
 
   loadbooking() {
