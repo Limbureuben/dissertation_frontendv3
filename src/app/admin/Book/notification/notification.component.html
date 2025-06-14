@@ -1,3 +1,4 @@
+<!-- send-notification-dialog.component.html -->
 <h2 mat-dialog-title>Send Notification</h2>
 <mat-dialog-content>
   <form [formGroup]="notificationForm">
@@ -13,5 +14,5 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="close()">Cancel</button>
-  <button mat-flat-button color="primary" (click)="submit()" [disabled]="notificationForm.invalid">Send</button>
+  <button mat-flat-button color="primary" (click)="submit()">Send</button>
 </mat-dialog-actions>
