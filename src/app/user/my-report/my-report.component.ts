@@ -22,7 +22,6 @@ import { BookingService } from '../../service/booking.service';
           animate('200ms ease-in', style({ transform: 'scale(0.5)', opacity: 0 }))
         ])
       ]),
-
       trigger('rowAnimation', [
         transition(':enter', [
           style({ opacity: 0, transform: 'translateY(-10px)' }),
