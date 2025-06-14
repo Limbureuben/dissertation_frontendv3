@@ -39,7 +39,7 @@ import Swal from 'sweetalert2';
 })
 export class WardBookingComponent implements OnInit{
   dataSource = new MatTableDataSource<any>([]);
-  displayedColumns: string[] = ['username', 'date', 'duration', 'file', 'actions'];
+  displayedColumns: string[] = ['username', 'startdate', 'enddate', 'file', 'actions'];
   // displayedColumns: string[] = ['space', 'username', 'contact', 'date', 'duration', 'purpose', 'district', 'file', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
