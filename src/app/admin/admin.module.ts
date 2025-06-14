@@ -46,6 +46,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { AvailableBookingComponent } from './Book/available-booking/available-booking.component';
 import { ViewbookigComponent } from './Book/viewbookig/viewbookig.component';
 import { ReplyComponent } from './reply/reply.component';
+import { NotificationComponent } from './Book/notification/notification.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { ReplyComponent } from './reply/reply.component';
     AvailableBookingComponent,
     ViewbookigComponent,
     ReplyComponent,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
