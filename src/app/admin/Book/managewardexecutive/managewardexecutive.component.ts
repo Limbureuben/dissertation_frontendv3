@@ -80,4 +80,12 @@ export class ManagewardexecutiveComponent implements OnInit{
 
   }
 
+  toggleStatus(user: any) {
+  // Toggle status logic
+}
+
+deleteUser(user: any) {
+  
+}
+
 }
