@@ -32,7 +32,7 @@ import { BookingService } from '../../../service/booking.service';
 })
 export class ManagewardexecutiveComponent implements OnInit{
 
-  displayedColumns: string[] = ['name', 'email', 'actions'];
+  displayedColumns: string[] = ['ward', 'name', 'email', 'actions'];
   dataSource = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

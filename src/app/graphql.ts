@@ -317,6 +317,7 @@ export const GET_ALL_EXECUTIVE = gql`
     wardExectives {
       email
       isStaff
+      ward
       pk
       role
       username
