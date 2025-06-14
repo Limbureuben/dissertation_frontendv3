@@ -95,41 +95,4 @@ loadBookings() {
     console.log('Confirming booking:', reportId);
   }
 
-
-//   acceptBooking(row: any) {
-//   Swal.fire({
-//     title: 'Are you sure?',
-//     text: "You won't be able to revert this!",
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#3085d6',
-//     cancelButtonColor: '#d33',
-//     confirmButtonText: 'Yes, accept it!'
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       // Open dialog for description
-//       const dialogRef = this.dialog.open(WardDiscriptionComponent, {
-//         width: '400px',
-//         data: { booking: row }
-//       });
-
-//       dialogRef.afterClosed().subscribe(description => {
-//         if (description) {
-//           this.bookingService.acceptBooking(row.id, description).subscribe(
-//             response => {
-//               this.toastr.success('Booking accepted and forwarded.', 'Success');
-
-//               this.dataSource.data = this.dataSource.data.filter(item => item.id !== row.id);
-//             },
-//             error => {
-//               console.error('Error accepting booking:', error);
-//               this.toastr.error('Failed to accept booking.', 'Error');
-//             }
-//           );
-//         }
-//       });
-//     }
-//   });
-// }
-
 }
