@@ -87,3 +87,22 @@
   justify-content: center;
   padding: 10px 0;
 }
+
+
+.status-accepted {
+  color: green;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status-rejected {
+  color: red;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  color: orange;
+  font-weight: bold;
+  text-transform: capitalize;
+}
