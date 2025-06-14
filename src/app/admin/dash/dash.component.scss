@@ -35,7 +35,7 @@
 }
 
 .dashboard-card.borrowed {
-  background-color: #3f51b5; /* Blue */
+  background-color: rgb(100, 100, 177); /* Blue */
 }
 
 .dashboard-card.profit {
@@ -84,7 +84,7 @@
   // background: #fff;
   background: linear-gradient(to right, #f0f4ff, #e8f0fe);
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.1);
   animation: fadeIn 0.5s ease;
 }
