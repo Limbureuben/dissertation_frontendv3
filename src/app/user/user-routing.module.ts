@@ -8,7 +8,6 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { authGuard } from '../guards/auth.guard';
 import { noTokenGuard } from '../guards/no-token.guard';
 import { adminExitGuard } from '../guards/admin-exist.guard';
-import { AnonymousreportComponent } from './anonymousreport/anonymousreport.component';
 import { ViewHistoryComponent } from './view-history/view-history.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'map-display', component: MapDisplayComponent, canActivate: [authGuard] },
   { path: 'report-form', component: ReportFormComponent },
   { path: 'map', component: MapComponent },
-  { path: 'anonymousreport', component: AnonymousreportComponent },
   { path: 'viewhistory', component: ViewHistoryComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
