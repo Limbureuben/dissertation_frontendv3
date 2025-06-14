@@ -30,19 +30,21 @@ export class NotificationComponent {
   }
 
   submit() {
-    if (this.notificationForm.invalid) return;
+  if (this.notificationForm.invalid) return;
 
-    const message = this.notificationForm.value.message;
-    this.notificationService.sendNotificationToAllWardExecutives(this.data.email, message).subscribe({
-      next: () => {
-        this.toastr.success('Notification successful send to ward executive')
-        this.dialogRef.close();
-      },
-      error: () => {
-        this.toastr.error('Failed to send notification.');
-      }
-    });
-  }
+  const message = this.notificationForm.value.message;
+
+  this.notificationService.sendNotificationToAllWardExecutives(message).subscribe({
+    next: () => {
+      this.toastr.success('Notification successfully sent to all ward executives');
+      this.dialogRef.close();
+    },
+    error: () => {
+      this.toastr.error('Failed to send notification to all ward executives.');
+    }
+  });
+}
+
 
   close() {
     this.dialogRef.close();
