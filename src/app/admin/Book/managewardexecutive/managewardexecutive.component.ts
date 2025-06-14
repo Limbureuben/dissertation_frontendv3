@@ -76,10 +76,9 @@ export class ManagewardexecutiveComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  sendNotificationToAllAdmins(userEmail: string) {
+  sendNotificationToAllAdmins() {
     const dialogRef = this.dialog.open(NotificationComponent, {
     width: '400px',
-    data: { email: userEmail }
   });
 
   // dialogRef.afterClosed().subscribe(message => {
