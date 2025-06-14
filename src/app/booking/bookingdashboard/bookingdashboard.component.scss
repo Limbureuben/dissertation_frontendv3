@@ -19,7 +19,7 @@
 .dashboard-card {
   width: 30%;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
@@ -61,7 +61,7 @@
 }
 
 .dashboard-card.conversion {
-  background-color: #2196f3;
+  background-color: rgb(100, 100, 177);
   color: #fff;
 }
 
