@@ -116,5 +116,9 @@ getAdminBookingsByDistrict(): Observable<any> {
   return this.http.get(`${this.resetUrl}/api/v1/user-booking-stats/`);
 }
 
+sendNotificationToAllWardExecutives() {
+  
+}
+
 
 }

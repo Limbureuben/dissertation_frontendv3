@@ -1,11 +1,14 @@
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RegisterWardComponent } from '../register-ward/register-ward.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BookingService } from '../../../service/booking.service';
+import { NotificationComponent } from '../notification/notification.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-managewardexecutive',
@@ -41,6 +44,7 @@ export class ManagewardexecutiveComponent implements OnInit{
   constructor(
     private dialog: MatDialog,
     private wardexecutive: BookingService,
+    private snackBar: MatSnackBar,
   ) {}
 
   openRegisterForm() {
@@ -73,7 +77,18 @@ export class ManagewardexecutiveComponent implements OnInit{
   }
 
   sendNotificationToAllAdmins() {
+    const dialogRef = this.dialog.open(NotificationComponent, {
+    width: '400px'
+  });
 
+  // dialogRef.afterClosed().subscribe(message => {
+  //   if (message) {
+  //     this.wardexecutive.sendNotificationToAllWardExecutives(message).subscribe({
+  //       next: () => this.snackBar.open('Notification sent successfully', 'Close', { duration: 3000 }),
+  //       error: () => this.snackBar.open('Failed to send notification', 'Close', { duration: 3000 })
+  //     });
+  //   }
+  // });
   }
 
   sendNotificationToUser(user: any) {
@@ -81,11 +96,11 @@ export class ManagewardexecutiveComponent implements OnInit{
   }
 
   toggleStatus(user: any) {
-  // Toggle status logic
+
 }
 
 deleteUser(user: any) {
-  
+
 }
 
 }
